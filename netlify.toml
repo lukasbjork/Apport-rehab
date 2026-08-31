@@ -1,0 +1,35 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Netlify serverar kataloger med index.html på /sokvag/ och redirectar
+# /sokvag → /sokvag/. Det matchar Astros trailingSlash: 'always' och därmed
+# alla canonical-URL:er. Slå INTE på "Pretty URLs"-optimeringen i Netlifys
+# UI — den strippar avslutande snedstreck och bryter varje canonical.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/bilder/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# 404-sidan Astro genererar
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

@@ -1,7 +1,10 @@
 # Apport Rehab — webbplats
 
 Ny webbplats för **Apport AB**, smärtspecialistklinik i Kristianstad.
-Astro 7 + Tailwind v4, statiskt genererad, deploy till Vercel.
+Astro 7 + Tailwind v4, statiskt genererad.
+
+**Live: https://apport-rehab.netlify.app**
+(Netlify, team Vasa Digital — admin: https://app.netlify.com/projects/apport-rehab)
 
 ```bash
 npm install
@@ -10,7 +13,23 @@ npm run build      # bygger till dist/
 npm run bilder     # beskär/optimerar bilder i public/bilder → webp
 npm run og         # genererar public/og/og-default.png
 node scripts/verify.mjs   # kontrollerar dist/ (länkar, SEO, alt, platshållare)
+
+npx netlify-cli deploy --prod --dir=dist   # manuell deploy
 ```
+
+### Deploy
+
+Deployas manuellt med Netlify CLI (kommandot ovan). Repot är **inte** kopplat
+till automatisk deploy vid push — kör `npm run build`, `node scripts/verify.mjs`
+och därefter deploy-kommandot.
+
+`netlify.toml` sätter säkerhetsheaders, cache på `/bilder/*` och `/_astro/*`
+samt 404-hanteringen. `vercel.json` ligger kvar och är korrekt konfigurerad
+ifall sajten senare ska flyttas till Vercel i stället.
+
+> **Slå inte på Netlifys "Pretty URLs"-optimering.** Den strippar avslutande
+> snedstreck, vilket bryter varje canonical på sajten (Astro är konfigurerad
+> med `trailingSlash: 'always'`).
 
 ---
 
@@ -80,14 +99,18 @@ sagt: skriftligt samtycke, patientens egna ord, inga resultatlöften.
 
 ### 5. Växla domän
 
-Sajten publiceras först på `apport-rehab.vercel.app`. När domänen ska pekas om
-från nuvarande WordPress:
+Sajten ligger på `apport-rehab.netlify.app`. När domänen ska pekas om från
+nuvarande WordPress:
 
 1. `astro.config.mjs` → `site: 'https://www.apport.rehab'`
 2. `src/lib/site.ts` → `SITE.url: 'https://www.apport.rehab'`
 3. `public/robots.txt` → uppdatera `Sitemap:`-raden
-4. Peka domänen mot Vercel, bygg om, skicka in ny sitemap i Search Console
-5. Lägg 301-redirects från de gamla URL:erna (se tabellen nedan)
+4. Lägg till domänen i Netlify (Domain management), peka DNS dit
+5. Bygg om, deploya, skicka in ny sitemap i Search Console
+6. Lägg 301-redirects från de gamla URL:erna (se tabellen nedan) i `netlify.toml`
+
+> Alla tre värdena i steg 1–3 måste ändras tillsammans. Missas ett pekar
+> canonical-taggarna på fel domän.
 
 **301-redirects från gamla sajten**
 

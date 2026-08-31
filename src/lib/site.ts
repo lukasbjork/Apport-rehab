@@ -18,7 +18,7 @@ export const SITE = {
   tagline: 'Smärtspecialistklinik i Kristianstad',
 
   /** [VID LANSERING] Byt till https://www.apport.rehab — ska matcha astro.config.mjs */
-  url: 'https://apport-rehab.vercel.app',
+  url: 'https://apport-rehab.netlify.app',
 
   /** Växel. Verifierad mot 1177 och samtliga sidor på nuvarande sajt. */
   phone: '044-10 60 00',
