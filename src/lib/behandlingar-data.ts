@@ -386,9 +386,10 @@ export const TREATMENTS: Treatment[] = [
       },
     ],
     apportApproach: [
-      'Vi ger PRP först efter utredning, och normalt som ett steg i en behandlingskedja — inte som en fristående behandling.',
-      'Injektionen läggs med ultraljudsvägledning.',
-      'Eftersom behandlingen betalas av dig själv går vi alltid igenom kostnaden och vad vi tror om utsikterna innan något bokas.',
+      'Vi säljer inte PRP som en fristående behandling. Hos oss kommer den först efter en utredning som visat vilken struktur som faktiskt är inblandad — annars vet vi inte var plasman ska läggas eller om den är rimlig alls.',
+      'Utredningen sker med diagnostiska blockader, där vi bedövar en struktur i taget med ultraljud och mäter effekten. Det är den delen som avgör om PRP är meningsfullt för just dig.',
+      'Injektionen läggs med ultraljudsvägledning, så att vi ser strukturen medan nålen förs in.',
+      'Eftersom behandlingen betalas av dig själv går vi alltid igenom kostnaden och vad vi tror om utsikterna innan något bokas. Tror vi inte på den säger vi det hellre än att genomföra den.',
     ],
     notSuitable: [
       'Om det inte finns en identifierad struktur att behandla är PRP inte aktuell.',
@@ -454,9 +455,9 @@ export const TREATMENTS: Treatment[] = [
       },
     ],
     apportApproach: [
+      'Behandlingen ges efter utredning, aldrig som ett första steg. Vi behöver först veta vilken struktur som är inblandad, och det tar vi reda på med diagnostiska blockader — en struktur i taget, med ultraljud.',
       'Nålarnas läge kontrolleras med ultraljud, vilket är förutsättningen för att signalen ska hamna rätt.',
-      'Behandlingen ges efter utredning, inte som ett första steg.',
-      'Eftersom den ligger utanför avtalet går vi alltid igenom kostnaden i förväg.',
+      'Eftersom den ligger utanför avtalet går vi alltid igenom kostnaden i förväg, och avråder hellre än att genomföra en behandling vi inte tror på.',
     ],
     notSuitable: [
       'Utan en identifierad struktur från utredningen är pRF inte aktuell.',
