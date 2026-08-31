@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Sikte from '../components/Sikte.astro';
+import { CONDITIONS } from '../lib/content';
+import { SITE } from '../lib/site';
+
+const genvagar = [
+  { label: 'Besvär vi behandlar', href: '/besvar/' },
+  { label: 'Behandlingar', href: '/behandlingar/' },
+  { label: 'Så går det till', href: '/sa-gar-det-till/' },
+  { label: 'Kontakt', href: '/kontakt/' },
+];
+---
+
+<BaseLayout
+  title="Sidan kunde inte hittas | Apport"
+  description="Sidan du sökte finns inte. Här är vägarna vidare till besvär, behandlingar och kontakt."
+  noindex
+>
+  <section class="relative overflow-hidden bg-mossa-djup px-5 py-24 sm:px-8 sm:py-32">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 text-salvia/10"
+    >
+      <Sikte size={360} dashed />
+    </div>
+
+    <div class="relative mx-auto max-w-(--container-content)">
+      <p class="flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-salvia">
+        <Sikte size={13} />
+        404
+      </p>
+      <h1 class="mt-6 max-w-2xl text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.1] text-kalk">
+        Vi hittade inte den här sidan
+      </h1>
+      <p class="mt-6 max-w-xl text-[1.08rem] leading-relaxed text-kalk/72">
+        Länken kan vara gammal eller felstavad. Prova någon av vägarna nedan — eller hör av dig, så
+        pekar vi dig rätt.
+      </p>
+
+      <ul class="mt-10 flex flex-wrap gap-3">
+        {
+          genvagar.map((g) => (
+            <li>
+              <a
+                href={g.href}
+                class="inline-block rounded-full border border-kalk/25 px-6 py-3 text-[0.93rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+              >
+                {g.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-10 text-[0.9rem] text-kalk/58">
+        Eller ring <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-kalk">{SITE.phone}</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <h2 class="text-[1.5rem] text-mossa-djup">Besvär vi arbetar med</h2>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          CONDITIONS.map((c) => (
+            <li>
+              <a
+                href={`/besvar/${c.slug}/`}
+                class="group flex h-full flex-col justify-between rounded-2xl border border-sten bg-papper p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-salvia hover:shadow-mjuk"
+              >
+                <span class="text-[1rem] leading-snug text-mossa-djup">{c.name}</span>
+                <span class="mt-5 text-[0.85rem] font-medium text-mossa transition-colors group-hover:text-tegel">
+                  Läs mer →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

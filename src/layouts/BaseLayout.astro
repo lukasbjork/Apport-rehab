@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobilCta from '../components/MobilCta.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  schema?: object[];
+  noindex?: boolean;
+}
+
+const { title, description, ogImage, ogType, schema, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#34433a" />
+    <meta name="generator" content={Astro.generator} />
+    <SeoHead {title} {description} {ogImage} {ogType} {schema} {noindex} />
+  </head>
+  <body class="overflow-x-clip">
+    <a
+      href="#innehall"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-mossa-djup focus:px-5 focus:py-3 focus:text-kalk"
+      >Hoppa till innehåll</a
+    >
+
+    <Header />
+
+    <main id="innehall" class="pb-20 lg:pb-0">
+      <slot />
+    </main>
+
+    <Footer />
+    <MobilCta />
+  </body>
+</html>

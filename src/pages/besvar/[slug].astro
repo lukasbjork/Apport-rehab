@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidHuvud from '../../components/SidHuvud.astro';
+import CtaSektion from '../../components/CtaSektion.astro';
+import Sikte from '../../components/Sikte.astro';
+import Process from '../../components/Process.astro';
+import { CONDITIONS, TREATMENTS } from '../../lib/content';
+import { breadcrumbSchema, conditionSchema } from '../../lib/schema';
+import { FEES } from '../../lib/site';
+
+export function getStaticPaths() {
+  return CONDITIONS.map((condition) => ({
+    params: { slug: condition.slug },
+    props: { condition },
+  }));
+}
+
+const { condition } = Astro.props;
+
+const crumbs = [
+  { name: 'Hem', url: '/' },
+  { name: 'Besvär', url: '/besvar/' },
+  { name: condition.name, url: `/besvar/${condition.slug}/` },
+];
+
+const relaterade = condition.relatedTreatments
+  .map((slug) => TREATMENTS.find((t) => t.slug === slug))
+  .filter((t): t is NonNullable<typeof t> => Boolean(t));
+
+const andraBesvar = CONDITIONS.filter((c) => c.slug !== condition.slug).slice(0, 4);
+---
+
+<BaseLayout
+  title={`${condition.metaTitle} | Apport`}
+  description={condition.metaDescription}
+  schema={[breadcrumbSchema(crumbs), conditionSchema(condition)]}
+>
+  <SidHuvud etikett={condition.group} rubrik={condition.heading} ingress={condition.intro} {crumbs} />
+
+  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
+    <div class="grid gap-16 py-(--spacing-section) lg:grid-cols-12">
+      <!-- Huvudspalt -->
+      <div class="lg:col-span-7">
+        <section>
+          <h2 class="text-[1.65rem] text-mossa-djup">Känner du igen dig?</h2>
+          <ul class="mt-7 space-y-px overflow-hidden rounded-2xl bg-sten">
+            {
+              condition.recognise.map((rad) => (
+                <li class="flex items-start gap-4 bg-papper px-6 py-4.5">
+                  <span class="mt-1 shrink-0 text-salvia-text">
+                    <Sikte size={14} />
+                  </span>
+                  <span class="text-[0.99rem] leading-relaxed text-mossa-djup">{rad}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class="mt-16">
+          <h2 class="text-[1.65rem] text-mossa-djup">Så arbetar vi med detta</h2>
+          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
+            {condition.approach.map((stycke) => <p>{stycke}</p>)}
+          </div>
+        </section>
+
+        <section class="mt-16">
+          <h2 class="text-[1.65rem] text-mossa-djup">När bör du söka hjälp?</h2>
+          <ul class="mt-6 space-y-3">
+            {
+              condition.seekCare.map((rad) => (
+                <li class="flex items-start gap-3.5 text-[1.01rem] leading-relaxed text-skiffer">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-tegel" aria-hidden="true" />
+                  {rad}
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mt-7 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.96rem] leading-relaxed text-mossa-djup">
+            Vi kan inte lova att bli av med din smärta. Vad som är möjligt beror på besvär,
+            vävnad och förutsättningar. Det vi kan lova är att vi försöker ta reda på var smärtan
+            kommer ifrån innan vi föreslår något — och att vi säger till om vi tror att någon annan
+            kan hjälpa dig bättre.
+          </p>
+        </section>
+      </div>
+
+      <!-- Sidospalt -->
+      <aside class="lg:col-span-5">
+        <div class="sticky top-32 space-y-6">
+          <div class="rounded-2xl border border-sten bg-papper p-7">
+            <h2 class="text-[1.15rem] text-mossa-djup">Behandlingar som kan bli aktuella</h2>
+            <p class="mt-2 text-[0.88rem] leading-relaxed text-skiffer">
+              Vad som passar dig avgörs av utredningen.
+            </p>
+            <ul class="mt-5 space-y-px overflow-hidden rounded-xl bg-sten">
+              {
+                relaterade.map((t) => (
+                  <li>
+                    <a
+                      href={`/behandlingar/${t.slug}/`}
+                      class="group flex items-center justify-between gap-4 bg-papper px-5 py-4 transition-colors hover:bg-lind/50"
+                    >
+                      <span class="text-[0.95rem] text-mossa-djup">{t.name}</span>
+                      <svg
+                        width="14"
+                        height="9"
+                        viewBox="0 0 15 10"
+                        fill="none"
+                        aria-hidden="true"
+                        class="shrink-0 text-mossa transition-transform duration-300 group-hover:translate-x-1"
+                      >
+                        <path
+                          d="M0 5h13M9.5 1L13.5 5L9.5 9"
+                          stroke="currentColor"
+                          stroke-width="1.3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="rounded-2xl bg-mossa-djup p-7 text-kalk">
+            <h2 class="text-[1.15rem]">Kort om att komma hit</h2>
+            <dl class="mt-5 space-y-4 text-[0.92rem]">
+              <div>
+                <dt class="text-salvia">Remiss</dt>
+                <dd class="mt-0.5 text-kalk/80">Behövs inte — du skriver en egenremiss själv.</dd>
+              </div>
+              <div>
+                <dt class="text-salvia">Patientavgift</dt>
+                <dd class="mt-0.5 text-kalk/80">{FEES.visit}. {FEES.visitNote}</dd>
+              </div>
+              <div>
+                <dt class="text-salvia">Utredning</dt>
+                <dd class="mt-0.5 text-kalk/80">Räkna med 3–5 besök innan diagnos.</dd>
+              </div>
+            </dl>
+            <a
+              href="/sa-gar-det-till/#egenremiss"
+              class="mt-7 block rounded-full bg-kalk px-6 py-3 text-center text-[0.92rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+            >
+              Skriv en egenremiss
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <h2 class="text-[1.7rem] text-mossa-djup">Så går det till hos oss</h2>
+      <div class="mt-10">
+        <Process />
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 pt-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <h2 class="text-[1.7rem] text-mossa-djup">Andra besvär vi arbetar med</h2>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          andraBesvar.map((c) => (
+            <li>
+              <a
+                href={`/besvar/${c.slug}/`}
+                class="group flex h-full flex-col justify-between rounded-2xl border border-sten bg-papper p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-salvia hover:shadow-mjuk"
+              >
+                <span class="text-[1.02rem] leading-snug text-mossa-djup">{c.name}</span>
+                <span class="mt-5 text-[0.85rem] font-medium text-mossa transition-colors group-hover:text-tegel">
+                  Läs mer →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaSektion />
+</BaseLayout>

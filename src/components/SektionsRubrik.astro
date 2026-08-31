@@ -1,0 +1,70 @@
+---
+import Sikte from './Sikte.astro';
+
+interface Props {
+  /** Liten etikett ovanför rubriken */
+  etikett?: string;
+  rubrik: string;
+  /** Ingresstext under rubriken */
+  ingress?: string;
+  /** h2 som standard; h1 på sidor där sektionen är huvudrubriken */
+  as?: 'h1' | 'h2';
+  align?: 'left' | 'center';
+  light?: boolean;
+  class?: string;
+}
+
+const {
+  etikett,
+  rubrik,
+  ingress,
+  as: Tag = 'h2',
+  align = 'left',
+  light = false,
+  class: className = '',
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'stig',
+    align === 'center' ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl',
+    className,
+  ]}
+>
+  {
+    etikett && (
+      <p
+        class:list={[
+          'flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em]',
+          align === 'center' && 'justify-center',
+          light ? 'text-salvia' : 'text-mossa-ljus',
+        ]}
+      >
+        <Sikte size={13} />
+        {etikett}
+      </p>
+    )
+  }
+  <Tag
+    class:list={[
+      'text-balance text-[clamp(1.85rem,3.6vw,2.9rem)] leading-[1.12]',
+      etikett && 'mt-4',
+      light ? 'text-kalk' : 'text-mossa-djup',
+    ]}
+  >
+    {rubrik}
+  </Tag>
+  {
+    ingress && (
+      <p
+        class:list={[
+          'mt-5 text-[1.06rem] leading-relaxed',
+          light ? 'text-kalk/72' : 'text-skiffer',
+        ]}
+      >
+        {ingress}
+      </p>
+    )
+  }
+</div>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidHuvud from '../../components/SidHuvud.astro';
+import BesvarKort from '../../components/BesvarKort.astro';
+import CtaSektion from '../../components/CtaSektion.astro';
+import { CONDITIONS, NOT_OFFERED } from '../../lib/content';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const title = 'Besvär vi utreder och behandlar — Apport, Kristianstad';
+const description =
+  'Rygg, nacke, bäcken, artros, axel, triggerpunkter, nervsmärta och huvudvärk. Se hur Apport i Kristianstad utreder och behandlar lokala smärttillstånd.';
+
+const crumbs = [
+  { name: 'Hem', url: '/' },
+  { name: 'Besvär', url: '/besvar/' },
+];
+
+const grupper = ['Kotpelaren', 'Leder', 'Muskler', 'Nerver'] as const;
+const gruppText: Record<string, string> = {
+  Kotpelaren:
+    'Förslitning, överrörlighet och skador såsom whiplash kan orsaka smärtor i olika delar av kotpelaren.',
+  Leder: 'Det finns ett antal anledningar till ledsmärta. Artros är en av de vanligaste.',
+  Muskler:
+    'Den vanligaste orsaken till muskelsmärta är ensidig belastning som orsakar triggerpunkter.',
+  Nerver:
+    'Såväl spända muskler som skador kring nerver kan orsaka nervinklämning med svåra smärtor.',
+};
+---
+
+<BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs)]}>
+  <SidHuvud
+    etikett="Besvär"
+    rubrik="Vilken typ av smärta söker du hjälp för?"
+    ingress="Vi arbetar med lokala och regionala smärttillstånd. Nedan är de besvär vi oftast utreder — välj det som ligger närmast dina egna, så beskriver vi hur vi brukar gå till väga."
+    {crumbs}
+  />
+
+  {
+    grupper.map((grupp) => {
+      const iGrupp = CONDITIONS.filter((c) => c.group === grupp);
+      return (
+        <section class="px-5 pt-(--spacing-section) sm:px-8">
+          <div class="mx-auto max-w-(--container-content)">
+            <div class="stig flex flex-col gap-3 border-b border-sten pb-6 sm:flex-row sm:items-end sm:justify-between">
+              <h2 class="text-[1.7rem] text-mossa-djup">{grupp}</h2>
+              <p class="max-w-lg text-[0.94rem] leading-relaxed text-skiffer">{gruppText[grupp]}</p>
+            </div>
+
+            <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {iGrupp.map((c) => (
+                <BesvarKort condition={c} />
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <section class="px-5 pt-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="rounded-[2rem] border border-sten bg-lind/35 p-8 sm:p-12">
+        <h2 class="text-[1.5rem] text-mossa-djup">Hittar du inte dina besvär här?</h2>
+        <p class="mt-4 max-w-(--container-läs) text-[1rem] leading-relaxed text-skiffer">
+          Listan är inte uttömmande — den beskriver det vi arbetar med oftast. Skriv gärna ändå, så
+          läser vi och säger till om vi tror att vi kan hjälpa dig.
+        </p>
+        <p class="mt-6 max-w-(--container-läs) text-[1rem] leading-relaxed text-skiffer">
+          Däremot tar vi <strong class="font-semibold text-mossa-djup">inte</strong> emot {
+            NOT_OFFERED.conditions.map((c) => c.toLowerCase()).join(', ')
+          }. Vi utfärdar inte heller sjukskrivningsintyg eller parkeringstillstånd och förnyar inte
+          recept.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaSektion />
+</BaseLayout>

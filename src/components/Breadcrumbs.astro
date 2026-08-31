@@ -1,0 +1,41 @@
+---
+import type { Crumb } from '../lib/schema';
+
+interface Props {
+  crumbs: Crumb[];
+  /** Ljus variant för mörka sidhuvuden */
+  light?: boolean;
+}
+const { crumbs, light = false } = Astro.props;
+---
+
+<nav aria-label="Brödsmulor" class="text-[0.8rem]">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    {
+      crumbs.map((crumb, i) => (
+        <li class="flex items-center gap-2">
+          {i > 0 && (
+            <span aria-hidden="true" class={light ? 'text-kalk/35' : 'text-sten-mork'}>
+              /
+            </span>
+          )}
+          {i === crumbs.length - 1 ? (
+            <span aria-current="page" class={light ? 'text-kalk/70' : 'text-skiffer'}>
+              {crumb.name}
+            </span>
+          ) : (
+            <a
+              href={crumb.url}
+              class:list={[
+                'lank-linje',
+                light ? 'text-kalk/70 hover:text-kalk' : 'text-skiffer hover:text-mossa-djup',
+              ]}
+            >
+              {crumb.name}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

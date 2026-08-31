@@ -1,0 +1,27 @@
+{
+  "name": "apport-rehab",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "og": "node scripts/generate-og.mjs",
+    "bilder": "node scripts/optimize-images.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource-variable/literata": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.2",
+    "astro": "^7.0.6",
+    "tailwindcss": "^4.3.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.3"
+  }
+}

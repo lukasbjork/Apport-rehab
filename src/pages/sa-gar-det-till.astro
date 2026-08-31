@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SidHuvud from '../components/SidHuvud.astro';
+import CtaSektion from '../components/CtaSektion.astro';
+import SektionsRubrik from '../components/SektionsRubrik.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Sikte from '../components/Sikte.astro';
+import { FAQS, NOT_OFFERED } from '../lib/content';
+import { SITE, FEES, PHONE_HOURS, OPENING_HOURS } from '../lib/site';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+
+const title = 'För dig som patient — så går ett besök till | Apport Kristianstad';
+const description =
+  'Egenremiss utan remisstvång, patientavgift 200 kr med frikort, 3–5 besök i utredningen. Så går ett besök till på Apport i Kristianstad.';
+
+const crumbs = [
+  { name: 'Hem', url: '/' },
+  { name: 'Som patient', url: '/sa-gar-det-till/' },
+];
+
+const egenremissPunkter = [
+  'Vem du är och hur vi når dig',
+  'Vad du har för besvär och var det gör ont',
+  'När besvären började och hur de utvecklats',
+  'Vilka utredningar och behandlingar du redan gjort',
+  'Vad du helst vill kunna göra igen',
+];
+---
+
+<BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs), faqSchema(FAQS)]}>
+  <SidHuvud
+    etikett="För dig som patient"
+    rubrik="Så går det till"
+    ingress="Du behöver ingen remiss för att komma till oss. Här är hur en kontakt brukar se ut, vad det kostar och vad du kan förvänta dig."
+    {crumbs}
+  />
+
+  <!-- Egenremiss -->
+  <section id="egenremiss" class="scroll-mt-32 px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <SektionsRubrik
+            etikett="Steg ett"
+            rubrik="Skriv en egenremiss"
+            ingress="Vi har inget remisstvång. Det innebär att du inte behöver gå via vårdcentralen — du skriver några rader själv och mejlar dem till oss."
+          />
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="rounded-2xl border border-sten bg-papper p-8">
+            <h3 class="text-[1.15rem] text-mossa-djup">Ta med det här i mejlet</h3>
+            <ul class="mt-6 space-y-3.5">
+              {
+                egenremissPunkter.map((rad) => (
+                  <li class="flex items-start gap-3.5">
+                    <span class="mt-1 shrink-0 text-salvia-text">
+                      <Sikte size={14} />
+                    </span>
+                    <span class="text-[1rem] leading-relaxed text-mossa-djup">{rad}</span>
+                  </li>
+                ))
+              }
+            </ul>
+
+            <div class="mt-8 border-t border-sten pt-7">
+              <p class="text-[0.86rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+                Skicka till
+              </p>
+              <a
+                href={`mailto:${SITE.email}?subject=Egenremiss`}
+                class="lank-linje mt-2 inline-block text-[1.25rem] font-medium text-mossa-djup"
+              >
+                {SITE.email}
+              </a>
+              <p class="mt-4 text-[0.9rem] leading-relaxed text-skiffer">
+                Det behöver inte vara långt eller välformulerat. Några meningar räcker — vi hör av
+                oss om vi behöver veta mer.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Processen -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik etikett="Vägen framåt" rubrik="Fyra steg" />
+      <div class="mt-14">
+        <Process />
+      </div>
+      <p class="mt-8 max-w-(--container-läs) text-[0.98rem] leading-relaxed text-skiffer">
+        Räkna med 3–5 besök innan det går att uttala sig om orsaken till smärtan och ställa en
+        diagnos. Det kan kännas långsamt, men en korrekt diagnos är grunden för en lyckad
+        smärtbehandling.
+      </p>
+    </div>
+  </section>
+
+  <!-- Priser och praktiskt -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik etikett="Praktiskt" rubrik="Avgifter, tider och återbud" />
+
+      <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-2xl border border-sten bg-papper p-7">
+          <h3 class="text-[1.1rem] text-mossa-djup">Patientavgift</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-mossa">
+            {FEES.visit}
+          </p>
+          <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">{FEES.visitNote}</p>
+        </div>
+
+        <div class="rounded-2xl border border-sten bg-papper p-7">
+          <h3 class="text-[1.1rem] text-mossa-djup">Utanför avtalet</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-tegel">
+            {FEES.outsideAgreement}
+          </p>
+          <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">
+            {FEES.outsideAgreementNote}
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-sten bg-papper p-7">
+          <h3 class="text-[1.1rem] text-mossa-djup">Besökets längd</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-mossa">
+            20 min
+          </p>
+          <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">
+            Enligt vårt avtal med Region Skåne. Utredningen sker därför över flera besök.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-sten bg-papper p-7 md:col-span-2 lg:col-span-1">
+          <h3 class="text-[1.1rem] text-mossa-djup">Telefontid</h3>
+          <p class="mt-4 text-[1.15rem] text-mossa">{PHONE_HOURS}</p>
+          <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">
+            <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-mossa-djup">{SITE.phone}</a>.
+            Övrig tid går det bra att mejla.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-tegel/25 bg-tegel/6 p-7 md:col-span-2">
+          <h3 class="text-[1.1rem] text-mossa-djup">Återbud</h3>
+          <p class="mt-4 text-[0.96rem] leading-relaxed text-skiffer">{FEES.lateCancellation}</p>
+          <p class="mt-3 text-[0.96rem] leading-relaxed text-skiffer">
+            Hör av dig så snart du vet att du inte kan komma — då kan tiden gå till någon annan som
+            väntar.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-5 rounded-2xl border border-sten bg-papper p-7">
+        <h3 class="text-[1.1rem] text-mossa-djup">Öppettider</h3>
+        <ul class="mt-5 grid gap-x-10 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            OPENING_HOURS.map((d) => (
+              <li class="flex justify-between gap-6 border-b border-sten pb-2 text-[0.96rem]">
+                <span class="text-mossa-djup">{d.day}</span>
+                <span class="tabular-nums text-skiffer">{d.hours}</span>
+              </li>
+            ))
+          }
+          <li class="flex justify-between gap-6 border-b border-sten pb-2 text-[0.96rem]">
+            <span class="text-mossa-djup">Lördag–söndag</span>
+            <span class="text-skiffer">Stängt</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vad vi inte gör -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <SektionsRubrik
+            etikett="Ärligt talat"
+            rubrik="Vad vi inte tar emot"
+            ingress="Vi är två personer. För att kunna göra ett bra jobb med det vi kan behöver vi säga nej till en del annat."
+          />
+        </div>
+
+        <div class="grid gap-10 sm:grid-cols-2 lg:col-span-7">
+          <div>
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+              Besvär vi inte utreder
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+              {NOT_OFFERED.conditions.map((rad) => <li>{rad}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+              Sådant vi inte utfärdar
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+              {NOT_OFFERED.services.map((rad) => <li>{rad}</li>)}
+            </ul>
+          </div>
+          <p class="text-[0.96rem] leading-relaxed text-skiffer sm:col-span-2">
+            Är du osäker på om du hör hemma hos oss? Skriv ändå. Vi läser allt och säger till om vi
+            tror att någon annan kan hjälpa dig bättre — det är bättre för dig än att vänta på en
+            tid som inte leder någonstans.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik etikett="Vanliga frågor" rubrik="Det patienter oftast undrar" />
+      <Faq faqs={FAQS} class="mt-12" />
+    </div>
+  </section>
+
+  <CtaSektion />
+</BaseLayout>

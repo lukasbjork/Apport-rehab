@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SidHuvud from '../components/SidHuvud.astro';
+import KontaktFormular from '../components/KontaktFormular.astro';
+import SektionsRubrik from '../components/SektionsRubrik.astro';
+import { SITE, OPENING_HOURS, PHONE_HOURS, DIRECT_CONTACTS } from '../lib/site';
+import { breadcrumbSchema, clinicSchema } from '../lib/schema';
+
+const title = 'Kontakt — Apport smärtklinik i Kristianstad';
+const description =
+  'Apport finns på Östra Storgatan 25 i Kristianstad, vid Stora Torg. Telefon 044-10 60 00, telefontid måndag 08–09. Egenremiss mejlas till patient@apport.rehab.';
+
+const crumbs = [
+  { name: 'Hem', url: '/' },
+  { name: 'Kontakt', url: '/kontakt/' },
+];
+
+const kartaQuery = encodeURIComponent(
+  `${SITE.street}, ${SITE.postalCode} ${SITE.city}, Sverige`,
+);
+---
+
+<BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs), clinicSchema()]}>
+  <SidHuvud
+    etikett="Kontakt"
+    rubrik="Hör av dig"
+    ingress="Enklast når du oss på mejl — vi läser allt. Ska du skriva en egenremiss behöver du ingen remiss från vårdcentralen först."
+    {crumbs}
+  />
+
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto grid max-w-(--container-content) gap-14 lg:grid-cols-12">
+      <!-- Uppgifter -->
+      <div class="lg:col-span-5">
+        <h2 class="text-[1.6rem] text-mossa-djup">Kontaktuppgifter</h2>
+
+        <dl class="mt-8 space-y-7">
+          <div>
+            <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+              Telefon
+            </dt>
+            <dd class="mt-2">
+              <a
+                href={`tel:${SITE.phoneHref}`}
+                class="lank-linje text-[1.3rem] font-medium text-mossa-djup"
+              >
+                {SITE.phone}
+              </a>
+              <p class="mt-1 text-[0.92rem] text-skiffer">Telefontid {PHONE_HOURS.toLowerCase()}</p>
+            </dd>
+          </div>
+
+          <div>
+            <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+              E-post
+            </dt>
+            <dd class="mt-2 space-y-1.5">
+              <p>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  class="lank-linje text-[1.1rem] font-medium text-mossa-djup"
+                >
+                  {SITE.email}
+                </a>
+                <span class="block text-[0.9rem] text-skiffer">
+                  Egenremiss, frågor om tider och återbud
+                </span>
+              </p>
+              <p class="pt-2">
+                <a href={`mailto:${SITE.emailAdmin}`} class="lank-linje text-[1rem] text-mossa-djup">
+                  {SITE.emailAdmin}
+                </a>
+                <span class="block text-[0.9rem] text-skiffer">
+                  Personuppgiftsfrågor och administration
+                </span>
+              </p>
+            </dd>
+          </div>
+
+          {
+            DIRECT_CONTACTS.length > 0 && (
+              <div>
+                <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+                  Direkt
+                </dt>
+                <dd class="mt-2 space-y-3">
+                  {DIRECT_CONTACTS.map((k) => (
+                    <p>
+                      <span class="block text-[1rem] font-medium text-mossa-djup">{k.name}</span>
+                      <span class="block text-[0.88rem] text-skiffer">{k.role}</span>
+                      <a href={`tel:${k.phoneHref}`} class="lank-linje text-[0.98rem] text-mossa">
+                        {k.phone}
+                      </a>
+                      <span class="text-skiffer"> · </span>
+                      <a href={`mailto:${k.email}`} class="lank-linje text-[0.98rem] text-mossa">
+                        {k.email}
+                      </a>
+                    </p>
+                  ))}
+                </dd>
+              </div>
+            )
+          }
+
+          <div>
+            <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+              Besöksadress
+            </dt>
+            <dd class="mt-2">
+              <address class="text-[1.05rem] not-italic leading-relaxed text-mossa-djup">
+                {SITE.street}<br />
+                {SITE.postalCode}&nbsp;{SITE.city}
+              </address>
+              <p class="mt-2 text-[0.92rem] leading-relaxed text-skiffer">
+                {SITE.addressNote}, cirka 200 meter från resecentrum. Det finns hiss och
+                handikapptoalett.
+              </p>
+            </dd>
+          </div>
+
+          <div>
+            <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+              Öppettider
+            </dt>
+            <dd class="mt-3">
+              <ul class="space-y-2">
+                {
+                  OPENING_HOURS.map((d) => (
+                    <li class="flex justify-between gap-6 border-b border-sten pb-2 text-[0.96rem]">
+                      <span class="text-mossa-djup">{d.day}</span>
+                      <span class="tabular-nums text-skiffer">{d.hours}</span>
+                    </li>
+                  ))
+                }
+                <li class="flex justify-between gap-6 text-[0.96rem]">
+                  <span class="text-mossa-djup">Lördag–söndag</span>
+                  <span class="text-skiffer">Stängt</span>
+                </li>
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Formulär -->
+      <div class="lg:col-span-7">
+        <h2 class="text-[1.6rem] text-mossa-djup">Skicka ett meddelande</h2>
+        <p class="mt-3 max-w-(--container-läs) text-[0.98rem] leading-relaxed text-skiffer">
+          För en egenremiss — mejla den direkt till <a
+            href={`mailto:${SITE.email}`}
+            class="lank-linje text-mossa">{SITE.email}</a
+          >. Skicka inte personnummer eller detaljerade hälsouppgifter via ett webbformulär.
+        </p>
+        <div class="mt-8">
+          <KontaktFormular />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Karta -->
+  <section class="px-5 pb-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik etikett="Hitta hit" rubrik="Vid Stora Torg i Kristianstad" />
+      <div class="mt-10 overflow-hidden rounded-2xl border border-sten">
+        <iframe
+          title={`Karta som visar Apport på ${SITE.street} i ${SITE.city}`}
+          src={`https://www.openstreetmap.org/export/embed.html?bbox=14.146%2C56.024%2C14.168%2C56.035&layer=mapnik&marker=${SITE.geo.lat}%2C${SITE.geo.lng}`}
+          width="100%"
+          height="440"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="block w-full border-0"></iframe>
+      </div>
+      <p class="mt-4 text-[0.9rem] text-skiffer">
+        <a
+          href={`https://www.google.com/maps/search/?api=1&query=${kartaQuery}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="lank-linje text-mossa"
+        >
+          Öppna vägbeskrivning i Google Maps
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

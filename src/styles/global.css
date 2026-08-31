@@ -1,0 +1,185 @@
+@import 'tailwindcss';
+
+/* Självhostade variabla typsnitt (fontsource, font-display: swap) */
+@import '@fontsource-variable/literata';
+@import '@fontsource-variable/hanken-grotesk';
+
+/*
+  ─────────────────────────────────────────────────────────────
+  Designkoncept: "Precisionen"
+  ─────────────────────────────────────────────────────────────
+  Kliniken sitter på andra våningen i ett hus från 1614 och gör
+  en sak ovanligt noggrant: tittar in i vävnaden med ultraljud
+  innan de behandlar. Paletten är kalkputs och mossgrönt — varmt,
+  nordiskt, inte sterilt vårdblått. Tegel som accent, mycket
+  sparsamt, hämtat från husets murstensfasad.
+
+  Signaturelement:
+   • Siktet      — hårfint hårkors med cirkel (ultraljudets precision)
+   • Djupskikten — staplade hårlinjer med fallande opacitet
+*/
+@theme {
+  /* Bas — varm kalkvit */
+  --color-kalk: #f5f2ec;
+  --color-papper: #fdfbf7;
+  --color-sten: #e2dbcf;
+  --color-sten-mork: #cabfad;
+
+  /* Grönt — mossa/oliv, klinikens primärfärg */
+  --color-mossa: #34433a;
+  --color-mossa-djup: #202b24;
+  --color-mossa-ljus: #4f6357;
+  --color-salvia: #8a9b88;
+  /*
+    salvia är för ljus för text på kalk/papper (2,85:1). Dessa två tokens är
+    de mörkare varianterna som används för text på LJUS botten — mätta mot
+    WCAG 2.2 AA. Använd --color-salvia enbart mot mörk botten.
+  */
+  --color-salvia-text: #5a6d56; /* 5,41:1 på papper · 5,00:1 på kalk */
+  --color-sten-text: #948a79; /* 3,29:1 på papper — endast stor text (≥24px) */
+  --color-lind: #dfe5da;
+
+  /* Text */
+  --color-grafit: #1b1e1c;
+  --color-skiffer: #565c55;
+
+  /* Accent — tegel från husets fasad. Används sparsamt. */
+  --color-tegel: #a8593a;
+  --color-tegel-ljus: #c47a5a;
+
+  /* Typografi */
+  --font-display: 'Literata Variable', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Hanken Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+
+  /* Layout */
+  --container-content: 72rem;
+  --container-läs: 44rem;
+
+  /* Skuggor — mjuka, gröntonade */
+  --shadow-mjuk: 0 1px 2px rgb(32 43 36 / 0.04), 0 10px 30px -12px rgb(32 43 36 / 0.14);
+  --shadow-lyft: 0 2px 6px rgb(32 43 36 / 0.06), 0 24px 56px -20px rgb(32 43 36 / 0.24);
+
+  /* Rytm */
+  --spacing-section: clamp(4.5rem, 9vw, 7.5rem);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Kompenserar för sticky header vid ankarlänkar */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-kalk);
+    color: var(--color-grafit);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    font-weight: 400;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-lind);
+    color: var(--color-mossa-djup);
+  }
+
+  /* WCAG 2.2 — synlig fokusmarkering överallt */
+  :focus-visible {
+    outline: 3px solid var(--color-mossa);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Nativ accordion utan default-markör */
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Respektera reducerad rörelse fullt ut */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /*
+    Djupskikten — hårlinjer med fallande opacitet.
+    Används som sektionsavdelare. Ekar ultraljudets vävnadslager.
+  */
+  .djupskikt {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in oklab, var(--color-mossa) 22%, transparent) 18%,
+      color-mix(in oklab, var(--color-mossa) 22%, transparent) 82%,
+      transparent
+    );
+  }
+
+  /*
+    Stigande text vid scroll. Progressive enhancement:
+    utan JS/stöd visas innehållet direkt (ingen opacity:0 kvar).
+  */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .stig {
+        animation: stig-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 46%;
+      }
+    }
+  }
+
+  @keyframes stig-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Understruken länk som växer från vänster */
+  .lank-linje {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .lank-linje:hover,
+  .lank-linje:focus-visible {
+    background-size: 100% 1px;
+  }
+}

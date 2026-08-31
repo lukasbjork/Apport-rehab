@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SidHuvud from '../components/SidHuvud.astro';
+import { SITE } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = 'Personuppgifter och GDPR | Apport Kristianstad';
+const description =
+  'Så behandlar Apport AB dina personuppgifter enligt dataskyddsförordningen, patientdatalagen och hälso- och sjukvårdslagen.';
+
+const crumbs = [
+  { name: 'Hem', url: '/' },
+  { name: 'Personuppgifter', url: '/integritetspolicy/' },
+];
+
+/*
+ * Texten bygger på nuvarande apport.rehab/leder/ (klinikens egen GDPR-sida),
+ * omarbetad till tydligare styckeindelning. Inga nya åtaganden har lagts till.
+ * [VERIFIERA] Telefonnumret 044-590 99 94 står på nuvarande sajt men skiljer sig
+ * från växelnumret. Bekräfta med kliniken vilket som gäller för dataskyddsfrågor.
+ */
+const avsnitt = [
+  {
+    rubrik: 'Personuppgiftsansvar',
+    stycken: [
+      'Apport är personuppgiftsansvarig för behandlingen av personuppgifter i sin ärendehantering, vid medicinska utredningar samt vid medicinska behandlingar.',
+      'Apport är en medicinsk klinik som lyder under de lagar som reglerar vården, och har därmed ett utökat ansvar i hanteringen av känsliga personuppgifter — framför allt enligt hälso- och sjukvårdslagen, patientsäkerhetslagen och patientdatalagen.',
+    ],
+  },
+  {
+    rubrik: 'Behandling vid utredning och behandling',
+    stycken: [
+      'Apport behandlar personuppgifter vid utredningar och behandlingar för att kunna fullgöra sitt uppdrag i enlighet med avtalskrav från beställare och de medicinska regler som gäller för dokumentation och spårbarhet.',
+      'Uppgifterna används också för att kommunicera med den som är föremål för en utredning eller behandling, liksom med den som beställt uppdraget.',
+    ],
+  },
+  {
+    rubrik: 'Vilka uppgifter som behandlas',
+    stycken: [
+      'De kategorier av personuppgifter som behandlas är namn och kontaktuppgifter till enskilda som är föremål för utredning och behandling. Uppgifterna är sökbara via personnummer.',
+      'I handlingar och meddelanden som skickas in till Apport förekommer ibland andra typer av personuppgifter. Dessa hanteras endast genom att handlingen läggs in i det aktuella ärendet. Uppgifterna registreras inte särskilt och görs inte sökbara.',
+      'Känsliga personuppgifter hanteras i system som uppfyller säkerhetskraven för den typen av information. Medicinsk information hanteras via ett medicinskt journalsystem med säker server som uppfyller kraven i patientdatalagen samt Socialstyrelsens föreskrifter om informationshantering och journalföring över öppna nät inom hälso- och sjukvården i Sverige.',
+    ],
+  },
+  {
+    rubrik: 'Vilka som kan ta del av uppgifterna',
+    stycken: [
+      'De medarbetare på Apport som tar del av uppgifterna behöver dem för att utföra sina arbetsuppgifter.',
+      'Apport anlitar i vissa fall personuppgiftsbiträden, till exempel specialister inom olika yrken som anlitas som konsulter. Ett personuppgiftsbiträde får endast behandla personuppgifter i enlighet med de ändamål och instruktioner som Apport lämnat, och får aldrig ta del av fler uppgifter än vad som krävs för att utföra den avtalade tjänsten. När personuppgifter ska behandlas av ett personuppgiftsbiträde upprättas ett personuppgiftsbiträdesavtal mellan parterna.',
+    ],
+  },
+  {
+    rubrik: 'Hur länge uppgifterna sparas',
+    stycken: [
+      'Informationen i Apports system är att betrakta som journalhandling och ska enligt patientdatalagen bevaras i minst tio år.',
+      'Handlingar av ringa eller tillfällig betydelse gallras i regel direkt eller senast efter två månader.',
+    ],
+  },
+  {
+    rubrik: 'Dina rättigheter som registrerad',
+    stycken: [
+      'Du kan begära besked om huruvida Apport behandlar personuppgifter som rör dig, och i så fall få en kopia av dessa tillsammans med närmare information.',
+      'Om du anser att uppgifterna är felaktiga eller ofullständiga kan du begära att få dem rättade eller kompletterade. Du har också rätt att när som helst invända mot behandlingen, begära begränsning av uppgifterna eller begära radering.',
+      'Om Apport inte kan visa att det finns tvingande, berättigade skäl att fortsätta behandla uppgifterna måste behandlingen upphöra. Sådana skäl kan vara vad som stipuleras om hur medicinsk information ska behandlas — journaluppgifter får inte raderas utan giltiga skäl.',
+    ],
+  },
+];
+---
+
+<BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs)]}>
+  <SidHuvud
+    etikett="Personuppgifter"
+    rubrik="Så behandlar Apport dina personuppgifter"
+    ingress="Att den personliga integriteten respekteras och att personuppgifter behandlas på ett adekvat och korrekt sätt är viktigt för oss. Här är en översiktlig information om de personuppgiftsbehandlingar som Apport är personuppgiftsansvarig för, i enlighet med EU:s dataskyddsförordning."
+    {crumbs}
+  />
+
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-läs) space-y-12">
+      {
+        avsnitt.map((a) => (
+          <div>
+            <h2 class="text-[1.4rem] leading-snug text-mossa-djup">{a.rubrik}</h2>
+            <div class="mt-4 space-y-4 text-[1.01rem] leading-relaxed text-skiffer">
+              {a.stycken.map((s) => (
+                <p>{s}</p>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+
+      <div class="rounded-2xl border border-sten bg-papper p-8">
+        <h2 class="text-[1.4rem] text-mossa-djup">Kontakt i dataskyddsfrågor</h2>
+        <p class="mt-4 text-[1.01rem] leading-relaxed text-skiffer">
+          Vill du utöva dina rättigheter eller har frågor som rör Apports behandling av dina
+          personuppgifter, hör av dig till
+          <a href={`mailto:${SITE.emailAdmin}`} class="lank-linje text-mossa">{SITE.emailAdmin}</a>.
+        </p>
+        <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">
+          Du har också rätt att lämna klagomål till Integritetsskyddsmyndigheten (IMY), som är
+          tillsynsmyndighet för behandling av personuppgifter.
+        </p>
+        <p class="mt-6 text-[0.9rem] text-skiffer">
+          {SITE.fullName} · Org.nr {SITE.orgNr} · {SITE.street}, {SITE.postalCode}&nbsp;{SITE.city}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

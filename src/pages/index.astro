@@ -1,0 +1,335 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SektionsRubrik from '../components/SektionsRubrik.astro';
+import BesvarKort from '../components/BesvarKort.astro';
+import BehandlingKort from '../components/BehandlingKort.astro';
+import Process from '../components/Process.astro';
+import CtaSektion from '../components/CtaSektion.astro';
+import Referenser from '../components/Referenser.astro';
+import Sikte from '../components/Sikte.astro';
+import BildPlatshallare from '../components/BildPlatshallare.astro';
+import { SITE, CTA, FEES } from '../lib/site';
+import { CONDITIONS, TREATMENTS, TEAM, NOT_OFFERED } from '../lib/content';
+import { clinicSchema, websiteSchema } from '../lib/schema';
+
+const title = 'Apport — smärtspecialistklinik i Kristianstad';
+const description =
+  'Privat smärtklinik i Kristianstad sedan 2010. Vi utreder var smärtan kommer ifrån med ultraljudsledda blockader. Avtal med Region Skåne, inget remisstvång.';
+
+const proofPoints = [
+  { tal: 'Sedan 2010', text: 'Privat specialistklinik i Kristianstad, driven av samma två personer hela vägen.' },
+  { tal: '30+ år', text: 'Läkarens erfarenhet av smärtproblematik, med tre specialistkompetenser.' },
+  { tal: 'Ultraljud', text: 'Vid undersökning och blockader — vi ser strukturen medan nålen förs in.' },
+  { tal: 'Region Skåne', text: `Avtal enligt nationella taxan. Patientavgift ${FEES.visit}, frikort gäller.` },
+];
+
+const igenkanning = [
+  'Du har haft ont länge — månader eller år',
+  'Du har redan provat flera behandlingar utan tydlig effekt',
+  'Du har fått höra att undersökningarna ser normala ut',
+  'Du har en skada som aldrig riktigt blev bra',
+  'Du vill kunna träna igen men vet inte vad som är säkert',
+  'Du vill framför allt förstå vad som faktiskt orsakar smärtan',
+];
+---
+
+<BaseLayout {title} {description} schema={[clinicSchema(), websiteSchema()]}>
+  <!-- ── Hero ────────────────────────────────────────────────── -->
+  <section class="relative overflow-hidden bg-mossa-djup">
+    <!-- Klinikens egen ultraljudsbild som atmosfär, inte som stockfoto -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+      <img
+        src="/bilder/ultraljud-l5-s1.webp"
+        alt=""
+        class="h-full w-full object-cover opacity-[0.14] mix-blend-screen"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-linear-to-r from-mossa-djup via-mossa-djup/92 to-mossa-djup/55"></div>
+    </div>
+
+    <div
+      class="relative mx-auto grid max-w-(--container-content) gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-12 lg:py-32"
+    >
+      <div class="lg:col-span-7">
+        <p
+          class="flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-salvia"
+        >
+          <Sikte size={13} />
+          Smärtspecialistklinik i Kristianstad
+        </p>
+
+        <h1 class="mt-6 text-[clamp(2.3rem,5.4vw,4.1rem)] leading-[1.04] text-kalk">
+          Alla säger att det ser normalt ut.
+          <span class="block text-salvia">Ändå gör det ont.</span>
+        </h1>
+
+        <p class="mt-8 max-w-xl text-[1.12rem] leading-relaxed text-kalk/75">
+          En bra behandling börjar inte alltid med en behandling. Den börjar
+          med att ta reda på <em class="not-italic text-kalk">var</em> smärtan kommer ifrån. Med
+          ultraljud kan vi bedöva en struktur i taget och pröva oss fram till svaret — innan vi
+          bestämmer vad som ska göras.
+        </p>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a
+            href={CTA.primary.href}
+            class="rounded-full bg-kalk px-7 py-3.5 text-[0.96rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+          >
+            {CTA.primary.label}
+          </a>
+          <a
+            href={CTA.secondary.href}
+            class="rounded-full border border-kalk/25 px-7 py-3.5 text-[0.96rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+          >
+            {CTA.secondary.label}
+          </a>
+        </div>
+
+        <p class="mt-8 text-[0.88rem] text-kalk/58">
+          Inget remisstvång · Avtal med Region Skåne · Patientavgift {FEES.visit}
+        </p>
+      </div>
+
+      <!-- Ultraljudsbilden som innehåll, inte dekoration -->
+      <div class="lg:col-span-5 lg:pl-6">
+        <figure class="stig">
+          <div class="overflow-hidden rounded-2xl border border-kalk/12">
+            <img
+              src="/bilder/ultraljud-c4-c5.webp"
+              alt="Ultraljudsbild tagen på Apport som visar vävnadslagren i halsryggen, med markörer vid de strukturer som bedömts"
+              width="640"
+              height="430"
+              class="w-full"
+              decoding="async"
+            />
+          </div>
+          <figcaption class="mt-4 text-[0.84rem] leading-relaxed text-kalk/55">
+            Ultraljudsbild från kliniken. Markörerna pekar ut de strukturer som bedömts inför en
+            blockad i halsryggen — det är så vi avgör vilken struktur som bidrar till smärtan.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Förtroendeblock ─────────────────────────────────────── -->
+  <section class="border-b border-sten bg-papper px-5 py-14 sm:px-8">
+    <ul class="mx-auto grid max-w-(--container-content) gap-9 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        proofPoints.map((p) => (
+          <li class="stig">
+            <p class="font-[family-name:var(--font-display)] text-[1.5rem] leading-none text-mossa-djup">
+              {p.tal}
+            </p>
+            <p class="mt-3 text-[0.92rem] leading-relaxed text-skiffer">{p.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ── Är det här du? ──────────────────────────────────────── -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto grid max-w-(--container-content) gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <SektionsRubrik
+          etikett="Är det här du?"
+          rubrik="Du har ont. Men du vill framför allt veta varför."
+          ingress="De flesta som kommer till oss har redan varit någon annanstans först. Ofta flera gånger. Det är sällan för att ingen har brytt sig — utan för att det är svårt att peka ut exakt vilken struktur som gör ont."
+        />
+        <a
+          href="/besvar/"
+          class="mt-9 inline-flex items-center gap-2 rounded-full bg-mossa px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:bg-mossa-djup"
+        >
+          Se vilka besvär vi behandlar
+        </a>
+      </div>
+
+      <div class="lg:col-span-7">
+        <ul class="stig space-y-px overflow-hidden rounded-2xl bg-sten">
+          {
+            igenkanning.map((rad) => (
+              <li class="flex items-start gap-4 bg-papper px-7 py-5">
+                <span class="mt-1 shrink-0 text-salvia-text">
+                  <Sikte size={15} />
+                </span>
+                <span class="text-[1rem] leading-relaxed text-mossa-djup">{rad}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Differentiator ──────────────────────────────────────── -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik
+        etikett="Det som gör Apport annorlunda"
+        rubrik="Vi börjar med att förstå problemet"
+      />
+
+      <div class="mt-14 grid gap-12 lg:grid-cols-12">
+        <div class="space-y-6 text-[1.06rem] leading-relaxed text-skiffer lg:col-span-6">
+          <p>
+            Röntgen och magnetkamera visar ofta förändringar som finns hos många människor utan
+            besvär. De säger något om hur kroppen ser ut — men sällan vilken struktur som gör ont
+            just nu.
+          </p>
+          <p>
+            Därför arbetar vi med diagnostiska blockader. Med ultraljud lägger vi bedövning i en
+            struktur i taget och mäter effekten på en skattningsskala. Minskar smärtan tydligt talar
+            det för att just den strukturen bidrar. Gör den inte det, har vi också fått veta något.
+          </p>
+          <p>
+            Det tar tid. Räkna med 3–5 besök innan vi kan säga något om orsaken. Men en korrekt
+            diagnos är grunden för en lyckad smärtbehandling — och genvägen dit finns sällan.
+          </p>
+          <p class="text-mossa-djup">
+            Först därefter tar vi ställning till behandling, träning eller en kombination.
+          </p>
+        </div>
+
+        <div class="lg:col-span-6">
+          <figure class="stig">
+            <img
+              src="/bilder/blockad-facettled-landrygg.webp"
+              alt="Anatomisk modell av ländryggen där en nål visar hur en facettledsblockad läggs mellan kotorna"
+              width="1400"
+              height="1400"
+              loading="lazy"
+              decoding="async"
+              class="w-full rounded-2xl border border-sten object-cover"
+            />
+            <figcaption class="mt-4 text-[0.85rem] leading-relaxed text-skiffer">
+              Demonstration på anatomisk modell: så placeras nålen vid en facettledsblockad i
+              ländryggen. På patient sker samma moment med ultraljud som vägledning.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Besvär ──────────────────────────────────────────────── -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik
+        etikett="Besvär"
+        rubrik="Vilken typ av smärta söker du hjälp för?"
+        ingress="Vi arbetar med lokala och regionala smärttillstånd. Välj det som ligger närmast dina besvär så beskriver vi hur vi brukar gå till väga."
+      />
+
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {CONDITIONS.map((c) => <BesvarKort condition={c} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Behandlingar ────────────────────────────────────────── -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik
+        etikett="Behandlingar"
+        rubrik="Från utredning till funktion"
+        ingress="Alla smärttillstånd är unika och därför finns ingen standardbehandling. Vad som blir aktuellt för dig avgörs av vad utredningen visar."
+      />
+
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {TREATMENTS.map((t) => <BehandlingKort treatment={t} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Så går det till ─────────────────────────────────────── -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik etikett="Så går det till" rubrik="Fyra steg, utan krångel" />
+      <div class="mt-14">
+        <Process />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bakom Apport ────────────────────────────────────────── -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik
+        etikett="Bakom Apport"
+        rubrik="Två personer, samma klinik sedan 2010"
+        ingress="Apport drivs av ett gift par — en läkare och en fysioterapeut. Du möter samma personer varje gång, och de pratar med varandra om ditt fall."
+      />
+
+      <div class="mt-14 grid gap-8 sm:grid-cols-2">
+        {
+          TEAM.map((person) => (
+            <article class="stig">
+              <BildPlatshallare
+                behov={`Porträtt av ${person.name}`}
+                monogram={person.name
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')}
+                ratio="aspect-4/5"
+              />
+              <h3 class="mt-6 text-[1.35rem] text-mossa-djup">{person.name}</h3>
+              <p class="mt-1 text-[0.9rem] font-medium text-mossa-ljus">{person.role}</p>
+              <p class="mt-3 text-[0.98rem] leading-relaxed text-skiffer">{person.short}</p>
+              <a
+                href={`/om-apport/#${person.slug}`}
+                class="lank-linje mt-4 inline-block text-[0.9rem] font-medium text-mossa"
+              >
+                Läs mer om {person.name.split(' ')[0]}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Vad vi inte gör ─────────────────────────────────────── -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="grid gap-12 rounded-[2rem] border border-sten bg-lind/35 p-8 sm:p-14 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <SektionsRubrik
+            etikett="Ärligt talat"
+            rubrik="Vi tar inte emot allt"
+            ingress="Vi är en liten klinik med två personer. Att säga nej till det vi inte är bäst på är förutsättningen för att kunna lägga tid på det vi faktiskt kan hjälpa till med."
+          />
+        </div>
+
+        <div class="grid gap-10 sm:grid-cols-2 lg:col-span-7">
+          <div>
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+              Besvär vi inte utreder
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-[0.96rem] text-skiffer">
+              {NOT_OFFERED.conditions.map((rad) => <li>{rad}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+              Sådant vi inte utfärdar
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-[0.96rem] text-skiffer">
+              {NOT_OFFERED.services.map((rad) => <li>{rad}</li>)}
+            </ul>
+          </div>
+
+          <p class="text-[0.94rem] leading-relaxed text-skiffer sm:col-span-2">
+            Är du osäker på om vi är rätt klinik för dig? Skriv ändå — vi läser och säger till om vi
+            tror att någon annan kan hjälpa dig bättre.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Referenser />
+
+  <CtaSektion />
+</BaseLayout>

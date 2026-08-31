@@ -1,0 +1,66 @@
+---
+/**
+ * Patientreferenser.
+ *
+ * ⚠️ VIKTIGT — LÄS INNAN DU FYLLER I:
+ * Nuvarande apport.rehab har en referenssektion som ligger live med
+ * lorem ipsum-text och påhittade namn ("Tobias – CEO", "Jimmy", "Alice",
+ * "Adam"). Det får inte hända igen.
+ *
+ * Därför är TESTIMONIALS medvetet TOM. Komponenten renderar INGENTING
+ * så länge listan är tom — det går alltså inte att råka publicera
+ * platshållartext.
+ *
+ * Så här lägger du in riktiga omdömen:
+ *  1. Hämta in skriftligt samtycke från patienten.
+ *  2. Använd patientens egna ord. Skriv inte om dem till reklam.
+ *  3. Ange förnamn + ålder ELLER "Patient, Kristianstad". Aldrig påhittade namn.
+ *  4. Lova inget resultat i citatet. Undvik "blev helt bra", "botad".
+ *
+ * Enligt patientsäkerhetslagen och Läkemedelsverkets riktlinjer ska
+ * vårdgivare vara försiktiga med marknadsföring som antyder garanterat
+ * behandlingsresultat. Håll citaten beskrivande, inte lovande.
+ */
+import SektionsRubrik from './SektionsRubrik.astro';
+
+interface Testimonial {
+  /** Patientens egna ord, ordagrant */
+  quote: string;
+  /** T.ex. "Anna, 54" eller "Patient, Kristianstad" */
+  attribution: string;
+  /** Valfritt: vilket besvär det gällde */
+  context?: string;
+}
+
+const TESTIMONIALS: Testimonial[] = [
+  // Tomt tills kliniken levererat riktiga, godkända omdömen.
+];
+---
+
+{
+  TESTIMONIALS.length > 0 && (
+    <section class="px-5 py-(--spacing-section) sm:px-8">
+      <div class="mx-auto max-w-(--container-content)">
+        <SektionsRubrik
+          etikett="Patientröster"
+          rubrik="Vad patienter har sagt"
+          align="center"
+        />
+
+        <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {TESTIMONIALS.map((t) => (
+            <figure class="stig flex flex-col rounded-2xl border border-sten bg-papper p-8">
+              <blockquote class="flex-1 text-[1.02rem] leading-relaxed text-mossa-djup">
+                <p>”{t.quote}”</p>
+              </blockquote>
+              <figcaption class="mt-6 border-t border-sten pt-5 text-[0.86rem]">
+                <span class="font-medium text-mossa-djup">{t.attribution}</span>
+                {t.context && <span class="block text-skiffer">{t.context}</span>}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

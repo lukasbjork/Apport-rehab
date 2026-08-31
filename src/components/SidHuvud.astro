@@ -1,0 +1,52 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+import Sikte from './Sikte.astro';
+import type { Crumb } from '../lib/schema';
+
+interface Props {
+  etikett?: string;
+  rubrik: string;
+  ingress?: string;
+  crumbs: Crumb[];
+}
+const { etikett, rubrik, ingress, crumbs } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-mossa-djup px-5 pb-16 pt-10 sm:px-8 sm:pb-20 sm:pt-12">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 text-salvia/10"
+  >
+    <Sikte size={340} dashed />
+  </div>
+
+  <div class="relative mx-auto max-w-(--container-content)">
+    <Breadcrumbs {crumbs} light />
+
+    <div class="mt-9 max-w-3xl">
+      {
+        etikett && (
+          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-salvia">
+            <Sikte size={13} />
+            {etikett}
+          </p>
+        )
+      }
+      <h1
+        class:list={[
+          'text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.08] text-kalk',
+          etikett && 'mt-4',
+        ]}
+      >
+        {rubrik}
+      </h1>
+      {
+        ingress && (
+          <p class="mt-6 max-w-(--container-läs) text-[1.1rem] leading-relaxed text-kalk/72">
+            {ingress}
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+# build
+dist/
+.astro/
+
+# deps
+node_modules/
+
+# vercel
+.vercel/
+
+# arbetsfiler
+.shots/
+.DS_Store
+*.log

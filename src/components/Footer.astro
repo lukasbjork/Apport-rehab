@@ -1,0 +1,109 @@
+---
+import Logo from './Logo.astro';
+import { SITE, OPENING_HOURS, PHONE_HOURS } from '../lib/site';
+import { CONDITIONS, TREATMENTS } from '../lib/content';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-(--spacing-section) bg-mossa-djup text-kalk/75">
+  <div class="mx-auto max-w-(--container-content) px-5 py-16 sm:px-8 sm:py-20">
+    <div class="grid gap-12 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <div class="text-kalk">
+          <Logo />
+        </div>
+        <p class="mt-5 max-w-xs text-[0.92rem] leading-relaxed">
+          Privat smärtspecialistklinik i Kristianstad sedan 2010. Vi utreder och behandlar lokala
+          och regionala smärttillstånd, på uppdrag av Region Skåne.
+        </p>
+        <p class="mt-5 text-[0.82rem] text-kalk/58">
+          {SITE.fullName} · Org.nr {SITE.orgNr}
+        </p>
+      </div>
+
+      <div class="md:col-span-3">
+        <h2 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">Besvär</h2>
+        <ul class="mt-4 space-y-2.5 text-[0.9rem]">
+          {
+            CONDITIONS.slice(0, 6).map((c) => (
+              <li>
+                <a href={`/besvar/${c.slug}/`} class="lank-linje hover:text-kalk">
+                  {c.name}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href="/besvar/" class="lank-linje text-salvia hover:text-kalk">Alla besvär →</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-2">
+        <h2 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">
+          Behandlingar
+        </h2>
+        <ul class="mt-4 space-y-2.5 text-[0.9rem]">
+          {
+            TREATMENTS.map((t) => (
+              <li>
+                <a href={`/behandlingar/${t.slug}/`} class="lank-linje hover:text-kalk">
+                  {t.name.split(' — ')[0]}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
+        <h2 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">Kontakt</h2>
+        <address class="mt-4 space-y-2.5 text-[0.9rem] not-italic">
+          <p>
+            <a href={`tel:${SITE.phoneHref}`} class="lank-linje hover:text-kalk">{SITE.phone}</a>
+            <span class="block text-[0.8rem] text-kalk/58">Telefontid {PHONE_HOURS.toLowerCase()}</span>
+          </p>
+          <p>
+            <a href={`mailto:${SITE.email}`} class="lank-linje break-all hover:text-kalk">
+              {SITE.email}
+            </a>
+          </p>
+          <p class="pt-1">
+            {SITE.street}<br />
+            {SITE.postalCode}&nbsp;{SITE.city}<br />
+            <span class="text-[0.82rem] text-kalk/58">{SITE.addressNote}</span>
+          </p>
+        </address>
+
+        <h2 class="mt-7 text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">
+          Öppettider
+        </h2>
+        <ul class="mt-3 space-y-1 text-[0.86rem]">
+          {
+            OPENING_HOURS.map((d) => (
+              <li class="flex justify-between gap-4">
+                <span>{d.day}</span>
+                <span class="tabular-nums text-kalk/60">{d.hours}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-14 flex flex-col gap-4 border-t border-kalk/12 pt-7 text-[0.82rem] sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="text-kalk/58">© {year} {SITE.fullName}</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        <li><a href="/om-apport/" class="lank-linje hover:text-kalk">Om Apport</a></li>
+        <li><a href="/sa-gar-det-till/" class="lank-linje hover:text-kalk">Som patient</a></li>
+        <li><a href="/synpunkter/" class="lank-linje hover:text-kalk">Synpunkter och klagomål</a></li>
+        <li>
+          <a href="/integritetspolicy/" class="lank-linje hover:text-kalk">Personuppgifter</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
