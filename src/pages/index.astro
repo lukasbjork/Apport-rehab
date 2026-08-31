@@ -12,6 +12,8 @@ import BildPlatshallare from '../components/BildPlatshallare.astro';
 import UltraljudSektion from '../components/UltraljudSektion.astro';
 import Meriter from '../components/Meriter.astro';
 import RelevansGuide from '../components/RelevansGuide.astro';
+import SnabbKontakt from '../components/SnabbKontakt.astro';
+import Vagbrytare from '../components/Vagbrytare.astro';
 import { CTA, TRUST_POINTS } from '../lib/site';
 import { CONDITIONS, TREATMENTS, TEAM, NOT_OFFERED } from '../lib/content';
 import { clinicSchema, websiteSchema } from '../lib/schema';
@@ -153,22 +155,22 @@ const igenkanning = [
       </div>
 
       <div class="lg:col-span-7">
-        <ul class="stig space-y-px overflow-hidden rounded-2xl bg-sten">
+        <ul class="stig grid gap-x-10 gap-y-5 sm:grid-cols-2">
           {
             igenkanning.map((rad) => (
-              <li class="flex items-start gap-4 bg-papper px-7 py-5">
+              <li class="flex items-start gap-3.5 border-b border-sten pb-5">
                 <span class="mt-0.5 shrink-0 text-mossa" aria-hidden="true">
-                  <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+                  <svg width="18" height="18" viewBox="0 0 17 17" fill="none">
                     <path
                       d="M3 9l3.6 3.6L14 5"
                       stroke="currentColor"
-                      stroke-width="1.7"
+                      stroke-width="1.8"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
                   </svg>
                 </span>
-                <span class="text-[1.02rem] leading-relaxed text-mossa-djup">{rad}</span>
+                <span class="text-[1.04rem] leading-snug text-mossa-djup">{rad}</span>
               </li>
             ))
           }
@@ -230,6 +232,11 @@ const igenkanning = [
     </div>
   </section>
 
+  <!-- ── Kontaktremsa: väg ut ur texten ──────────────────────── -->
+  <div class="bg-papper pb-(--spacing-section)">
+    <SnabbKontakt text="Känner du igen dig? Berätta kort om dina besvär så säger vi om vi kan hjälpa." />
+  </div>
+
   <!-- ── Besvär ──────────────────────────────────────────────── -->
   <section class="px-5 py-(--spacing-section) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
@@ -240,13 +247,15 @@ const igenkanning = [
       />
 
       <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {CONDITIONS.map((c) => <BesvarKort condition={c} />)}
+        {CONDITIONS.map((c, i) => <BesvarKort condition={c} wide={i === 0} />)}
       </div>
     </div>
   </section>
 
+  <Vagbrytare fran="kalk" till="papper" />
+
   <!-- ── Behandlingar ────────────────────────────────────────── -->
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-papper px-5 pb-(--spacing-section) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         etikett="Behandlingar"
@@ -254,7 +263,7 @@ const igenkanning = [
         ingress="Alla smärttillstånd är unika och därför finns ingen standardbehandling. Vad som blir aktuellt för dig avgörs av vad utredningen visar."
       />
 
-      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-14 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {TREATMENTS.map((t) => <BehandlingKort treatment={t} />)}
       </div>
     </div>
@@ -360,6 +369,10 @@ const igenkanning = [
       </div>
     </div>
   </section>
+
+  <div class="bg-papper py-(--spacing-section)">
+    <SnabbKontakt text="Hellre prata än läsa? Ring under telefontiden, eller skriv några rader." />
+  </div>
 
   <Patientfall />
 

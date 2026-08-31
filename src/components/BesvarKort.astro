@@ -1,9 +1,17 @@
 ---
+/**
+ * Besvärskort.
+ *
+ * Ramlöst med flit. Tidigare hade varje kort en heldragen ram, vilket gjorde
+ * rutnätet till ett rutmönster av lådor. Nu bärs avgränsningen av en tonad
+ * bakgrund och en hårlinje som växer fram vid hover — kortet läser som en
+ * yta, inte som en box.
+ */
 import type { Condition } from '../lib/content';
 
 interface Props {
   condition: Condition;
-  /** Framhävt kort — spänner bredare i grid */
+  /** Framhävt kort — spänner bredare och får större typografi */
   wide?: boolean;
 }
 const { condition, wide = false } = Astro.props;
@@ -12,16 +20,36 @@ const { condition, wide = false } = Astro.props;
 <a
   href={`/besvar/${condition.slug}/`}
   class:list={[
-    'stig group relative flex flex-col justify-between rounded-2xl border border-sten bg-papper p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-salvia hover:shadow-mjuk',
-    wide && 'sm:col-span-2',
+    'stig group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-papper p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-mjuk',
+    wide && 'sm:col-span-2 sm:p-9',
   ]}
 >
+  <!-- Accentlinje som växer fram vid hover -->
+  <span
+    aria-hidden="true"
+    class="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-mossa transition-transform duration-400 ease-out group-hover:scale-x-100"
+  ></span>
+
   <div>
     <p class="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
       {condition.group}
     </p>
-    <h3 class="mt-3 text-[1.3rem] leading-snug text-mossa-djup">{condition.name}</h3>
-    <p class="mt-3 text-[0.95rem] leading-relaxed text-skiffer">{condition.teaser}</p>
+    <h3
+      class:list={[
+        'mt-3 leading-snug text-mossa-djup',
+        wide ? 'text-[1.6rem]' : 'text-[1.3rem]',
+      ]}
+    >
+      {condition.name}
+    </h3>
+    <p
+      class:list={[
+        'mt-3 leading-relaxed text-skiffer',
+        wide ? 'text-[1.02rem] sm:max-w-lg' : 'text-[0.95rem]',
+      ]}
+    >
+      {condition.teaser}
+    </p>
   </div>
 
   <span

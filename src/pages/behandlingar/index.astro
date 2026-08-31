@@ -35,7 +35,7 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
         rubrik="Ingår i avtalet med Region Skåne"
         ingress={`Patientavgift ${FEES.visit} per besök. ${FEES.visitNote}`}
       />
-      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-12 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {iAvtal.map((t) => <BehandlingKort treatment={t} />)}
       </div>
     </div>
@@ -47,7 +47,7 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
         rubrik="Utanför avtalet"
         ingress={FEES.outsideAgreementNote}
       />
-      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-12 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {utanforAvtal.map((t) => <BehandlingKort treatment={t} />)}
       </div>
       <p class="mt-8 text-[0.94rem] text-skiffer">

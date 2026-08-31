@@ -1,121 +1,140 @@
 ---
 /**
- * Kontaktformulär.
+ * Kontaktformulär via Netlify Forms.
  *
- * Formuläret är INAKTIVT tills SITE.formEndpoint fyllts i (Formspree e.dyl.).
- * Så länge det saknas visas mejl och telefon i stället för ett trasigt
- * formulär som tyst slänger patientens meddelande.
+ * Varför Netlify och inte Formspree: sajten hostas redan på Netlify, så
+ * formulärhanteringen ingår utan tredjepart, utan API-nyckel och utan att
+ * patientens uppgifter passerar ännu en leverantör. Gratisnivån räcker för
+ * en klinik av den här storleken.
+ *
+ * Så fungerar det: Netlify hittar formuläret genom att läsa den publicerade
+ * HTML:en vid deploy. Det kräver tre saker som är lätta att råka ta bort —
+ *   1. `data-netlify="true"` på <form>
+ *   2. dolt fält <input name="form-name"> med samma värde som form-name
+ *   3. formuläret måste finnas i den statiska HTML:en, inte renderas av JS
+ * Astro bygger statiskt, så punkt 3 är uppfylld.
+ *
+ * Inlämningar hamnar under Forms i Netlifys dashboard. Sätt upp
+ * e-postavisering där, annars blir de liggande osedda.
+ *
+ * ── Integritet ────────────────────────────────────────────────
+ * Formuläret är MEDVETET inte till för hälsouppgifter. En egenremiss ska
+ * mejlas direkt till kliniken. Vi ber därför aldrig om personnummer, och
+ * texten avråder från att skriva detaljer om hälsan här.
  */
 import { SITE, PHONE_HOURS } from '../lib/site';
 
-const aktivt = SITE.formEndpoint.length > 0;
 const falt =
-  'w-full rounded-xl border border-sten-mork bg-papper px-4 py-3 text-[0.95rem] text-grafit transition-colors placeholder:text-skiffer/50 focus:border-mossa focus:outline-none';
-const etikett = 'block text-[0.86rem] font-medium text-mossa-djup';
+  'w-full rounded-xl border border-sten-mork bg-kalk px-4 py-3 text-[0.98rem] text-grafit transition-colors placeholder:text-skiffer/50 focus:border-mossa focus:outline-none';
+const etikett = 'block text-[0.88rem] font-medium text-mossa-djup';
 ---
 
-{
-  aktivt ? (
-    <form action={SITE.formEndpoint} method="POST" class="space-y-5">
-      <div class="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label for="namn" class={etikett}>
-            Namn <span class="text-tegel">*</span>
-          </label>
-          <input id="namn" name="namn" type="text" required autocomplete="name" class={`mt-2 ${falt}`} />
-        </div>
-        <div>
-          <label for="telefon" class={etikett}>
-            Telefon
-          </label>
-          <input id="telefon" name="telefon" type="tel" autocomplete="tel" class={`mt-2 ${falt}`} />
-        </div>
-      </div>
+<form
+  name="kontakt"
+  method="POST"
+  action="/tack/"
+  data-netlify="true"
+  netlify-honeypot="lamna-tom"
+  class="space-y-5"
+>
+  <!-- Krävs av Netlify för att koppla inlämningen till rätt formulär -->
+  <input type="hidden" name="form-name" value="kontakt" />
 
-      <div>
-        <label for="epost" class={etikett}>
-          E-post <span class="text-tegel">*</span>
-        </label>
-        <input id="epost" name="epost" type="email" required autocomplete="email" class={`mt-2 ${falt}`} />
-      </div>
+  <!-- Honungsfälla: dold för människor, ifylld av robotar -->
+  <p class="hidden" aria-hidden="true">
+    <label>Lämna det här fältet tomt: <input name="lamna-tom" tabindex="-1" autocomplete="off" /></label>
+  </p>
 
-      <div>
-        <label for="arende" class={etikett}>
-          Ärende
-        </label>
-        <select id="arende" name="arende" class={`mt-2 ${falt}`}>
-          <option>Fråga om utredning eller behandling</option>
-          <option>Fråga om en bokad tid</option>
-          <option>Återbud</option>
-          <option>Övrigt</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="meddelande" class={etikett}>
-          Meddelande <span class="text-tegel">*</span>
-        </label>
-        <textarea id="meddelande" name="meddelande" rows="6" required class={`mt-2 ${falt}`} />
-      </div>
-
-      <p class="text-[0.84rem] leading-relaxed text-skiffer">
-        Skicka inte personnummer eller detaljerade uppgifter om din hälsa via formuläret. Ska du
-        skriva en egenremiss, mejla den direkt till{' '}
-        <a href={`mailto:${SITE.email}`} class="lank-linje text-mossa">
-          {SITE.email}
-        </a>
-        .
-      </p>
-
-      <button
-        type="submit"
-        class="rounded-full bg-mossa px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:bg-mossa-djup"
-      >
-        Skicka meddelande
-      </button>
-    </form>
-  ) : (
-    <div class="rounded-2xl border border-sten bg-papper p-8">
-      <h3 class="text-[1.2rem] text-mossa-djup">Hör av dig till oss</h3>
-      <p class="mt-3 text-[0.98rem] leading-relaxed text-skiffer">
-        Enklast når du oss på mejl. Skriv några rader om vad du behöver hjälp med, så återkommer vi.
-      </p>
-
-      <dl class="mt-7 space-y-5">
-        <div>
-          <dt class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
-            E-post
-          </dt>
-          <dd class="mt-1.5">
-            <a
-              href={`mailto:${SITE.email}`}
-              class="lank-linje text-[1.05rem] font-medium text-mossa-djup"
-            >
-              {SITE.email}
-            </a>
-          </dd>
-        </div>
-        <div>
-          <dt class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
-            Telefon
-          </dt>
-          <dd class="mt-1.5">
-            <a
-              href={`tel:${SITE.phoneHref}`}
-              class="lank-linje text-[1.05rem] font-medium text-mossa-djup"
-            >
-              {SITE.phone}
-            </a>
-            <span class="block text-[0.86rem] text-skiffer">Telefontid {PHONE_HOURS.toLowerCase()}</span>
-          </dd>
-        </div>
-      </dl>
-
-      <!--
-        Till webbansvarig: formuläret aktiveras genom att fylla i SITE.formEndpoint
-        i src/lib/site.ts (skapa en gratis endpoint på formspree.io). Tills dess
-        visas kontaktuppgifterna ovan i stället för ett formulär som inte skickar.
-      -->
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="namn" class={etikett}>
+        Namn <span class="text-tegel" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="namn"
+        name="namn"
+        type="text"
+        required
+        autocomplete="name"
+        class={`mt-2 ${falt}`}
+      />
     </div>
-  )
-}
+    <div>
+      <label for="telefon" class={etikett}>Telefon</label>
+      <input id="telefon" name="telefon" type="tel" autocomplete="tel" class={`mt-2 ${falt}`} />
+    </div>
+  </div>
+
+  <div>
+    <label for="epost" class={etikett}>
+      E-post <span class="text-tegel" aria-hidden="true">*</span>
+    </label>
+    <input
+      id="epost"
+      name="epost"
+      type="email"
+      required
+      autocomplete="email"
+      class={`mt-2 ${falt}`}
+    />
+  </div>
+
+  <div>
+    <label for="arende" class={etikett}>Vad gäller det?</label>
+    <select id="arende" name="arende" class={`mt-2 ${falt}`}>
+      <option>Fråga om utredning eller behandling</option>
+      <option>Fråga om en bokad tid</option>
+      <option>Återbud</option>
+      <option>Fråga om kostnad</option>
+      <option>Övrigt</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="meddelande" class={etikett}>
+      Meddelande <span class="text-tegel" aria-hidden="true">*</span>
+    </label>
+    <textarea
+      id="meddelande"
+      name="meddelande"
+      rows="6"
+      required
+      class={`mt-2 ${falt}`}
+      aria-describedby="meddelande-hjalp"></textarea>
+    <p id="meddelande-hjalp" class="mt-2 text-[0.86rem] leading-relaxed text-skiffer">
+      Skriv inte personnummer eller detaljerade uppgifter om din hälsa här. Ska du skicka en
+      egenremiss, mejla den direkt till <a
+        href={`mailto:${SITE.email}`}
+        class="lank-linje text-mossa">{SITE.email}</a
+      >.
+    </p>
+  </div>
+
+  <div class="flex items-start gap-3 rounded-xl border border-sten bg-kalk/60 px-4 py-3.5">
+    <input
+      id="samtycke"
+      name="samtycke"
+      type="checkbox"
+      required
+      value="ja"
+      class="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-mossa)]"
+    />
+    <label for="samtycke" class="text-[0.88rem] leading-relaxed text-skiffer">
+      Jag samtycker till att Apport behandlar mina uppgifter för att kunna svara på mitt
+      meddelande. Läs mer om <a href="/integritetspolicy/" class="lank-linje text-mossa"
+        >hur vi hanterar personuppgifter</a
+      >.
+    </label>
+  </div>
+
+  <button
+    type="submit"
+    class="w-full rounded-full bg-mossa px-7 py-4 text-[0.98rem] font-medium text-kalk transition-colors hover:bg-mossa-djup sm:w-auto"
+  >
+    Skicka meddelande
+  </button>
+
+  <p class="text-[0.86rem] leading-relaxed text-skiffer">
+    Vill du hellre ringa? {SITE.phone}, telefontid {PHONE_HOURS.toLowerCase()}.
+  </p>
+</form>

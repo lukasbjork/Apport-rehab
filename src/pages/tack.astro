@@ -1,0 +1,70 @@
+---
+/**
+ * Kvittenssida efter skickat kontaktformulär.
+ * Netlify skickar hit via formulärets action-attribut.
+ * noindex — sidan har inget värde i sökresultat.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Logo from '../components/Logo.astro';
+import { SITE, PHONE_HOURS } from '../lib/site';
+
+const genvagar = [
+  { label: 'Besvär vi arbetar med', href: '/besvar/' },
+  { label: 'Så går ett besök till', href: '/som-patient/' },
+  { label: 'Om Apport', href: '/om-apport/' },
+];
+---
+
+<BaseLayout
+  title="Tack för ditt meddelande | Apport"
+  description="Ditt meddelande har skickats till Apport i Kristianstad. Vi återkommer så snart vi kan."
+  noindex
+>
+  <section class="relative overflow-hidden bg-mossa-djup px-5 py-24 sm:px-8 sm:py-32">
+    <div class="relative mx-auto max-w-(--container-content)">
+      <div class="max-w-2xl">
+        <span class="text-salvia">
+          <Logo size={40} />
+        </span>
+
+        <h1 class="mt-10 text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.08] text-kalk">
+          Tack — vi har fått ditt meddelande.
+        </h1>
+
+        <p class="mt-6 text-[1.1rem] leading-relaxed text-kalk/75">
+          Vi läser allt som kommer in och återkommer så snart vi kan. Hur lång tid det tar
+          varierar med hur mycket som ligger i kön — hör gärna av dig igen om det dröjer.
+        </p>
+
+        <div class="mt-10 rounded-2xl border border-kalk/12 p-7">
+          <h2 class="text-[1.05rem] text-kalk">Behöver du nå oss snabbare?</h2>
+          <p class="mt-3 text-[0.96rem] leading-relaxed text-kalk/72">
+            Ring <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-kalk">{SITE.phone}</a>
+            under telefontiden, {PHONE_HOURS.toLowerCase()}.
+          </p>
+          <p class="mt-3 text-[0.96rem] leading-relaxed text-kalk/72">
+            Ska du skicka en egenremiss går den till <a
+              href={`mailto:${SITE.email}`}
+              class="lank-linje break-all text-kalk">{SITE.email}</a
+            >.
+          </p>
+        </div>
+
+        <ul class="mt-10 flex flex-wrap gap-3">
+          {
+            genvagar.map((g) => (
+              <li>
+                <a
+                  href={g.href}
+                  class="inline-block rounded-full border border-kalk/25 px-6 py-3 text-[0.93rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+                >
+                  {g.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

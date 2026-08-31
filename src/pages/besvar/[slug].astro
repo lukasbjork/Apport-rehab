@@ -5,6 +5,7 @@ import CtaSektion from '../../components/CtaSektion.astro';
 import Sikte from '../../components/Sikte.astro';
 import Faq from '../../components/Faq.astro';
 import Process from '../../components/Process.astro';
+import SnabbKontakt from '../../components/SnabbKontakt.astro';
 import { CONDITIONS, TREATMENTS, BEHANDLING_FORBEHALL } from '../../lib/content';
 import { breadcrumbSchema, conditionSchema, faqSchema } from '../../lib/schema';
 import { SITE, FEES, CTA, PHONE_HOURS } from '../../lib/site';
@@ -266,6 +267,8 @@ const avsnitt = [
       </aside>
     </div>
   </div>
+
+  <SnabbKontakt text="Låter det som dina besvär? Skriv några rader så tar vi ställning." />
 
   <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">

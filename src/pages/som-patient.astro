@@ -6,6 +6,7 @@ import SektionsRubrik from '../components/SektionsRubrik.astro';
 import Process from '../components/Process.astro';
 import Faq from '../components/Faq.astro';
 import Sikte from '../components/Sikte.astro';
+import SnabbKontakt from '../components/SnabbKontakt.astro';
 import { FAQS, NOT_OFFERED } from '../lib/content';
 import { SITE, FEES, PHONE_HOURS, OPENING_HOURS, CTA } from '../lib/site';
 import { breadcrumbSchema, faqSchema } from '../lib/schema';
@@ -182,6 +183,8 @@ const avsnitt = [
       </div>
     </div>
   </section>
+
+  <SnabbKontakt />
 
   <!-- Om vi inte är rätt -->
   <section id="inte-ratt" class="scroll-mt-32 px-5 py-(--spacing-section) sm:px-8">

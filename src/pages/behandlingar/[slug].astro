@@ -4,6 +4,7 @@ import SidHuvud from '../../components/SidHuvud.astro';
 import CtaSektion from '../../components/CtaSektion.astro';
 import Sikte from '../../components/Sikte.astro';
 import Faq from '../../components/Faq.astro';
+import SnabbKontakt from '../../components/SnabbKontakt.astro';
 import { TREATMENTS, CONDITIONS } from '../../lib/content';
 import { breadcrumbSchema, treatmentSchema, faqSchema } from '../../lib/schema';
 import { SITE, CTA, PHONE_HOURS } from '../../lib/site';
@@ -267,6 +268,8 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
       </aside>
     </div>
   </div>
+
+  <SnabbKontakt text="Undrar du om det här är relevant för dig? Fråga oss." />
 
   <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">

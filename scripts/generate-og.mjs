@@ -16,20 +16,23 @@ const svg = `
 
   <rect width="1200" height="630" fill="url(#bg)"/>
 
-  <!-- Siktet, stort och dekorativt -->
-  <g transform="translate(980 315)" opacity="0.16">
-    <circle r="230" fill="none" stroke="#8a9b88" stroke-width="2" stroke-dasharray="5 8"/>
-    <line x1="0" y1="-260" x2="0" y2="260" stroke="#8a9b88" stroke-width="2"/>
-    <line x1="-260" y1="0" x2="260" y2="0" stroke="#8a9b88" stroke-width="2"/>
-    <circle r="66" fill="none" stroke="#8a9b88" stroke-width="3"/>
+  <!-- Vävnadslagren, stort och dekorativt -->
+  <g transform="translate(950 315) scale(11)" opacity="0.14" stroke="#8a9b88" stroke-linecap="round" fill="none">
+    <path d="M-11 -4.2 Q0 -8.4 11 -4.2" stroke-width="0.5"/>
+    <path d="M-12 1.2 Q0 -3.5 12 1.2" stroke-width="0.5"/>
+    <path d="M-12 6.6 Q-7.4 4.1 -3.8 3.4" stroke-width="0.55"/>
+    <path d="M6.6 4.1 Q9.2 5.1 11 6.6" stroke-width="0.55"/>
   </g>
+  <circle cx="971" cy="345" r="30" fill="#8a9b88" opacity="0.2"/>
 
-  <!-- Litet sikte vid etiketten -->
-  <g transform="translate(90 108)" opacity="0.9">
-    <line x1="0" y1="-9" x2="0" y2="9" stroke="#8a9b88" stroke-width="1.6"/>
-    <line x1="-9" y1="0" x2="9" y2="0" stroke="#8a9b88" stroke-width="1.6"/>
-    <circle r="4.5" fill="none" stroke="#8a9b88" stroke-width="1.8"/>
+  <!-- Litet märke vid etiketten -->
+  <g transform="translate(90 108) scale(0.62)" stroke="#8a9b88" stroke-linecap="round" fill="none">
+    <path d="M-10 -4.4 Q0 -8.6 10 -4.4" stroke-width="1.6" opacity="0.4"/>
+    <path d="M-11 1 Q0 -3.7 11 1" stroke-width="1.6" opacity="0.6"/>
+    <path d="M-11 6.4 Q-6.4 3.9 -2.8 3.2" stroke-width="1.8"/>
+    <path d="M6.6 3.9 Q9.2 4.9 11 6.4" stroke-width="1.8"/>
   </g>
+  <circle cx="91" cy="110" r="3.4" fill="#8a9b88"/>
 
   <text x="116" y="115" font-family="Hanken Grotesk, Segoe UI, sans-serif"
         font-size="21" font-weight="600" letter-spacing="3.4" fill="#8a9b88">

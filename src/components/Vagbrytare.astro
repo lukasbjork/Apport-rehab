@@ -1,0 +1,43 @@
+---
+/**
+ * Bågformad sektionsövergång.
+ *
+ * Ersätter raka kanter mellan sektioner. Bågen är samma mjuka kurva som i
+ * logotypens vävnadslager, vilket gör att sajten känns mindre rutad utan att
+ * bli dekorativ för sakens skull.
+ *
+ * Ritas som en SVG som fyller HELA bredden och läggs kant i kant mellan två
+ * sektioner. `fran` är färgen ovanför, `till` färgen nedanför.
+ */
+interface Props {
+  /** Bakgrundsfärg i sektionen ovanför */
+  fran: 'kalk' | 'papper' | 'djup';
+  /** Bakgrundsfärg i sektionen nedanför */
+  till: 'kalk' | 'papper' | 'djup';
+  /** Bågens höjd i px — större värde ger mjukare kurva */
+  hojd?: number;
+}
+
+const { fran, till, hojd = 68 } = Astro.props;
+
+const varde: Record<Props['fran'], string> = {
+  kalk: 'var(--color-kalk)',
+  papper: 'var(--color-papper)',
+  djup: 'var(--color-mossa-djup)',
+};
+---
+
+<div
+  aria-hidden="true"
+  class="relative w-full overflow-hidden leading-[0]"
+  style={`background:${varde[fran]};height:${hojd}px`}
+>
+  <svg
+    viewBox="0 0 1440 68"
+    preserveAspectRatio="none"
+    class="absolute inset-0 h-full w-full"
+    fill="none"
+  >
+    <path d="M0 68 Q720 -14 1440 68 L1440 68 L0 68 Z" fill={varde[till]}></path>
+  </svg>
+</div>

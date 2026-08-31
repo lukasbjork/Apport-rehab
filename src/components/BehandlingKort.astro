@@ -9,8 +9,13 @@ const { treatment } = Astro.props;
 
 <a
   href={`/behandlingar/${treatment.slug}/`}
-  class="stig group flex flex-col rounded-2xl border border-sten bg-papper transition-all duration-300 hover:-translate-y-0.5 hover:border-salvia hover:shadow-mjuk"
+  class="stig group relative flex flex-col overflow-hidden rounded-2xl bg-papper transition-all duration-300 hover:-translate-y-1 hover:shadow-mjuk"
 >
+  <span
+    aria-hidden="true"
+    class="absolute inset-x-0 top-0 z-10 h-[2px] origin-left scale-x-0 bg-mossa transition-transform duration-400 ease-out group-hover:scale-x-100"
+  ></span>
+
   {
     treatment.image && (
       <div class="aspect-16/10 overflow-hidden rounded-t-2xl bg-lind">
@@ -27,7 +32,7 @@ const { treatment } = Astro.props;
     )
   }
 
-  <div class="flex flex-1 flex-col justify-between p-7">
+  <div class="flex flex-col p-7">
     <div>
       <div class="flex flex-wrap items-center gap-2">
         {
@@ -51,7 +56,7 @@ const { treatment } = Astro.props;
     </div>
 
     <span
-      class="mt-7 inline-flex items-center gap-2 text-[0.88rem] font-medium text-mossa transition-colors group-hover:text-tegel"
+      class="mt-6 inline-flex items-center gap-2 text-[0.88rem] font-medium text-mossa transition-colors group-hover:text-tegel"
     >
       Läs mer
       <svg
