@@ -1,0 +1,191 @@
+---
+/**
+ * "Är Apport rätt för mig?" — enkel vägledning, INTE ett diagnosverktyg.
+ *
+ * Medvetna designval:
+ *  - Fyra ja/nej-frågor om vårdform och förväntan, aldrig om symtom.
+ *    Frågar man om symtom blir det ett medicinskt triageverktyg, vilket
+ *    kräver helt andra regulatoriska hänsyn.
+ *  - Svaret är alltid mjukt formulerat och slutar i samma uppmaning:
+ *    hör av dig ändå. Ingen ska stängas ute av en webbsida.
+ *  - Fungerar utan JavaScript: utan JS visas alla frågor och en neutral
+ *    sammanfattning med kontaktuppgifter.
+ */
+import Sikte from './Sikte.astro';
+import { CTA } from '../lib/site';
+
+const FRAGOR = [
+  {
+    id: 'lokal',
+    fraga: 'Sitter smärtan på ett bestämt ställe?',
+    hjalp: 'Till exempel ländrygg, nacke, axel eller knä — snarare än värk i hela kroppen.',
+  },
+  {
+    id: 'provat',
+    fraga: 'Har du redan provat någon behandling utan att bli bra?',
+    hjalp: 'Vårdcentral, fysioterapeut, ortoped eller egenvård.',
+  },
+  {
+    id: 'forsta',
+    fraga: 'Vill du framför allt förstå vad som orsakar smärtan?',
+    hjalp: 'Vår utredning tar 3–5 besök innan vi kan uttala oss om orsaken.',
+  },
+  {
+    id: 'langvarig',
+    fraga: 'Har besvären funnits i mer än ett par månader?',
+    hjalp: 'Vi arbetar sällan med helt färska besvär som fortfarande kan läka av sig själva.',
+  },
+];
+---
+
+<section class="px-5 py-(--spacing-section) sm:px-8">
+  <div class="mx-auto max-w-(--container-content)">
+    <div class="overflow-hidden rounded-[2rem] border border-sten bg-papper">
+      <div class="grid lg:grid-cols-12">
+        <!-- Vänster: rubrik -->
+        <div class="bg-lind/40 p-8 sm:p-12 lg:col-span-5">
+          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-salvia-text">
+            <Sikte size={13} />
+            Är Apport rätt för mig?
+          </p>
+          <h2 class="mt-4 text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
+            Fyra frågor som brukar avgöra saken
+          </h2>
+          <p class="mt-5 text-[1rem] leading-relaxed text-skiffer">
+            Det här är ingen medicinsk bedömning — bara en vägledning om vår klinik brukar
+            passa för besvär som dina. Vi frågar inte om dina symtom.
+          </p>
+          <p class="mt-5 text-[0.95rem] leading-relaxed text-mossa-djup">
+            Är du osäker? Skriv ändå. Vi säger till om vi tror att någon annan kan hjälpa dig
+            bättre.
+          </p>
+        </div>
+
+        <!-- Höger: frågorna -->
+        <div class="p-8 sm:p-12 lg:col-span-7">
+          <form id="relevans" class="space-y-6">
+            {
+              FRAGOR.map((f, i) => (
+                <fieldset class="border-0 p-0">
+                  <legend class="text-[1.02rem] font-medium leading-snug text-mossa-djup">
+                    <span class="mr-2 text-salvia-text">{i + 1}.</span>
+                    {f.fraga}
+                  </legend>
+                  <p class="mt-1.5 text-[0.88rem] leading-relaxed text-skiffer">{f.hjalp}</p>
+                  <div class="mt-3 flex gap-2.5">
+                    <label class="relevans-val">
+                      <input type="radio" name={f.id} value="ja" class="sr-only" />
+                      <span>Ja</span>
+                    </label>
+                    <label class="relevans-val">
+                      <input type="radio" name={f.id} value="nej" class="sr-only" />
+                      <span>Nej</span>
+                    </label>
+                  </div>
+                </fieldset>
+              ))
+            }
+          </form>
+
+          <!-- Svarsruta. Tom och dold tills alla frågor besvarats. -->
+          <div
+            id="relevans-svar"
+            class="mt-8 rounded-2xl border border-sten bg-kalk p-6"
+            hidden
+            aria-live="polite"
+          >
+            <p id="relevans-rubrik" class="text-[1.1rem] leading-snug text-mossa-djup"></p>
+            <p id="relevans-text" class="mt-3 text-[0.96rem] leading-relaxed text-skiffer"></p>
+            <a
+              href={CTA.primary.href}
+              class="mt-6 inline-block rounded-full bg-mossa px-6 py-3 text-[0.92rem] font-medium text-kalk transition-colors hover:bg-mossa-djup"
+            >
+              {CTA.primary.label}
+            </a>
+          </div>
+
+          <!-- Utan JavaScript: visa kontaktvägen direkt -->
+          <noscript>
+            <div class="mt-8 rounded-2xl border border-sten bg-kalk p-6">
+              <p class="text-[0.96rem] leading-relaxed text-skiffer">
+                Svarar du ja på de flesta frågorna brukar Apport kunna vara relevant. Är du
+                osäker — skriv ändå, så säger vi till om vi tror att någon annan passar bättre.
+              </p>
+              <a
+                href={CTA.primary.href}
+                class="mt-5 inline-block rounded-full bg-mossa px-6 py-3 text-[0.92rem] font-medium text-kalk"
+              >
+                {CTA.primary.label}
+              </a>
+            </div>
+          </noscript>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .relevans-val {
+    display: inline-flex;
+    cursor: pointer;
+    border-radius: 9999px;
+    border: 1px solid var(--color-sten-mork);
+    padding: 0.5rem 1.4rem;
+    font-size: 0.92rem;
+    color: var(--color-skiffer);
+    transition:
+      background-color 0.2s,
+      border-color 0.2s,
+      color 0.2s;
+  }
+  .relevans-val:hover {
+    border-color: var(--color-salvia);
+  }
+  /* Markera valt alternativ — :has stöds i alla aktuella webbläsare */
+  .relevans-val:has(input:checked) {
+    background-color: var(--color-mossa);
+    border-color: var(--color-mossa);
+    color: var(--color-kalk);
+  }
+  /* Fokusmarkering måste följa med när input är visuellt dold */
+  .relevans-val:has(input:focus-visible) {
+    outline: 3px solid var(--color-mossa);
+    outline-offset: 3px;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('relevans') as HTMLFormElement | null;
+  const svar = document.getElementById('relevans-svar');
+  const rubrik = document.getElementById('relevans-rubrik');
+  const text = document.getElementById('relevans-text');
+
+  if (form && svar && rubrik && text) {
+    const IDS = ['lokal', 'provat', 'forsta', 'langvarig'];
+
+    form.addEventListener('change', () => {
+      const data = new FormData(form);
+      const svarade = IDS.filter((id) => data.get(id));
+      if (svarade.length < IDS.length) return;
+
+      const ja = IDS.filter((id) => data.get(id) === 'ja').length;
+
+      if (ja >= 3) {
+        rubrik.textContent = 'Det låter som att Apport kan vara relevant för dig.';
+        text.textContent =
+          'Dina svar stämmer med den typ av besvär vi brukar arbeta med. Nästa steg är att du berättar lite mer — några rader räcker, så tar vi ställning.';
+      } else if (ja === 2) {
+        rubrik.textContent = 'Det är svårt att säga utan att veta mer.';
+        text.textContent =
+          'Vissa av dina svar stämmer med hur vi arbetar, andra inte. Skriv några rader om dina besvär så läser vi och säger till om vi tror att vi kan hjälpa dig.';
+      } else {
+        rubrik.textContent = 'En annan vårdgivare kan vara mer rätt.';
+        text.textContent =
+          'Utifrån dina svar är det möjligt att vi inte är rätt klinik. Men det här är ingen bedömning — skriv gärna ändå, så säger vi till om vi tror att någon annan kan hjälpa dig bättre.';
+      }
+
+      svar.hidden = false;
+    });
+  }
+</script>

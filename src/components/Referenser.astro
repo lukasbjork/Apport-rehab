@@ -1,25 +1,34 @@
 ---
 /**
- * Patientreferenser.
+ * Patientreferenser och Google-omdömen.
  *
  * ⚠️ VIKTIGT — LÄS INNAN DU FYLLER I:
  * Nuvarande apport.rehab har en referenssektion som ligger live med
  * lorem ipsum-text och påhittade namn ("Tobias – CEO", "Jimmy", "Alice",
  * "Adam"). Det får inte hända igen.
  *
- * Därför är TESTIMONIALS medvetet TOM. Komponenten renderar INGENTING
- * så länge listan är tom — det går alltså inte att råka publicera
- * platshållartext.
+ * Därför är både TESTIMONIALS och GOOGLE medvetet tomma. Komponenten
+ * renderar INGENTING så länge båda är tomma — det går alltså inte att
+ * råka publicera platshållartext eller påhittade betyg.
  *
- * Så här lägger du in riktiga omdömen:
+ * ── Riktiga omdömen ──────────────────────────────────────────────
  *  1. Hämta in skriftligt samtycke från patienten.
  *  2. Använd patientens egna ord. Skriv inte om dem till reklam.
  *  3. Ange förnamn + ålder ELLER "Patient, Kristianstad". Aldrig påhittade namn.
  *  4. Lova inget resultat i citatet. Undvik "blev helt bra", "botad".
  *
- * Enligt patientsäkerhetslagen och Läkemedelsverkets riktlinjer ska
- * vårdgivare vara försiktiga med marknadsföring som antyder garanterat
- * behandlingsresultat. Håll citaten beskrivande, inte lovande.
+ * ── Google-omdömen ───────────────────────────────────────────────
+ * Fyll i GOOGLE endast med siffror som faktiskt står på klinikens
+ * Google-profil, och uppdatera dem när de ändras. Ett inaktuellt betyg
+ * är sämre än inget betyg. `url` ska peka på den publika profilen så att
+ * besökaren kan kontrollera uppgiften själv.
+ *
+ * Vid kontroll 2026-08-31 hittades ingen publik Google-profil med omdömen
+ * för Apport. Skapas en sådan är det bara att fylla i här.
+ *
+ * OBS: Lägg INTE till AggregateRating i schema.org förrän det finns
+ * verkliga, publikt kontrollerbara omdömen. Falsk recensionsmarkering
+ * är en av de saker Google uttryckligen utfärdar manuella åtgärder för.
  */
 import SektionsRubrik from './SektionsRubrik.astro';
 
@@ -32,34 +41,64 @@ interface Testimonial {
   context?: string;
 }
 
+interface GoogleOmdomen {
+  /** Snittbetyg, t.ex. 4.8 */
+  rating: number;
+  /** Antal omdömen */
+  count: number;
+  /** Länk till den publika Google-profilen */
+  url: string;
+}
+
 const TESTIMONIALS: Testimonial[] = [
   // Tomt tills kliniken levererat riktiga, godkända omdömen.
 ];
+
+const GOOGLE: GoogleOmdomen | null = null;
+
+const harInnehall = TESTIMONIALS.length > 0 || GOOGLE !== null;
 ---
 
 {
-  TESTIMONIALS.length > 0 && (
+  harInnehall && (
     <section class="px-5 py-(--spacing-section) sm:px-8">
       <div class="mx-auto max-w-(--container-content)">
-        <SektionsRubrik
-          etikett="Patientröster"
-          rubrik="Vad patienter har sagt"
-          align="center"
-        />
+        <SektionsRubrik etikett="Patientröster" rubrik="Vad patienter har sagt" align="center" />
 
-        <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <figure class="stig flex flex-col rounded-2xl border border-sten bg-papper p-8">
-              <blockquote class="flex-1 text-[1.02rem] leading-relaxed text-mossa-djup">
-                <p>”{t.quote}”</p>
-              </blockquote>
-              <figcaption class="mt-6 border-t border-sten pt-5 text-[0.86rem]">
-                <span class="font-medium text-mossa-djup">{t.attribution}</span>
-                {t.context && <span class="block text-skiffer">{t.context}</span>}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        {GOOGLE && (
+          <a
+            href={GOOGLE.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mx-auto mt-10 flex w-fit items-center gap-4 rounded-full border border-sten bg-papper px-7 py-4 transition-colors hover:border-salvia"
+          >
+            <span class="font-[family-name:var(--font-display)] text-[1.7rem] leading-none text-mossa-djup">
+              {GOOGLE.rating.toFixed(1).replace('.', ',')}
+            </span>
+            <span class="text-[0.9rem] leading-tight text-skiffer">
+              av 5 på Google
+              <span class="block text-[0.82rem] text-skiffer/80">
+                {GOOGLE.count} omdömen · läs på Google
+              </span>
+            </span>
+          </a>
+        )}
+
+        {TESTIMONIALS.length > 0 && (
+          <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {TESTIMONIALS.map((t) => (
+              <figure class="stig flex flex-col rounded-2xl border border-sten bg-papper p-8">
+                <blockquote class="flex-1 text-[1.02rem] leading-relaxed text-mossa-djup">
+                  <p>”{t.quote}”</p>
+                </blockquote>
+                <figcaption class="mt-6 border-t border-sten pt-5 text-[0.86rem]">
+                  <span class="font-medium text-mossa-djup">{t.attribution}</span>
+                  {t.context && <span class="block text-skiffer">{t.context}</span>}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

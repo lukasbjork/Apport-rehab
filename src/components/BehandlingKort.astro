@@ -15,7 +15,7 @@ const { treatment } = Astro.props;
     treatment.image && (
       <div class="aspect-16/10 overflow-hidden rounded-t-2xl bg-lind">
         <img
-          src={treatment.image.src.replace(/\.(jpe?g|png)$/, '.webp')}
+          src={treatment.image.src}
           alt={treatment.image.alt}
           width="1400"
           height="875"

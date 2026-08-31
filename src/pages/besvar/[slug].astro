@@ -3,10 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SidHuvud from '../../components/SidHuvud.astro';
 import CtaSektion from '../../components/CtaSektion.astro';
 import Sikte from '../../components/Sikte.astro';
+import Faq from '../../components/Faq.astro';
 import Process from '../../components/Process.astro';
-import { CONDITIONS, TREATMENTS } from '../../lib/content';
-import { breadcrumbSchema, conditionSchema } from '../../lib/schema';
-import { FEES } from '../../lib/site';
+import { CONDITIONS, TREATMENTS, BEHANDLING_FORBEHALL } from '../../lib/content';
+import { breadcrumbSchema, conditionSchema, faqSchema } from '../../lib/schema';
+import { SITE, FEES, CTA, PHONE_HOURS } from '../../lib/site';
 
 export function getStaticPaths() {
   return CONDITIONS.map((condition) => ({
@@ -28,20 +29,45 @@ const relaterade = condition.relatedTreatments
   .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
 const andraBesvar = CONDITIONS.filter((c) => c.slug !== condition.slug).slice(0, 4);
+
+/** Innehållsförteckning — sidorna är långa. */
+const avsnitt = [
+  { id: 'igenkanning', titel: 'Känner du igen dig?' },
+  { id: 'symtom', titel: 'Vanliga symtom' },
+  { id: 'orsaker', titel: 'Möjliga orsaker' },
+  { id: 'utredning', titel: 'Hur vi utreder' },
+  { id: 'behandling', titel: 'Behandling' },
+  { id: 'rehabilitering', titel: 'Träning och rehab' },
+  { id: 'fragor', titel: 'Vanliga frågor' },
+];
 ---
 
 <BaseLayout
   title={`${condition.metaTitle} | Apport`}
   description={condition.metaDescription}
-  schema={[breadcrumbSchema(crumbs), conditionSchema(condition)]}
+  schema={[breadcrumbSchema(crumbs), conditionSchema(condition), faqSchema(condition.faqs)]}
 >
   <SidHuvud etikett={condition.group} rubrik={condition.heading} ingress={condition.intro} {crumbs} />
+
+  <nav aria-label="Innehåll på sidan" class="border-b border-sten bg-papper px-5 py-6 sm:px-8">
+    <ul class="mx-auto flex max-w-(--container-content) flex-wrap gap-x-6 gap-y-2.5">
+      {
+        avsnitt.map((a) => (
+          <li>
+            <a href={`#${a.id}`} class="lank-linje inline-block py-1 text-[0.9rem] text-skiffer hover:text-mossa-djup">
+              {a.titel}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 
   <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
     <div class="grid gap-16 py-(--spacing-section) lg:grid-cols-12">
       <!-- Huvudspalt -->
       <div class="lg:col-span-7">
-        <section>
+        <section id="igenkanning" class="scroll-mt-32">
           <h2 class="text-[1.65rem] text-mossa-djup">Känner du igen dig?</h2>
           <ul class="mt-7 space-y-px overflow-hidden rounded-2xl bg-sten">
             {
@@ -57,10 +83,80 @@ const andraBesvar = CONDITIONS.filter((c) => c.slug !== condition.slug).slice(0,
           </ul>
         </section>
 
-        <section class="mt-16">
-          <h2 class="text-[1.65rem] text-mossa-djup">Så arbetar vi med detta</h2>
+        <section id="symtom" class="mt-16 scroll-mt-32">
+          <h2 class="text-[1.65rem] text-mossa-djup">Vanliga symtom</h2>
+          <ul class="mt-6 space-y-3">
+            {
+              condition.symptoms.map((rad) => (
+                <li class="flex items-start gap-3.5 text-[1.01rem] leading-relaxed text-skiffer">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-salvia-text" aria-hidden="true" />
+                  {rad}
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mt-6 text-[0.92rem] leading-relaxed text-skiffer">
+            Symtomen ovan är vanliga men inte uttömmande, och de säger inte ensamma vad som
+            orsakar besvären. Det är just det utredningen är till för.
+          </p>
+        </section>
+
+        <section id="orsaker" class="mt-16 scroll-mt-32">
+          <h2 class="text-[1.65rem] text-mossa-djup">Möjliga orsaker</h2>
+          <div class="mt-7 space-y-px overflow-hidden rounded-2xl bg-sten">
+            {
+              condition.causes.map((c) => (
+                <div class="bg-papper px-7 py-6">
+                  <h3 class="text-[1.08rem] leading-snug text-mossa-djup">{c.title}</h3>
+                  <p class="mt-2 text-[0.96rem] leading-relaxed text-skiffer">{c.body}</p>
+                </div>
+              ))
+            }
+          </div>
+        </section>
+
+        {
+          condition.image && (
+            <figure class="mt-14">
+              <img
+                src={condition.image.src}
+                alt={condition.image.alt}
+                width="1400"
+                height="1000"
+                loading="lazy"
+                decoding="async"
+                class="w-full rounded-2xl border border-sten object-cover"
+              />
+              <figcaption class="mt-4 text-[0.85rem] leading-relaxed text-skiffer">
+                {condition.image.caption}
+              </figcaption>
+            </figure>
+          )
+        }
+
+        <section id="utredning" class="mt-16 scroll-mt-32">
+          <h2 class="text-[1.65rem] text-mossa-djup">Hur vi utreder</h2>
           <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
-            {condition.approach.map((stycke) => <p>{stycke}</p>)}
+            {condition.investigation.map((stycke) => <p>{stycke}</p>)}
+          </div>
+        </section>
+
+        <section id="behandling" class="mt-16 scroll-mt-32">
+          <h2 class="text-[1.65rem] text-mossa-djup">Behandling</h2>
+          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
+            {condition.treatment.map((stycke) => <p>{stycke}</p>)}
+          </div>
+          <p
+            class="mt-7 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.96rem] leading-relaxed text-mossa-djup"
+          >
+            {BEHANDLING_FORBEHALL}
+          </p>
+        </section>
+
+        <section id="rehabilitering" class="mt-16 scroll-mt-32">
+          <h2 class="text-[1.65rem] text-mossa-djup">Träning och rehabilitering</h2>
+          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
+            {condition.rehab.map((stycke) => <p>{stycke}</p>)}
           </div>
         </section>
 
@@ -76,18 +172,53 @@ const andraBesvar = CONDITIONS.filter((c) => c.slug !== condition.slug).slice(0,
               ))
             }
           </ul>
-          <p class="mt-7 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.96rem] leading-relaxed text-mossa-djup">
-            Vi kan inte lova att bli av med din smärta. Vad som är möjligt beror på besvär,
-            vävnad och förutsättningar. Det vi kan lova är att vi försöker ta reda på var smärtan
-            kommer ifrån innan vi föreslår något — och att vi säger till om vi tror att någon annan
-            kan hjälpa dig bättre.
-          </p>
+        </section>
+
+        <section id="fragor" class="mt-16 scroll-mt-32">
+          <h2 class="text-[1.65rem] text-mossa-djup">Vanliga frågor</h2>
+          <Faq faqs={condition.faqs} class="mt-8" />
         </section>
       </div>
 
       <!-- Sidospalt -->
       <aside class="lg:col-span-5">
         <div class="sticky top-32 space-y-6">
+          <div class="rounded-2xl bg-mossa-djup p-7 text-kalk">
+            <h2 class="text-[1.15rem]">Så kontaktar du oss</h2>
+            <p class="mt-3 text-[0.94rem] leading-relaxed text-kalk/72">
+              Du behöver ingen remiss. Skriv några rader om dina besvär så tar vi ställning.
+            </p>
+            <a
+              href={CTA.primary.href}
+              class="mt-6 block rounded-full bg-kalk px-6 py-3 text-center text-[0.92rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+            >
+              {CTA.primary.label}
+            </a>
+            <dl class="mt-6 space-y-3.5 border-t border-kalk/12 pt-5 text-[0.9rem]">
+              <div>
+                <dt class="text-salvia">E-post</dt>
+                <dd class="mt-0.5">
+                  <a href={`mailto:${SITE.email}`} class="lank-linje break-all text-kalk/85">
+                    {SITE.email}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt class="text-salvia">Telefon</dt>
+                <dd class="mt-0.5 text-kalk/85">
+                  <a href={`tel:${SITE.phoneHref}`} class="lank-linje">{SITE.phone}</a>
+                  <span class="block text-[0.84rem] text-kalk/58">
+                    Telefontid {PHONE_HOURS.toLowerCase()}
+                  </span>
+                </dd>
+              </div>
+              <div>
+                <dt class="text-salvia">Patientavgift</dt>
+                <dd class="mt-0.5 text-kalk/85">{FEES.visit}, frikort gäller</dd>
+              </div>
+            </dl>
+          </div>
+
           <div class="rounded-2xl border border-sten bg-papper p-7">
             <h2 class="text-[1.15rem] text-mossa-djup">Behandlingar som kan bli aktuella</h2>
             <p class="mt-2 text-[0.88rem] leading-relaxed text-skiffer">
@@ -101,7 +232,14 @@ const andraBesvar = CONDITIONS.filter((c) => c.slug !== condition.slug).slice(0,
                       href={`/behandlingar/${t.slug}/`}
                       class="group flex items-center justify-between gap-4 bg-papper px-5 py-4 transition-colors hover:bg-lind/50"
                     >
-                      <span class="text-[0.95rem] text-mossa-djup">{t.name}</span>
+                      <span class="text-[0.95rem] text-mossa-djup">
+                        {t.shortName}
+                        {!t.inAgreement && (
+                          <span class="mt-0.5 block text-[0.78rem] text-tegel">
+                            Utanför avtalet
+                          </span>
+                        )}
+                      </span>
                       <svg
                         width="14"
                         height="9"
@@ -123,30 +261,6 @@ const andraBesvar = CONDITIONS.filter((c) => c.slug !== condition.slug).slice(0,
                 ))
               }
             </ul>
-          </div>
-
-          <div class="rounded-2xl bg-mossa-djup p-7 text-kalk">
-            <h2 class="text-[1.15rem]">Kort om att komma hit</h2>
-            <dl class="mt-5 space-y-4 text-[0.92rem]">
-              <div>
-                <dt class="text-salvia">Remiss</dt>
-                <dd class="mt-0.5 text-kalk/80">Behövs inte — du skriver en egenremiss själv.</dd>
-              </div>
-              <div>
-                <dt class="text-salvia">Patientavgift</dt>
-                <dd class="mt-0.5 text-kalk/80">{FEES.visit}. {FEES.visitNote}</dd>
-              </div>
-              <div>
-                <dt class="text-salvia">Utredning</dt>
-                <dd class="mt-0.5 text-kalk/80">Räkna med 3–5 besök innan diagnos.</dd>
-              </div>
-            </dl>
-            <a
-              href="/sa-gar-det-till/#egenremiss"
-              class="mt-7 block rounded-full bg-kalk px-6 py-3 text-center text-[0.92rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
-            >
-              Skriv en egenremiss
-            </a>
           </div>
         </div>
       </aside>

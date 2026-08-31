@@ -2,13 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Sikte from '../components/Sikte.astro';
 import { CONDITIONS } from '../lib/content';
-import { SITE } from '../lib/site';
+import { SITE, CTA } from '../lib/site';
 
 const genvagar = [
-  { label: 'Besvär vi behandlar', href: '/besvar/' },
+  { label: 'Till startsidan', href: '/' },
+  { label: 'Se våra besvär', href: '/besvar/' },
   { label: 'Behandlingar', href: '/behandlingar/' },
-  { label: 'Så går det till', href: '/sa-gar-det-till/' },
-  { label: 'Kontakt', href: '/kontakt/' },
+  { label: 'Som patient', href: '/som-patient/' },
 ];
 ---
 
@@ -31,11 +31,12 @@ const genvagar = [
         404
       </p>
       <h1 class="mt-6 max-w-2xl text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.1] text-kalk">
-        Vi hittade inte den här sidan
+        Den sidan finns inte.
+        <span class="mt-1 block text-salvia">Men du kan börja här.</span>
       </h1>
       <p class="mt-6 max-w-xl text-[1.08rem] leading-relaxed text-kalk/72">
-        Länken kan vara gammal eller felstavad. Prova någon av vägarna nedan — eller hör av dig, så
-        pekar vi dig rätt.
+        Länken kan vara gammal eller felstavad. Prova någon av vägarna nedan — eller berätta om
+        dina besvär direkt, så pekar vi dig rätt.
       </p>
 
       <ul class="mt-10 flex flex-wrap gap-3">
@@ -53,9 +54,17 @@ const genvagar = [
         }
       </ul>
 
-      <p class="mt-10 text-[0.9rem] text-kalk/58">
-        Eller ring <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-kalk">{SITE.phone}</a>
-      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <a
+          href={CTA.primary.href}
+          class="rounded-full bg-kalk px-7 py-3.5 text-[0.95rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+        >
+          {CTA.primary.label}
+        </a>
+        <p class="text-[0.9rem] text-kalk/58">
+          Eller ring <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-kalk">{SITE.phone}</a>
+        </p>
+      </div>
     </div>
   </section>
 

@@ -73,25 +73,46 @@ export function clinicSchema() {
   };
 }
 
-/** Physician-noder för de två klinikerna. */
-export function physicianSchema(opts: {
+/**
+ * Personnod för teamet.
+ *
+ * VIKTIGT: bara Rolf är läkare. Schema.org-typen Physician får inte användas
+ * för Helene, som är legitimerad fysioterapeut — det vore en felaktig uppgift
+ * om en namngiven persons yrkesbehörighet. Hon får därför Person med
+ * jobTitle och hasCredential i stället.
+ */
+export function personSchema(opts: {
   name: string;
   role: string;
   url: string;
   credentials: string[];
+  /** true endast för legitimerad läkare */
+  isPhysician: boolean;
+  specialties: string[];
 }) {
-  return {
+  const nod: Record<string, unknown> = {
     '@context': 'https://schema.org',
-    '@type': 'Physician',
+    '@type': opts.isPhysician ? 'Physician' : 'Person',
     '@id': abs(opts.url) + '#person',
     name: opts.name,
     jobTitle: opts.role,
     url: abs(opts.url),
     worksFor: { '@id': `${SITE.url}/#klinik` },
-    address: ADDRESS,
-    telephone: SITE.phoneHref,
     knowsAbout: opts.credentials,
+    hasCredential: opts.credentials.map((c) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: c,
+    })),
   };
+
+  // medicalSpecialty hör bara hemma på en Physician-nod
+  if (opts.isPhysician) {
+    nod.medicalSpecialty = opts.specialties;
+    nod.address = ADDRESS;
+    nod.telephone = SITE.phoneHref;
+  }
+
+  return nod;
 }
 
 export function breadcrumbSchema(crumbs: Crumb[]) {

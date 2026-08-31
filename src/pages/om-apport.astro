@@ -8,7 +8,7 @@ import Sikte from '../components/Sikte.astro';
 import Referenser from '../components/Referenser.astro';
 import { TEAM, NOT_OFFERED } from '../lib/content';
 import { SITE } from '../lib/site';
-import { breadcrumbSchema, physicianSchema } from '../lib/schema';
+import { breadcrumbSchema, personSchema } from '../lib/schema';
 
 const title = 'Om Apport — smärtklinik i Kristianstad sedan 2010';
 const description =
@@ -22,11 +22,14 @@ const crumbs = [
 const schema = [
   breadcrumbSchema(crumbs),
   ...TEAM.map((p) =>
-    physicianSchema({
+    personSchema({
       name: p.name,
       role: p.role,
       url: `/om-apport/#${p.slug}`,
       credentials: p.credentials,
+      specialties: p.specialties,
+      // Endast Rolf är legitimerad läkare
+      isPhysician: p.slug === 'rolf-jonsson',
     }),
   ),
 ];
@@ -126,18 +129,39 @@ const schema = [
         {
           TEAM.map((person, i) => (
             <article id={person.slug} class="scroll-mt-32 grid gap-10 lg:grid-cols-12">
-              <div class:list={['lg:col-span-4', i % 2 === 1 && 'lg:order-2']}>
-                <BildPlatshallare
-                  behov={`Porträtt av ${person.name}`}
-                  monogram={person.name
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
-                  ratio="aspect-4/5"
-                />
+              <div class:list={['lg:col-span-5', i % 2 === 1 && 'lg:order-2']}>
+                {person.image ? (
+                  <img
+                    src={person.image}
+                    alt={person.imageAlt}
+                    width="800"
+                    height="1000"
+                    loading="lazy"
+                    decoding="async"
+                    class="aspect-4/5 w-full rounded-2xl border border-sten object-cover"
+                  />
+                ) : (
+                  <BildPlatshallare
+                    behov={`Porträtt av ${person.name}`}
+                    monogram={person.name
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')}
+                    ratio="aspect-4/5"
+                  />
+                )}
+
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {person.specialties.map((sp) => (
+                    <li class="flex items-center gap-1.5 rounded-full bg-lind/70 px-3 py-1.5 text-[0.8rem] text-mossa-djup">
+                      <Sikte size={11} />
+                      {sp}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <div class:list={['lg:col-span-8', i % 2 === 1 && 'lg:order-1']}>
+              <div class:list={['lg:col-span-7', i % 2 === 1 && 'lg:order-1']}>
                 <h3 class="text-[1.9rem] leading-tight text-mossa-djup">{person.name}</h3>
                 <p class="mt-2 text-[1rem] font-medium text-mossa-ljus">{person.role}</p>
 

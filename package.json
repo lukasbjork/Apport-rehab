@@ -11,7 +11,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "og": "node scripts/generate-og.mjs",
-    "bilder": "node scripts/optimize-images.mjs"
+    "bilder": "node scripts/optimize-images.mjs",
+    "redirects": "node scripts/generate-redirects.mjs",
+    "prebuild": "node scripts/generate-redirects.mjs",
+    "verify": "node scripts/verify.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

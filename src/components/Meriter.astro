@@ -1,0 +1,89 @@
+---
+/**
+ * Credential-block. Endast verifierbara uppgifter — inga påhittade
+ * patientantal, framgångssiffror eller betyg.
+ * Källa: apport.rehab/om-oss/, /kliniken/ och allabolag.se.
+ */
+import Sikte from './Sikte.astro';
+import { CREDENTIALS, TEAM } from '../lib/content';
+
+interface Props {
+  /** Mörk variant för placering mot mossa-djup */
+  light?: boolean;
+}
+const { light = false } = Astro.props;
+---
+
+<div>
+  <ul class="grid gap-px overflow-hidden rounded-2xl bg-sten sm:grid-cols-2 lg:grid-cols-4">
+    {
+      CREDENTIALS.map((c) => (
+        <li class:list={['stig p-7', light ? 'bg-mossa-djup' : 'bg-papper']}>
+          <p
+            class:list={[
+              'font-[family-name:var(--font-display)] text-[2.1rem] leading-none',
+              light ? 'text-kalk' : 'text-mossa-djup',
+            ]}
+          >
+            {c.tal}
+          </p>
+          <p
+            class:list={[
+              'mt-3 text-[0.76rem] font-semibold uppercase tracking-[0.14em]',
+              light ? 'text-salvia' : 'text-salvia-text',
+            ]}
+          >
+            {c.etikett}
+          </p>
+          <p
+            class:list={[
+              'mt-2 text-[0.92rem] leading-relaxed',
+              light ? 'text-kalk/68' : 'text-skiffer',
+            ]}
+          >
+            {c.text}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <!-- Vilka specialistkompetenserna faktiskt är -->
+  <div class="mt-5 grid gap-5 sm:grid-cols-2">
+    {
+      TEAM.map((person) => (
+        <div
+          class:list={[
+            'stig rounded-2xl border p-7',
+            light ? 'border-kalk/12 bg-mossa-djup' : 'border-sten bg-papper',
+          ]}
+        >
+          <h3 class:list={['text-[1.15rem]', light ? 'text-kalk' : 'text-mossa-djup']}>
+            {person.name}
+          </h3>
+          <p
+            class:list={[
+              'mt-1 text-[0.9rem] font-medium',
+              light ? 'text-salvia' : 'text-mossa-ljus',
+            ]}
+          >
+            {person.role}
+          </p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {person.specialties.map((s) => (
+              <li
+                class:list={[
+                  'flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.8rem]',
+                  light ? 'bg-kalk/10 text-kalk/85' : 'bg-lind/70 text-mossa-djup',
+                ]}
+              >
+                <Sikte size={11} />
+                {s}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</div>

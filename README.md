@@ -35,6 +35,32 @@ ifall sajten senare ska flyttas till Vercel i stället.
 
 ## ⚠️ Måste göras innan lansering
 
+### 0. Medicinsk granskning (viktigast)
+
+Sajten innehåller nu betydligt mer medicinsk text än i version 1. Följande
+fält är **allmän patientinformation som inte står ordagrant i klinikens
+befintliga material** och måste läsas igenom och godkännas av Rolf:
+
+| Var | Fält | Vad det är |
+|---|---|---|
+| `src/lib/besvar-data.ts` | `symptoms` | "Vanliga symtom" på varje besvärssida — 10 sidor |
+| `src/lib/besvar-data.ts` | `causes` | "Möjliga orsaker" på varje besvärssida — 10 sidor |
+| `src/lib/behandlingar-data.ts` | `notSuitable` | "När är det inte lämpligt?" — 8 sidor |
+
+Texterna är medvetet försiktigt formulerade ("kan", "för vissa patienter",
+"vi bedömer") och innehåller inga löften om bot eller resultat. Men de behöver
+ändå en läkares ögon innan de publiceras.
+
+**Särskilt om `notSuitable`:** fältet innehåller MEDVETET inga specifika
+medicinska kontraindikationer för PRP, proloterapi eller pRF. Klinikens
+befintliga material listar inga, och att hitta på dem vore direkt farligt.
+Fältet beskriver i stället klinikens arbetssätt och de avgränsningar som
+faktiskt står i källan. **Rolf behöver komplettera med de verkliga
+kontraindikationerna.**
+
+Allt annat medicinskt innehåll är spårbart till apport.rehab, 1177 eller
+allabolag.
+
 ### 1. Verifiera dessa uppgifter med kliniken
 
 Allt nedan är hämtat från nuvarande apport.rehab, 1177 eller allabolag —
@@ -158,20 +184,45 @@ eller allabolag. Inget hittas på. Formuleringar hålls försiktiga — "kan",
 
 ```
 /                              Startsida
-/besvar/                       Hubb — grupperad i Kotpelaren/Leder/Muskler/Nerver
-  ryggsmarta, nacksmarta, backensmarta-si-led, artros,
-  axelsmarta, muskelsmarta-triggerpunkter, nervsmarta, huvudvark-migran
-/behandlingar/                 Hubb — delad i "ingår i avtalet" / "utanför avtalet"
-  utredning, akupunktur, proloterapi, prp,
+/besvar/                       Hubb — Kotpelaren / Leder / Muskler / Nerver
+  ryggsmarta, nacksmarta, whiplash, backensmarta-si-led, artros,
+  axelsmarta, muskelsmarta-triggerpunkter, nervsmarta, huvudvark, migran
+/behandlingar/                 Hubb — "ingår i avtalet" / "utanför avtalet"
+  utredning, smartspecialist, akupunktur, proloterapi, prp,
   pulsad-radiofrekvens, medicinsk-smartbehandling, fysioterapi
 /regenerativ-medicin/          Pelarsida
+/egenremiss/                   Konverteringssida — primär CTA pekar hit
 /om-apport/                    Klinik, arbetssätt, teamet (#rolf-jonsson, #helene-...)
-/sa-gar-det-till/              Egenremiss (#egenremiss), avgifter, FAQ
+/som-patient/                  Första besöket, avgifter, återbud, FAQ
 /kontakt/                      Uppgifter, formulär, karta
 /synpunkter/                   Patientnämnden, IVO, journal
 /integritetspolicy/            GDPR
 /404
 ```
+
+**29 sidor, 28 indexerbara.** Varje besvärs- och behandlingssida har egen FAQ
+som också driver FAQPage-schema.
+
+### Varför muskelsmärta och triggerpunkter delar sida
+
+Källmaterialet säger: *"Den vanligaste orsaken till muskelsmärta är ensidig
+belastning som orsakar triggerpunkter."* De är orsak och verkan av samma sak.
+Två separata sidor hade blivit nära-dubbletter som konkurrerar med varandra i
+sökresultatet. I stället är `/besvar/muskelsmarta/` och `/besvar/triggerpunkter/`
+301-alias till den sammanhållna sidan — söktermen fångas, utan tunt innehåll.
+
+Samma princip för `/behandlingar/prf/` → `pulsad-radiofrekvens` (ingen söker på
+"prf" ensamt) och sju andra alias.
+
+### Omdirigeringar
+
+`public/_redirects` **genereras** av `scripts/generate-redirects.mjs` (körs
+automatiskt via `prebuild`). Källan är alias-tabellerna `CONDITION_ALIASES` och
+`TREATMENT_ALIASES` i innehållsmodellen plus listan över gamla WordPress-URL:er.
+Redigera aldrig `_redirects` för hand — den skrivs över vid nästa bygge.
+
+32 omdirigeringar totalt: 12 från gamla WordPress-sajten, 2 interna
+sökvägsändringar och 18 söktermsalias.
 
 ## Design
 

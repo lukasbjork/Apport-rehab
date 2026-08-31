@@ -6,50 +6,49 @@ import BehandlingKort from '../components/BehandlingKort.astro';
 import Process from '../components/Process.astro';
 import CtaSektion from '../components/CtaSektion.astro';
 import Referenser from '../components/Referenser.astro';
+import Patientfall from '../components/Patientfall.astro';
 import Sikte from '../components/Sikte.astro';
 import BildPlatshallare from '../components/BildPlatshallare.astro';
-import { SITE, CTA, FEES } from '../lib/site';
+import UltraljudSektion from '../components/UltraljudSektion.astro';
+import Meriter from '../components/Meriter.astro';
+import RelevansGuide from '../components/RelevansGuide.astro';
+import { CTA, TRUST_POINTS } from '../lib/site';
 import { CONDITIONS, TREATMENTS, TEAM, NOT_OFFERED } from '../lib/content';
 import { clinicSchema, websiteSchema } from '../lib/schema';
 
-const title = 'Apport — smärtspecialistklinik i Kristianstad';
+const title = 'Smärtspecialist i Kristianstad | Apport';
 const description =
-  'Privat smärtklinik i Kristianstad sedan 2010. Vi utreder var smärtan kommer ifrån med ultraljudsledda blockader. Avtal med Region Skåne, inget remisstvång.';
-
-const proofPoints = [
-  { tal: 'Sedan 2010', text: 'Privat specialistklinik i Kristianstad, driven av samma två personer hela vägen.' },
-  { tal: '30+ år', text: 'Läkarens erfarenhet av smärtproblematik, med tre specialistkompetenser.' },
-  { tal: 'Ultraljud', text: 'Vid undersökning och blockader — vi ser strukturen medan nålen förs in.' },
-  { tal: 'Region Skåne', text: `Avtal enligt nationella taxan. Patientavgift ${FEES.visit}, frikort gäller.` },
-];
+  'Privat smärtspecialistklinik i Kristianstad sedan 2010. Vi utreder var smärtan kommer ifrån med ultraljudsledda blockader. Avtal med Region Skåne, inget remisstvång.';
 
 const igenkanning = [
-  'Du har haft ont länge — månader eller år',
-  'Du har redan provat flera behandlingar utan tydlig effekt',
-  'Du har fått höra att undersökningarna ser normala ut',
+  'Du har haft ont länge',
+  'Du har redan provat flera behandlingar',
+  'Du har fått höra att allt ser normalt ut',
   'Du har en skada som aldrig riktigt blev bra',
-  'Du vill kunna träna igen men vet inte vad som är säkert',
-  'Du vill framför allt förstå vad som faktiskt orsakar smärtan',
+  'Du vill förstå vad som faktiskt gör ont',
+  'Du vill kunna träna eller fungera normalt igen',
 ];
 ---
 
 <BaseLayout {title} {description} schema={[clinicSchema(), websiteSchema()]}>
   <!-- ── Hero ────────────────────────────────────────────────── -->
   <section class="relative overflow-hidden bg-mossa-djup">
-    <!-- Klinikens egen ultraljudsbild som atmosfär, inte som stockfoto -->
     <div aria-hidden="true" class="pointer-events-none absolute inset-0">
       <img
         src="/bilder/ultraljud-l5-s1.webp"
         alt=""
-        class="h-full w-full object-cover opacity-[0.14] mix-blend-screen"
+        class="h-full w-full object-cover opacity-[0.13] mix-blend-screen"
         fetchpriority="high"
         decoding="async"
       />
-      <div class="absolute inset-0 bg-linear-to-r from-mossa-djup via-mossa-djup/92 to-mossa-djup/55"></div>
+      <div
+        class="absolute inset-0 bg-linear-to-r from-mossa-djup via-mossa-djup/94 to-mossa-djup/60"
+      >
+      </div>
     </div>
 
     <div
-      class="relative mx-auto grid max-w-(--container-content) gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-12 lg:py-32"
+      class="relative mx-auto grid max-w-(--container-content) gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-12 lg:py-36"
     >
       <div class="lg:col-span-7">
         <p
@@ -59,39 +58,48 @@ const igenkanning = [
           Smärtspecialistklinik i Kristianstad
         </p>
 
-        <h1 class="mt-6 text-[clamp(2.3rem,5.4vw,4.1rem)] leading-[1.04] text-kalk">
+        <h1 class="mt-7 text-[clamp(2.4rem,5.6vw,4.3rem)] leading-[1.02] text-kalk">
           Alla säger att det ser normalt ut.
-          <span class="block text-salvia">Ändå gör det ont.</span>
+          <span class="mt-1 block text-salvia">Ändå gör det ont.</span>
         </h1>
 
-        <p class="mt-8 max-w-xl text-[1.12rem] leading-relaxed text-kalk/75">
+        <p class="mt-8 max-w-xl text-[1.14rem] leading-relaxed text-kalk/75">
           En bra behandling börjar inte alltid med en behandling. Den börjar
-          med att ta reda på <em class="not-italic text-kalk">var</em> smärtan kommer ifrån. Med
-          ultraljud kan vi bedöva en struktur i taget och pröva oss fram till svaret — innan vi
-          bestämmer vad som ska göras.
+          med att ta reda på <em class="not-italic text-kalk">var</em> smärtan kommer ifrån.
         </p>
 
         <div class="mt-10 flex flex-wrap gap-3">
           <a
             href={CTA.primary.href}
-            class="rounded-full bg-kalk px-7 py-3.5 text-[0.96rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+            class="rounded-full bg-kalk px-7 py-4 text-[0.98rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
           >
             {CTA.primary.label}
           </a>
           <a
             href={CTA.secondary.href}
-            class="rounded-full border border-kalk/25 px-7 py-3.5 text-[0.96rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+            class="rounded-full border border-kalk/25 px-7 py-4 text-[0.98rem] font-medium text-kalk transition-colors hover:border-kalk/60"
           >
             {CTA.secondary.label}
           </a>
         </div>
 
-        <p class="mt-8 text-[0.88rem] text-kalk/58">
-          Inget remisstvång · Avtal med Region Skåne · Patientavgift {FEES.visit}
-        </p>
+        <!-- Trust-rad: endast verifierade uppgifter -->
+        <ul class="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2">
+          {
+            TRUST_POINTS.map((p, i) => (
+              <li class="flex items-center gap-4 text-[0.88rem] text-kalk/58">
+                {i > 0 && (
+                  <span aria-hidden="true" class="text-kalk/25">
+                    ·
+                  </span>
+                )}
+                {p}
+              </li>
+            ))
+          }
+        </ul>
       </div>
 
-      <!-- Ultraljudsbilden som innehåll, inte dekoration -->
       <div class="lg:col-span-5 lg:pl-6">
         <figure class="stig">
           <div class="overflow-hidden rounded-2xl border border-kalk/12">
@@ -104,7 +112,7 @@ const igenkanning = [
               decoding="async"
             />
           </div>
-          <figcaption class="mt-4 text-[0.84rem] leading-relaxed text-kalk/55">
+          <figcaption class="mt-4 text-[0.84rem] leading-relaxed text-kalk/58">
             Ultraljudsbild från kliniken. Markörerna pekar ut de strukturer som bedömts inför en
             blockad i halsryggen — det är så vi avgör vilken struktur som bidrar till smärtan.
           </figcaption>
@@ -113,20 +121,18 @@ const igenkanning = [
     </div>
   </section>
 
-  <!-- ── Förtroendeblock ─────────────────────────────────────── -->
-  <section class="border-b border-sten bg-papper px-5 py-14 sm:px-8">
-    <ul class="mx-auto grid max-w-(--container-content) gap-9 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        proofPoints.map((p) => (
-          <li class="stig">
-            <p class="font-[family-name:var(--font-display)] text-[1.5rem] leading-none text-mossa-djup">
-              {p.tal}
-            </p>
-            <p class="mt-3 text-[0.92rem] leading-relaxed text-skiffer">{p.text}</p>
-          </li>
-        ))
-      }
-    </ul>
+  <!-- ── Meriter ─────────────────────────────────────────────── -->
+  <section class="border-b border-sten bg-kalk px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <SektionsRubrik
+        etikett="Erfarenheten bakom"
+        rubrik="Samma två personer sedan 2010"
+        ingress="Apport drivs av en läkare och en fysioterapeut som arbetar tillsammans. Du möter samma personer varje gång, och de pratar med varandra om ditt fall."
+      />
+      <div class="mt-14">
+        <Meriter />
+      </div>
+    </div>
   </section>
 
   <!-- ── Är det här du? ──────────────────────────────────────── -->
@@ -142,7 +148,7 @@ const igenkanning = [
           href="/besvar/"
           class="mt-9 inline-flex items-center gap-2 rounded-full bg-mossa px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:bg-mossa-djup"
         >
-          Se vilka besvär vi behandlar
+          Se vilka besvär vi arbetar med
         </a>
       </div>
 
@@ -151,10 +157,18 @@ const igenkanning = [
           {
             igenkanning.map((rad) => (
               <li class="flex items-start gap-4 bg-papper px-7 py-5">
-                <span class="mt-1 shrink-0 text-salvia-text">
-                  <Sikte size={15} />
+                <span class="mt-0.5 shrink-0 text-mossa" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+                    <path
+                      d="M3 9l3.6 3.6L14 5"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                 </span>
-                <span class="text-[1rem] leading-relaxed text-mossa-djup">{rad}</span>
+                <span class="text-[1.02rem] leading-relaxed text-mossa-djup">{rad}</span>
               </li>
             ))
           }
@@ -162,6 +176,9 @@ const igenkanning = [
       </div>
     </div>
   </section>
+
+  <!-- ── Ultraljud som USP ───────────────────────────────────── -->
+  <UltraljudSektion />
 
   <!-- ── Differentiator ──────────────────────────────────────── -->
   <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
@@ -243,8 +260,11 @@ const igenkanning = [
     </div>
   </section>
 
+  <!-- ── Relevansguide ───────────────────────────────────────── -->
+  <RelevansGuide />
+
   <!-- ── Så går det till ─────────────────────────────────────── -->
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik etikett="Så går det till" rubrik="Fyra steg, utan krångel" />
       <div class="mt-14">
@@ -254,32 +274,44 @@ const igenkanning = [
   </section>
 
   <!-- ── Bakom Apport ────────────────────────────────────────── -->
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-section) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         etikett="Bakom Apport"
         rubrik="Två personer, samma klinik sedan 2010"
-        ingress="Apport drivs av ett gift par — en läkare och en fysioterapeut. Du möter samma personer varje gång, och de pratar med varandra om ditt fall."
+        ingress="Apport drivs av ett gift par — en läkare och en fysioterapeut. Att kliniken fortfarande drivs av samma två personer är ovanligt, och en stor del av varför den fungerar som den gör."
       />
 
       <div class="mt-14 grid gap-8 sm:grid-cols-2">
         {
           TEAM.map((person) => (
             <article class="stig">
-              <BildPlatshallare
-                behov={`Porträtt av ${person.name}`}
-                monogram={person.name
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')}
-                ratio="aspect-4/5"
-              />
+              {person.image ? (
+                <img
+                  src={person.image}
+                  alt={person.imageAlt}
+                  width="800"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                  class="aspect-4/5 w-full rounded-2xl border border-sten object-cover"
+                />
+              ) : (
+                <BildPlatshallare
+                  behov={`Porträtt av ${person.name}`}
+                  monogram={person.name
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')}
+                  ratio="aspect-4/5"
+                />
+              )}
               <h3 class="mt-6 text-[1.35rem] text-mossa-djup">{person.name}</h3>
               <p class="mt-1 text-[0.9rem] font-medium text-mossa-ljus">{person.role}</p>
               <p class="mt-3 text-[0.98rem] leading-relaxed text-skiffer">{person.short}</p>
               <a
                 href={`/om-apport/#${person.slug}`}
-                class="lank-linje mt-4 inline-block text-[0.9rem] font-medium text-mossa"
+                class="lank-linje mt-4 inline-block py-1 text-[0.9rem] font-medium text-mossa"
               >
                 Läs mer om {person.name.split(' ')[0]}
               </a>
@@ -291,7 +323,7 @@ const igenkanning = [
   </section>
 
   <!-- ── Vad vi inte gör ─────────────────────────────────────── -->
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-12 rounded-[2rem] border border-sten bg-lind/35 p-8 sm:p-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
@@ -328,6 +360,8 @@ const igenkanning = [
       </div>
     </div>
   </section>
+
+  <Patientfall />
 
   <Referenser />
 

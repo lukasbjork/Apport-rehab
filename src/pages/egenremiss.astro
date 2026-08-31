@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SidHuvud from '../components/SidHuvud.astro';
+import Sikte from '../components/Sikte.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import RelevansGuide from '../components/RelevansGuide.astro';
+import { SITE, FEES, PHONE_HOURS } from '../lib/site';
+import { NOT_OFFERED } from '../lib/content';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+
+const title = 'Berätta om dina besvär — egenremiss | Apport Kristianstad';
+const description =
+  'Du behöver ingen remiss för att komma till Apport i Kristianstad. Skriv några rader om dina besvär och mejla till patient@apport.rehab. Patientavgift 200 kr.';
+
+const crumbs = [
+  { name: 'Hem', url: '/' },
+  { name: 'Berätta om dina besvär', url: '/egenremiss/' },
+];
+
+const punkter = [
+  {
+    nr: '1',
+    rubrik: 'Vad du har ont i',
+    text: 'Var sitter smärtan? Peka ut det så noga du kan — ländrygg, nacke, höger axel, utsidan av knät.',
+  },
+  {
+    nr: '2',
+    rubrik: 'Hur länge du haft besvär',
+    text: 'När började det, och hur har det utvecklats sedan dess? Kom det plötsligt eller smygande?',
+  },
+  {
+    nr: '3',
+    rubrik: 'Vad du redan provat',
+    text: 'Vilka utredningar och behandlingar har du genomgått? Vad hjälpte, vad gjorde ingen skillnad?',
+  },
+  {
+    nr: '4',
+    rubrik: 'Vad du vill kunna göra igen',
+    text: 'Sova en hel natt, lyfta barnbarnet, komma tillbaka till träningen. Det säger oss vad målet är.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Måste jag skriva på något särskilt sätt?',
+    a: 'Nej. Några meningar räcker, och det behöver inte vara välformulerat. Vi hör av oss om vi behöver veta mer.',
+  },
+  {
+    q: 'Behöver jag remiss från vårdcentralen?',
+    a: 'Nej. Vi har inget remisstvång. Du skriver egenremissen själv och mejlar den till oss.',
+  },
+  {
+    q: 'Hur snabbt får jag svar?',
+    a: 'Vi läser allt som kommer in. Hur snabbt du får svar varierar med hur mycket som ligger i kön — hör gärna av dig igen om det dröjer.',
+  },
+  {
+    q: 'Kan jag ringa i stället?',
+    a: `Ja. Telefontiden är ${PHONE_HOURS.toLowerCase()} på ${SITE.phone}. Många tycker ändå att det är enklare att mejla, eftersom man då hinner tänka igenom vad man vill få sagt.`,
+  },
+  {
+    q: 'Vad kostar det?',
+    a: `Patientavgiften är ${FEES.visit} per besök och frikort gäller. Att skicka en egenremiss kostar ingenting.`,
+  },
+  {
+    q: 'Vad händer om ni inte kan hjälpa mig?',
+    a: 'Då säger vi det, så tidigt vi kan, och försöker peka dig i rätt riktning. Att få veta det direkt är bättre än att vänta på en tid som inte leder någonstans.',
+  },
+];
+
+const mailtoBody = encodeURIComponent(
+  [
+    'Vad jag har ont i:',
+    '',
+    '',
+    'Hur länge jag haft besvär:',
+    '',
+    '',
+    'Vad jag redan provat:',
+    '',
+    '',
+    'Vad jag vill kunna göra igen:',
+    '',
+    '',
+    'Namn och telefonnummer:',
+    '',
+  ].join('\n'),
+);
+const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}&body=${mailtoBody}`;
+---
+
+<BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs), faqSchema(faqs)]}>
+  <SidHuvud
+    etikett="Egenremiss"
+    rubrik="Berätta om dina besvär"
+    ingress="Du behöver ingen remiss för att komma till oss. Skriv några rader om vad du har för problem, så läser vi och tar ställning till om vi är rätt klinik för dig."
+    {crumbs}
+  />
+
+  <!-- Vad du ska skriva -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
+            Ta med det här i mejlet
+          </h2>
+          <p class="mt-5 text-[1.02rem] leading-relaxed text-skiffer">
+            Det behöver inte vara långt. Fyra korta stycken räcker gott — de fyra nedan är de vi
+            har mest nytta av när vi ska bedöma om vi kan hjälpa dig.
+          </p>
+
+          <div class="mt-9 rounded-2xl bg-mossa-djup p-7 text-kalk">
+            <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia">
+              Skicka till
+            </p>
+            <a
+              href={mailto}
+              class="lank-linje mt-3 block text-[1.3rem] font-medium break-all text-kalk"
+            >
+              {SITE.email}
+            </a>
+            <p class="mt-4 text-[0.9rem] leading-relaxed text-kalk/72">
+              Klickar du på adressen öppnas ett mejl med rubrikerna redan ifyllda.
+            </p>
+
+            <div class="mt-6 border-t border-kalk/12 pt-5">
+              <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia">
+                Eller ring
+              </p>
+              <a
+                href={`tel:${SITE.phoneHref}`}
+                class="lank-linje mt-2 block text-[1.15rem] font-medium text-kalk"
+              >
+                {SITE.phone}
+              </a>
+              <p class="mt-1 text-[0.86rem] text-kalk/58">Telefontid {PHONE_HOURS.toLowerCase()}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <ol class="space-y-px overflow-hidden rounded-2xl bg-sten">
+            {
+              punkter.map((p) => (
+                <li class="flex gap-5 bg-papper px-7 py-6">
+                  <span class="font-[family-name:var(--font-display)] text-[1.6rem] leading-none text-sten-text">
+                    {p.nr}
+                  </span>
+                  <div>
+                    <h3 class="text-[1.08rem] leading-snug text-mossa-djup">{p.rubrik}</h3>
+                    <p class="mt-1.5 text-[0.95rem] leading-relaxed text-skiffer">{p.text}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+
+          <p
+            class="mt-6 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.94rem] leading-relaxed text-mossa-djup"
+          >
+            <strong class="font-semibold">Om integritet:</strong> mejl är inte en krypterad kanal.
+            Skriv gärna om dina besvär, men undvik att skicka personnummer eller
+            journalhandlingar den vägen — vi hör av oss om vi behöver sådana uppgifter.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vad som händer sedan -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
+        Vad som händer sedan
+      </h2>
+      <div class="mt-12">
+        <Process />
+      </div>
+    </div>
+  </section>
+
+  <!-- Relevansguide -->
+  <RelevansGuide />
+
+  <!-- Vad vi inte tar emot -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-salvia-text">
+            <Sikte size={13} />
+            Innan du skriver
+          </p>
+          <h2 class="mt-4 text-[clamp(1.6rem,2.8vw,2.1rem)] leading-[1.15] text-mossa-djup">
+            Det här tar vi inte emot
+          </h2>
+          <p class="mt-5 text-[1rem] leading-relaxed text-skiffer">
+            Vi är två personer. För att kunna göra ett bra jobb med det vi kan behöver vi säga nej
+            till en del annat — och det är bättre att du vet det innan du skriver.
+          </p>
+        </div>
+
+        <div class="grid gap-10 sm:grid-cols-2 lg:col-span-7">
+          <div>
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+              Besvär vi inte utreder
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+              {NOT_OFFERED.conditions.map((rad) => <li>{rad}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+              Sådant vi inte utfärdar
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+              {NOT_OFFERED.services.map((rad) => <li>{rad}</li>)}
+            </ul>
+          </div>
+          <p class="text-[0.96rem] leading-relaxed text-skiffer sm:col-span-2">
+            Är du osäker på om du hör hemma hos oss? Skriv ändå. Vi läser allt och säger till om
+            vi tror att någon annan kan hjälpa dig bättre.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
+        Vanliga frågor om egenremiss
+      </h2>
+      <Faq {faqs} class="mt-10" />
+    </div>
+  </section>
+
+  <!-- Avslutande CTA -->
+  <section class="px-5 pb-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="rounded-[2rem] bg-mossa-djup px-6 py-14 text-center sm:px-14">
+        <h2 class="text-[clamp(1.6rem,3vw,2.3rem)] leading-[1.14] text-kalk">
+          Redo att skriva?
+        </h2>
+        <p class="mx-auto mt-5 max-w-xl text-[1.02rem] leading-relaxed text-kalk/72">
+          Några meningar räcker. Vi läser allt som kommer in.
+        </p>
+        <div class="mt-9 flex flex-wrap justify-center gap-3">
+          <a
+            href={mailto}
+            class="rounded-full bg-kalk px-7 py-3.5 text-[0.95rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+          >
+            Skriv till {SITE.email}
+          </a>
+          <a
+            href={`tel:${SITE.phoneHref}`}
+            class="rounded-full border border-kalk/25 px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+          >
+            Ring {SITE.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

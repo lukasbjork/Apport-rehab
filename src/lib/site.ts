@@ -107,13 +107,27 @@ export const NAV = [
   { label: 'Besvär', href: '/besvar/' },
   { label: 'Behandlingar', href: '/behandlingar/' },
   { label: 'Om Apport', href: '/om-apport/' },
-  { label: 'Som patient', href: '/sa-gar-det-till/' },
+  { label: 'Som patient', href: '/som-patient/' },
   { label: 'Kontakt', href: '/kontakt/' },
 ] as const;
 
-/** Primär CTA genom hela sajten. Kliniken har INGET bokningssystem — därför egenremiss. */
+/**
+ * CTA — EN primär formulering genom hela sajten.
+ * Kliniken har INGET bokningssystem, därför "berätta" och inte "boka tid".
+ * Ändra här, inte i enskilda sidor.
+ */
 export const CTA = {
-  primary: { label: 'Skriv en egenremiss', href: '/sa-gar-det-till/#egenremiss' },
+  primary: { label: 'Berätta om dina besvär', href: '/egenremiss/' },
   secondary: { label: 'Så arbetar vi', href: '/om-apport/#arbetssatt' },
+  /** På behandlingssidor, där frågan är relevans snarare än nästa steg */
+  relevance: { label: 'Är detta relevant för dig?', href: '/egenremiss/' },
   phone: { label: `Ring ${SITE.phone}`, href: `tel:${SITE.phoneHref}` },
 } as const;
+
+/** Trust-rad under hero och i sidhuvuden. Endast verifierade uppgifter. */
+export const TRUST_POINTS = [
+  'Inget remisstvång',
+  'Avtal med Region Skåne',
+  'Patientavgift 200 kr',
+  'Frikort gäller',
+] as const;

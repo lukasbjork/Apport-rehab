@@ -1,0 +1,42 @@
+# Genererad av scripts/generate-redirects.mjs — redigera inte för hand.
+# Alias-tabellerna finns i src/lib/besvar-data.ts och behandlingar-data.ts.
+
+# ── Gamla WordPress-URL:er ──
+/om-oss/  /om-apport/  301!
+/kliniken/  /om-apport/  301!
+/utredning/  /behandlingar/utredning/  301!
+/behandling/  /behandlingar/  301!
+/diagnos/  /besvar/  301!
+/sjalvlakning/  /regenerativ-medicin/  301!
+/apport-smarta/  /behandlingar/smartspecialist/  301!
+/apport-fysioterapi/  /behandlingar/fysioterapi/  301!
+/traningsvideo/  /behandlingar/fysioterapi/  301!
+/galleri/  /besvar/  301!
+/om-du-inte-ar-nojd/  /synpunkter/  301!
+/leder/  /integritetspolicy/  301!
+
+# ── Ändrade sökvägar inom nya sajten ──
+/sa-gar-det-till/  /som-patient/  301!
+/besvar/huvudvark-migran/  /besvar/huvudvark/  301!
+
+# ── Besvär: söktermer som pekar på den kanoniska sidan ──
+/besvar/muskelsmarta/  /besvar/muskelsmarta-triggerpunkter/  301!
+/besvar/triggerpunkter/  /besvar/muskelsmarta-triggerpunkter/  301!
+/besvar/landryggssmarta/  /besvar/ryggsmarta/  301!
+/besvar/ont-i-ryggen/  /besvar/ryggsmarta/  301!
+/besvar/si-led/  /besvar/backensmarta-si-led/  301!
+/besvar/backensmarta/  /besvar/backensmarta-si-led/  301!
+/besvar/nackspark/  /besvar/whiplash/  301!
+/besvar/huvudvark-migran/  /besvar/huvudvark/  301!
+/besvar/knaartros/  /besvar/artros/  301!
+/besvar/hoftartros/  /besvar/artros/  301!
+
+# ── Behandlingar ──
+/behandlingar/prf/  /behandlingar/pulsad-radiofrekvens/  301!
+/behandlingar/pulsad-rf/  /behandlingar/pulsad-radiofrekvens/  301!
+/behandlingar/prp-behandling/  /behandlingar/prp/  301!
+/behandlingar/smartlakare/  /behandlingar/smartspecialist/  301!
+/behandlingar/smartspecialist-kristianstad/  /behandlingar/smartspecialist/  301!
+/behandlingar/triggerpunktsakupunktur/  /behandlingar/akupunktur/  301!
+/behandlingar/traning/  /behandlingar/fysioterapi/  301!
+/behandlingar/rehabilitering/  /behandlingar/fysioterapi/  301!

@@ -28,14 +28,14 @@ const year = new Date().getFullYear();
           {
             CONDITIONS.slice(0, 6).map((c) => (
               <li>
-                <a href={`/besvar/${c.slug}/`} class="lank-linje hover:text-kalk">
+                <a href={`/besvar/${c.slug}/`} class="lank-linje inline-block py-1 hover:text-kalk">
                   {c.name}
                 </a>
               </li>
             ))
           }
           <li>
-            <a href="/besvar/" class="lank-linje text-salvia hover:text-kalk">Alla besvär →</a>
+            <a href="/besvar/" class="lank-linje inline-block py-1 text-salvia hover:text-kalk">Alla besvär →</a>
           </li>
         </ul>
       </div>
@@ -48,8 +48,8 @@ const year = new Date().getFullYear();
           {
             TREATMENTS.map((t) => (
               <li>
-                <a href={`/behandlingar/${t.slug}/`} class="lank-linje hover:text-kalk">
-                  {t.name.split(' — ')[0]}
+                <a href={`/behandlingar/${t.slug}/`} class="lank-linje inline-block py-1 hover:text-kalk">
+                  {t.shortName}
                 </a>
               </li>
             ))
@@ -61,11 +61,11 @@ const year = new Date().getFullYear();
         <h2 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">Kontakt</h2>
         <address class="mt-4 space-y-2.5 text-[0.9rem] not-italic">
           <p>
-            <a href={`tel:${SITE.phoneHref}`} class="lank-linje hover:text-kalk">{SITE.phone}</a>
+            <a href={`tel:${SITE.phoneHref}`} class="lank-linje inline-block py-1 hover:text-kalk">{SITE.phone}</a>
             <span class="block text-[0.8rem] text-kalk/58">Telefontid {PHONE_HOURS.toLowerCase()}</span>
           </p>
           <p>
-            <a href={`mailto:${SITE.email}`} class="lank-linje break-all hover:text-kalk">
+            <a href={`mailto:${SITE.email}`} class="lank-linje inline-block break-all py-1 hover:text-kalk">
               {SITE.email}
             </a>
           </p>
@@ -97,11 +97,12 @@ const year = new Date().getFullYear();
     >
       <p class="text-kalk/58">© {year} {SITE.fullName}</p>
       <ul class="flex flex-wrap gap-x-6 gap-y-2">
-        <li><a href="/om-apport/" class="lank-linje hover:text-kalk">Om Apport</a></li>
-        <li><a href="/sa-gar-det-till/" class="lank-linje hover:text-kalk">Som patient</a></li>
-        <li><a href="/synpunkter/" class="lank-linje hover:text-kalk">Synpunkter och klagomål</a></li>
+        <li><a href="/om-apport/" class="lank-linje inline-block py-1 hover:text-kalk">Om Apport</a></li>
+        <li><a href="/som-patient/" class="lank-linje inline-block py-1 hover:text-kalk">Som patient</a></li>
+        <li><a href="/egenremiss/" class="lank-linje inline-block py-1 hover:text-kalk">Egenremiss</a></li>
+        <li><a href="/synpunkter/" class="lank-linje inline-block py-1 hover:text-kalk">Synpunkter och klagomål</a></li>
         <li>
-          <a href="/integritetspolicy/" class="lank-linje hover:text-kalk">Personuppgifter</a>
+          <a href="/integritetspolicy/" class="lank-linje inline-block py-1 hover:text-kalk">Personuppgifter</a>
         </li>
       </ul>
     </div>

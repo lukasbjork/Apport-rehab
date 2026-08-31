@@ -3,9 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SidHuvud from '../../components/SidHuvud.astro';
 import CtaSektion from '../../components/CtaSektion.astro';
 import Sikte from '../../components/Sikte.astro';
+import Faq from '../../components/Faq.astro';
 import { TREATMENTS, CONDITIONS } from '../../lib/content';
-import { breadcrumbSchema, treatmentSchema } from '../../lib/schema';
-import { FEES } from '../../lib/site';
+import { breadcrumbSchema, treatmentSchema, faqSchema } from '../../lib/schema';
+import { SITE, CTA, PHONE_HOURS } from '../../lib/site';
 
 export function getStaticPaths() {
   return TREATMENTS.map((treatment) => ({
@@ -19,7 +20,7 @@ const { treatment } = Astro.props;
 const crumbs = [
   { name: 'Hem', url: '/' },
   { name: 'Behandlingar', url: '/behandlingar/' },
-  { name: treatment.name, url: `/behandlingar/${treatment.slug}/` },
+  { name: treatment.shortName, url: `/behandlingar/${treatment.slug}/` },
 ];
 
 const relaterade = treatment.relatedConditions
@@ -30,9 +31,9 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
 ---
 
 <BaseLayout
-  title={`${treatment.name} i Kristianstad | Apport`}
+  title={`${treatment.metaTitle}`}
   description={treatment.metaDescription}
-  schema={[breadcrumbSchema(crumbs), treatmentSchema(treatment)]}
+  schema={[breadcrumbSchema(crumbs), treatmentSchema(treatment), faqSchema(treatment.faqs)]}
 >
   <SidHuvud
     etikett={treatment.inAgreement ? 'Behandling' : 'Behandling · utanför avtalet'}
@@ -41,6 +42,28 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
     {crumbs}
   />
 
+  <!-- Avtalsstatus direkt under sidhuvudet — patienten ska aldrig behöva leta -->
+  <section
+    class:list={[
+      'border-b px-5 py-6 sm:px-8',
+      treatment.inAgreement ? 'border-sten bg-lind/40' : 'border-tegel/25 bg-tegel/8',
+    ]}
+  >
+    <div class="mx-auto flex max-w-(--container-content) flex-wrap items-center gap-x-8 gap-y-3">
+      <p class="flex items-center gap-2.5 text-[0.95rem] font-medium text-mossa-djup">
+        <span class:list={[treatment.inAgreement ? 'text-mossa' : 'text-tegel']}>
+          <Sikte size={16} />
+        </span>
+        {
+          treatment.inAgreement
+            ? 'Ingår i avtalet med Region Skåne'
+            : 'Ingår INTE i avtalet med Region Skåne'
+        }
+      </p>
+      <p class="text-[0.95rem] text-skiffer">{treatment.cost}</p>
+    </div>
+  </section>
+
   <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
     <div class="grid gap-16 py-(--spacing-section) lg:grid-cols-12">
       <div class="lg:col-span-7">
@@ -48,8 +71,10 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
           treatment.image && (
             <figure class="stig mb-14">
               <img
-                src={treatment.image.src.replace(/\.(jpe?g|png)$/, '.webp')}
+                src={treatment.image.src}
                 alt={treatment.image.alt}
+                width="1400"
+                height="935"
                 loading="lazy"
                 decoding="async"
                 class="w-full rounded-2xl border border-sten"
@@ -61,30 +86,113 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
           )
         }
 
-        {
-          treatment.sections.map((sektion) => (
-            <section class="mb-14 last:mb-0">
-              <h2 class="text-[1.6rem] leading-snug text-mossa-djup">{sektion.title}</h2>
-              <div class="mt-5 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
-                {sektion.body.map((stycke) => (
-                  <p>{stycke}</p>
-                ))}
-              </div>
-            </section>
-          ))
-        }
+        <!-- När kan det vara aktuellt -->
+        <section class="scroll-mt-32">
+          <h2 class="text-[1.6rem] leading-snug text-mossa-djup">När kan det vara aktuellt?</h2>
+          <ul class="mt-7 space-y-px overflow-hidden rounded-2xl bg-sten">
+            {
+              treatment.whenRelevant.map((rad) => (
+                <li class="flex items-start gap-4 bg-papper px-6 py-4.5">
+                  <span class="mt-1 shrink-0 text-salvia-text">
+                    <Sikte size={14} />
+                  </span>
+                  <span class="text-[0.99rem] leading-relaxed text-mossa-djup">{rad}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
 
-        <p
-          class="mt-14 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.96rem] leading-relaxed text-mossa-djup"
-        >
-          Om den här behandlingen är aktuell för dig avgörs av utredningen. Effekten varierar mellan
-          patienter och beror på besvär, vävnad och förutsättningar — vi gör en bedömning i varje
-          enskilt fall och lovar inget resultat i förväg.
-        </p>
+        <!-- Hur går det till -->
+        <section class="mt-16">
+          <h2 class="text-[1.6rem] leading-snug text-mossa-djup">Hur går det till?</h2>
+          {
+            treatment.sections.map((sektion) => (
+              <div class="mt-9">
+                <h3 class="text-[1.18rem] leading-snug text-mossa-djup">{sektion.title}</h3>
+                <div class="mt-3 space-y-4 text-[1.03rem] leading-relaxed text-skiffer">
+                  {sektion.body.map((stycke) => (
+                    <p>{stycke}</p>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </section>
+
+        <!-- Hur Apport arbetar -->
+        <section class="mt-16">
+          <h2 class="text-[1.6rem] leading-snug text-mossa-djup">Hur vi arbetar med det</h2>
+          <ul class="mt-7 space-y-5">
+            {
+              treatment.apportApproach.map((rad) => (
+                <li class="flex items-start gap-4">
+                  <span class="mt-1.5 shrink-0 text-salvia-text">
+                    <Sikte size={14} />
+                  </span>
+                  <span class="text-[1.02rem] leading-relaxed text-skiffer">{rad}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <!-- När är det inte lämpligt -->
+        <section class="mt-16">
+          <h2 class="text-[1.6rem] leading-snug text-mossa-djup">När är det inte lämpligt?</h2>
+          <ul class="mt-6 space-y-3">
+            {
+              treatment.notSuitable.map((rad) => (
+                <li class="flex items-start gap-3.5 text-[1.01rem] leading-relaxed text-skiffer">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-tegel" aria-hidden="true" />
+                  {rad}
+                </li>
+              ))
+            }
+          </ul>
+          <p
+            class="mt-7 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.96rem] leading-relaxed text-mossa-djup"
+          >
+            Vi bedömer i varje enskilt fall om en behandling är lämplig för dig, och går igenom
+            vad den innebär innan den genomförs. Effekten varierar mellan patienter och beror på
+            besvär, vävnad och förutsättningar — vi lovar inget resultat i förväg.
+          </p>
+        </section>
+
+        <!-- FAQ -->
+        <section class="mt-16">
+          <h2 class="text-[1.6rem] leading-snug text-mossa-djup">Vanliga frågor</h2>
+          <Faq faqs={treatment.faqs} class="mt-8" />
+        </section>
       </div>
 
+      <!-- Sidospalt -->
       <aside class="lg:col-span-5">
         <div class="sticky top-32 space-y-6">
+          <div
+            class:list={[
+              'rounded-2xl border p-7',
+              treatment.inAgreement ? 'border-sten bg-papper' : 'border-tegel/25 bg-tegel/6',
+            ]}
+          >
+            <h2 class="text-[1.15rem] text-mossa-djup">Vad kostar det?</h2>
+            <p
+              class:list={[
+                'mt-4 font-[family-name:var(--font-display)] text-[1.7rem] leading-tight',
+                treatment.inAgreement ? 'text-mossa' : 'text-tegel',
+              ]}
+            >
+              {treatment.inAgreement ? '200 kr' : '2 000–2 500 kr'}
+            </p>
+            <p class="mt-3 text-[0.94rem] leading-relaxed text-skiffer">
+              {
+                treatment.inAgreement
+                  ? 'Per besök. Frikort gäller. Betalning med kontant, faktura eller Swish.'
+                  : 'Per behandling, betalas av dig själv. Vi går alltid igenom kostnaden innan behandlingen bokas.'
+              }
+            </p>
+          </div>
+
           <div class="rounded-2xl border border-sten bg-papper p-7">
             <h2 class="text-[1.15rem] text-mossa-djup">Bra att veta</h2>
             <ul class="mt-5 space-y-3.5">
@@ -99,22 +207,6 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
                 ))
               }
             </ul>
-
-            <div class="mt-6 border-t border-sten pt-5">
-              {
-                treatment.inAgreement ? (
-                  <p class="text-[0.9rem] leading-relaxed text-skiffer">
-                    <strong class="font-semibold text-mossa-djup">Kostnad:</strong> patientavgift{' '}
-                    {FEES.visit}. {FEES.visitNote}
-                  </p>
-                ) : (
-                  <p class="text-[0.9rem] leading-relaxed text-skiffer">
-                    <strong class="font-semibold text-tegel">Utanför avtalet:</strong>{' '}
-                    {FEES.outsideAgreement}. Betalas av patienten själv.
-                  </p>
-                )
-              }
-            </div>
           </div>
 
           {
@@ -154,16 +246,22 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
           }
 
           <div class="rounded-2xl bg-mossa-djup p-7 text-kalk">
-            <h2 class="text-[1.15rem]">Är detta något för dig?</h2>
+            <h2 class="text-[1.15rem]">{CTA.relevance.label}</h2>
             <p class="mt-3 text-[0.94rem] leading-relaxed text-kalk/72">
               Skriv några rader om dina besvär så tar vi ställning till vad som kan vara aktuellt.
+              Du behöver ingen remiss.
             </p>
             <a
-              href="/sa-gar-det-till/#egenremiss"
+              href={CTA.primary.href}
               class="mt-6 block rounded-full bg-kalk px-6 py-3 text-center text-[0.92rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
             >
-              Skriv en egenremiss
+              {CTA.primary.label}
             </a>
+            <p class="mt-5 border-t border-kalk/12 pt-4 text-[0.86rem] text-kalk/58">
+              Eller ring <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-kalk/85"
+                >{SITE.phone}</a
+              > — telefontid {PHONE_HOURS.toLowerCase()}.
+            </p>
           </div>
         </div>
       </aside>
@@ -181,7 +279,7 @@ const andraBehandlingar = TREATMENTS.filter((t) => t.slug !== treatment.slug).sl
                 href={`/behandlingar/${t.slug}/`}
                 class="group flex h-full flex-col justify-between rounded-2xl border border-sten bg-kalk p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-salvia hover:shadow-mjuk"
               >
-                <span class="text-[1.02rem] leading-snug text-mossa-djup">{t.name}</span>
+                <span class="text-[1.02rem] leading-snug text-mossa-djup">{t.shortName}</span>
                 <span class="mt-5 text-[0.85rem] font-medium text-mossa transition-colors group-hover:text-tegel">
                   Läs mer →
                 </span>
