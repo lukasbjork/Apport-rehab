@@ -1,0 +1,155 @@
+---
+/**
+ * Region Skåne-avtalet som förtroendeavsnitt.
+ *
+ * Verifierat mot 1177:s vårdgivarkort för "Jönsson Rolf, Kristianstad"
+ * (kontrollerat 2026-08-31): "Verksamheten arbetar på uppdrag av Region
+ * Skåne", patientavgift 200 kr, frikort gäller.
+ *
+ * ⚠️ REGION SKÅNES LOGOTYP ANVÄNDS INTE HÄR — MED FLIT.
+ * En privat vårdgivare med avtal får normalt inte använda regionens logotyp,
+ * eftersom det signalerar att regionen står bakom eller rekommenderar just
+ * den mottagningen. Region Skåne har en egen grafisk profil med regler för
+ * det. Vill kliniken visa logotypen måste de först ha ett skriftligt
+ * godkännande från Region Skånes kommunikationsavdelning.
+ *
+ * Tills dess är det här starkare ändå: avtalet beskrivs i klartext med det
+ * som faktiskt betyder något för patienten — samma avgift som i offentlig
+ * vård, frikort, ingen remiss. Och besökaren kan kontrollera uppgiften själv
+ * via länken till 1177.
+ */
+import { SITE, FEES } from '../lib/site';
+
+interface Props {
+  /** Ljus variant för placering mot mossa-djup */
+  light?: boolean;
+}
+const { light = false } = Astro.props;
+
+const punkter = [
+  {
+    rubrik: 'Samma avgift som i offentlig vård',
+    text: `Patientavgiften är ${FEES.visit} per besök — precis som på vårdcentralen. Du betalar inte privatpris hos oss.`,
+  },
+  {
+    rubrik: 'Frikort gäller',
+    text: 'Har du frikort betalar du ingenting. Ta med det vid besöket.',
+  },
+  {
+    rubrik: 'Men utan remisskrav',
+    text: 'Trots att vi arbetar inom den offentligt finansierade vården behöver du ingen remiss. Du skriver några rader själv.',
+  },
+];
+---
+
+<section
+  class:list={['px-5 sm:px-8', light ? 'bg-mossa-djup' : 'bg-lind/40']}
+  aria-labelledby="region-skane-rubrik"
+>
+  <div class="mx-auto max-w-(--container-content) py-(--spacing-section)">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-5">
+        <p
+          class:list={[
+            'text-[0.76rem] font-semibold uppercase tracking-[0.16em]',
+            light ? 'text-salvia' : 'text-salvia-text',
+          ]}
+        >
+          Vårdgivare inom Region Skåne
+        </p>
+
+        <h2
+          id="region-skane-rubrik"
+          class:list={[
+            'mt-4 text-[clamp(1.7rem,3vw,2.4rem)] leading-[1.14]',
+            light ? 'text-kalk' : 'text-mossa-djup',
+          ]}
+        >
+          Vi arbetar på uppdrag av Region Skåne
+        </h2>
+
+        <p
+          class:list={[
+            'mt-5 text-[1.04rem] leading-relaxed',
+            light ? 'text-kalk/72' : 'text-skiffer',
+          ]}
+        >
+          Apport är en privat klinik, men verksamheten bedrivs på uppdrag av Region Skåne enligt
+          nationella taxan. I praktiken betyder det att du får specialistvård till samma villkor
+          som i den offentliga vården.
+        </p>
+
+        <a
+          href="https://www.1177.se/hitta-vard/kontaktkort/Jonsson-Rolf-Kristianstad/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class:list={[
+            'lank-linje mt-7 inline-flex items-center gap-2 py-1 text-[0.94rem] font-medium',
+            light ? 'text-kalk' : 'text-mossa',
+          ]}
+        >
+          Se vårt vårdgivarkort på 1177.se
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path
+              d="M4 10L10 4M10 4H5.2M10 4v4.8"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+
+      <ul class="grid gap-px overflow-hidden rounded-2xl bg-sten lg:col-span-7">
+        {
+          punkter.map((p) => (
+            <li class:list={['p-7', light ? 'bg-mossa-djup' : 'bg-papper']}>
+              <h3
+                class:list={[
+                  'text-[1.08rem] leading-snug',
+                  light ? 'text-kalk' : 'text-mossa-djup',
+                ]}
+              >
+                {p.rubrik}
+              </h3>
+              <p
+                class:list={[
+                  'mt-2 text-[0.96rem] leading-relaxed',
+                  light ? 'text-kalk/68' : 'text-skiffer',
+                ]}
+              >
+                {p.text}
+              </p>
+            </li>
+          ))
+        }
+        <li class:list={['p-7', light ? 'bg-mossa-djup' : 'bg-papper']}>
+          <h3
+            class:list={['text-[1.08rem] leading-snug', light ? 'text-kalk' : 'text-mossa-djup']}
+          >
+            Två behandlingar ligger utanför
+          </h3>
+          <p
+            class:list={[
+              'mt-2 text-[0.96rem] leading-relaxed',
+              light ? 'text-kalk/68' : 'text-skiffer',
+            ]}
+          >
+            PRP och pulsad radiofrekvens ingår inte i avtalet och kostar {FEES.outsideAgreement}.
+            Vi går alltid igenom kostnaden innan något bokas.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <p
+      class:list={[
+        'mt-10 border-t pt-6 text-[0.86rem] leading-relaxed',
+        light ? 'border-kalk/15 text-kalk/58' : 'border-sten text-skiffer',
+      ]}
+    >
+      {SITE.fullName} · Org.nr {SITE.orgNr} · Verksamhetschef {SITE.medicalDirector}, leg. läkare
+      och specialist i smärtlindring, rehabiliteringsmedicin och allmänmedicin.
+    </p>
+  </div>
+</section>

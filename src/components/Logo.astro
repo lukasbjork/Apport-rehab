@@ -1,49 +1,44 @@
 ---
 /**
- * Logotyp: "Vävnadslagren".
+ * Logotyp: redaktionell masthead.
  *
- * Tre böjda lager, som vävnad avläst med ultraljud, där det understa bryts
- * upp av en punkt — strukturen kliniken letat sig fram till. Det är hela
- * arbetssättet i ett märke: läs lagren, hitta punkten.
+ * APPORT i Literata med öppen spärr, en hårlinje under, och underraden
+ * SMÄRTSPECIALIST · KRISTIANSTAD.
  *
- * Formvalen är gjorda genom uteslutning. En ultraljudssektor blev kon eller
- * varningstriangel, enbart bågar blev wifi-symbolen, och cirkel med sektor
- * och punkt blev en smiley. Böjda lager med en glugg undviker alla tre.
+ * Underraden gör dubbel nytta: den är en del av märket och den talar om vad
+ * kliniken är och var den finns — vilket är precis vad en förstagångsbesökare
+ * behöver veta inom några sekunder. En ren ikon hade sagt ingenting av det.
  *
- * Gluggen i understa lagret är medvetet bred (13,2 → 22,6) så att punkten
- * står fri även vid 16 px, där tunna former annars flyter ihop.
+ * Formen valdes efter att tre bildmärken fallit: ultraljudssektorn blev en
+ * varningstriangel i litet format, enbart bågar blev wifi-symbolen, och böjda
+ * lager med punkt läste som ett slutet öga. En ordbild har inte det problemet
+ * och passar dessutom en liten specialistklinik bättre än en ikon.
+ *
+ * variant="full"    header och footer på desktop
+ * variant="kompakt" mobil och trånga ytor — underraden faller bort
  */
 interface Props {
-  class?: string;
-  /** Storlek på märket i px. Ordbilden skalar med. */
+  variant?: 'full' | 'kompakt';
+  /** Storlek på ordbilden i px */
   size?: number;
+  class?: string;
 }
-const { class: className = '', size = 30 } = Astro.props;
-
-// Tunna streck försvinner i småformat, så vikten går upp under 22 px
-const vikt = size < 22 ? 1.9 : 1.55;
+const { variant = 'full', size = 23, class: className = '' } = Astro.props;
 ---
 
-<span class={`inline-flex items-center gap-2.5 ${className}`}>
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 32 32"
-    fill="none"
-    aria-hidden="true"
-    class="shrink-0"
-  >
-    <g stroke="currentColor" stroke-linecap="round" fill="none">
-      <path d="M6 11.8 Q16 7.6 26 11.8" stroke-width={vikt} opacity="0.26" />
-      <path d="M5 17.2 Q16 12.5 27 17.2" stroke-width={vikt} opacity="0.46" />
-      <path d="M5 22.6 Q9.6 20.1 13.2 19.4" stroke-width={vikt + 0.15} opacity="0.95" />
-      <path d="M22.6 20.1 Q25.2 21.1 27 22.6" stroke-width={vikt + 0.15} opacity="0.95" />
-    </g>
-    <circle cx="17.9" cy="19.1" r={size < 22 ? 3.1 : 2.75} fill="currentColor" />
-  </svg>
-
+<span class={`inline-block leading-none ${className}`}>
   <span
-    class="font-[family-name:var(--font-display)] leading-none tracking-[-0.028em]"
-    style={`font-size:${size * 0.74}px`}>Apport</span
+    class="block font-[family-name:var(--font-display)] tracking-[0.075em]"
+    style={`font-size:${size}px`}>APPORT</span
   >
+  {
+    variant === 'full' && (
+      <span
+        class="mt-[5px] block border-t border-current/25 pt-[4px] font-semibold tracking-[0.2em] opacity-80"
+        style={`font-size:${Math.max(7.5, size * 0.37)}px`}
+      >
+        SMÄRTSPECIALIST · KRISTIANSTAD
+      </span>
+    )
+  }
 </span>

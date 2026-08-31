@@ -4,8 +4,7 @@
  * patientantal, framgångssiffror eller betyg.
  * Källa: apport.rehab/om-oss/, /kliniken/ och allabolag.se.
  */
-import Sikte from './Sikte.astro';
-import { CREDENTIALS, TEAM } from '../lib/content';
+import { CREDENTIALS } from '../lib/content';
 
 interface Props {
   /** Mörk variant för placering mot mossa-djup */
@@ -48,42 +47,4 @@ const { light = false } = Astro.props;
     }
   </ul>
 
-  <!-- Vilka specialistkompetenserna faktiskt är -->
-  <div class="mt-5 grid gap-5 sm:grid-cols-2">
-    {
-      TEAM.map((person) => (
-        <div
-          class:list={[
-            'stig rounded-2xl border p-7',
-            light ? 'border-kalk/12 bg-mossa-djup' : 'border-sten bg-papper',
-          ]}
-        >
-          <h3 class:list={['text-[1.15rem]', light ? 'text-kalk' : 'text-mossa-djup']}>
-            {person.name}
-          </h3>
-          <p
-            class:list={[
-              'mt-1 text-[0.9rem] font-medium',
-              light ? 'text-salvia' : 'text-mossa-ljus',
-            ]}
-          >
-            {person.role}
-          </p>
-          <ul class="mt-4 flex flex-wrap gap-2">
-            {person.specialties.map((s) => (
-              <li
-                class:list={[
-                  'flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.8rem]',
-                  light ? 'bg-kalk/10 text-kalk/85' : 'bg-lind/70 text-mossa-djup',
-                ]}
-              >
-                <Sikte size={11} />
-                {s}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))
-    }
-  </div>
 </div>

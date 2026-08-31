@@ -1,0 +1,235 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import SnabbKontakt from '../../components/SnabbKontakt.astro';
+import CtaSektion from '../../components/CtaSektion.astro';
+import Sikte from '../../components/Sikte.astro';
+import { ARTIKLAR, ARTIKLAR_SORTERADE, formateraDatum } from '../../lib/artiklar-data';
+import { TEAM, CONDITIONS, TREATMENTS } from '../../lib/content';
+import { breadcrumbSchema, articleSchema, faqSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return ARTIKLAR.map((artikel) => ({ params: { slug: artikel.slug }, props: { artikel } }));
+}
+
+const { artikel } = Astro.props;
+
+const forfattare = TEAM.find((t) => t.slug === artikel.forfattare)!;
+
+const crumbs = [
+  { name: 'Hem', url: '/' },
+  { name: 'Artiklar', url: '/artiklar/' },
+  { name: artikel.titel, url: `/artiklar/${artikel.slug}/` },
+];
+
+const besvar = artikel.relateradeBesvar
+  .map((s) => CONDITIONS.find((c) => c.slug === s))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+
+const behandlingar = artikel.relateradeBehandlingar
+  .map((s) => TREATMENTS.find((t) => t.slug === s))
+  .filter((t): t is NonNullable<typeof t> => Boolean(t));
+
+const fler = ARTIKLAR_SORTERADE.filter((a) => a.slug !== artikel.slug).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${artikel.metaTitle} | Apport`}
+  description={artikel.metaDescription}
+  ogType="article"
+  schema={[
+    breadcrumbSchema(crumbs),
+    articleSchema({
+      slug: artikel.slug,
+      titel: artikel.titel,
+      beskrivning: artikel.metaDescription,
+      datum: artikel.datum,
+      forfattarNamn: forfattare.name,
+      forfattarUrl: `/om-apport/#${forfattare.slug}`,
+      bild: artikel.image?.src,
+    }),
+    faqSchema(artikel.faqs),
+  ]}
+>
+  <!-- Sidhuvud: ljust och redaktionellt, inte det mörka standardhuvudet -->
+  <header class="border-b border-sten bg-papper px-5 pb-14 pt-10 sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <Breadcrumbs {crumbs} />
+
+      <div class="mt-9 max-w-(--container-läs)">
+        <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.8rem] text-skiffer">
+          <span class="font-semibold uppercase tracking-[0.14em] text-salvia-text"
+            >{artikel.amne}</span
+          >
+          <span aria-hidden="true" class="text-sten-mork">·</span>
+          <time datetime={artikel.datum}>{formateraDatum(artikel.datum)}</time>
+          <span aria-hidden="true" class="text-sten-mork">·</span>
+          <span>{artikel.lastid} min läsning</span>
+        </p>
+
+        <h1 class="mt-5 text-[clamp(2rem,4.2vw,3.1rem)] leading-[1.08] text-mossa-djup">
+          {artikel.titel}
+        </h1>
+
+        <p class="mt-6 text-[1.14rem] leading-relaxed text-skiffer">{artikel.ingress}</p>
+
+        <div class="mt-8 flex items-center gap-3.5 border-t border-sten pt-6">
+          <span class="text-salvia-text"><Sikte size={17} /></span>
+          <p class="text-[0.92rem] leading-snug text-skiffer">
+            <a href={`/om-apport/#${forfattare.slug}`} class="lank-linje font-medium text-mossa-djup"
+              >{forfattare.name}</a
+            >
+            <span class="block text-[0.86rem]">{forfattare.role}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <article class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-läs)">
+      {
+        artikel.image && (
+          <figure class="mb-14">
+            <img
+              src={artikel.image.src}
+              alt={artikel.image.alt}
+              width="1400"
+              height="940"
+              class="w-full rounded-2xl"
+              decoding="async"
+            />
+            <figcaption class="mt-4 text-[0.85rem] leading-relaxed text-skiffer">
+              {artikel.image.caption}
+            </figcaption>
+          </figure>
+        )
+      }
+
+      {
+        artikel.avsnitt.map((av) => (
+          <section class="mb-12 last:mb-0">
+            <h2 class="text-[1.5rem] leading-snug text-mossa-djup">{av.rubrik}</h2>
+            <div class="mt-4 space-y-5 text-[1.06rem] leading-relaxed text-skiffer">
+              {av.stycken.map((st) => (
+                <p>{st}</p>
+              ))}
+            </div>
+            {av.lista && (
+              <ul class="mt-6 space-y-3">
+                {av.lista.map((rad) => (
+                  <li class="flex items-start gap-3.5 text-[1.02rem] leading-relaxed text-skiffer">
+                    <span class="mt-1 shrink-0 text-salvia-text">
+                      <Sikte size={14} />
+                    </span>
+                    {rad}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))
+      }
+
+      <p
+        class="mt-14 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.95rem] leading-relaxed text-mossa-djup"
+      >
+        Texten är allmän information om hur vi arbetar, inte en medicinsk bedömning av dina
+        besvär. Vad som är aktuellt för dig avgörs av en undersökning — hör av dig så tittar vi
+        på det tillsammans.
+      </p>
+    </div>
+  </article>
+
+  <SnabbKontakt text="Känner du igen dig i texten? Berätta kort om dina besvär." />
+
+  <!-- FAQ -->
+  <section class="px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-läs)">
+      <h2 class="text-[1.6rem] text-mossa-djup">Vanliga frågor</h2>
+      <Faq faqs={artikel.faqs} class="mt-8" />
+    </div>
+  </section>
+
+  <!-- Vidare läsning -->
+  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="grid gap-12 lg:grid-cols-2">
+        {
+          besvar.length > 0 && (
+            <div>
+              <h2 class="text-[1.3rem] text-mossa-djup">Besvär som artikeln rör</h2>
+              <ul class="mt-5 space-y-px overflow-hidden rounded-2xl bg-sten">
+                {besvar.map((c) => (
+                  <li>
+                    <a
+                      href={`/besvar/${c.slug}/`}
+                      class="group flex items-center justify-between gap-4 bg-kalk px-6 py-4 transition-colors hover:bg-lind/50"
+                    >
+                      <span class="text-[0.97rem] text-mossa-djup">{c.name}</span>
+                      <span class="text-mossa transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {
+          behandlingar.length > 0 && (
+            <div>
+              <h2 class="text-[1.3rem] text-mossa-djup">Behandlingar som nämns</h2>
+              <ul class="mt-5 space-y-px overflow-hidden rounded-2xl bg-sten">
+                {behandlingar.map((t) => (
+                  <li>
+                    <a
+                      href={`/behandlingar/${t.slug}/`}
+                      class="group flex items-center justify-between gap-4 bg-kalk px-6 py-4 transition-colors hover:bg-lind/50"
+                    >
+                      <span class="text-[0.97rem] text-mossa-djup">{t.shortName}</span>
+                      <span class="text-mossa transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+
+      <h2 class="mt-16 text-[1.3rem] text-mossa-djup">Fler artiklar</h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-3">
+        {
+          fler.map((a) => (
+            <li>
+              <a
+                href={`/artiklar/${a.slug}/`}
+                class="group flex h-full flex-col justify-between rounded-2xl bg-kalk p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-mjuk"
+              >
+                <span>
+                  <span class="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+                    {a.amne}
+                  </span>
+                  <span class="mt-2.5 block text-[1.02rem] leading-snug text-mossa-djup">
+                    {a.titel}
+                  </span>
+                </span>
+                <span class="mt-5 text-[0.85rem] font-medium text-mossa transition-colors group-hover:text-tegel">
+                  Läs mer →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaSektion />
+</BaseLayout>

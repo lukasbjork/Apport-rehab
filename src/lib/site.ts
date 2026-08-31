@@ -107,6 +107,7 @@ export const NAV = [
   { label: 'Besvär', href: '/besvar/' },
   { label: 'Behandlingar', href: '/behandlingar/' },
   { label: 'Om Apport', href: '/om-apport/' },
+  { label: 'Artiklar', href: '/artiklar/' },
   { label: 'Som patient', href: '/som-patient/' },
   { label: 'Kontakt', href: '/kontakt/' },
 ] as const;

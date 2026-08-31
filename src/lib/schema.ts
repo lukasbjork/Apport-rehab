@@ -186,6 +186,43 @@ description: treatment.teaser,
   };
 }
 
+/**
+ * Article för bloggartiklar.
+ *
+ * Typen MedicalWebPage vore fel här: artiklarna är redaktionellt innehåll
+ * som förklarar hur kliniken arbetar, inte sidor som beskriver ett tillstånd
+ * eller en behandling. Article med författare och datum är det korrekta.
+ */
+export function articleSchema(opts: {
+  slug: string;
+  titel: string;
+  beskrivning: string;
+  datum: string;
+  forfattarNamn: string;
+  forfattarUrl: string;
+  bild?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${SITE.url}/artiklar/${opts.slug}/#artikel`,
+    headline: opts.titel,
+    description: opts.beskrivning,
+    url: `${SITE.url}/artiklar/${opts.slug}/`,
+    inLanguage: 'sv-SE',
+    datePublished: opts.datum,
+    dateModified: opts.datum,
+    author: {
+      '@type': 'Person',
+      name: opts.forfattarNamn,
+      url: abs(opts.forfattarUrl),
+    },
+    publisher: { '@id': `${SITE.url}/#klinik` },
+    ...(opts.bild ? { image: abs(opts.bild) } : {}),
+    isPartOf: { '@id': `${SITE.url}/#webbplats` },
+  };
+}
+
 /** WebSite-nod för startsidan. */
 export function websiteSchema() {
   return {

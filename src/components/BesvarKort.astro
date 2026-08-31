@@ -13,8 +13,13 @@ interface Props {
   condition: Condition;
   /** Framhävt kort — spänner bredare och får större typografi */
   wide?: boolean;
+  /**
+   * Döljer teasern. Används på startsidan, där tio teasrar i rad blir en
+   * textvägg. Hubbsidan /besvar/ visar dem, för där är man för att välja.
+   */
+  compact?: boolean;
 }
-const { condition, wide = false } = Astro.props;
+const { condition, wide = false, compact = false } = Astro.props;
 ---
 
 <a
@@ -42,14 +47,18 @@ const { condition, wide = false } = Astro.props;
     >
       {condition.name}
     </h3>
-    <p
-      class:list={[
-        'mt-3 leading-relaxed text-skiffer',
-        wide ? 'text-[1.02rem] sm:max-w-lg' : 'text-[0.95rem]',
-      ]}
-    >
-      {condition.teaser}
-    </p>
+    {
+      (!compact || wide) && (
+        <p
+          class:list={[
+            'mt-3 leading-relaxed text-skiffer',
+            wide ? 'text-[1.02rem] sm:max-w-lg' : 'text-[0.95rem]',
+          ]}
+        >
+          {condition.teaser}
+        </p>
+      )
+    }
   </div>
 
   <span

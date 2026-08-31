@@ -140,10 +140,10 @@ export const CONDITIONS: Condition[] = [
     relatedTreatments: ['utredning', 'akupunktur', 'proloterapi', 'pulsad-radiofrekvens', 'fysioterapi'],
     group: 'Kotpelaren',
     image: {
-      src: '/bilder/blockad-facettled-landrygg.webp',
-      alt: 'Anatomisk modell av ländryggen där en nål visar placeringen vid en facettledsblockad',
+      src: '/bilder/pulsad-rf-1.webp',
+      alt: 'Två nålar placerade i ländryggen under behandling på Apport',
       caption:
-        'Demonstration på anatomisk modell: placeringen vid en facettledsblockad i ländryggen. På patient sker samma moment med ultraljud som vägledning.',
+        'Behandling i ländryggen på kliniken. Nålarnas läge kontrolleras med ultraljud innan behandlingen börjar.',
     },
   },
 
@@ -221,10 +221,10 @@ export const CONDITIONS: Condition[] = [
     relatedTreatments: ['utredning', 'akupunktur', 'pulsad-radiofrekvens', 'medicinsk-smartbehandling', 'fysioterapi'],
     group: 'Kotpelaren',
     image: {
-      src: '/bilder/ultraljud-c4-c5.webp',
-      alt: 'Ultraljudsbild från Apport som visar vävnadslagren i halsryggen med markörer vid de bedömda strukturerna',
+      src: '/bilder/blockad-halsrygg.webp',
+      alt: 'Anatomisk modell av halsryggen där en nål visar placeringen vid en blockad mellan kotorna',
       caption:
-        'Ultraljudsbild tagen på kliniken. Markörerna pekar ut de strukturer som bedömts inför en blockad i halsryggen.',
+        'Demonstration på anatomisk modell: nålens väg in mot en facettled i halsryggen. På patient styrs placeringen med ultraljud.',
     },
   },
 
@@ -305,6 +305,12 @@ export const CONDITIONS: Condition[] = [
     ],
     relatedTreatments: ['utredning', 'akupunktur', 'proloterapi', 'pulsad-radiofrekvens', 'fysioterapi'],
     group: 'Kotpelaren',
+    image: {
+      src: '/bilder/rotblockad-halsrygg.webp',
+      alt: 'Anatomisk modell av halsryggen där en nål visar vägen in mot en nervrot',
+      caption:
+        'Demonstration på anatomisk modell: hur en nål förs in mot en nervrot i halsryggen. På patient styrs placeringen med ultraljud, eftersom strukturerna ligger tätt.',
+    },
   },
 
   {
@@ -685,10 +691,10 @@ export const CONDITIONS: Condition[] = [
     relatedTreatments: ['utredning', 'pulsad-radiofrekvens', 'medicinsk-smartbehandling', 'akupunktur'],
     group: 'Nerver',
     image: {
-      src: '/bilder/rotblockad-halsrygg.webp',
-      alt: 'Anatomisk modell av halsryggen där en nål visar placeringen vid en rotblockad intill en nervrot',
+      src: '/bilder/pulsad-rf-3.webp',
+      alt: 'Nålar för nervriktad behandling placerade i ryggen under ett besök på Apport',
       caption:
-        'Demonstration på anatomisk modell: nålens placering vid en rotblockad i halsryggen. På patient styrs placeringen med ultraljud.',
+        'Nervriktad behandling på kliniken. Nålarnas läge kontrolleras med ultraljud, eftersom strukturerna ligger tätt.',
     },
   },
 

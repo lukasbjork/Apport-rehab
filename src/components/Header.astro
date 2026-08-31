@@ -31,7 +31,8 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         class="text-mossa-djup transition-opacity hover:opacity-70"
         aria-label="Apport — till startsidan"
       >
-        <Logo />
+        <span class="hidden sm:block"><Logo variant="full" size={23} /></span>
+        <span class="block sm:hidden"><Logo variant="kompakt" size={21} /></span>
       </a>
 
       <nav aria-label="Huvudmeny" class="hidden lg:block">
