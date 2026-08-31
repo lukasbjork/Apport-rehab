@@ -3,7 +3,8 @@
   "framework": "astro",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "cleanUrls": true,
+  "//": "trailingSlash måste matcha astro.config.mjs (trailingSlash: 'always'). Sätt ALDRIG cleanUrls här — det gör att /besvar/ 308-redirectar till /besvar, vilket bryter varje canonical på sajten.",
+  "trailingSlash": true,
   "headers": [
     {
       "source": "/bilder/(.*)",
