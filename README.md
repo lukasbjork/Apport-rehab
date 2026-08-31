@@ -102,14 +102,39 @@ för besökaren. Sök efter `BildPlatshallare` i `src/` för att hitta dem, elle
 > Ultraljudsbilderna beskärs automatiskt så att maskinens meny, knappar och
 > **studie-ID** faller bort — studie-ID hör inte hemma på en publik sajt.
 
-### 3. Kontaktformuläret
+### 3. Kontaktformuläret — SÄTT UPP E-POSTAVISERING
 
-Formuläret är **avstängt** tills en endpoint finns. Så länge `SITE.formEndpoint`
-är tom visas mejl och telefon i stället — aldrig ett formulär som tyst slänger
-patientens meddelande.
+Formuläret på `/kontakt/` är **aktivt och testat**. Det körs på Netlify Forms,
+inte Formspree — sajten hostas redan på Netlify, så inlämningarna går inte
+via någon extra leverantör.
 
-Aktivera: skapa gratis endpoint på [formspree.io](https://formspree.io) och
-fyll i `formEndpoint` i `src/lib/site.ts`.
+> ⚠️ **Inlämningar hamnar bara i Netlifys dashboard tills någon lägger till en
+> e-postavisering.** Skickar en patient in formuläret i morgon ligger det
+> osett tills någon loggar in och tittar. Det här är det enda som återstår
+> för att formuläret ska vara helt klart.
+>
+> Så gör du: Netlify → Forms → *kontakt* → Settings → **Form notifications**
+> → Add notification → Email notification → ange klinikens adress.
+> Den är medvetet inte satt av oss, eftersom det hade börjat skicka mejl till
+> kliniken innan de sett sajten.
+
+Verifierat 2026-08-31: en testinlämning gick igenom hela kedjan (POST →
+registrerad → synlig i dashboarden), honeypot-fältet kastade ett botförsök
+tyst, och testdatan raderades efteråt.
+
+**Två inställningar som måste vara rätt** (båda är satta):
+
+| Inställning | Värde | Varför |
+|---|---|---|
+| `ignore_html_forms` | `false` | Netlify sätter `true` på nya sajter, och då registreras formulär **tyst inte alls**. Det var därför formuläret inte fungerade vid första deployen. |
+| `data-netlify="true"` + dolt `form-name`-fält | finns i markupen | Utan dem kopplas inlämningen inte till rätt formulär. `npm run verify` kontrollerar att båda finns kvar. |
+
+Fälten heter `namn`, `telefon`, `epost`, `arende`, `meddelande`, `samtycke`
+plus honeypot-fältet `lamna-tom`. Formuläret ber aldrig om personnummer och
+hänvisar egenremisser till mejl, eftersom ett webbformulär inte är rätt kanal
+för hälsouppgifter.
+
+Kvittenssidan ligger på `/tack/` och är `noindex`.
 
 ### 4. Patientreferenser
 

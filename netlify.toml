@@ -7,8 +7,16 @@
 
 # Netlify serverar kataloger med index.html på /sokvag/ och redirectar
 # /sokvag → /sokvag/. Det matchar Astros trailingSlash: 'always' och därmed
-# alla canonical-URL:er. Slå INTE på "Pretty URLs"-optimeringen i Netlifys
-# UI — den strippar avslutande snedstreck och bryter varje canonical.
+# alla canonical-URL:er.
+#
+# Sajtens processing_settings har pretty_urls = true. Det är verifierat
+# ofarligt här: inställningen tar bort .html-ändelser, men eftersom Astro
+# bygger katalog/index.html finns inga .html-URL:er att strippa, och
+# redirecten går TILL avslutande snedstreck, inte från.
+#
+# ignore_html_forms måste vara FALSE för att kontaktformuläret ska fungera.
+# Netlify sätter true på nya sajter, vilket gör att formulär tyst inte
+# registreras. Ändras via API: updateSite med processing_settings.
 
 [[headers]]
   for = "/*"
