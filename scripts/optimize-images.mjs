@@ -6,13 +6,16 @@
  *    uppgift som inte hör hemma på en publik sajt.
  * 2. Konverterar allt till webp i rimliga bredder.
  *
+ * Källbilder ligger i bilder-original/ (versionshanterade men skeppas INTE).
+ * Resultatet hamnar i public/bilder/ och är det enda som deployas.
+ *
  * Kör: npm run bilder
  */
 import sharp from 'sharp';
 import { readdir, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
-const KALLA = 'public/bilder';
+const KALLA = 'bilder-original';
 const MAL = 'public/bilder';
 
 /**

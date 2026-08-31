@@ -46,8 +46,16 @@ Platshållarna är designade att se avsiktliga ut — ingen "bild saknas"-text s
 för besökaren. Sök efter `BildPlatshallare` i `src/` för att hitta dem, eller
 `data-foto-saknas` i den byggda HTML:en.
 
-**Så byter du in ett foto:** lägg filen i `public/bilder/`, kör `npm run bilder`
-för webp-konvertering, och ersätt `<BildPlatshallare ... />` med en `<img>`.
+**Så byter du in ett foto:** lägg originalet i `bilder-original/`, kör
+`npm run bilder` (skriver optimerad webp till `public/bilder/`), och ersätt
+`<BildPlatshallare ... />` med en `<img>` som pekar på `.webp`-filen.
+
+> `bilder-original/` innehåller källbilderna och är versionshanterad, men
+> **skeppas inte** — bara `public/bilder/*.webp` deployas. Det halverar
+> deploystorleken (4,6 → 2,1 MB).
+>
+> Ultraljudsbilderna beskärs automatiskt så att maskinens meny, knappar och
+> **studie-ID** faller bort — studie-ID hör inte hemma på en publik sajt.
 
 ### 3. Kontaktformuläret
 
