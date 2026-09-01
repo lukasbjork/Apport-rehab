@@ -87,13 +87,15 @@ och tre platser väntar på riktiga foton:
 | `/om-apport/` + startsidan | Porträtt av **Helene Svärdström Jönsson** | Stående, ca 4:5 |
 | `/om-apport/` | Miljöbild från kliniken eller husets fasad | Liggande, ca 4:3 |
 
-Platshållarna är designade att se avsiktliga ut — ingen "bild saknas"-text syns
-för besökaren. Sök efter `BildPlatshallare` i `src/` för att hitta dem, eller
-`data-foto-saknas` i den byggda HTML:en.
+Där fotot saknas ritas **ingen platshållarruta**. En stor grå ruta med initialer
+är inte en bild, den är ett hål som låtsas vara en — så platsen bärs i stället
+av text: kompetenserna på `/om-apport/` och startsidan, faktauppgifterna i
+klinikavsnittet.
 
 **Så byter du in ett foto:** lägg originalet i `bilder-original/`, kör
-`npm run bilder` (skriver optimerad webp till `public/bilder/`), och ersätt
-`<BildPlatshallare ... />` med en `<img>` som pekar på `.webp`-filen.
+`npm run bilder` (skriver optimerad webp till `public/bilder/`), och lägg in en
+`<img>` med `width`, `height` och `alt`. På `/om-apport/` finns grenen redan:
+sätt `image` på personen i `src/lib/content.ts`, så renderas bilden automatiskt.
 
 > `bilder-original/` innehåller källbilderna och är versionshanterad, men
 > **skeppas inte** — bara `public/bilder/*.webp` deployas. Det halverar
@@ -251,16 +253,55 @@ sökvägsändringar och 18 söktermsalias.
 
 ## Design
 
-Konceptet heter **"Precisionen"** och bygger på klinikens faktiska särdrag:
-de tittar in i vävnaden med ultraljud innan de behandlar, och de säger nej
-till det de inte kan hjälpa.
+Konceptet heter **"Tonskalan"**. Kliniken har inga miljöbilder, inga porträtt
+och ingen stockfotografering — det enda bildmaterialet är ultraljud och
+blockadbilder. Det är en begränsning, och den bestämmer designen.
 
-- **Färg** — kalkvit `#f5f2ec`, mossgrön `#34433a`, djup `#202b24`, tegel `#a8593a` som sparsam accent
-- **Typsnitt** — Literata (rubriker) + Hanken Grotesk (brödtext), båda självhostade
-- **Signaturelement** — "Siktet", ett hårfint hårkors med cirkel, hämtat från ultraljudsledd nålplacering
-- **Kontrast** — samtliga 17 färgpar mätta mot WCAG 2.2 AA. `--color-salvia` är
-  ljus och får **bara** användas mot mörk botten; använd `--color-salvia-text`
-  mot kalk/papper.
+Tre principer:
+
+1. **Tonskalan.** Hela paletten är EN grön gråskala. Kulör är en signal, aldrig
+   dekoration. Det ljusaste värdet i en vy är det man ska göra.
+2. **Bilderna bär.** Klinikens egna bilder körs stora och obeskurna med sina
+   riktiga bildtexter. Aldrig en stockbild, aldrig en platshållarruta.
+3. **Vikt istället för etikett.** Hierarki bärs av storlek, vikt och bottenfärg
+   — aldrig av en liten versal etikett ovanför rubriken.
+
+- **Färg** — nio värden i `src/styles/global.css`, var och en med exakt en roll:
+  `djup #111a15`, `lyft #1d2a23`, `papper #eff0ea`, `mellan #dde0d7`,
+  `topp #fafaf6`, `linje #c9cdc2`, `dov #4a554d`, `ljus-dov #a5b0a7`.
+  `lera #8e3f2a` är den enda kulören och används **bara** för förbehåll
+  ("utanför avtalet", "det tar vi inte emot") — aldrig på en knapp, aldrig i en
+  rubrik, aldrig som dekoration.
+- **Typsnitt** — Host Grotesk (rubriker och gränssnitt) + Literata (brödtext),
+  båda självhostade. Rollerna är omvända mot det vanliga: grotesken matchar
+  bildmaterialets instrumentkaraktär, serifen bär de långa patienttexterna.
+- **Typskala** — sju steg (`t-display`, `t-h1`, `t-h2`, `t-h3`, `t-ingress`,
+  `t-brod`, `t-liten`) plus `t-siffra`. Inga andra rubrikstorlekar i sajten.
+- **Radie** — fyra värden med fasta betydelser: `0` hårlinjelistor, `2px` bilder
+  (`.y-ram`), `4px` panelytor (`.y-platta`), piller endast knappar. Inga skuggor
+  finns i systemet.
+- **Rörelse** — en orkestrerad sekvens i heron (`.intro`), inget annat. Ingen
+  scroll-reveal. `prefers-reduced-motion` nollar allt.
+- **Kontrast** — samtliga färgpar uträknade mot WCAG 2.2 AA, de flesta AAA.
+  `ljus-dov` är ljus och används **bara** mot mörk botten; `dov` mot papper.
+  Lighthouse-tillgänglighet: 100.
+
+## Egenremissen — åtgärder före skarp lansering
+
+`/egenremiss/` är nu ett flerstegsformulär som skickar via Netlify Forms.
+Det tar emot **hälsouppgifter**, som är en särskild kategori av personuppgifter
+enligt artikel 9 i GDPR. Innan formuläret används skarpt måste kliniken:
+
+1. Teckna personuppgiftsbiträdesavtal (DPA) med Netlify.
+2. Kontrollera var Netlify lagrar inlämningarna och komplettera
+   integritetspolicyn med den uppgiften.
+3. Bestämma gallringsrutin — inlämningar ska inte ligga kvar i Netlifys
+   dashboard längre än nödvändigt.
+4. Slå på e-postavisering under Forms, annars blir de liggande osedda.
+
+Tills det är gjort fungerar mejlvägen bredvid formuläret precis som förut.
+Vill kliniken stänga av formuläret helt: ta bort `data-netlify="true"` från
+`<form>` i `src/pages/egenremiss.astro` — sidan går inte sönder av det.
 
 ## Verifiering
 
