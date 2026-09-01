@@ -1,123 +1,191 @@
 ---
+/**
+ * Flytande navbar.
+ *
+ * Ligger transparent ovanpå hero på startsidan och blir solid vid scroll.
+ * Övriga sidor får solid direkt, eftersom de saknar mörk hero att ligga över.
+ *
+ * Pill-formen är hämtad från referensens visuella tempo, men innehållet är
+ * Apports: logotypen till vänster i stället för centrerad, och en CTA som
+ * säger vad den gör i stället för "Kom igång".
+ */
 import Logo from './Logo.astro';
-import { SITE, NAV, CTA, PHONE_HOURS } from '../lib/site';
+import { SITE, NAV, CTA } from '../lib/site';
+
+interface Props {
+  /** true på sidor med mörk hero — navbaren startar transparent */
+  overHero?: boolean;
+}
+const { overHero = false } = Astro.props;
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
 ---
 
-<header class="sticky top-0 z-50">
-  <!-- Toppremsa: telefon + telefontid. Sätter förväntan direkt. -->
-  <div class="bg-mossa-djup text-kalk/85">
-    <div
-      class="mx-auto flex max-w-(--container-content) flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-2 text-[0.78rem] sm:px-8"
-    >
-      <p class="flex items-center gap-2">
-        <span class="hidden sm:inline">Telefontid {PHONE_HOURS.toLowerCase()}</span>
-        <a href={`tel:${SITE.phoneHref}`} class="lank-linje inline-block py-1 font-medium text-kalk">
-          {SITE.phone}
-        </a>
-      </p>
-      <p class="hidden md:block">Avtal med Region Skåne · patientavgift 200 kr · frikort gäller</p>
-    </div>
-  </div>
+<header
+  id="toppnav"
+  data-over-hero={overHero ? 'true' : 'false'}
+  class:list={[
+    'fixed inset-x-0 top-0 z-50 transition-all duration-500',
+    overHero ? 'is-transparent' : 'is-solid',
+  ]}
+>
+  <div class="mx-auto flex max-w-(--container-content) items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:py-5">
+    <a href="/" class="nav-logo transition-opacity hover:opacity-70" aria-label="Apport — till startsidan">
+      <span class="hidden sm:block"><Logo variant="full" size={22} /></span>
+      <span class="block sm:hidden"><Logo variant="kompakt" size={20} /></span>
+    </a>
 
-  <div class="border-b border-sten bg-kalk/92 backdrop-blur-md">
-    <div
-      class="mx-auto flex max-w-(--container-content) items-center justify-between gap-6 px-5 py-3.5 sm:px-8"
-    >
+    <!-- Pill-navigation, desktop -->
+    <nav aria-label="Huvudmeny" class="hidden lg:block">
+      <ul class="nav-pill flex items-center gap-1 rounded-full px-1.5 py-1.5 backdrop-blur-md">
+        {
+          NAV.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class:list={[
+                  'nav-lank block rounded-full px-4 py-2 text-[0.88rem] transition-colors duration-300',
+                  isActive(item.href) && 'is-aktiv',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
       <a
-        href="/"
-        class="text-mossa-djup transition-opacity hover:opacity-70"
-        aria-label="Apport — till startsidan"
+        href={CTA.primary.href}
+        class="nav-cta hidden rounded-full px-5 py-2.5 text-[0.86rem] font-medium transition-all duration-300 sm:inline-block"
       >
-        <span class="hidden sm:block"><Logo variant="full" size={23} /></span>
-        <span class="block sm:hidden"><Logo variant="kompakt" size={21} /></span>
+        {CTA.primary.label}
       </a>
 
-      <nav aria-label="Huvudmeny" class="hidden lg:block">
-        <ul class="flex items-center gap-7 text-[0.9rem]">
-          {
-            NAV.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  aria-current={isActive(item.href) ? 'page' : undefined}
-                  class:list={[
-                    'lank-linje py-1 transition-colors',
-                    isActive(item.href)
-                      ? 'text-mossa-djup font-medium'
-                      : 'text-skiffer hover:text-mossa-djup',
-                  ]}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-
-      <div class="flex items-center gap-3">
-        <a
-          href={CTA.primary.href}
-          class="hidden rounded-full bg-mossa px-5 py-2.5 text-[0.86rem] font-medium text-kalk transition-colors hover:bg-mossa-djup sm:inline-block"
+      <!-- Mobilmeny: nativ details/summary, fungerar utan JavaScript -->
+      <details class="group relative lg:hidden">
+        <summary
+          class="nav-hamburgare flex h-11 w-11 items-center justify-center rounded-full transition-colors"
+          aria-label="Öppna meny"
         >
-          {CTA.primary.label}
-        </a>
-
-        <!-- Mobilmeny: nativ details/summary, fungerar utan JavaScript -->
-        <details class="group relative lg:hidden">
-          <summary
-            class="flex h-10 w-10 items-center justify-center rounded-full border border-sten-mork text-mossa-djup transition-colors hover:bg-lind"
-            aria-label="Öppna meny"
-          >
-            <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true">
-              <path
-                d="M0 1h18M0 6h18M0 11h18"
-                stroke="currentColor"
-                stroke-width="1.5"
-                class="group-open:hidden"></path>
-              <path
-                d="M2 1l14 10M16 1L2 11"
-                stroke="currentColor"
-                stroke-width="1.5"
-                class="hidden group-open:block"></path>
-            </svg>
-          </summary>
-          <nav
-            aria-label="Mobilmeny"
-            class="absolute right-0 top-13 w-64 rounded-2xl border border-sten bg-papper p-2 shadow-lyft"
-          >
-            <ul class="flex flex-col">
-              {
-                NAV.map((item) => (
-                  <li>
-                    <a
-                      href={item.href}
-                      aria-current={isActive(item.href) ? 'page' : undefined}
-                      class:list={[
-                        'block rounded-xl px-4 py-3 text-[0.95rem] transition-colors hover:bg-lind',
-                        isActive(item.href) ? 'text-mossa-djup font-medium' : 'text-skiffer',
-                      ]}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))
-              }
-              <li class="mt-1 border-t border-sten pt-2">
-                <a
-                  href={CTA.primary.href}
-                  class="block rounded-xl bg-mossa px-4 py-3 text-center text-[0.95rem] font-medium text-kalk"
-                >
-                  {CTA.primary.label}
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </details>
-      </div>
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true">
+            <path d="M0 1h18M0 6h18M0 11h18" stroke="currentColor" stroke-width="1.5" class="group-open:hidden"></path>
+            <path d="M2 1l14 10M16 1L2 11" stroke="currentColor" stroke-width="1.5" class="hidden group-open:block"></path>
+          </svg>
+        </summary>
+        <nav
+          aria-label="Mobilmeny"
+          class="absolute right-0 top-14 w-[17rem] rounded-3xl border border-sten bg-papper p-2.5 shadow-lyft"
+        >
+          <ul class="flex flex-col">
+            {
+              NAV.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
+                    class:list={[
+                      'block rounded-2xl px-4 py-3.5 text-[0.98rem] transition-colors hover:bg-lind',
+                      isActive(item.href) ? 'font-medium text-mossa-djup' : 'text-skiffer',
+                    ]}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li class="mt-1.5 border-t border-sten pt-2.5">
+              <a
+                href={CTA.primary.href}
+                class="block rounded-2xl bg-mossa px-4 py-3.5 text-center text-[0.95rem] font-medium text-kalk"
+              >
+                {CTA.primary.label}
+              </a>
+            </li>
+            <li class="px-4 pb-1 pt-3">
+              <a href={`tel:${SITE.phoneHref}`} class="block text-[0.88rem] text-skiffer">
+                {SITE.phone}
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </details>
     </div>
   </div>
 </header>
+
+<style>
+  /* Transparent över mörk hero */
+  #toppnav.is-transparent .nav-logo { color: var(--color-kalk); }
+  #toppnav.is-transparent .nav-pill {
+    background-color: rgb(255 255 255 / 0.07);
+    border: 1px solid rgb(255 255 255 / 0.12);
+  }
+  #toppnav.is-transparent .nav-lank { color: rgb(245 242 236 / 0.72); }
+  #toppnav.is-transparent .nav-lank:hover { color: var(--color-kalk); }
+  #toppnav.is-transparent .nav-lank.is-aktiv {
+    background-color: rgb(255 255 255 / 0.13);
+    color: var(--color-kalk);
+  }
+  #toppnav.is-transparent .nav-cta {
+    background-color: var(--color-kalk);
+    color: var(--color-mossa-djup);
+  }
+  #toppnav.is-transparent .nav-cta:hover { background-color: var(--color-sand); }
+  #toppnav.is-transparent .nav-hamburgare {
+    border: 1px solid rgb(255 255 255 / 0.25);
+    color: var(--color-kalk);
+  }
+
+  /* Solid — efter scroll, och direkt på undersidor */
+  #toppnav.is-solid {
+    background-color: color-mix(in oklab, var(--color-kalk) 88%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--color-sten);
+  }
+  #toppnav.is-solid .nav-logo { color: var(--color-mossa-djup); }
+  #toppnav.is-solid .nav-pill { background-color: transparent; border: 1px solid transparent; }
+  #toppnav.is-solid .nav-lank { color: var(--color-skiffer); }
+  #toppnav.is-solid .nav-lank:hover { color: var(--color-mossa-djup); }
+  #toppnav.is-solid .nav-lank.is-aktiv {
+    background-color: var(--color-lind);
+    color: var(--color-mossa-djup);
+    font-weight: 500;
+  }
+  #toppnav.is-solid .nav-cta {
+    background-color: var(--color-mossa);
+    color: var(--color-kalk);
+  }
+  #toppnav.is-solid .nav-cta:hover { background-color: var(--color-mossa-djup); }
+  #toppnav.is-solid .nav-hamburgare {
+    border: 1px solid var(--color-sten-mork);
+    color: var(--color-mossa-djup);
+  }
+</style>
+
+<script>
+  /*
+    Växlar navbaren till solid när hero passerats.
+    Utan JS stannar den transparent över hero, vilket också fungerar —
+    hero är mörk hela vägen ned.
+  */
+  const nav = document.getElementById('toppnav');
+  if (nav && nav.dataset.overHero === 'true') {
+    const brytpunkt = () => Math.max(window.innerHeight * 0.72, 320);
+    let solid = false;
+    const uppdatera = () => {
+      const skaVaraSolid = window.scrollY > brytpunkt();
+      if (skaVaraSolid === solid) return;
+      solid = skaVaraSolid;
+      nav.classList.toggle('is-solid', solid);
+      nav.classList.toggle('is-transparent', !solid);
+    };
+    uppdatera();
+    window.addEventListener('scroll', uppdatera, { passive: true });
+    window.addEventListener('resize', uppdatera, { passive: true });
+  }
+</script>

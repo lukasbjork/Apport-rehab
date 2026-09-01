@@ -1,30 +1,65 @@
 ---
+/**
+ * Stor footer (§20).
+ *
+ * Logotypen får egen plats överst i full storlek, sedan tre kolumner med
+ * navigation och kontakt, och en avslutande rad med juridik.
+ *
+ * Öppettiderna ligger kvar här — de är det man oftast letar efter längst ned
+ * på en klinikwebbplats, och att flytta dem hade varit att designa bort
+ * något användbart för att sidan skulle se renare ut.
+ */
 import Logo from './Logo.astro';
-import { SITE, OPENING_HOURS, PHONE_HOURS } from '../lib/site';
+import { SITE, NAV, OPENING_HOURS, PHONE_HOURS } from '../lib/site';
 import { CONDITIONS, TREATMENTS } from '../lib/content';
 
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-(--spacing-section) bg-mossa-djup text-kalk/75">
-  <div class="mx-auto max-w-(--container-content) px-5 py-16 sm:px-8 sm:py-20">
-    <div class="grid gap-12 md:grid-cols-12">
-      <div class="md:col-span-4">
-        <div class="text-kalk">
-          <Logo variant="full" size={26} />
-        </div>
-        <p class="mt-5 max-w-xs text-[0.92rem] leading-relaxed">
-          Privat smärtspecialistklinik i Kristianstad sedan 2010. Vi utreder och behandlar lokala
-          och regionala smärttillstånd, på uppdrag av Region Skåne.
-        </p>
-        <p class="mt-5 text-[0.82rem] text-kalk/58">
-          {SITE.fullName} · Org.nr {SITE.orgNr}
-        </p>
+<footer class="bg-mossa-djup text-kalk/70">
+  <div class="mx-auto max-w-(--container-content) px-5 py-(--spacing-sek-lg) sm:px-8">
+    <!-- Logotyp och kort beskrivning -->
+    <div class="flex flex-wrap items-end justify-between gap-10 border-b border-kalk/12 pb-14">
+      <div class="text-kalk">
+        <Logo variant="full" size={30} />
       </div>
+      <p class="max-w-sm text-[0.98rem] leading-relaxed">
+        Privat smärtspecialistklinik i Kristianstad sedan 2010. Vi utreder och behandlar lokala
+        och regionala smärttillstånd, på uppdrag av Region Skåne.
+      </p>
+    </div>
 
-      <div class="md:col-span-3">
-        <h2 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">Besvär</h2>
-        <ul class="mt-4 space-y-2.5 text-[0.9rem]">
+    <div class="grid gap-12 pt-14 md:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+      <!-- Navigation -->
+      <nav aria-label="Sidfotsmeny" class="lg:col-span-3">
+        <h2 class="t-eyebrow text-salvia">Webbplatsen</h2>
+        <ul class="mt-6 space-y-3 text-[0.95rem]">
+          {
+            NAV.map((item) => (
+              <li>
+                <a href={item.href} class="lank-linje inline-block py-1 hover:text-kalk">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href="/egenremiss/" class="lank-linje inline-block py-1 hover:text-kalk">
+              Egenremiss
+            </a>
+          </li>
+          <li>
+            <a href="/regenerativ-medicin/" class="lank-linje inline-block py-1 hover:text-kalk">
+              Regenerativ medicin
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Besvär -->
+      <div class="lg:col-span-3">
+        <h2 class="t-eyebrow text-salvia">Besvär</h2>
+        <ul class="mt-6 space-y-3 text-[0.95rem]">
           {
             CONDITIONS.slice(0, 6).map((c) => (
               <li>
@@ -35,20 +70,24 @@ const year = new Date().getFullYear();
             ))
           }
           <li>
-            <a href="/besvar/" class="lank-linje inline-block py-1 text-salvia hover:text-kalk">Alla besvär →</a>
+            <a href="/besvar/" class="lank-linje inline-block py-1 text-salvia hover:text-kalk">
+              Alla besvär →
+            </a>
           </li>
         </ul>
       </div>
 
-      <div class="md:col-span-2">
-        <h2 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">
-          Behandlingar
-        </h2>
-        <ul class="mt-4 space-y-2.5 text-[0.9rem]">
+      <!-- Behandlingar -->
+      <div class="lg:col-span-3">
+        <h2 class="t-eyebrow text-salvia">Behandlingar</h2>
+        <ul class="mt-6 space-y-3 text-[0.95rem]">
           {
             TREATMENTS.map((t) => (
               <li>
-                <a href={`/behandlingar/${t.slug}/`} class="lank-linje inline-block py-1 hover:text-kalk">
+                <a
+                  href={`/behandlingar/${t.slug}/`}
+                  class="lank-linje inline-block py-1 hover:text-kalk"
+                >
                   {t.shortName}
                 </a>
               </li>
@@ -57,53 +96,62 @@ const year = new Date().getFullYear();
         </ul>
       </div>
 
-      <div class="md:col-span-3">
-        <h2 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">Kontakt</h2>
-        <address class="mt-4 space-y-2.5 text-[0.9rem] not-italic">
+      <!-- Kontakt -->
+      <div class="lg:col-span-3">
+        <h2 class="t-eyebrow text-salvia">Kontakt</h2>
+        <address class="mt-6 space-y-4 text-[0.95rem] not-italic">
           <p>
-            <a href={`tel:${SITE.phoneHref}`} class="lank-linje inline-block py-1 hover:text-kalk">{SITE.phone}</a>
-            <span class="block text-[0.8rem] text-kalk/58">Telefontid {PHONE_HOURS.toLowerCase()}</span>
+            <a href={`tel:${SITE.phoneHref}`} class="lank-linje inline-block py-1 hover:text-kalk"
+              >{SITE.phone}</a
+            >
+            <span class="block text-[0.84rem] text-kalk/55">Telefontid {PHONE_HOURS.toLowerCase()}</span>
           </p>
           <p>
-            <a href={`mailto:${SITE.email}`} class="lank-linje inline-block break-all py-1 hover:text-kalk">
-              {SITE.email}
-            </a>
+            <a
+              href={`mailto:${SITE.email}`}
+              class="lank-linje inline-block break-all py-1 hover:text-kalk">{SITE.email}</a
+            >
           </p>
-          <p class="pt-1">
+          <p class="pt-1 leading-relaxed">
             {SITE.street}<br />
             {SITE.postalCode}&nbsp;{SITE.city}<br />
-            <span class="text-[0.82rem] text-kalk/58">{SITE.addressNote}</span>
+            <span class="text-[0.84rem] text-kalk/55">{SITE.addressNote}</span>
           </p>
         </address>
 
-        <h2 class="mt-7 text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-salvia">
-          Öppettider
-        </h2>
-        <ul class="mt-3 space-y-1 text-[0.86rem]">
+        <h2 class="t-eyebrow mt-9 text-salvia">Öppettider</h2>
+        <ul class="mt-5 space-y-2 text-[0.9rem]">
           {
             OPENING_HOURS.map((d) => (
               <li class="flex justify-between gap-4">
                 <span>{d.day}</span>
-                <span class="tabular-nums text-kalk/60">{d.hours}</span>
+                <span class="tabular-nums text-kalk/55">{d.hours}</span>
               </li>
             ))
           }
+          <li class="flex justify-between gap-4">
+            <span>Lördag–söndag</span>
+            <span class="text-kalk/55">Stängt</span>
+          </li>
         </ul>
       </div>
     </div>
 
+    <!-- Juridik -->
     <div
-      class="mt-14 flex flex-col gap-4 border-t border-kalk/12 pt-7 text-[0.82rem] sm:flex-row sm:items-center sm:justify-between"
+      class="mt-16 flex flex-col gap-4 border-t border-kalk/12 pt-8 text-[0.85rem] sm:flex-row sm:items-center sm:justify-between"
     >
-      <p class="text-kalk/58">© {year} {SITE.fullName}</p>
-      <ul class="flex flex-wrap gap-x-6 gap-y-2">
-        <li><a href="/om-apport/" class="lank-linje inline-block py-1 hover:text-kalk">Om Apport</a></li>
-        <li><a href="/som-patient/" class="lank-linje inline-block py-1 hover:text-kalk">Som patient</a></li>
-        <li><a href="/egenremiss/" class="lank-linje inline-block py-1 hover:text-kalk">Egenremiss</a></li>
-        <li><a href="/artiklar/" class="lank-linje inline-block py-1 hover:text-kalk">Artiklar</a></li>
-        <li><a href="/synpunkter/" class="lank-linje inline-block py-1 hover:text-kalk">Synpunkter och klagomål</a></li>
+      <p class="text-kalk/50">© {year} {SITE.fullName} · Org.nr {SITE.orgNr}</p>
+      <ul class="flex flex-wrap gap-x-7 gap-y-2">
         <li>
-          <a href="/integritetspolicy/" class="lank-linje inline-block py-1 hover:text-kalk">Personuppgifter</a>
+          <a href="/integritetspolicy/" class="lank-linje inline-block py-1 hover:text-kalk"
+            >Personuppgifter</a
+          >
+        </li>
+        <li>
+          <a href="/synpunkter/" class="lank-linje inline-block py-1 hover:text-kalk"
+            >Synpunkter och klagomål</a
+          >
         </li>
       </ul>
     </div>

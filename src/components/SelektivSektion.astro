@@ -1,0 +1,78 @@
+---
+/**
+ * "Vi tar inte emot allt" (§18).
+ *
+ * Klinikens tydligaste avgränsning och en av dess viktigaste varumärkesdelar,
+ * så den får en egen mörk helsidessektion i stället för en ruta i mängden.
+ *
+ * Kontrasten är själva poängen: sidan har varit ljus i flera sektioner, och
+ * här slår den om. Det gör påståendet omöjligt att skrolla förbi.
+ */
+import { NOT_OFFERED } from '../lib/content';
+import { CTA } from '../lib/site';
+---
+
+<section class="bg-mossa-djup py-(--spacing-sek-xl)">
+  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
+    <div class="max-w-3xl">
+      <p class="t-eyebrow stig text-salvia">Ärligt talat</p>
+      <h2 class="t-statement stig mt-8 text-kalk">
+        Vi tar inte emot allt.
+        <span class="block text-salvia">Det är en del av vår idé.</span>
+      </h2>
+      <p class="t-brod stig-sen mt-10 max-w-xl text-kalk/70">
+        Vi är en liten klinik med två personer. Att säga nej till det vi inte är bäst på är
+        förutsättningen för att kunna lägga tid på det vi faktiskt kan hjälpa till med.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-12 border-t border-kalk/12 pt-14 sm:grid-cols-2 lg:mt-20 lg:gap-20">
+      <div class="stig">
+        <h3 class="t-eyebrow text-salvia">Vi utreder inte</h3>
+        <ul class="mt-7 space-y-4">
+          {
+            NOT_OFFERED.conditions.map((rad) => (
+              <li class="border-b border-kalk/10 pb-4 text-[1.05rem] text-kalk/85">{rad}</li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="stig">
+        <h3 class="t-eyebrow text-salvia">Vi utfärdar inte</h3>
+        <ul class="mt-7 space-y-4">
+          {
+            NOT_OFFERED.services.map((rad) => (
+              <li class="border-b border-kalk/10 pb-4 text-[1.05rem] text-kalk/85">{rad}</li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="stig-sen mt-16 flex flex-wrap items-center gap-x-10 gap-y-6">
+      <p class="t-h3 text-kalk">Är du osäker? Skriv ändå.</p>
+      <a
+        href={CTA.primary.href}
+        class="group inline-flex items-center gap-2.5 rounded-full bg-kalk px-8 py-4 text-[0.96rem] font-medium text-mossa-djup transition-colors duration-300 hover:bg-sand"
+      >
+        {CTA.primary.label}
+        <svg
+          width="15"
+          height="10"
+          viewBox="0 0 15 10"
+          fill="none"
+          aria-hidden="true"
+          class="transition-transform duration-300 group-hover:translate-x-1"
+        >
+          <path
+            d="M0 5h13M9.5 1L13.5 5L9.5 9"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

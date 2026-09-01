@@ -12,9 +12,14 @@ interface Props {
   ogType?: 'website' | 'article';
   schema?: object[];
   noindex?: boolean;
+  /**
+   * true på sidor som inleds med mörk hero. Navbaren ligger då transparent
+   * ovanpå och innehållet får ingen toppmarginal — hero börjar överst.
+   */
+  overHero?: boolean;
 }
 
-const { title, description, ogImage, ogType, schema, noindex } = Astro.props;
+const { title, description, ogImage, ogType, schema, noindex, overHero = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -24,7 +29,7 @@ const { title, description, ogImage, ogType, schema, noindex } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#34433a" />
+    <meta name="theme-color" content="#1a231d" />
     <meta name="generator" content={Astro.generator} />
     <SeoHead {title} {description} {ogImage} {ogType} {schema} {noindex} />
   </head>
@@ -35,9 +40,9 @@ const { title, description, ogImage, ogType, schema, noindex } = Astro.props;
       >Hoppa till innehåll</a
     >
 
-    <Header />
+    <Header {overHero} />
 
-    <main id="innehall" class="pb-20 lg:pb-0">
+    <main id="innehall" class:list={['pb-24 lg:pb-0', !overHero && 'pt-[5.5rem] lg:pt-[6rem]']}>
       <slot />
     </main>
 

@@ -1,0 +1,67 @@
+---
+/**
+ * Processen som horisontell tidslinje (§15).
+ *
+ * Stora löpnummer på en genomgående linje. Horisontellt från lg, vertikalt
+ * på mindre skärmar — och det är rätt ordning, för på mobil läser man uppifrån
+ * och ner ändå, medan en horisontell tidslinje där hade tvingat fram scroll.
+ */
+import { PROCESS } from '../lib/content';
+
+interface Props {
+  light?: boolean;
+}
+const { light = false } = Astro.props;
+---
+
+<ol class="relative grid gap-12 lg:grid-cols-4 lg:gap-8">
+  <!-- Genomgående linje på lg -->
+  <div
+    aria-hidden="true"
+    class:list={[
+      'absolute left-0 right-0 top-[2.6rem] hidden h-px lg:block',
+      light ? 'bg-kalk/15' : 'bg-sten',
+    ]}
+  >
+  </div>
+
+  {
+    PROCESS.map((step, i) => (
+      <li class="stig relative">
+        <!-- Lodrät linje på mobil -->
+        {i < PROCESS.length - 1 && (
+          <div
+            aria-hidden="true"
+            class:list={[
+              'absolute left-[1.1rem] top-16 h-[calc(100%+3rem)] w-px lg:hidden',
+              light ? 'bg-kalk/15' : 'bg-sten',
+            ]}
+          />
+        )}
+
+        <div class="flex items-start gap-6 lg:block">
+          <span
+            class:list={[
+              't-siffra relative z-10 block shrink-0 text-[2.6rem] leading-none lg:text-[3.4rem]',
+              light ? 'text-salvia' : 'text-sten-text',
+            ]}
+          >
+            {step.number}
+          </span>
+
+          <div class="lg:mt-8">
+            <h3 class:list={['t-h3', light ? 'text-kalk' : 'text-mossa-djup']}>{step.title}</h3>
+            <p
+              class:list={[
+                'mt-3 max-w-xs text-[0.95rem] leading-relaxed',
+                light ? 'text-kalk/68' : 'text-skiffer',
+              ]}
+            >
+              {step.body}
+            </p>
+          </div>
+        </div>
+      </li>
+    ))
+  }
+</ol>

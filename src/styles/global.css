@@ -6,68 +6,76 @@
 
 /*
   ─────────────────────────────────────────────────────────────
-  Designkoncept: "Precisionen"
+  Designsystem — "Precisionen" v3
   ─────────────────────────────────────────────────────────────
-  Kliniken sitter på andra våningen i ett hus från 1614 och gör
-  en sak ovanligt noggrant: tittar in i vävnaden med ultraljud
-  innan de behandlar. Paletten är kalkputs och mossgrönt — varmt,
-  nordiskt, inte sterilt vårdblått. Tegel som accent, mycket
-  sparsamt, hämtat från husets murstensfasad.
+  Kliniken sitter på andra våningen i ett hus från 1614 och gör en sak
+  ovanligt noggrant: tittar in i vävnaden innan den behandlar.
 
-  Signaturelement:
-   • Siktet      — hårfint hårkors med cirkel (ultraljudets precision)
-   • Djupskikten — staplade hårlinjer med fallande opacitet
+  Typografin är omarbetad efter samma principer som premiumbyråers sajter:
+  stora display-storlekar med radavstånd nära 1.0 och tight spärr. Det är
+  där premiumkänslan sitter — inte i dekoration.
+
+  Paletten är däremot medvetet INTE kopierad från referensen. Den är mörk
+  SaaS-svart; Apport ska vara varm skandinavisk klinik. Mörkret används här
+  som kontrast i enskilda sektioner, inte som grundton.
 */
 @theme {
-  /* Bas — varm kalkvit */
+  /* ── Bas: varm kalkputs ── */
   --color-kalk: #f5f2ec;
   --color-papper: #fdfbf7;
-  --color-sten: #e2dbcf;
+  --color-sten: #e6e0d5;
   --color-sten-mork: #cabfad;
 
-  /* Grönt — mossa/oliv, klinikens primärfärg */
+  /* ── Sand: den varma accenten (§4) ── */
+  --color-sand: #e8dcc8;
+  --color-sand-djup: #d6c4a8;
+
+  /* ── Grönt: mossa/oliv ── */
   --color-mossa: #34433a;
-  --color-mossa-djup: #202b24;
+  --color-mossa-djup: #1a231d;
   --color-mossa-ljus: #4f6357;
   --color-salvia: #8a9b88;
-  /*
-    salvia är för ljus för text på kalk/papper (2,85:1). Dessa två tokens är
-    de mörkare varianterna som används för text på LJUS botten — mätta mot
-    WCAG 2.2 AA. Använd --color-salvia enbart mot mörk botten.
-  */
-  --color-salvia-text: #5a6d56; /* 5,41:1 på papper · 5,00:1 på kalk */
-  --color-sten-text: #948a79; /* 3,29:1 på papper — endast stor text (≥24px) */
+  --color-salvia-text: #5a6d56; /* 5,41:1 på papper — text på ljus botten */
   --color-lind: #dfe5da;
 
-  /* Text */
-  --color-grafit: #1b1e1c;
+  /* ── Text ── */
+  --color-grafit: #141614;
   --color-skiffer: #565c55;
+  --color-sten-text: #948a79; /* 3,29:1 — endast stor text */
 
-  /* Accent — tegel från husets fasad. Används sparsamt. */
+  /* ── Tegel: sparsam signal, aldrig dekoration ── */
   --color-tegel: #a8593a;
   --color-tegel-ljus: #c47a5a;
 
-  /* Typografi */
+  /* ── Typsnitt ── */
   --font-display: 'Literata Variable', 'Iowan Old Style', Georgia, serif;
   --font-sans: 'Hanken Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
 
-  /* Layout */
-  --container-content: 72rem;
+  /* ── Layout ── */
+  --container-content: 82.5rem; /* 1320px */
+  --container-smal: 60rem;
   --container-läs: 44rem;
 
-  /* Skuggor — mjuka, gröntonade */
-  --shadow-mjuk: 0 1px 2px rgb(32 43 36 / 0.04), 0 10px 30px -12px rgb(32 43 36 / 0.14);
-  --shadow-lyft: 0 2px 6px rgb(32 43 36 / 0.06), 0 24px 56px -20px rgb(32 43 36 / 0.24);
+  /* ── Sektionsrytm: fyra steg, medvetet olika (§27) ── */
+  --spacing-sek-sm: clamp(3.5rem, 6vw, 5rem);
+  --spacing-sek-md: clamp(5rem, 9vw, 8rem);
+  --spacing-sek-lg: clamp(6.5rem, 12vw, 11rem);
+  --spacing-sek-xl: clamp(8rem, 16vw, 15rem);
+  /* Kvar för bakåtkompatibilitet i undersidor */
+  --spacing-section: clamp(5rem, 9vw, 8rem);
 
-  /* Rytm */
-  --spacing-section: clamp(4.5rem, 9vw, 7.5rem);
+  /* ── Skuggor ── */
+  --shadow-mjuk: 0 1px 2px rgb(26 35 29 / 0.04), 0 12px 32px -14px rgb(26 35 29 / 0.16);
+  --shadow-lyft: 0 2px 6px rgb(26 35 29 / 0.06), 0 28px 60px -22px rgb(26 35 29 / 0.28);
+
+  /* ── Rörelse ── */
+  --ease-ut: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Kompenserar för sticky header vid ankarlänkar */
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 7rem;
   }
 
   body {
@@ -78,14 +86,18 @@
     text-rendering: optimizeLegibility;
   }
 
+  /*
+    Display-typografi. Radavstånd nära 1.0 och negativ spärr är det som
+    skiljer en designad sajt från en mall — stora rubriker ska sitta ihop
+    som ett block, inte flyta isär.
+  */
   h1,
   h2,
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
-    text-wrap: balance;
     font-weight: 400;
+    text-wrap: balance;
   }
 
   p,
@@ -94,18 +106,16 @@
   }
 
   ::selection {
-    background-color: var(--color-lind);
+    background-color: var(--color-sand);
     color: var(--color-mossa-djup);
   }
 
-  /* WCAG 2.2 — synlig fokusmarkering överallt */
   :focus-visible {
     outline: 3px solid var(--color-mossa);
     outline-offset: 3px;
     border-radius: 3px;
   }
 
-  /* Nativ accordion utan default-markör */
   details > summary {
     list-style: none;
     cursor: pointer;
@@ -114,7 +124,6 @@
     display: none;
   }
 
-  /* Respektera reducerad rörelse fullt ut */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -130,10 +139,62 @@
 }
 
 @layer components {
-  /*
-    Djupskikten — hårlinjer med fallande opacitet.
-    Används som sektionsavdelare. Ekar ultraljudets vävnadslager.
-  */
+  /* ── Typografiska klasser ── */
+
+  /* Hero. 44px mobil → 100px desktop, radavstånd 0.95 */
+  .t-display {
+    font-family: var(--font-display);
+    font-size: clamp(2.65rem, 6vw, 5.25rem);
+    line-height: 0.95;
+    letter-spacing: -0.032em;
+  }
+
+  /* Stora statement-rubriker */
+  .t-statement {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5.4vw, 4.75rem);
+    line-height: 0.99;
+    letter-spacing: -0.028em;
+  }
+
+  /* Sektionsrubriker */
+  .t-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 3.4vw, 3rem);
+    line-height: 1.04;
+    letter-spacing: -0.024em;
+  }
+
+  .t-h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.014em;
+  }
+
+  /* Siffror i statistikbandet — enorma */
+  .t-siffra {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6.5vw, 5.5rem);
+    line-height: 0.86;
+    letter-spacing: -0.04em;
+  }
+
+  /* Eyebrow */
+  .t-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .t-brod {
+    font-size: clamp(1.02rem, 1.2vw, 1.15rem);
+    line-height: 1.65;
+  }
+
+  /* ── Hårlinjer ── */
   .djupskikt {
     height: 1px;
     background: linear-gradient(
@@ -146,15 +207,20 @@
   }
 
   /*
-    Stigande text vid scroll. Progressive enhancement:
-    utan JS/stöd visas innehållet direkt (ingen opacity:0 kvar).
+    Scroll-avslöjande. Progressive enhancement via animation-timeline:
+    utan stöd visas innehållet direkt, ingen opacity:0 blir kvar.
   */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .stig {
         animation: stig-in linear both;
         animation-timeline: view();
-        animation-range: entry 0% entry 46%;
+        animation-range: entry 0% entry 42%;
+      }
+      .stig-sen {
+        animation: stig-in linear both;
+        animation-timeline: view();
+        animation-range: entry 5% entry 55%;
       }
     }
   }
@@ -162,7 +228,7 @@
   @keyframes stig-in {
     from {
       opacity: 0;
-      transform: translateY(1.25rem);
+      transform: translateY(1.75rem);
     }
     to {
       opacity: 1;
@@ -176,10 +242,48 @@
     background-size: 0% 1px;
     background-position: 0 100%;
     background-repeat: no-repeat;
-    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: background-size 0.4s var(--ease-ut);
   }
   .lank-linje:hover,
   .lank-linje:focus-visible {
     background-size: 100% 1px;
+  }
+
+  /* ── Marquee (§22) ── */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee-glid 46s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      animation: none;
+      transform: none;
+    }
+  }
+  @keyframes marquee-glid {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* Halva bredden — innehållet ligger dubblerat för sömlös loop */
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ── Besvärslistans hover-rad (§12) ── */
+  .rad-besvar {
+    transition:
+      background-color 0.4s var(--ease-ut),
+      padding 0.4s var(--ease-ut);
+  }
+  .rad-besvar:hover {
+    background-color: color-mix(in oklab, var(--color-lind) 55%, transparent);
+  }
+  @media (min-width: 768px) {
+    .rad-besvar:hover {
+      padding-left: 1.75rem;
+      padding-right: 1.75rem;
+    }
   }
 }

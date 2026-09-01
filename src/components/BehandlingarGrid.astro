@@ -1,0 +1,179 @@
+---
+/**
+ * Behandlingar som asymmetriskt rutnät (§13).
+ *
+ * Korten är medvetet OLIKA stora: ett stort, ett brett, resten små.
+ * Det är hela poängen — lika stora kort i rad är det som får en sajt att
+ * läsa som en mall. Storleken följer också innehållets tyngd: utredningen
+ * är grunden för allt annat och får därför störst yta.
+ */
+import { TREATMENTS } from '../lib/content';
+
+const stor = TREATMENTS.find((t) => t.slug === 'utredning');
+const bred = TREATMENTS.find((t) => t.slug === 'fysioterapi');
+const ovriga = TREATMENTS.filter((t) => !['utredning', 'fysioterapi'].includes(t.slug));
+---
+
+<section class="bg-papper py-(--spacing-sek-lg)">
+  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
+    <div class="flex flex-wrap items-end justify-between gap-8">
+      <div>
+        <p class="t-eyebrow text-salvia-text">Behandlingar</p>
+        <h2 class="t-h2 mt-7 max-w-[13ch] text-mossa-djup">Från utredning till funktion</h2>
+      </div>
+      <p class="max-w-sm text-[0.96rem] leading-relaxed text-skiffer">
+        Alla smärttillstånd är unika, så det finns ingen standardbehandling. Vad som blir
+        aktuellt avgörs av vad utredningen visar.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-4 lg:grid-cols-12">
+      <!-- Stort kort: utredningen, med bild -->
+      {
+        stor && (
+          <a
+            href={`/behandlingar/${stor.slug}/`}
+            class="stig group relative flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-sm bg-mossa-djup p-8 sm:p-10 lg:col-span-7 lg:min-h-[32rem]"
+          >
+            {stor.image && (
+              <img
+                src={stor.image.src}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                class="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            )}
+            <div class="absolute inset-0 bg-linear-to-t from-mossa-djup via-mossa-djup/70 to-mossa-djup/15" />
+
+            <div class="relative">
+              <p class="t-eyebrow text-salvia">Grunden för allt annat</p>
+              <h3 class="t-h2 mt-5 max-w-[14ch] text-kalk">{stor.name}</h3>
+              <p class="mt-5 max-w-md text-[1rem] leading-relaxed text-kalk/72">{stor.teaser}</p>
+              <span class="mt-8 inline-flex items-center gap-2.5 text-[0.92rem] font-medium text-kalk">
+                <span class="lank-linje">Läs mer</span>
+                <svg
+                  width="15"
+                  height="10"
+                  viewBox="0 0 15 10"
+                  fill="none"
+                  aria-hidden="true"
+                  class="transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  <path
+                    d="M0 5h13M9.5 1L13.5 5L9.5 9"
+                    stroke="currentColor"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </div>
+          </a>
+        )
+      }
+
+      <!-- Höger kolumn: brett kort + två små -->
+      <div class="grid gap-4 lg:col-span-5">
+        {
+          bred && (
+            <a
+              href={`/behandlingar/${bred.slug}/`}
+              class="stig group flex flex-col justify-between rounded-sm bg-lind/50 p-8 transition-colors duration-300 hover:bg-lind"
+            >
+              <div>
+                <h3 class="t-h3 text-mossa-djup">{bred.shortName}</h3>
+                <p class="mt-3 text-[0.95rem] leading-relaxed text-skiffer">{bred.teaser}</p>
+              </div>
+              <span class="mt-7 inline-flex items-center gap-2 text-[0.88rem] font-medium text-mossa">
+                Läs mer
+                <svg
+                  width="14"
+                  height="9"
+                  viewBox="0 0 15 10"
+                  fill="none"
+                  aria-hidden="true"
+                  class="transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  <path
+                    d="M0 5h13M9.5 1L13.5 5L9.5 9"
+                    stroke="currentColor"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          )
+        }
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          {
+            ovriga.slice(0, 2).map((t) => (
+              <a
+                href={`/behandlingar/${t.slug}/`}
+                class="stig group flex flex-col justify-between rounded-sm bg-kalk p-7 transition-colors duration-300 hover:bg-sand/50"
+              >
+                <div>
+                  {!t.inAgreement && (
+                    <span class="t-eyebrow block text-[0.66rem] text-tegel">Utanför avtalet</span>
+                  )}
+                  <h3 class:list={['t-h3 text-mossa-djup', !t.inAgreement && 'mt-3']}>
+                    {t.shortName}
+                  </h3>
+                </div>
+                <span
+                  aria-hidden="true"
+                  class="mt-8 text-mossa transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  <svg width="16" height="10" viewBox="0 0 15 10" fill="none">
+                    <path
+                      d="M0 5h13M9.5 1L13.5 5L9.5 9"
+                      stroke="currentColor"
+                      stroke-width="1.3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Understa raden: resterande som smala kort -->
+      {
+        ovriga.slice(2).map((t) => (
+          <a
+            href={`/behandlingar/${t.slug}/`}
+            class="stig group flex items-center justify-between gap-4 rounded-sm bg-kalk px-7 py-6 transition-colors duration-300 hover:bg-sand/50 lg:col-span-3"
+          >
+            <span>
+              <span class="t-h3 block text-mossa-djup">{t.shortName}</span>
+              {!t.inAgreement && (
+                <span class="t-eyebrow mt-2 block text-[0.66rem] text-tegel">Utanför avtalet</span>
+              )}
+            </span>
+            <span
+              aria-hidden="true"
+              class="shrink-0 text-mossa transition-transform duration-300 group-hover:translate-x-1"
+            >
+              <svg width="16" height="10" viewBox="0 0 15 10" fill="none">
+                <path
+                  d="M0 5h13M9.5 1L13.5 5L9.5 9"
+                  stroke="currentColor"
+                  stroke-width="1.3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

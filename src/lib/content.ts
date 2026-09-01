@@ -93,7 +93,7 @@ export const TEAM: TeamMember[] = [
 /** Verifierbara siffror för credential-blocket. Inga påhittade mått. */
 export const CREDENTIALS = [
   { tal: '2010', etikett: 'Apport startades', text: 'Samma två personer har drivit kliniken sedan dess.' },
-  { tal: '30+ år', etikett: 'Läkarens erfarenhet', text: 'Rolf har arbetat med smärtproblematik sedan 1986.' },
+  { tal: '30+', etikett: 'Års erfarenhet hos läkaren', text: 'Rolf har arbetat med smärtproblematik sedan 1986.' },
   { tal: '3', etikett: 'Specialistkompetenser', text: 'Allmänmedicin, rehabiliteringsmedicin och smärtlindring.' },
   { tal: '2', etikett: 'Personer bakom kliniken', text: 'En läkare och en fysioterapeut, som arbetar tillsammans.' },
 ] as const;
