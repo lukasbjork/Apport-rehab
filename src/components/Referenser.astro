@@ -12,13 +12,13 @@
  * Öppna klinikens Google-profil, och för in siffrorna EXAKT som de står
  * där. Skriv aldrig av ur minnet och avrunda inte uppåt.
  *
- *   snitt   → snittbetyget, t.ex. 4.8
- *   antal   → antal omdömen
- *   url     → länk till den publika omdömessidan, så att besökaren kan
- *             kontrollera uppgiften själv
- *   omdomen → enskilda omdömen, ordagrant. Korta INTE ner ett omdöme så
- *             att innebörden ändras. Vill du korta, klipp i slutet och
- *             avsluta med "…", aldrig i mitten.
+ * snitt   → snittbetyget, t.ex. 4.8
+ * antal   → antal omdömen
+ * url     → länk till den publika omdömessidan, så att besökaren kan
+ * kontrollera uppgiften själv
+ * omdomen → enskilda omdömen, ordagrant. Korta INTE ner ett omdöme så
+ * att innebörden ändras. Vill du korta, klipp i slutet och
+ * avsluta med "…", aldrig i mitten.
  *
  * Namn: använd det namn recensenten själv publicerat på Google. Hitta
  * aldrig på ett namn och lägg aldrig till efternamn som inte står där.
@@ -107,8 +107,8 @@ const stjarnor = (n: number) => Math.round(n);
 ---
 
 {
-  GOOGLE && (
-    <section class="px-5 py-(--spacing-section) sm:px-8" aria-labelledby="omdomen-rubrik">
+ GOOGLE && (
+    <section class="px-5 py-(--spacing-rytm) sm:px-8" aria-labelledby="omdomen-rubrik">
       <div class="mx-auto max-w-(--container-content)">
         <SektionsRubrik
           etikett="Patientröster"
@@ -121,9 +121,9 @@ const stjarnor = (n: number) => Math.round(n);
           href={GOOGLE.url}
           target="_blank"
           rel="noopener noreferrer"
-          class="mx-auto mt-12 flex w-fit items-center gap-5 rounded-2xl bg-papper px-8 py-5 transition-shadow hover:shadow-mjuk"
+          class="mx-auto mt-12 flex w-fit items-center gap-5 rounded-2xl bg-topp px-8 py-5"
         >
-          <span class="font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-mossa-djup">
+          <span class="font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-djup">
             {GOOGLE.snitt.toFixed(1).replace('.', ',')}
           </span>
           <span>
@@ -132,12 +132,12 @@ const stjarnor = (n: number) => Math.round(n);
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
                     d="M8 1.6l1.85 3.75 4.15.6-3 2.93.71 4.12L8 11.05l-3.71 1.95.71-4.12-3-2.93 4.15-.6z"
-                    fill={i < stjarnor(GOOGLE.snitt) ? 'var(--color-tegel)' : 'var(--color-sten-mork)'}
+                    fill={i < stjarnor(GOOGLE.snitt) ? 'var(--color-lera)' : 'var(--color-linje)'}
                   />
                 </svg>
               ))}
             </span>
-            <span class="mt-1.5 block text-[0.9rem] text-skiffer">
+            <span class="mt-1.5 block text-[0.9rem] text-dov">
               {GOOGLE.antal} omdömen på Google · läs alla
             </span>
           </span>
@@ -148,33 +148,33 @@ const stjarnor = (n: number) => Math.round(n);
           <ul class="mx-auto mt-14 grid max-w-4xl items-start gap-6 sm:grid-cols-2">
             {GOOGLE.omdomen.map((o) => (
               <li>
-                <figure class="stig flex h-full flex-col rounded-2xl bg-papper p-8">
+                <figure class="flex h-full flex-col rounded-2xl bg-topp p-8">
                   <div class="flex gap-0.5" aria-label={`${o.betyg} av 5`}>
                     {Array.from({ length: 5 }, (_, i) => (
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path
                           d="M8 1.6l1.85 3.75 4.15.6-3 2.93.71 4.12L8 11.05l-3.71 1.95.71-4.12-3-2.93 4.15-.6z"
-                          fill={i < o.betyg ? 'var(--color-tegel)' : 'var(--color-sten-mork)'}
+                          fill={i < o.betyg ? 'var(--color-lera)' : 'var(--color-linje)'}
                         />
                       </svg>
                     ))}
                   </div>
 
-                  <blockquote class="mt-5 flex-1 text-[1.01rem] leading-relaxed text-mossa-djup">
+                  <blockquote class="mt-5 flex-1 text-[1.01rem] leading-relaxed text-djup">
                     <p>”{o.text}”</p>
                   </blockquote>
 
-                  <figcaption class="mt-6 border-t border-sten pt-5 text-[0.86rem]">
-                    <span class="font-medium text-mossa-djup">{o.namn}</span>
-                    {o.when && <span class="block text-skiffer">{o.when}</span>}
+                  <figcaption class="mt-6 border-t border-linje pt-5 text-[0.86rem]">
+                    <span class="font-medium text-djup">{o.namn}</span>
+                    {o.when && <span class="block text-dov">{o.when}</span>}
                     {o.avkortat && (
                       <a
                         href={GOOGLE.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="lank-linje mt-1.5 inline-block text-[0.82rem] text-mossa"
+                        class="lank-linje mt-1.5 inline-block text-[0.82rem] text-lyft"
                       >
-                        Avkortat — läs hela på Google
+ Avkortat — läs hela på Google
                       </a>
                     )}
                   </figcaption>
@@ -184,15 +184,15 @@ const stjarnor = (n: number) => Math.round(n);
           </ul>
         )}
 
-        <p class="mt-10 text-center text-[0.86rem] text-skiffer">
+        <p class="mt-10 text-center text-[0.86rem] text-dov">
           Omdömena är hämtade från Google och publicerade av patienterna själva.
         </p>
       </div>
 
       {/*
-        AggregateRating publiceras BARA när det finns verkliga, publikt
-        kontrollerbara omdömen. Falsk recensionsmarkering är en av de saker
-        Google uttryckligen utfärdar manuella åtgärder för.
+ AggregateRating publiceras BARA när det finns verkliga, publikt
+ kontrollerbara omdömen. Falsk recensionsmarkering är en av de saker
+ Google uttryckligen utfärdar manuella åtgärder för.
       */}
       <script
         type="application/ld+json"

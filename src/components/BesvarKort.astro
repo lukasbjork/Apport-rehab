@@ -25,24 +25,24 @@ const { condition, wide = false, compact = false } = Astro.props;
 <a
   href={`/besvar/${condition.slug}/`}
   class:list={[
-    'stig group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-papper p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-mjuk',
-    wide && 'sm:col-span-2 sm:p-9',
+    ' group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-topp p-7 transition-all duration-300',
+ wide && 'sm:col-span-2 sm:p-9',
   ]}
 >
   <!-- Accentlinje som växer fram vid hover -->
   <span
     aria-hidden="true"
-    class="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-mossa transition-transform duration-400 ease-out group-hover:scale-x-100"
+    class="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-lyft transition-transform duration-400 ease-out group-hover:scale-x-100"
   ></span>
 
   <div>
-    <p class="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+    <p class="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-dov">
       {condition.group}
     </p>
     <h3
       class:list={[
-        'mt-3 leading-snug text-mossa-djup',
-        wide ? 'text-[1.6rem]' : 'text-[1.3rem]',
+        'mt-3 leading-snug text-djup',
+ wide ? 'text-[1.6rem]' : 'text-[1.3rem]',
       ]}
     >
       {condition.name}
@@ -51,8 +51,8 @@ const { condition, wide = false, compact = false } = Astro.props;
       (!compact || wide) && (
         <p
           class:list={[
-            'mt-3 leading-relaxed text-skiffer',
-            wide ? 'text-[1.02rem] sm:max-w-lg' : 'text-[0.95rem]',
+            'mt-3 leading-relaxed text-dov',
+ wide ? 'text-[1.02rem] sm:max-w-lg' : 'text-[0.95rem]',
           ]}
         >
           {condition.teaser}
@@ -62,7 +62,7 @@ const { condition, wide = false, compact = false } = Astro.props;
   </div>
 
   <span
-    class="mt-7 inline-flex items-center gap-2 text-[0.88rem] font-medium text-mossa transition-colors group-hover:text-tegel"
+    class="mt-7 inline-flex items-center gap-2 text-[0.88rem] font-medium text-lyft transition-colors group-hover:text-lera"
   >
     Läs mer
     <svg

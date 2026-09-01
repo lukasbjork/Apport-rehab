@@ -25,10 +25,10 @@ const punkter = [
 ];
 ---
 
-<section class="relative overflow-hidden bg-mossa-djup px-5 py-(--spacing-section) sm:px-8">
+<section class="relative overflow-hidden bg-djup px-5 py-(--spacing-rytm) sm:px-8">
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute -left-28 top-1/2 -translate-y-1/2 text-salvia/8"
+    class="pointer-events-none absolute -left-28 top-1/2 -translate-y-1/2 text-ljus-dov/8"
   >
     <Sikte size={420} dashed />
   </div>
@@ -37,8 +37,8 @@ const punkter = [
     <div class="grid gap-14 lg:grid-cols-12 lg:items-center">
       <!-- Bilden -->
       <div class="lg:col-span-6">
-        <figure class="stig">
-          <div class="overflow-hidden rounded-2xl border border-kalk/12">
+        <figure class="">
+          <div class="overflow-hidden rounded-2xl border border-papper/12">
             <img
               src="/bilder/ultraljud-l5-s1.webp"
               alt="Ultraljudsbild tagen på Apport som visar vävnadslagren i nedre ländryggen, med markörer vid de strukturer som bedömts inför en blockad"
@@ -49,8 +49,8 @@ const punkter = [
               class="w-full"
             />
           </div>
-          <figcaption class="mt-4 text-[0.85rem] leading-relaxed text-kalk/58">
-            Ultraljudsbild från kliniken, tagen vid en undersökning av nedre ländryggen.
+          <figcaption class="mt-4 text-[0.85rem] leading-relaxed text-papper/58">
+ Ultraljudsbild från kliniken, tagen vid en undersökning av nedre ländryggen.
             Markörerna pekar ut de strukturer som bedömts.
           </figcaption>
         </figure>
@@ -58,18 +58,18 @@ const punkter = [
 
       <!-- Texten -->
       <div class="lg:col-span-6">
-        <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-salvia">
+        <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-ljus-dov">
           <Sikte size={13} />
           Vårt viktigaste verktyg
         </p>
 
-        <h2 class="mt-4 text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.12] text-kalk">
-          Se problemet innan vi behandlar det
+        <h2 class="mt-4 text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.12] text-papper">
+ Se problemet innan vi behandlar det
         </h2>
 
-        <p class="mt-6 text-[1.06rem] leading-relaxed text-kalk/72">
-          Vid vissa smärttillstånd använder vi ultraljud för att undersöka specifika strukturer
-          och vid behov vägleda diagnostiska blockader och behandling. Det höjer kvaliteten på
+        <p class="mt-6 text-[1.06rem] leading-relaxed text-papper/72">
+ Vid vissa smärttillstånd använder vi ultraljud för att undersöka specifika strukturer
+ och vid behov vägleda diagnostiska blockader och behandling. Det höjer kvaliteten på
           undersökningen och kan ge snabbare svar på var smärtan kommer ifrån.
         </p>
 
@@ -77,12 +77,12 @@ const punkter = [
           {
             punkter.map((p) => (
               <li class="flex gap-4">
-                <span class="mt-1 shrink-0 text-salvia">
+                <span class="mt-1 shrink-0 text-ljus-dov">
                   <Sikte size={16} />
                 </span>
                 <div>
-                  <h3 class="text-[1.05rem] leading-snug text-kalk">{p.rubrik}</h3>
-                  <p class="mt-1.5 text-[0.95rem] leading-relaxed text-kalk/68">{p.text}</p>
+                  <h3 class="text-[1.05rem] leading-snug text-papper">{p.rubrik}</h3>
+                  <p class="mt-1.5 text-[0.95rem] leading-relaxed text-papper/68">{p.text}</p>
                 </div>
               </li>
             ))
@@ -91,7 +91,7 @@ const punkter = [
 
         <a
           href="/behandlingar/utredning/"
-          class="mt-10 inline-flex items-center gap-2.5 rounded-full border border-kalk/25 px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+          class="mt-10 inline-flex items-center gap-2.5 rounded-full border border-papper/25 px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:border-papper/60"
         >
           Läs om hur utredningen går till
           <svg width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true">

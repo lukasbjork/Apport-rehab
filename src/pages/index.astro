@@ -5,20 +5,20 @@
  * Sektionsordningen följer §2, och varje sektion har medvetet en egen
  * visuell idé (§28):
  *
- *   Hero              mörk, asymmetrisk split, 88vh
- *   Statistikband     enorma siffror på hårlinjer
- *   Statement         bara typografi och luft
- *   Editorial split   bild som går utanför containern
- *   Marquee           långsam horisontell rörelse
- *   Besvär            numrerad lista med bildvisning vid hover
- *   Ultraljud         full bredd, mörk, bilden som hjälte
- *   Behandlingar      asymmetriskt rutnät, olika stora kort
- *   Region Skåne      förtroende, ljus
- *   Process           horisontell tidslinje
- *   Team              stora porträtt
+ * Hero              mörk, asymmetrisk split, 88vh
+ * Statistikband enorma siffror på hårlinjer
+ * Statement bara typografi och luft
+ * Editorial split bild som går utanför containern
+ * Marquee           långsam horisontell rörelse
+ *   Besvär numrerad lista med bildvisning vid hover
+ * Ultraljud full bredd, mörk, bilden som hjälte
+ * Behandlingar asymmetriskt rutnät, olika stora kort
+ * Region Skåne      förtroende, ljus
+ * Process horisontell tidslinje
+ * Team stora porträtt
  *   Omdömen           patientröster
- *   Selektiv          mörk, stort anslag
- *   Stor CTA          sand, affischlik
+ * Selektiv          mörk, stort anslag
+ * Stor CTA          sand, affischlik
  *
  * Copyn är oförändrad (§25). Det är presentationen som är ny.
  */
@@ -90,11 +90,11 @@ const artiklar = ARTIKLAR_SORTERADE.slice(0, 3);
   <RegionSkane />
 
   <!-- Process -->
-  <section class="bg-kalk py-(--spacing-sek-lg)">
+  <section class="bg-papper py-(--spacing-rytm-vid)">
     <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
       <div class="max-w-2xl">
-        <p class="t-eyebrow stig text-salvia-text">Så går det till</p>
-        <h2 class="t-h2 stig mt-7 text-mossa-djup">Fyra steg, utan krångel</h2>
+        <p class="t-etikett text-dov">Så går det till</p>
+        <h2 class="t-h2  mt-7 text-djup">Fyra steg, utan krångel</h2>
       </div>
       <div class="mt-16 lg:mt-20">
         <ProcessTimeline />
@@ -113,37 +113,37 @@ const artiklar = ARTIKLAR_SORTERADE.slice(0, 3);
   <SelektivSektion />
 
   <!-- Artiklar -->
-  <section class="bg-papper py-(--spacing-sek-lg)">
+  <section class="bg-topp py-(--spacing-rytm-vid)">
     <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
       <div class="flex flex-wrap items-end justify-between gap-8">
         <div>
-          <p class="t-eyebrow text-salvia-text">Artiklar</p>
-          <h2 class="t-h2 mt-7 max-w-[16ch] text-mossa-djup">Sådant patienter ofta frågar om</h2>
+          <p class="t-etikett text-dov">Artiklar</p>
+          <h2 class="t-h2 mt-7 max-w-[16ch] text-djup">Sådant patienter ofta frågar om</h2>
         </div>
-        <a href="/artiklar/" class="lank-linje pb-1 text-[0.94rem] font-medium text-mossa"
+        <a href="/artiklar/" class="lank-linje pb-1 text-[0.94rem] font-medium text-lyft"
           >Alla artiklar →</a
         >
       </div>
 
-      <ul class="mt-14 grid gap-px overflow-hidden rounded-sm bg-sten md:grid-cols-3">
+      <ul class="mt-14 grid gap-px overflow-hidden rounded-sm bg-linje md:grid-cols-3">
         {
           artiklar.map((a) => (
             <li>
               <a
                 href={`/artiklar/${a.slug}/`}
-                class="stig group flex h-full flex-col justify-between bg-papper p-8 transition-colors duration-300 hover:bg-kalk"
+                class="group flex h-full flex-col justify-between bg-topp p-8 transition-colors duration-300 hover:bg-papper"
               >
                 <span>
-                  <span class="flex items-center gap-2.5 text-[0.74rem] text-skiffer">
-                    <span class="t-eyebrow text-[0.68rem] text-salvia-text">{a.amne}</span>
-                    <span aria-hidden="true" class="text-sten-mork">·</span>
+                  <span class="flex items-center gap-2.5 text-[0.74rem] text-dov">
+                    <span class="t-etikett text-[0.68rem] text-dov">{a.amne}</span>
+                    <span aria-hidden="true" class="text-linje">·</span>
                     <span>{a.lastid} min</span>
                   </span>
-                  <span class="t-h3 mt-5 block text-mossa-djup">{a.titel}</span>
+                  <span class="t-h3 mt-5 block text-djup">{a.titel}</span>
                 </span>
                 <span
                   aria-hidden="true"
-                  class="mt-10 text-mossa transition-transform duration-300 group-hover:translate-x-1"
+                  class="mt-10 text-lyft transition-transform duration-300 group-hover:translate-x-1"
                 >
                   <svg width="18" height="11" viewBox="0 0 15 10" fill="none">
                     <path

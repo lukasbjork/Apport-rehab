@@ -1,102 +1,106 @@
 @import 'tailwindcss';
 
 /* Självhostade variabla typsnitt (fontsource, font-display: swap) */
+@import '@fontsource-variable/host-grotesk';
 @import '@fontsource-variable/literata';
-@import '@fontsource-variable/hanken-grotesk';
 
 /*
   ─────────────────────────────────────────────────────────────
-  Designsystem — "Precisionen" v3
+  Designsystem — "Tonskalan"
   ─────────────────────────────────────────────────────────────
-  Kliniken sitter på andra våningen i ett hus från 1614 och gör en sak
-  ovanligt noggrant: tittar in i vävnaden innan den behandlar.
+  Kliniken har inga miljöbilder, inga porträtt och ingen stockfotografering.
+  Det enda bildmaterial som finns är ultraljud och blockadbilder: gråskala.
+  Det är en begränsning, och den bestämmer designen.
 
-  Typografin är omarbetad efter samma principer som premiumbyråers sajter:
-  stora display-storlekar med radavstånd nära 1.0 och tight spärr. Det är
-  där premiumkänslan sitter — inte i dekoration.
+  Tre principer:
 
-  Paletten är däremot medvetet INTE kopierad från referensen. Den är mörk
-  SaaS-svart; Apport ska vara varm skandinavisk klinik. Mörkret används här
-  som kontrast i enskilda sektioner, inte som grundton.
+   1. TONSKALAN. Hela paletten är EN grön gråskala — precis som en
+      ultraljudsbild är en kanals värdeskala. Kulör är en signal, aldrig
+      dekoration. Det ljusaste värdet i en vy är det man ska göra.
+
+   2. BILDERNA BÄR. Klinikens egna bilder körs stora, obeskurna, med sina
+      riktiga bildtexter som synlig text. Aldrig en stockbild, och aldrig
+      en grå platshållarruta där ett foto saknas — då löser vi det
+      typografiskt i stället.
+
+   3. VIKT ISTÄLLET FÖR ETIKETT. Hierarki bärs av storlek, vikt och
+      bottenfärg — aldrig av en liten versal etikett som talar om vad
+      sektionen heter. Behöver en sektion en etikett för att förstås är
+      rubriken fel.
 */
 @theme {
-  /* ── Bas: varm kalkputs ── */
-  --color-kalk: #f5f2ec;
-  --color-papper: #fdfbf7;
-  --color-sten: #e6e0d5;
-  --color-sten-mork: #cabfad;
+  /* ──────────────────────────────────────────────────────────
+     FÄRG — nio värden, inte fler. Varje har exakt en roll.
+     Samtliga kombinationer nedan är uträknade och klarar WCAG AA.
+     ────────────────────────────────────────────────────────── */
 
-  /* ── Sand: den varma accenten (§4) ── */
-  --color-sand: #e8dcc8;
-  --color-sand-djup: #d6c4a8;
+  /* Mörka ytor */
+  --color-djup: #111a15; /* Djupaste grönen: hela mörka sektioner, hero, footer */
+  --color-lyft: #1d2a23; /* Upphöjd yta INOM mörkt: fält, aktivt steg, primärknapp på ljust */
 
-  /* ── Grönt: mossa/oliv ── */
-  --color-mossa: #34433a;
-  --color-mossa-djup: #1a231d;
-  --color-mossa-ljus: #4f6357;
-  --color-salvia: #8a9b88;
-  --color-salvia-text: #5a6d56; /* 5,41:1 på papper — text på ljus botten */
-  --color-lind: #dfe5da;
+  /* Ljusa ytor */
+  --color-papper: #eff0ea; /* Ljus läsyta. Grön-neutral (G högst), INTE krämvit */
+  --color-mellan: #dde0d7; /* Mellanton: sektionsbyte, upphöjd yta inom ljust */
+  --color-topp: #fafaf6; /* Ljusaste värdet: primärknapp på mörkt, panelytor */
 
-  /* ── Text ── */
-  --color-grafit: #141614;
-  --color-skiffer: #565c55;
-  --color-sten-text: #948a79; /* 3,29:1 — endast stor text */
+  /* Linjer och dämpad text */
+  --color-linje: #c9cdc2; /* Dekorativ hårlinje på ljus botten */
+  --color-dov: #4a554d; /* Sekundärtext på ljust — 6,79:1 på papper */
+  --color-ljus-dov: #a5b0a7; /* Sekundärtext på mörkt — 7,92:1 på djup */
 
-  /* ── Tegel: sparsam signal, aldrig dekoration ── */
-  --color-tegel: #a8593a;
-  --color-tegel-ljus: #c47a5a;
+  /* Enda kulören. Endast förbehåll: "utanför avtalet", "det tar vi inte
+     emot", integritetsvarningen. Aldrig på en knapp, aldrig i en rubrik,
+     aldrig som dekoration. 6,33:1 på papper. */
+  --color-lera: #8e3f2a;
 
-  /* ── Typsnitt ── */
-  --font-display: 'Literata Variable', 'Iowan Old Style', Georgia, serif;
-  --font-sans: 'Hanken Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+  /* ──────────────────────────────────────────────────────────
+     TYPSNITT
+     Rollerna är omvända mot det vanliga: grotesk som display och
+     gränssnitt, serif som brödtext. Grotesken matchar bildmaterialets
+     instrumentkaraktär; serifen bär de långa patienttexterna.
+     ────────────────────────────────────────────────────────── */
+  --font-display: 'Host Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-brod: 'Literata Variable', 'Iowan Old Style', Georgia, serif;
 
-  /* ── Layout ── */
-  --container-content: 82.5rem; /* 1320px */
-  --container-smal: 60rem;
-  --container-läs: 44rem;
+  /* ──────────────────────────────────────────────────────────
+     LAYOUT
+     ────────────────────────────────────────────────────────── */
+  --container-content: 78rem; /* 1248px */
+  --container-smal: 58rem;
+  --container-läs: 38rem; /* ≈65 tecken i Literata 17px */
 
-  /* ── Sektionsrytm: fyra steg, medvetet olika (§27) ── */
-  --spacing-sek-sm: clamp(3.5rem, 6vw, 5rem);
-  --spacing-sek-md: clamp(5rem, 9vw, 8rem);
-  --spacing-sek-lg: clamp(6.5rem, 12vw, 11rem);
-  --spacing-sek-xl: clamp(8rem, 16vw, 15rem);
-  /* Kvar för bakåtkompatibilitet i undersidor */
-  --spacing-section: clamp(5rem, 9vw, 8rem);
+  /* Sektionsrytm: tre vikter. Rytmen kommer från växlingen mörkt/ljust,
+     inte från godtyckligt olika höjder. */
+  --spacing-rytm-tat: clamp(3rem, 5vw, 4.5rem);
+  --spacing-rytm: clamp(4.5rem, 8vw, 7rem);
+  --spacing-rytm-vid: clamp(6rem, 11vw, 9.5rem);
 
-  /* ── Skuggor ── */
-  --shadow-mjuk: 0 1px 2px rgb(26 35 29 / 0.04), 0 12px 32px -14px rgb(26 35 29 / 0.16);
-  --shadow-lyft: 0 2px 6px rgb(26 35 29 / 0.06), 0 28px 60px -22px rgb(26 35 29 / 0.28);
-
-  /* ── Rörelse ── */
+  /* Rörelse */
   --ease-ut: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 7rem;
+    scroll-padding-top: 6rem;
   }
 
   body {
-    background-color: var(--color-kalk);
-    color: var(--color-grafit);
-    font-family: var(--font-sans);
+    background-color: var(--color-papper);
+    color: var(--color-djup);
+    /* Grotesken är gränssnittets standard. Brödtext får serif via .t-brod. */
+    font-family: var(--font-display);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  /*
-    Display-typografi. Radavstånd nära 1.0 och negativ spärr är det som
-    skiljer en designad sajt från en mall — stora rubriker ska sitta ihop
-    som ett block, inte flyta isär.
-  */
   h1,
   h2,
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
@@ -106,14 +110,14 @@
   }
 
   ::selection {
-    background-color: var(--color-sand);
-    color: var(--color-mossa-djup);
+    background-color: var(--color-mellan);
+    color: var(--color-djup);
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-mossa);
+    outline: 3px solid currentColor;
     outline-offset: 3px;
-    border-radius: 3px;
+    border-radius: 2px;
   }
 
   details > summary {
@@ -139,104 +143,115 @@
 }
 
 @layer components {
-  /* ── Typografiska klasser ── */
+  /* ──────────────────────────────────────────────────────────
+     TYPSKALA — sju steg, inga andra storlekar i sajten.
+     ────────────────────────────────────────────────────────── */
 
-  /* Hero. 44px mobil → 100px desktop, radavstånd 0.95 */
+  /* Endast heron */
   .t-display {
     font-family: var(--font-display);
-    font-size: clamp(2.65rem, 6vw, 5.25rem);
-    line-height: 0.95;
-    letter-spacing: -0.032em;
+    font-size: clamp(2.9rem, 7.2vw, 6.4rem);
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
   }
 
-  /* Stora statement-rubriker */
-  .t-statement {
+  /* Sidhuvud på undersidor */
+  .t-h1 {
     font-family: var(--font-display);
-    font-size: clamp(2.25rem, 5.4vw, 4.75rem);
-    line-height: 0.99;
-    letter-spacing: -0.028em;
+    font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
   }
 
   /* Sektionsrubriker */
   .t-h2 {
     font-family: var(--font-display);
-    font-size: clamp(1.85rem, 3.4vw, 3rem);
-    line-height: 1.04;
-    letter-spacing: -0.024em;
+    font-size: clamp(1.85rem, 3.6vw, 2.9rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
   }
 
   .t-h3 {
     font-family: var(--font-display);
-    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
-    line-height: 1.18;
-    letter-spacing: -0.014em;
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
   }
 
-  /* Siffror i statistikbandet — enorma */
+  /* Siffror: fyrastegsprocessen och nyckeltalen */
   .t-siffra {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 6.5vw, 5.5rem);
-    line-height: 0.86;
-    letter-spacing: -0.04em;
-  }
-
-  /* Eyebrow */
-  .t-eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: clamp(2.6rem, 5.5vw, 4.25rem);
     font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
   }
 
+  /* Ingress — serif, lätt vikt */
+  .t-ingress {
+    font-family: var(--font-brod);
+    font-size: clamp(1.12rem, 1.5vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* Brödtext — serif */
   .t-brod {
-    font-size: clamp(1.02rem, 1.2vw, 1.15rem);
-    line-height: 1.65;
+    font-family: var(--font-brod);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.68;
   }
 
-  /* ── Hårlinjer ── */
-  .djupskikt {
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      color-mix(in oklab, var(--color-mossa) 22%, transparent) 18%,
-      color-mix(in oklab, var(--color-mossa) 22%, transparent) 82%,
-      transparent
-    );
+  /* Etikett. Används ENDAST där etiketten faktiskt navigerar (footerkolumner,
+     fältgrupper i formuläret) — aldrig som dekoration ovanför en rubrik.
+     Gemener med flit: versaletiketter är sajtens tydligaste AI-markör. */
+  .t-etikett {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
   }
 
-  /*
-    Scroll-avslöjande. Progressive enhancement via animation-timeline:
-    utan stöd visas innehållet direkt, ingen opacity:0 blir kvar.
-  */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .stig {
-        animation: stig-in linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 42%;
-      }
-      .stig-sen {
-        animation: stig-in linear both;
-        animation-timeline: view();
-        animation-range: entry 5% entry 55%;
-      }
-    }
+  /* Bildtext, meta, hjälptext — grotesk */
+  .t-liten {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    line-height: 1.55;
   }
 
-  @keyframes stig-in {
-    from {
-      opacity: 0;
-      transform: translateY(1.75rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* ──────────────────────────────────────────────────────────
+     YTOR — tre behandlingar med var sin fasta betydelse.
+     Ingen skugga finns i systemet, så ingen kan smyga tillbaka.
+     ────────────────────────────────────────────────────────── */
+
+  /* Bild: skarp ram, som en preparatmontering. Endast bilder. */
+  .y-ram {
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid var(--color-linje);
+  }
+  .y-ram-mork {
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid color-mix(in oklab, var(--color-papper) 16%, transparent);
   }
 
-  /* Understruken länk som växer från vänster */
+  /* Platta: endast interaktiva behållare (formulärsteg, behandlingsrutor). */
+  .y-platta {
+    border-radius: 4px;
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     LÄNKAR OCH KNAPPAR
+     ────────────────────────────────────────────────────────── */
+
+  /* Understrykning som växer från vänster */
   .lank-linje {
     background-image: linear-gradient(currentColor, currentColor);
     background-size: 0% 1px;
@@ -249,41 +264,106 @@
     background-size: 100% 1px;
   }
 
-  /* ── Marquee (§22) ── */
-  .marquee {
-    display: flex;
-    width: max-content;
-    animation: marquee-glid 46s linear infinite;
+  /* Knappar. Pillerformen är den enda 999px-radien i systemet. */
+  .knapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.95rem 1.9rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+      background-color 0.3s var(--ease-ut),
+      border-color 0.3s var(--ease-ut),
+      color 0.3s var(--ease-ut);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .marquee {
-      animation: none;
-      transform: none;
-    }
+  .knapp-sm {
+    padding: 0.65rem 1.2rem;
+    font-size: 0.875rem;
   }
-  @keyframes marquee-glid {
-    from {
-      transform: translateX(0);
+
+  /* Primär på mörk botten: det ljusaste värdet i vyn. */
+  .knapp-ljus {
+    background-color: var(--color-topp);
+    color: var(--color-djup);
+  }
+  .knapp-ljus:hover {
+    background-color: var(--color-mellan);
+  }
+
+  /* Primär på ljus botten */
+  .knapp-mork {
+    background-color: var(--color-lyft);
+    color: var(--color-topp);
+  }
+  .knapp-mork:hover {
+    background-color: var(--color-djup);
+  }
+
+  /* Sekundär */
+  .knapp-kant-ljus {
+    border: 1px solid color-mix(in oklab, var(--color-papper) 30%, transparent);
+    color: var(--color-papper);
+  }
+  .knapp-kant-ljus:hover {
+    border-color: var(--color-papper);
+  }
+  .knapp-kant-mork {
+    border: 1px solid var(--color-linje);
+    color: var(--color-lyft);
+  }
+  .knapp-kant-mork:hover {
+    border-color: var(--color-lyft);
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     RÖRELSE
+     En orkestrerad sekvens vid sidladdning i heron. Inget annat.
+     Ingen scroll-reveal — den är standarduttrycket för AI-genererade
+     sidor och gör dessutom sidan seg att skanna.
+     ────────────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: no-preference) {
+    .intro {
+      opacity: 0;
+      animation: intro-in 0.85s var(--ease-ut) forwards;
     }
-    to {
-      /* Halva bredden — innehållet ligger dubblerat för sömlös loop */
-      transform: translateX(-50%);
+    .intro-1 {
+      animation-delay: 0.06s;
+    }
+    .intro-2 {
+      animation-delay: 0.16s;
+    }
+    .intro-3 {
+      animation-delay: 0.28s;
+    }
+    .intro-4 {
+      animation-delay: 0.4s;
     }
   }
 
-  /* ── Besvärslistans hover-rad (§12) ── */
-  .rad-besvar {
-    transition:
-      background-color 0.4s var(--ease-ut),
-      padding 0.4s var(--ease-ut);
-  }
-  .rad-besvar:hover {
-    background-color: color-mix(in oklab, var(--color-lind) 55%, transparent);
-  }
-  @media (min-width: 768px) {
-    .rad-besvar:hover {
-      padding-left: 1.75rem;
-      padding-right: 1.75rem;
+  @keyframes intro-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
     }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     HÅRLINJELISTA — besvär, artiklar, faktarader.
+     Ingen kortyta, ingen radie, ingen skugga.
+     ────────────────────────────────────────────────────────── */
+  .rad {
+    transition: background-color 0.35s var(--ease-ut);
+  }
+  .rad:hover {
+    background-color: color-mix(in oklab, var(--color-mellan) 60%, transparent);
   }
 }

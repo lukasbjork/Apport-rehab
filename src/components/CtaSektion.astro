@@ -8,44 +8,44 @@ interface Props {
 }
 
 const {
-  rubrik = 'Beskriv dina besvär för oss',
-  text = 'Du behöver ingen remiss. Skriv några rader om vad du har för problem, vad du redan provat och vad du vill kunna göra igen — så tar vi ställning till om vi är rätt klinik för dig.',
+ rubrik = 'Beskriv dina besvär för oss',
+ text = 'Du behöver ingen remiss. Skriv några rader om vad du har för problem, vad du redan provat och vad du vill kunna göra igen — så tar vi ställning till om vi är rätt klinik för dig.',
 } = Astro.props;
 ---
 
-<section class="px-5 py-(--spacing-section) sm:px-8">
+<section class="px-5 py-(--spacing-rytm) sm:px-8">
   <div
-    class="relative mx-auto max-w-(--container-content) overflow-hidden rounded-[2rem] bg-mossa-djup px-6 py-16 sm:px-14 sm:py-20"
+    class="relative mx-auto max-w-(--container-content) overflow-hidden rounded-[2rem] bg-djup px-6 py-16 sm:px-14 sm:py-20"
   >
     <!-- Dekor: stora sikten, avsiktligt utanför flödet -->
     <div
       aria-hidden="true"
-      class="pointer-events-none absolute -right-16 -top-16 text-salvia/12 sm:-right-8"
+      class="pointer-events-none absolute -right-16 -top-16 text-ljus-dov/12 sm:-right-8"
     >
       <Sikte size={280} dashed />
     </div>
 
     <div class="relative max-w-xl">
-      <h2 class="text-[clamp(1.8rem,3.4vw,2.6rem)] leading-[1.14] text-kalk">{rubrik}</h2>
-      <p class="mt-5 text-[1.05rem] leading-relaxed text-kalk/72">{text}</p>
+      <h2 class="text-[clamp(1.8rem,3.4vw,2.6rem)] leading-[1.14] text-papper">{rubrik}</h2>
+      <p class="mt-5 text-[1.05rem] leading-relaxed text-papper/72">{text}</p>
 
       <div class="mt-9 flex flex-wrap gap-3">
         <a
           href={CTA.primary.href}
-          class="rounded-full bg-kalk px-7 py-3.5 text-[0.95rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+          class="rounded-full bg-papper px-7 py-3.5 text-[0.95rem] font-medium text-djup transition-colors hover:bg-mellan"
         >
           {CTA.primary.label}
         </a>
         <a
           href={`mailto:${SITE.email}`}
-          class="rounded-full border border-kalk/25 px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+          class="rounded-full border border-papper/25 px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:border-papper/60"
         >
           {SITE.email}
         </a>
       </div>
 
-      <p class="mt-7 text-[0.86rem] text-kalk/58">
-        Eller ring {SITE.phone} — telefontid {PHONE_HOURS.toLowerCase()}.
+      <p class="mt-7 text-[0.86rem] text-papper/58">
+ Eller ring {SITE.phone} — telefontid {PHONE_HOURS.toLowerCase()}.
       </p>
     </div>
   </div>

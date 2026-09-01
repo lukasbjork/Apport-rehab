@@ -14,14 +14,14 @@ const { light = false } = Astro.props;
 ---
 
 <div>
-  <ul class="grid gap-px overflow-hidden rounded-2xl bg-sten sm:grid-cols-2 lg:grid-cols-4">
+  <ul class="grid gap-px overflow-hidden rounded-2xl bg-linje sm:grid-cols-2 lg:grid-cols-4">
     {
       CREDENTIALS.map((c) => (
-        <li class:list={['stig p-7', light ? 'bg-mossa-djup' : 'bg-papper']}>
+        <li class:list={[' p-7', light ? 'bg-djup' : 'bg-topp']}>
           <p
             class:list={[
               'font-[family-name:var(--font-display)] text-[2.1rem] leading-none',
-              light ? 'text-kalk' : 'text-mossa-djup',
+ light ? 'text-papper' : 'text-djup',
             ]}
           >
             {c.tal}
@@ -29,7 +29,7 @@ const { light = false } = Astro.props;
           <p
             class:list={[
               'mt-3 text-[0.76rem] font-semibold uppercase tracking-[0.14em]',
-              light ? 'text-salvia' : 'text-salvia-text',
+ light ? 'text-ljus-dov' : 'text-dov',
             ]}
           >
             {c.etikett}
@@ -37,7 +37,7 @@ const { light = false } = Astro.props;
           <p
             class:list={[
               'mt-2 text-[0.92rem] leading-relaxed',
-              light ? 'text-kalk/68' : 'text-skiffer',
+ light ? 'text-papper/68' : 'text-dov',
             ]}
           >
             {c.text}

@@ -9,16 +9,16 @@ const { treatment } = Astro.props;
 
 <a
   href={`/behandlingar/${treatment.slug}/`}
-  class="stig group relative flex flex-col overflow-hidden rounded-2xl bg-papper transition-all duration-300 hover:-translate-y-1 hover:shadow-mjuk"
+  class="group relative flex flex-col overflow-hidden rounded-2xl bg-topp transition-all duration-300"
 >
   <span
     aria-hidden="true"
-    class="absolute inset-x-0 top-0 z-10 h-[2px] origin-left scale-x-0 bg-mossa transition-transform duration-400 ease-out group-hover:scale-x-100"
+    class="absolute inset-x-0 top-0 z-10 h-[2px] origin-left scale-x-0 bg-lyft transition-transform duration-400 ease-out group-hover:scale-x-100"
   ></span>
 
   {
     treatment.image && (
-      <div class="aspect-16/10 overflow-hidden rounded-t-2xl bg-lind">
+      <div class="aspect-16/10 overflow-hidden rounded-t-2xl bg-mellan">
         <img
           src={treatment.image.src}
           alt={treatment.image.alt}
@@ -37,26 +37,26 @@ const { treatment } = Astro.props;
       <div class="flex flex-wrap items-center gap-2">
         {
           treatment.regenerative && (
-            <span class="rounded-full bg-lind px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-mossa">
+            <span class="rounded-full bg-mellan px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-lyft">
               Regenerativ
             </span>
           )
         }
         {
           !treatment.inAgreement && (
-            <span class="rounded-full bg-tegel/10 px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-tegel">
+            <span class="rounded-full bg-lera/10 px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-lera">
               Utanför avtalet
             </span>
           )
         }
       </div>
 
-      <h3 class="mt-3.5 text-[1.28rem] leading-snug text-mossa-djup">{treatment.name}</h3>
-      <p class="mt-3 text-[0.95rem] leading-relaxed text-skiffer">{treatment.teaser}</p>
+      <h3 class="mt-3.5 text-[1.28rem] leading-snug text-djup">{treatment.name}</h3>
+      <p class="mt-3 text-[0.95rem] leading-relaxed text-dov">{treatment.teaser}</p>
     </div>
 
     <span
-      class="mt-6 inline-flex items-center gap-2 text-[0.88rem] font-medium text-mossa transition-colors group-hover:text-tegel"
+      class="mt-6 inline-flex items-center gap-2 text-[0.88rem] font-medium text-lyft transition-colors group-hover:text-lera"
     >
       Läs mer
       <svg

@@ -14,8 +14,8 @@ interface Props {
   light?: boolean;
 }
 const {
-  ord = ['Smärta', 'Utredning', 'Ultraljud', 'Blockad', 'Behandling', 'Rehabilitering', 'Kristianstad'],
-  light = false,
+ ord = ['Smärta', 'Utredning', 'Ultraljud', 'Blockad', 'Behandling', 'Rehabilitering', 'Kristianstad'],
+ light = false,
 } = Astro.props;
 
 const serie = [...ord, ...ord];
@@ -25,7 +25,7 @@ const serie = [...ord, ...ord];
   aria-hidden="true"
   class:list={[
     'relative overflow-hidden border-y py-6',
-    light ? 'border-kalk/12 bg-mossa-djup' : 'border-sten bg-papper',
+ light ? 'border-papper/12 bg-djup' : 'border-linje bg-topp',
   ]}
 >
   <div class="marquee">
@@ -35,13 +35,13 @@ const serie = [...ord, ...ord];
           <span
             class:list={[
               'px-8 text-[0.9rem] uppercase tracking-[0.2em]',
-              light ? 'text-kalk/45' : 'text-skiffer/70',
+ light ? 'text-papper/45' : 'text-dov/70',
             ]}
           >
             {o}
           </span>
           <span
-            class:list={['h-1 w-1 rounded-full', light ? 'bg-salvia/50' : 'bg-sten-mork']}
+            class:list={['h-1 w-1 rounded-full', light ? 'bg-ljus-dov/50' : 'bg-linje']}
           ></span>
         </span>
       ))
@@ -52,14 +52,14 @@ const serie = [...ord, ...ord];
   <div
     class:list={[
       'pointer-events-none absolute inset-y-0 left-0 w-24',
-      light ? 'bg-linear-to-r from-mossa-djup' : 'bg-linear-to-r from-papper',
+ light ? 'bg-linear-to-r from-djup' : 'bg-linear-to-r from-topp',
     ]}
   >
   </div>
   <div
     class:list={[
       'pointer-events-none absolute inset-y-0 right-0 w-24',
-      light ? 'bg-linear-to-l from-mossa-djup' : 'bg-linear-to-l from-papper',
+ light ? 'bg-linear-to-l from-djup' : 'bg-linear-to-l from-topp',
     ]}
   >
   </div>

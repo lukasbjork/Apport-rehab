@@ -98,58 +98,58 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   />
 
   <!-- Vad du ska skriva -->
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
-            Ta med det här i mejlet
+          <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+ Ta med det här i mejlet
           </h2>
-          <p class="mt-5 text-[1.02rem] leading-relaxed text-skiffer">
-            Det behöver inte vara långt. Fyra korta stycken räcker gott — de fyra nedan är de vi
-            har mest nytta av när vi ska bedöma om vi kan hjälpa dig.
+          <p class="mt-5 text-[1.02rem] leading-relaxed text-dov">
+ Det behöver inte vara långt. Fyra korta stycken räcker gott — de fyra nedan är de vi
+ har mest nytta av när vi ska bedöma om vi kan hjälpa dig.
           </p>
 
-          <div class="mt-9 rounded-2xl bg-mossa-djup p-7 text-kalk">
-            <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia">
-              Skicka till
+          <div class="mt-9 rounded-2xl bg-djup p-7 text-papper">
+            <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ljus-dov">
+ Skicka till
             </p>
             <a
               href={mailto}
-              class="lank-linje mt-3 block text-[1.3rem] font-medium break-all text-kalk"
+              class="lank-linje mt-3 block text-[1.3rem] font-medium break-all text-papper"
             >
               {SITE.email}
             </a>
-            <p class="mt-4 text-[0.9rem] leading-relaxed text-kalk/72">
-              Klickar du på adressen öppnas ett mejl med rubrikerna redan ifyllda.
+            <p class="mt-4 text-[0.9rem] leading-relaxed text-papper/72">
+ Klickar du på adressen öppnas ett mejl med rubrikerna redan ifyllda.
             </p>
 
-            <div class="mt-6 border-t border-kalk/12 pt-5">
-              <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia">
-                Eller ring
+            <div class="mt-6 border-t border-papper/12 pt-5">
+              <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ljus-dov">
+ Eller ring
               </p>
               <a
                 href={`tel:${SITE.phoneHref}`}
-                class="lank-linje mt-2 block text-[1.15rem] font-medium text-kalk"
+                class="lank-linje mt-2 block text-[1.15rem] font-medium text-papper"
               >
                 {SITE.phone}
               </a>
-              <p class="mt-1 text-[0.86rem] text-kalk/58">Telefontid {PHONE_HOURS.toLowerCase()}</p>
+              <p class="mt-1 text-[0.86rem] text-papper/58">Telefontid {PHONE_HOURS.toLowerCase()}</p>
             </div>
           </div>
         </div>
 
         <div class="lg:col-span-7">
-          <ol class="space-y-px overflow-hidden rounded-2xl bg-sten">
+          <ol class="space-y-px overflow-hidden rounded-2xl bg-linje">
             {
               punkter.map((p) => (
-                <li class="flex gap-5 bg-papper px-7 py-6">
-                  <span class="font-[family-name:var(--font-display)] text-[1.6rem] leading-none text-sten-text">
+                <li class="flex gap-5 bg-topp px-7 py-6">
+                  <span class="font-[family-name:var(--font-display)] text-[1.6rem] leading-none text-dov">
                     {p.nr}
                   </span>
                   <div>
-                    <h3 class="text-[1.08rem] leading-snug text-mossa-djup">{p.rubrik}</h3>
-                    <p class="mt-1.5 text-[0.95rem] leading-relaxed text-skiffer">{p.text}</p>
+                    <h3 class="text-[1.08rem] leading-snug text-djup">{p.rubrik}</h3>
+                    <p class="mt-1.5 text-[0.95rem] leading-relaxed text-dov">{p.text}</p>
                   </div>
                 </li>
               ))
@@ -157,11 +157,11 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
           </ol>
 
           <p
-            class="mt-6 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.94rem] leading-relaxed text-mossa-djup"
+            class="mt-6 rounded-2xl border border-linje bg-mellan/40 px-6 py-5 text-[0.94rem] leading-relaxed text-djup"
           >
             <strong class="font-semibold">Om integritet:</strong> mejl är inte en krypterad kanal.
-            Skriv gärna om dina besvär, men undvik att skicka personnummer eller
-            journalhandlingar den vägen — vi hör av oss om vi behöver sådana uppgifter.
+ Skriv gärna om dina besvär, men undvik att skicka personnummer eller
+ journalhandlingar den vägen — vi hör av oss om vi behöver sådana uppgifter.
           </p>
         </div>
       </div>
@@ -169,10 +169,10 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   </section>
 
   <!-- Vad som händer sedan -->
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
-        Vad som händer sedan
+      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+ Vad som händer sedan
       </h2>
       <div class="mt-12">
         <Process />
@@ -184,43 +184,43 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   <RelevansGuide />
 
   <!-- Vad vi inte tar emot -->
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-12 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-salvia-text">
+          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-dov">
             <Sikte size={13} />
-            Innan du skriver
+ Innan du skriver
           </p>
-          <h2 class="mt-4 text-[clamp(1.6rem,2.8vw,2.1rem)] leading-[1.15] text-mossa-djup">
-            Det här tar vi inte emot
+          <h2 class="mt-4 text-[clamp(1.6rem,2.8vw,2.1rem)] leading-[1.15] text-djup">
+ Det här tar vi inte emot
           </h2>
-          <p class="mt-5 text-[1rem] leading-relaxed text-skiffer">
-            Vi är två personer. För att kunna göra ett bra jobb med det vi kan behöver vi säga nej
-            till en del annat — och det är bättre att du vet det innan du skriver.
+          <p class="mt-5 text-[1rem] leading-relaxed text-dov">
+ Vi är två personer. För att kunna göra ett bra jobb med det vi kan behöver vi säga nej
+ till en del annat — och det är bättre att du vet det innan du skriver.
           </p>
         </div>
 
         <div class="grid gap-10 sm:grid-cols-2 lg:col-span-7">
           <div>
-            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-dov">
               Besvär vi inte utreder
             </h3>
-            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
               {NOT_OFFERED.conditions.map((rad) => <li>{rad}</li>)}
             </ul>
           </div>
           <div>
-            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-dov">
               Sådant vi inte utfärdar
             </h3>
-            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
               {NOT_OFFERED.services.map((rad) => <li>{rad}</li>)}
             </ul>
           </div>
-          <p class="text-[0.96rem] leading-relaxed text-skiffer sm:col-span-2">
+          <p class="text-[0.96rem] leading-relaxed text-dov sm:col-span-2">
             Är du osäker på om du hör hemma hos oss? Skriv ändå. Vi läser allt och säger till om
-            vi tror att någon annan kan hjälpa dig bättre.
+ vi tror att någon annan kan hjälpa dig bättre.
           </p>
         </div>
       </div>
@@ -228,37 +228,37 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   </section>
 
   <!-- FAQ -->
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
-        Vanliga frågor om egenremiss
+      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+ Vanliga frågor om egenremiss
       </h2>
       <Faq {faqs} class="mt-10" />
     </div>
   </section>
 
   <!-- Avslutande CTA -->
-  <section class="px-5 pb-(--spacing-section) sm:px-8">
+  <section class="px-5 pb-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="rounded-[2rem] bg-mossa-djup px-6 py-14 text-center sm:px-14">
-        <h2 class="text-[clamp(1.6rem,3vw,2.3rem)] leading-[1.14] text-kalk">
-          Redo att skriva?
+      <div class="rounded-[2rem] bg-djup px-6 py-14 text-center sm:px-14">
+        <h2 class="text-[clamp(1.6rem,3vw,2.3rem)] leading-[1.14] text-papper">
+ Redo att skriva?
         </h2>
-        <p class="mx-auto mt-5 max-w-xl text-[1.02rem] leading-relaxed text-kalk/72">
+        <p class="mx-auto mt-5 max-w-xl text-[1.02rem] leading-relaxed text-papper/72">
           Några meningar räcker. Vi läser allt som kommer in.
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-3">
           <a
             href={mailto}
-            class="rounded-full bg-kalk px-7 py-3.5 text-[0.95rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+            class="rounded-full bg-papper px-7 py-3.5 text-[0.95rem] font-medium text-djup transition-colors hover:bg-mellan"
           >
-            Skriv till {SITE.email}
+ Skriv till {SITE.email}
           </a>
           <a
             href={`tel:${SITE.phoneHref}`}
-            class="rounded-full border border-kalk/25 px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+            class="rounded-full border border-papper/25 px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:border-papper/60"
           >
-            Ring {SITE.phone}
+ Ring {SITE.phone}
           </a>
         </div>
       </div>

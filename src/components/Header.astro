@@ -27,7 +27,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   data-over-hero={overHero ? 'true' : 'false'}
   class:list={[
     'fixed inset-x-0 top-0 z-50 transition-all duration-500',
-    overHero ? 'is-transparent' : 'is-solid',
+ overHero ? 'is-transparent' : 'is-solid',
   ]}
 >
   <div class="mx-auto flex max-w-(--container-content) items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:py-5">
@@ -79,7 +79,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         </summary>
         <nav
           aria-label="Mobilmeny"
-          class="absolute right-0 top-14 w-[17rem] rounded-3xl border border-sten bg-papper p-2.5 shadow-lyft"
+          class="absolute right-0 top-14 w-[17rem] rounded-3xl border border-linje bg-topp p-2.5 "
         >
           <ul class="flex flex-col">
             {
@@ -89,8 +89,8 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
                     class:list={[
-                      'block rounded-2xl px-4 py-3.5 text-[0.98rem] transition-colors hover:bg-lind',
-                      isActive(item.href) ? 'font-medium text-mossa-djup' : 'text-skiffer',
+                      'block rounded-2xl px-4 py-3.5 text-[0.98rem] transition-colors hover:bg-mellan',
+                      isActive(item.href) ? 'font-medium text-djup' : 'text-dov',
                     ]}
                   >
                     {item.label}
@@ -98,16 +98,16 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
                 </li>
               ))
             }
-            <li class="mt-1.5 border-t border-sten pt-2.5">
+            <li class="mt-1.5 border-t border-linje pt-2.5">
               <a
                 href={CTA.primary.href}
-                class="block rounded-2xl bg-mossa px-4 py-3.5 text-center text-[0.95rem] font-medium text-kalk"
+                class="block rounded-2xl bg-lyft px-4 py-3.5 text-center text-[0.95rem] font-medium text-papper"
               >
                 {CTA.primary.label}
               </a>
             </li>
             <li class="px-4 pb-1 pt-3">
-              <a href={`tel:${SITE.phoneHref}`} class="block text-[0.88rem] text-skiffer">
+              <a href={`tel:${SITE.phoneHref}`} class="block text-[0.88rem] text-dov">
                 {SITE.phone}
               </a>
             </li>
@@ -120,67 +120,67 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
 
 <style>
   /* Transparent över mörk hero */
-  #toppnav.is-transparent .nav-logo { color: var(--color-kalk); }
+  #toppnav.is-transparent .nav-logo { color: var(--color-papper); }
   #toppnav.is-transparent .nav-pill {
     background-color: rgb(255 255 255 / 0.07);
     border: 1px solid rgb(255 255 255 / 0.12);
   }
   #toppnav.is-transparent .nav-lank { color: rgb(245 242 236 / 0.72); }
-  #toppnav.is-transparent .nav-lank:hover { color: var(--color-kalk); }
+  #toppnav.is-transparent .nav-lank:hover { color: var(--color-papper); }
   #toppnav.is-transparent .nav-lank.is-aktiv {
     background-color: rgb(255 255 255 / 0.13);
-    color: var(--color-kalk);
+    color: var(--color-papper);
   }
   #toppnav.is-transparent .nav-cta {
-    background-color: var(--color-kalk);
-    color: var(--color-mossa-djup);
+    background-color: var(--color-papper);
+    color: var(--color-djup);
   }
-  #toppnav.is-transparent .nav-cta:hover { background-color: var(--color-sand); }
+  #toppnav.is-transparent .nav-cta:hover { background-color: var(--color-mellan); }
   #toppnav.is-transparent .nav-hamburgare {
     border: 1px solid rgb(255 255 255 / 0.25);
-    color: var(--color-kalk);
+    color: var(--color-papper);
   }
 
   /* Solid — efter scroll, och direkt på undersidor */
   #toppnav.is-solid {
-    background-color: color-mix(in oklab, var(--color-kalk) 88%, transparent);
+    background-color: color-mix(in oklab, var(--color-papper) 88%, transparent);
     backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--color-sten);
+    border-bottom: 1px solid var(--color-linje);
   }
-  #toppnav.is-solid .nav-logo { color: var(--color-mossa-djup); }
+  #toppnav.is-solid .nav-logo { color: var(--color-djup); }
   #toppnav.is-solid .nav-pill { background-color: transparent; border: 1px solid transparent; }
-  #toppnav.is-solid .nav-lank { color: var(--color-skiffer); }
-  #toppnav.is-solid .nav-lank:hover { color: var(--color-mossa-djup); }
+  #toppnav.is-solid .nav-lank { color: var(--color-dov); }
+  #toppnav.is-solid .nav-lank:hover { color: var(--color-djup); }
   #toppnav.is-solid .nav-lank.is-aktiv {
-    background-color: var(--color-lind);
-    color: var(--color-mossa-djup);
+    background-color: var(--color-mellan);
+    color: var(--color-djup);
     font-weight: 500;
   }
   #toppnav.is-solid .nav-cta {
-    background-color: var(--color-mossa);
-    color: var(--color-kalk);
+    background-color: var(--color-lyft);
+    color: var(--color-papper);
   }
-  #toppnav.is-solid .nav-cta:hover { background-color: var(--color-mossa-djup); }
+  #toppnav.is-solid .nav-cta:hover { background-color: var(--color-djup); }
   #toppnav.is-solid .nav-hamburgare {
-    border: 1px solid var(--color-sten-mork);
-    color: var(--color-mossa-djup);
+    border: 1px solid var(--color-linje);
+    color: var(--color-djup);
   }
 </style>
 
 <script>
   /*
     Växlar navbaren till solid när hero passerats.
-    Utan JS stannar den transparent över hero, vilket också fungerar —
-    hero är mörk hela vägen ned.
+ Utan JS stannar den transparent över hero, vilket också fungerar —
+ hero är mörk hela vägen ned.
   */
-  const nav = document.getElementById('toppnav');
-  if (nav && nav.dataset.overHero === 'true') {
-    const brytpunkt = () => Math.max(window.innerHeight * 0.72, 320);
-    let solid = false;
-    const uppdatera = () => {
-      const skaVaraSolid = window.scrollY > brytpunkt();
-      if (skaVaraSolid === solid) return;
-      solid = skaVaraSolid;
+ const nav = document.getElementById('toppnav');
+ if (nav && nav.dataset.overHero === 'true') {
+ const brytpunkt = () => Math.max(window.innerHeight * 0.72, 320);
+ let solid = false;
+ const uppdatera = () => {
+ const skaVaraSolid = window.scrollY > brytpunkt();
+ if (skaVaraSolid === solid) return;
+ solid = skaVaraSolid;
       nav.classList.toggle('is-solid', solid);
       nav.classList.toggle('is-transparent', !solid);
     };

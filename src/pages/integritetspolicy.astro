@@ -75,13 +75,13 @@ const avsnitt = [
     {crumbs}
   />
 
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-läs) space-y-12">
       {
         avsnitt.map((a) => (
           <div>
-            <h2 class="text-[1.4rem] leading-snug text-mossa-djup">{a.rubrik}</h2>
-            <div class="mt-4 space-y-4 text-[1.01rem] leading-relaxed text-skiffer">
+            <h2 class="text-[1.4rem] leading-snug text-djup">{a.rubrik}</h2>
+            <div class="mt-4 space-y-4 text-[1.01rem] leading-relaxed text-dov">
               {a.stycken.map((s) => (
                 <p>{s}</p>
               ))}
@@ -90,20 +90,20 @@ const avsnitt = [
         ))
       }
 
-      <div class="rounded-2xl border border-sten bg-papper p-8">
-        <h2 class="text-[1.4rem] text-mossa-djup">Kontakt i dataskyddsfrågor</h2>
-        <p class="mt-4 text-[1.01rem] leading-relaxed text-skiffer">
-          Vill du utöva dina rättigheter eller har frågor som rör Apports behandling av dina
+      <div class="rounded-2xl border border-linje bg-topp p-8">
+        <h2 class="text-[1.4rem] text-djup">Kontakt i dataskyddsfrågor</h2>
+        <p class="mt-4 text-[1.01rem] leading-relaxed text-dov">
+ Vill du utöva dina rättigheter eller har frågor som rör Apports behandling av dina
           personuppgifter, hör av dig till <a
             href={`mailto:${SITE.emailAdmin}`}
-            class="lank-linje text-mossa">{SITE.emailAdmin}</a
+            class="lank-linje text-lyft">{SITE.emailAdmin}</a
           >.
         </p>
-        <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">
-          Du har också rätt att lämna klagomål till Integritetsskyddsmyndigheten (IMY), som är
-          tillsynsmyndighet för behandling av personuppgifter.
+        <p class="mt-4 text-[0.94rem] leading-relaxed text-dov">
+ Du har också rätt att lämna klagomål till Integritetsskyddsmyndigheten (IMY), som är
+ tillsynsmyndighet för behandling av personuppgifter.
         </p>
-        <p class="mt-6 text-[0.9rem] text-skiffer">
+        <p class="mt-6 text-[0.9rem] text-dov">
           {SITE.fullName} · Org.nr {SITE.orgNr} · {SITE.street}, {SITE.postalCode}&nbsp;{SITE.city}
         </p>
       </div>

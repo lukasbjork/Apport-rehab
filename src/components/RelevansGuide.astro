@@ -3,13 +3,13 @@
  * "Är Apport rätt för mig?" — enkel vägledning, INTE ett diagnosverktyg.
  *
  * Medvetna designval:
- *  - Fyra ja/nej-frågor om vårdform och förväntan, aldrig om symtom.
+ * - Fyra ja/nej-frågor om vårdform och förväntan, aldrig om symtom.
  *    Frågar man om symtom blir det ett medicinskt triageverktyg, vilket
  *    kräver helt andra regulatoriska hänsyn.
- *  - Svaret är alltid mjukt formulerat och slutar i samma uppmaning:
+ * - Svaret är alltid mjukt formulerat och slutar i samma uppmaning:
  *    hör av dig ändå. Ingen ska stängas ute av en webbsida.
- *  - Fungerar utan JavaScript: utan JS visas alla frågor och en neutral
- *    sammanfattning med kontaktuppgifter.
+ * - Fungerar utan JavaScript: utan JS visas alla frågor och en neutral
+ * sammanfattning med kontaktuppgifter.
  */
 import Sikte from './Sikte.astro';
 import { CTA } from '../lib/site';
@@ -38,24 +38,24 @@ const FRAGOR = [
 ];
 ---
 
-<section class="px-5 py-(--spacing-section) sm:px-8">
+<section class="px-5 py-(--spacing-rytm) sm:px-8">
   <div class="mx-auto max-w-(--container-content)">
-    <div class="overflow-hidden rounded-[2rem] border border-sten bg-papper">
+    <div class="overflow-hidden rounded-[2rem] border border-linje bg-topp">
       <div class="grid lg:grid-cols-12">
         <!-- Vänster: rubrik -->
-        <div class="bg-lind/40 p-8 sm:p-12 lg:col-span-5">
-          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-salvia-text">
+        <div class="bg-mellan/40 p-8 sm:p-12 lg:col-span-5">
+          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-dov">
             <Sikte size={13} />
             Är Apport rätt för mig?
           </p>
-          <h2 class="mt-4 text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-mossa-djup">
-            Fyra frågor som brukar avgöra saken
+          <h2 class="mt-4 text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+ Fyra frågor som brukar avgöra saken
           </h2>
-          <p class="mt-5 text-[1rem] leading-relaxed text-skiffer">
-            Det här är ingen medicinsk bedömning — bara en vägledning om vår klinik brukar
-            passa för besvär som dina. Vi frågar inte om dina symtom.
+          <p class="mt-5 text-[1rem] leading-relaxed text-dov">
+ Det här är ingen medicinsk bedömning — bara en vägledning om vår klinik brukar
+ passa för besvär som dina. Vi frågar inte om dina symtom.
           </p>
-          <p class="mt-5 text-[0.95rem] leading-relaxed text-mossa-djup">
+          <p class="mt-5 text-[0.95rem] leading-relaxed text-djup">
             Är du osäker? Skriv ändå. Vi säger till om vi tror att någon annan kan hjälpa dig
             bättre.
           </p>
@@ -67,11 +67,11 @@ const FRAGOR = [
             {
               FRAGOR.map((f, i) => (
                 <fieldset class="border-0 p-0">
-                  <legend class="text-[1.02rem] font-medium leading-snug text-mossa-djup">
-                    <span class="mr-2 text-salvia-text">{i + 1}.</span>
+                  <legend class="text-[1.02rem] font-medium leading-snug text-djup">
+                    <span class="mr-2 text-dov">{i + 1}.</span>
                     {f.fraga}
                   </legend>
-                  <p class="mt-1.5 text-[0.88rem] leading-relaxed text-skiffer">{f.hjalp}</p>
+                  <p class="mt-1.5 text-[0.88rem] leading-relaxed text-dov">{f.hjalp}</p>
                   <div class="mt-3 flex gap-2.5">
                     <label class="relevans-val">
                       <input type="radio" name={f.id} value="ja" class="sr-only" />
@@ -90,15 +90,15 @@ const FRAGOR = [
           <!-- Svarsruta. Tom och dold tills alla frågor besvarats. -->
           <div
             id="relevans-svar"
-            class="mt-8 rounded-2xl border border-sten bg-kalk p-6"
+            class="mt-8 rounded-2xl border border-linje bg-papper p-6"
             hidden
             aria-live="polite"
           >
-            <p id="relevans-rubrik" class="text-[1.1rem] leading-snug text-mossa-djup"></p>
-            <p id="relevans-text" class="mt-3 text-[0.96rem] leading-relaxed text-skiffer"></p>
+            <p id="relevans-rubrik" class="text-[1.1rem] leading-snug text-djup"></p>
+            <p id="relevans-text" class="mt-3 text-[0.96rem] leading-relaxed text-dov"></p>
             <a
               href={CTA.primary.href}
-              class="mt-6 inline-block rounded-full bg-mossa px-6 py-3 text-[0.92rem] font-medium text-kalk transition-colors hover:bg-mossa-djup"
+              class="mt-6 inline-block rounded-full bg-lyft px-6 py-3 text-[0.92rem] font-medium text-papper transition-colors hover:bg-djup"
             >
               {CTA.primary.label}
             </a>
@@ -106,14 +106,14 @@ const FRAGOR = [
 
           <!-- Utan JavaScript: visa kontaktvägen direkt -->
           <noscript>
-            <div class="mt-8 rounded-2xl border border-sten bg-kalk p-6">
-              <p class="text-[0.96rem] leading-relaxed text-skiffer">
-                Svarar du ja på de flesta frågorna brukar Apport kunna vara relevant. Är du
+            <div class="mt-8 rounded-2xl border border-linje bg-papper p-6">
+              <p class="text-[0.96rem] leading-relaxed text-dov">
+ Svarar du ja på de flesta frågorna brukar Apport kunna vara relevant. Är du
                 osäker — skriv ändå, så säger vi till om vi tror att någon annan passar bättre.
               </p>
               <a
                 href={CTA.primary.href}
-                class="mt-5 inline-block rounded-full bg-mossa px-6 py-3 text-[0.92rem] font-medium text-kalk"
+                class="mt-5 inline-block rounded-full bg-lyft px-6 py-3 text-[0.92rem] font-medium text-papper"
               >
                 {CTA.primary.label}
               </a>
@@ -130,48 +130,48 @@ const FRAGOR = [
     display: inline-flex;
     cursor: pointer;
     border-radius: 9999px;
-    border: 1px solid var(--color-sten-mork);
+    border: 1px solid var(--color-linje);
     padding: 0.5rem 1.4rem;
     font-size: 0.92rem;
-    color: var(--color-skiffer);
+    color: var(--color-dov);
     transition:
-      background-color 0.2s,
-      border-color 0.2s,
-      color 0.2s;
+ background-color 0.2s,
+ border-color 0.2s,
+ color 0.2s;
   }
   .relevans-val:hover {
-    border-color: var(--color-salvia);
+    border-color: var(--color-ljus-dov);
   }
   /* Markera valt alternativ — :has stöds i alla aktuella webbläsare */
   .relevans-val:has(input:checked) {
-    background-color: var(--color-mossa);
-    border-color: var(--color-mossa);
-    color: var(--color-kalk);
+    background-color: var(--color-lyft);
+    border-color: var(--color-lyft);
+    color: var(--color-papper);
   }
   /* Fokusmarkering måste följa med när input är visuellt dold */
   .relevans-val:has(input:focus-visible) {
-    outline: 3px solid var(--color-mossa);
+    outline: 3px solid var(--color-lyft);
     outline-offset: 3px;
   }
 </style>
 
 <script>
-  const form = document.getElementById('relevans') as HTMLFormElement | null;
-  const svar = document.getElementById('relevans-svar');
-  const rubrik = document.getElementById('relevans-rubrik');
-  const text = document.getElementById('relevans-text');
+ const form = document.getElementById('relevans') as HTMLFormElement | null;
+ const svar = document.getElementById('relevans-svar');
+ const rubrik = document.getElementById('relevans-rubrik');
+ const text = document.getElementById('relevans-text');
 
-  if (form && svar && rubrik && text) {
-    const IDS = ['lokal', 'provat', 'forsta', 'langvarig'];
+ if (form && svar && rubrik && text) {
+ const IDS = ['lokal', 'provat', 'forsta', 'langvarig'];
 
     form.addEventListener('change', () => {
-      const data = new FormData(form);
-      const svarade = IDS.filter((id) => data.get(id));
-      if (svarade.length < IDS.length) return;
+ const data = new FormData(form);
+ const svarade = IDS.filter((id) => data.get(id));
+ if (svarade.length < IDS.length) return;
 
-      const ja = IDS.filter((id) => data.get(id) === 'ja').length;
+ const ja = IDS.filter((id) => data.get(id) === 'ja').length;
 
-      if (ja >= 3) {
+ if (ja >= 3) {
         rubrik.textContent = 'Det låter som att Apport kan vara relevant för dig.';
         text.textContent =
           'Dina svar stämmer med den typ av besvär vi brukar arbeta med. Nästa steg är att du berättar lite mer — några rader räcker, så tar vi ställning.';

@@ -12,24 +12,24 @@ import BildPlatshallare from './BildPlatshallare.astro';
 import { TEAM } from '../lib/content';
 ---
 
-<section class="bg-kalk py-(--spacing-sek-lg)">
+<section class="bg-papper py-(--spacing-rytm-vid)">
   <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
     <div class="max-w-3xl">
-      <p class="t-eyebrow stig text-salvia-text">Bakom Apport</p>
-      <h2 class="t-statement stig mt-8 text-mossa-djup">
+      <p class="t-etikett text-dov">Bakom Apport</p>
+      <h2 class="t-h2  mt-8 text-djup">
         Två personer.
-        <span class="block text-salvia-text">Samma klinik sedan 2010.</span>
+        <span class="block text-dov">Samma klinik sedan 2010.</span>
       </h2>
-      <p class="t-brod stig-sen mt-10 max-w-lg text-skiffer">
-        En läkare och en fysioterapeut, gifta med varandra. Du möter samma personer varje gång,
-        och de pratar med varandra om ditt fall.
+      <p class="t-brod  mt-10 max-w-lg text-dov">
+ En läkare och en fysioterapeut, gifta med varandra. Du möter samma personer varje gång,
+ och de pratar med varandra om ditt fall.
       </p>
     </div>
 
     <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:mt-20 lg:gap-10">
       {
         TEAM.map((person) => (
-          <article class="stig">
+          <article class="">
             <a href={`/om-apport/#${person.slug}`} class="group block">
               <div class="relative overflow-hidden rounded-sm">
                 {person.image ? (
@@ -54,8 +54,8 @@ import { TEAM } from '../lib/content';
                 )}
 
                 <!-- Hover-överlägg -->
-                <div class="pointer-events-none absolute inset-0 flex items-end bg-linear-to-t from-mossa-djup/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <span class="inline-flex items-center gap-2.5 p-7 text-[0.94rem] font-medium text-kalk">
+                <div class="pointer-events-none absolute inset-0 flex items-end bg-linear-to-t from-djup/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <span class="inline-flex items-center gap-2.5 p-7 text-[0.94rem] font-medium text-papper">
                     Läs mer
                     <svg width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true">
                       <path
@@ -70,15 +70,15 @@ import { TEAM } from '../lib/content';
                 </div>
               </div>
 
-              <h3 class="t-h2 mt-8 text-[clamp(1.5rem,2.4vw,2rem)] text-mossa-djup">
+              <h3 class="t-h2 mt-8 text-[clamp(1.5rem,2.4vw,2rem)] text-djup">
                 {person.name}
               </h3>
-              <p class="mt-2 text-[0.96rem] text-mossa-ljus">{person.role}</p>
+              <p class="mt-2 text-[0.96rem] text-dov">{person.role}</p>
             </a>
 
             <ul class="mt-5 flex flex-wrap gap-2">
               {person.specialties.map((sp) => (
-                <li class="rounded-full border border-sten px-3.5 py-1.5 text-[0.8rem] text-skiffer">
+                <li class="rounded-full border border-linje px-3.5 py-1.5 text-[0.8rem] text-dov">
                   {sp}
                 </li>
               ))}

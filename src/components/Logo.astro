@@ -14,7 +14,7 @@
  * lager med punkt läste som ett slutet öga. En ordbild har inte det problemet
  * och passar dessutom en liten specialistklinik bättre än en ikon.
  *
- * variant="full"    header och footer på desktop
+ * variant="full" header och footer på desktop
  * variant="kompakt" mobil och trånga ytor — underraden faller bort
  */
 interface Props {
@@ -32,7 +32,7 @@ const { variant = 'full', size = 23, class: className = '' } = Astro.props;
     style={`font-size:${size}px`}>APPORT</span
   >
   {
-    variant === 'full' && (
+ variant === 'full' && (
       <span
         class="mt-[5px] block border-t border-current/25 pt-[4px] font-semibold tracking-[0.2em] opacity-80"
         style={`font-size:${Math.max(7.5, size * 0.37)}px`}

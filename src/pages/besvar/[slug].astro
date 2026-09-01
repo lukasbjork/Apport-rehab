@@ -11,7 +11,7 @@ import { breadcrumbSchema, conditionSchema, faqSchema } from '../../lib/schema';
 import { SITE, FEES, CTA, PHONE_HOURS } from '../../lib/site';
 
 export function getStaticPaths() {
-  return CONDITIONS.map((condition) => ({
+ return CONDITIONS.map((condition) => ({
     params: { slug: condition.slug },
     props: { condition },
   }));
@@ -50,12 +50,12 @@ const avsnitt = [
 >
   <SidHuvud etikett={condition.group} rubrik={condition.heading} ingress={condition.intro} {crumbs} />
 
-  <nav aria-label="Innehåll på sidan" class="border-b border-sten bg-papper px-5 py-6 sm:px-8">
+  <nav aria-label="Innehåll på sidan" class="border-b border-linje bg-topp px-5 py-6 sm:px-8">
     <ul class="mx-auto flex max-w-(--container-content) flex-wrap gap-x-6 gap-y-2.5">
       {
         avsnitt.map((a) => (
           <li>
-            <a href={`#${a.id}`} class="lank-linje inline-block py-1 text-[0.9rem] text-skiffer hover:text-mossa-djup">
+            <a href={`#${a.id}`} class="lank-linje inline-block py-1 text-[0.9rem] text-dov hover:text-djup">
               {a.titel}
             </a>
           </li>
@@ -65,19 +65,19 @@ const avsnitt = [
   </nav>
 
   <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
-    <div class="grid gap-16 py-(--spacing-section) lg:grid-cols-12">
+    <div class="grid gap-16 py-(--spacing-rytm) lg:grid-cols-12">
       <!-- Huvudspalt -->
       <div class="lg:col-span-7">
         <section id="igenkanning" class="scroll-mt-32">
-          <h2 class="text-[1.65rem] text-mossa-djup">Känner du igen dig?</h2>
-          <ul class="mt-7 space-y-px overflow-hidden rounded-2xl bg-sten">
+          <h2 class="text-[1.65rem] text-djup">Känner du igen dig?</h2>
+          <ul class="mt-7 space-y-px overflow-hidden rounded-2xl bg-linje">
             {
               condition.recognise.map((rad) => (
-                <li class="flex items-start gap-4 bg-papper px-6 py-4.5">
-                  <span class="mt-1 shrink-0 text-salvia-text">
+                <li class="flex items-start gap-4 bg-topp px-6 py-4.5">
+                  <span class="mt-1 shrink-0 text-dov">
                     <Sikte size={14} />
                   </span>
-                  <span class="text-[0.99rem] leading-relaxed text-mossa-djup">{rad}</span>
+                  <span class="text-[0.99rem] leading-relaxed text-djup">{rad}</span>
                 </li>
               ))
             }
@@ -85,31 +85,31 @@ const avsnitt = [
         </section>
 
         <section id="symtom" class="mt-16 scroll-mt-32">
-          <h2 class="text-[1.65rem] text-mossa-djup">Vanliga symtom</h2>
+          <h2 class="text-[1.65rem] text-djup">Vanliga symtom</h2>
           <ul class="mt-6 space-y-3">
             {
               condition.symptoms.map((rad) => (
-                <li class="flex items-start gap-3.5 text-[1.01rem] leading-relaxed text-skiffer">
-                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-salvia-text" aria-hidden="true" />
+                <li class="flex items-start gap-3.5 text-[1.01rem] leading-relaxed text-dov">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-dov" aria-hidden="true" />
                   {rad}
                 </li>
               ))
             }
           </ul>
-          <p class="mt-6 text-[0.92rem] leading-relaxed text-skiffer">
-            Symtomen ovan är vanliga men inte uttömmande, och de säger inte ensamma vad som
-            orsakar besvären. Det är just det utredningen är till för.
+          <p class="mt-6 text-[0.92rem] leading-relaxed text-dov">
+ Symtomen ovan är vanliga men inte uttömmande, och de säger inte ensamma vad som
+ orsakar besvären. Det är just det utredningen är till för.
           </p>
         </section>
 
         <section id="orsaker" class="mt-16 scroll-mt-32">
-          <h2 class="text-[1.65rem] text-mossa-djup">Möjliga orsaker</h2>
-          <div class="mt-7 space-y-px overflow-hidden rounded-2xl bg-sten">
+          <h2 class="text-[1.65rem] text-djup">Möjliga orsaker</h2>
+          <div class="mt-7 space-y-px overflow-hidden rounded-2xl bg-linje">
             {
               condition.causes.map((c) => (
-                <div class="bg-papper px-7 py-6">
-                  <h3 class="text-[1.08rem] leading-snug text-mossa-djup">{c.title}</h3>
-                  <p class="mt-2 text-[0.96rem] leading-relaxed text-skiffer">{c.body}</p>
+                <div class="bg-topp px-7 py-6">
+                  <h3 class="text-[1.08rem] leading-snug text-djup">{c.title}</h3>
+                  <p class="mt-2 text-[0.96rem] leading-relaxed text-dov">{c.body}</p>
                 </div>
               ))
             }
@@ -126,9 +126,9 @@ const avsnitt = [
                 height="1000"
                 loading="lazy"
                 decoding="async"
-                class="w-full rounded-2xl border border-sten object-cover"
+                class="w-full rounded-2xl border border-linje object-cover"
               />
-              <figcaption class="mt-4 text-[0.85rem] leading-relaxed text-skiffer">
+              <figcaption class="mt-4 text-[0.85rem] leading-relaxed text-dov">
                 {condition.image.caption}
               </figcaption>
             </figure>
@@ -136,38 +136,38 @@ const avsnitt = [
         }
 
         <section id="utredning" class="mt-16 scroll-mt-32">
-          <h2 class="text-[1.65rem] text-mossa-djup">Hur vi utreder</h2>
-          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
+          <h2 class="text-[1.65rem] text-djup">Hur vi utreder</h2>
+          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-dov">
             {condition.investigation.map((stycke) => <p>{stycke}</p>)}
           </div>
         </section>
 
         <section id="behandling" class="mt-16 scroll-mt-32">
-          <h2 class="text-[1.65rem] text-mossa-djup">Behandling</h2>
-          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
+          <h2 class="text-[1.65rem] text-djup">Behandling</h2>
+          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-dov">
             {condition.treatment.map((stycke) => <p>{stycke}</p>)}
           </div>
           <p
-            class="mt-7 rounded-2xl border border-sten bg-lind/40 px-6 py-5 text-[0.96rem] leading-relaxed text-mossa-djup"
+            class="mt-7 rounded-2xl border border-linje bg-mellan/40 px-6 py-5 text-[0.96rem] leading-relaxed text-djup"
           >
             {BEHANDLING_FORBEHALL}
           </p>
         </section>
 
         <section id="rehabilitering" class="mt-16 scroll-mt-32">
-          <h2 class="text-[1.65rem] text-mossa-djup">Träning och rehabilitering</h2>
-          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
+          <h2 class="text-[1.65rem] text-djup">Träning och rehabilitering</h2>
+          <div class="mt-6 space-y-5 text-[1.03rem] leading-relaxed text-dov">
             {condition.rehab.map((stycke) => <p>{stycke}</p>)}
           </div>
         </section>
 
         <section class="mt-16">
-          <h2 class="text-[1.65rem] text-mossa-djup">När bör du söka hjälp?</h2>
+          <h2 class="text-[1.65rem] text-djup">När bör du söka hjälp?</h2>
           <ul class="mt-6 space-y-3">
             {
               condition.seekCare.map((rad) => (
-                <li class="flex items-start gap-3.5 text-[1.01rem] leading-relaxed text-skiffer">
-                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-tegel" aria-hidden="true" />
+                <li class="flex items-start gap-3.5 text-[1.01rem] leading-relaxed text-dov">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lera" aria-hidden="true" />
                   {rad}
                 </li>
               ))
@@ -176,7 +176,7 @@ const avsnitt = [
         </section>
 
         <section id="fragor" class="mt-16 scroll-mt-32">
-          <h2 class="text-[1.65rem] text-mossa-djup">Vanliga frågor</h2>
+          <h2 class="text-[1.65rem] text-djup">Vanliga frågor</h2>
           <Faq faqs={condition.faqs} class="mt-8" />
         </section>
       </div>
@@ -184,59 +184,59 @@ const avsnitt = [
       <!-- Sidospalt -->
       <aside class="lg:col-span-5">
         <div class="sticky top-32 space-y-6">
-          <div class="rounded-2xl bg-mossa-djup p-7 text-kalk">
+          <div class="rounded-2xl bg-djup p-7 text-papper">
             <h2 class="text-[1.15rem]">Så kontaktar du oss</h2>
-            <p class="mt-3 text-[0.94rem] leading-relaxed text-kalk/72">
-              Du behöver ingen remiss. Skriv några rader om dina besvär så tar vi ställning.
+            <p class="mt-3 text-[0.94rem] leading-relaxed text-papper/72">
+ Du behöver ingen remiss. Skriv några rader om dina besvär så tar vi ställning.
             </p>
             <a
               href={CTA.primary.href}
-              class="mt-6 block rounded-full bg-kalk px-6 py-3 text-center text-[0.92rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+              class="mt-6 block rounded-full bg-papper px-6 py-3 text-center text-[0.92rem] font-medium text-djup transition-colors hover:bg-mellan"
             >
               {CTA.primary.label}
             </a>
-            <dl class="mt-6 space-y-3.5 border-t border-kalk/12 pt-5 text-[0.9rem]">
+            <dl class="mt-6 space-y-3.5 border-t border-papper/12 pt-5 text-[0.9rem]">
               <div>
-                <dt class="text-salvia">E-post</dt>
+                <dt class="text-ljus-dov">E-post</dt>
                 <dd class="mt-0.5">
-                  <a href={`mailto:${SITE.email}`} class="lank-linje break-all text-kalk/85">
+                  <a href={`mailto:${SITE.email}`} class="lank-linje break-all text-papper/85">
                     {SITE.email}
                   </a>
                 </dd>
               </div>
               <div>
-                <dt class="text-salvia">Telefon</dt>
-                <dd class="mt-0.5 text-kalk/85">
+                <dt class="text-ljus-dov">Telefon</dt>
+                <dd class="mt-0.5 text-papper/85">
                   <a href={`tel:${SITE.phoneHref}`} class="lank-linje">{SITE.phone}</a>
-                  <span class="block text-[0.84rem] text-kalk/58">
-                    Telefontid {PHONE_HOURS.toLowerCase()}
+                  <span class="block text-[0.84rem] text-papper/58">
+ Telefontid {PHONE_HOURS.toLowerCase()}
                   </span>
                 </dd>
               </div>
               <div>
-                <dt class="text-salvia">Patientavgift</dt>
-                <dd class="mt-0.5 text-kalk/85">{FEES.visit}, frikort gäller</dd>
+                <dt class="text-ljus-dov">Patientavgift</dt>
+                <dd class="mt-0.5 text-papper/85">{FEES.visit}, frikort gäller</dd>
               </div>
             </dl>
           </div>
 
-          <div class="rounded-2xl border border-sten bg-papper p-7">
-            <h2 class="text-[1.15rem] text-mossa-djup">Behandlingar som kan bli aktuella</h2>
-            <p class="mt-2 text-[0.88rem] leading-relaxed text-skiffer">
-              Vad som passar dig avgörs av utredningen.
+          <div class="rounded-2xl border border-linje bg-topp p-7">
+            <h2 class="text-[1.15rem] text-djup">Behandlingar som kan bli aktuella</h2>
+            <p class="mt-2 text-[0.88rem] leading-relaxed text-dov">
+ Vad som passar dig avgörs av utredningen.
             </p>
-            <ul class="mt-5 space-y-px overflow-hidden rounded-xl bg-sten">
+            <ul class="mt-5 space-y-px overflow-hidden rounded-xl bg-linje">
               {
                 relaterade.map((t) => (
                   <li>
                     <a
                       href={`/behandlingar/${t.slug}/`}
-                      class="group flex items-center justify-between gap-4 bg-papper px-5 py-4 transition-colors hover:bg-lind/50"
+                      class="group flex items-center justify-between gap-4 bg-topp px-5 py-4 transition-colors hover:bg-mellan/50"
                     >
-                      <span class="text-[0.95rem] text-mossa-djup">
+                      <span class="text-[0.95rem] text-djup">
                         {t.shortName}
                         {!t.inAgreement && (
-                          <span class="mt-0.5 block text-[0.78rem] text-tegel">
+                          <span class="mt-0.5 block text-[0.78rem] text-lera">
                             Utanför avtalet
                           </span>
                         )}
@@ -247,7 +247,7 @@ const avsnitt = [
                         viewBox="0 0 15 10"
                         fill="none"
                         aria-hidden="true"
-                        class="shrink-0 text-mossa transition-transform duration-300 group-hover:translate-x-1"
+                        class="shrink-0 text-lyft transition-transform duration-300 group-hover:translate-x-1"
                       >
                         <path
                           d="M0 5h13M9.5 1L13.5 5L9.5 9"
@@ -270,28 +270,28 @@ const avsnitt = [
 
   <SnabbKontakt text="Låter det som dina besvär? Skriv några rader så tar vi ställning." />
 
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[1.7rem] text-mossa-djup">Så går det till hos oss</h2>
+      <h2 class="text-[1.7rem] text-djup">Så går det till hos oss</h2>
       <div class="mt-10">
         <Process />
       </div>
     </div>
   </section>
 
-  <section class="px-5 pt-(--spacing-section) sm:px-8">
+  <section class="px-5 pt-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[1.7rem] text-mossa-djup">Andra besvär vi arbetar med</h2>
+      <h2 class="text-[1.7rem] text-djup">Andra besvär vi arbetar med</h2>
       <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
           andraBesvar.map((c) => (
             <li>
               <a
                 href={`/besvar/${c.slug}/`}
-                class="group flex h-full flex-col justify-between rounded-2xl border border-sten bg-papper p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-salvia hover:shadow-mjuk"
+                class="group flex h-full flex-col justify-between rounded-2xl border border-linje bg-topp p-6 transition-all duration-300 hover:border-ljus-dov"
               >
-                <span class="text-[1.02rem] leading-snug text-mossa-djup">{c.name}</span>
-                <span class="mt-5 text-[0.85rem] font-medium text-mossa transition-colors group-hover:text-tegel">
+                <span class="text-[1.02rem] leading-snug text-djup">{c.name}</span>
+                <span class="mt-5 text-[0.85rem] font-medium text-lyft transition-colors group-hover:text-lera">
                   Läs mer →
                 </span>
               </a>

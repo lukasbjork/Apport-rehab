@@ -15,12 +15,12 @@ const { crumbs, light = false } = Astro.props;
       crumbs.map((crumb, i) => (
         <li class="flex items-center gap-2">
           {i > 0 && (
-            <span aria-hidden="true" class={light ? 'text-kalk/35' : 'text-sten-mork'}>
+            <span aria-hidden="true" class={light ? 'text-papper/35' : 'text-linje'}>
               /
             </span>
           )}
           {i === crumbs.length - 1 ? (
-            <span aria-current="page" class={light ? 'text-kalk/70' : 'text-skiffer'}>
+            <span aria-current="page" class={light ? 'text-papper/70' : 'text-dov'}>
               {crumb.name}
             </span>
           ) : (
@@ -28,7 +28,7 @@ const { crumbs, light = false } = Astro.props;
               href={crumb.url}
               class:list={[
                 'lank-linje',
-                light ? 'text-kalk/70 hover:text-kalk' : 'text-skiffer hover:text-mossa-djup',
+ light ? 'text-papper/70 hover:text-papper' : 'text-dov hover:text-djup',
               ]}
             >
               {crumb.name}

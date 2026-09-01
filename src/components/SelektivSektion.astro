@@ -12,49 +12,49 @@ import { NOT_OFFERED } from '../lib/content';
 import { CTA } from '../lib/site';
 ---
 
-<section class="bg-mossa-djup py-(--spacing-sek-xl)">
+<section class="bg-djup py-(--spacing-rytm-vid)">
   <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
     <div class="max-w-3xl">
-      <p class="t-eyebrow stig text-salvia">Ärligt talat</p>
-      <h2 class="t-statement stig mt-8 text-kalk">
-        Vi tar inte emot allt.
-        <span class="block text-salvia">Det är en del av vår idé.</span>
+      <p class="t-etikett text-ljus-dov">Ärligt talat</p>
+      <h2 class="t-h2  mt-8 text-papper">
+ Vi tar inte emot allt.
+        <span class="block text-ljus-dov">Det är en del av vår idé.</span>
       </h2>
-      <p class="t-brod stig-sen mt-10 max-w-xl text-kalk/70">
-        Vi är en liten klinik med två personer. Att säga nej till det vi inte är bäst på är
+      <p class="t-brod  mt-10 max-w-xl text-papper/70">
+ Vi är en liten klinik med två personer. Att säga nej till det vi inte är bäst på är
         förutsättningen för att kunna lägga tid på det vi faktiskt kan hjälpa till med.
       </p>
     </div>
 
-    <div class="mt-16 grid gap-12 border-t border-kalk/12 pt-14 sm:grid-cols-2 lg:mt-20 lg:gap-20">
-      <div class="stig">
-        <h3 class="t-eyebrow text-salvia">Vi utreder inte</h3>
+    <div class="mt-16 grid gap-12 border-t border-papper/12 pt-14 sm:grid-cols-2 lg:mt-20 lg:gap-20">
+      <div class="">
+        <h3 class="t-etikett text-ljus-dov">Vi utreder inte</h3>
         <ul class="mt-7 space-y-4">
           {
             NOT_OFFERED.conditions.map((rad) => (
-              <li class="border-b border-kalk/10 pb-4 text-[1.05rem] text-kalk/85">{rad}</li>
+              <li class="border-b border-papper/10 pb-4 text-[1.05rem] text-papper/85">{rad}</li>
             ))
           }
         </ul>
       </div>
 
-      <div class="stig">
-        <h3 class="t-eyebrow text-salvia">Vi utfärdar inte</h3>
+      <div class="">
+        <h3 class="t-etikett text-ljus-dov">Vi utfärdar inte</h3>
         <ul class="mt-7 space-y-4">
           {
             NOT_OFFERED.services.map((rad) => (
-              <li class="border-b border-kalk/10 pb-4 text-[1.05rem] text-kalk/85">{rad}</li>
+              <li class="border-b border-papper/10 pb-4 text-[1.05rem] text-papper/85">{rad}</li>
             ))
           }
         </ul>
       </div>
     </div>
 
-    <div class="stig-sen mt-16 flex flex-wrap items-center gap-x-10 gap-y-6">
-      <p class="t-h3 text-kalk">Är du osäker? Skriv ändå.</p>
+    <div class="mt-16 flex flex-wrap items-center gap-x-10 gap-y-6">
+      <p class="t-h3 text-papper">Är du osäker? Skriv ändå.</p>
       <a
         href={CTA.primary.href}
-        class="group inline-flex items-center gap-2.5 rounded-full bg-kalk px-8 py-4 text-[0.96rem] font-medium text-mossa-djup transition-colors duration-300 hover:bg-sand"
+        class="group inline-flex items-center gap-2.5 rounded-full bg-papper px-8 py-4 text-[0.96rem] font-medium text-djup transition-colors duration-300 hover:bg-mellan"
       >
         {CTA.primary.label}
         <svg

@@ -20,30 +20,30 @@ const { eyebrow, rubrik, rubrikAccent, brod, cta, light = false } = Astro.props;
 
 <section
   class:list={[
-    'px-5 py-(--spacing-sek-xl) sm:px-8',
-    light ? 'bg-mossa-djup' : 'bg-kalk',
+    'px-5 py-(--spacing-rytm-vid) sm:px-8',
+ light ? 'bg-djup' : 'bg-papper',
   ]}
 >
   <div class="mx-auto max-w-(--container-content)">
-    {eyebrow && <p class:list={['t-eyebrow stig', light ? 'text-salvia' : 'text-salvia-text']}>{eyebrow}</p>}
+    {eyebrow && <p class:list={['t-etikett ', light ? 'text-ljus-dov' : 'text-dov']}>{eyebrow}</p>}
 
     <h2
       class:list={[
-        't-statement stig max-w-[19ch]',
-        eyebrow && 'mt-9',
-        light ? 'text-kalk' : 'text-mossa-djup',
+        't-h2  max-w-[19ch]',
+ eyebrow && 'mt-9',
+ light ? 'text-papper' : 'text-djup',
       ]}
     >
       {rubrik}
-      {rubrikAccent && <span class:list={['block', light ? 'text-salvia' : 'text-salvia-text']}>{rubrikAccent}</span>}
+      {rubrikAccent && <span class:list={['block', light ? 'text-ljus-dov' : 'text-dov']}>{rubrikAccent}</span>}
     </h2>
 
     {
-      brod && (
+ brod && (
         <p
           class:list={[
-            't-brod stig-sen mt-12 max-w-xl',
-            light ? 'text-kalk/70' : 'text-skiffer',
+            't-brod  mt-12 max-w-xl',
+ light ? 'text-papper/70' : 'text-dov',
           ]}
         >
           {brod}
@@ -52,12 +52,12 @@ const { eyebrow, rubrik, rubrikAccent, brod, cta, light = false } = Astro.props;
     }
 
     {
-      cta && (
+ cta && (
         <a
           href={cta.href}
           class:list={[
-            'stig-sen group mt-12 inline-flex items-center gap-3 text-[1rem] font-medium',
-            light ? 'text-kalk' : 'text-mossa-djup',
+            ' group mt-12 inline-flex items-center gap-3 text-[1rem] font-medium',
+ light ? 'text-papper' : 'text-djup',
           ]}
         >
           <span class="lank-linje">{cta.label}</span>

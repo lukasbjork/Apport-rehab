@@ -42,45 +42,45 @@ const steg = [
     {crumbs}
   />
 
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <SektionsRubrik rubrik="Grundtanken" />
         </div>
-        <div class="space-y-5 text-[1.05rem] leading-relaxed text-skiffer lg:col-span-7">
+        <div class="space-y-5 text-[1.05rem] leading-relaxed text-dov lg:col-span-7">
           <p>
-            Vissa vävnader läker dåligt på egen hand. Senfästen och ligament har till exempel
+ Vissa vävnader läker dåligt på egen hand. Senfästen och ligament har till exempel
             begränsad blodförsörjning, vilket gör att en skada där kan bli kvar i åratal utan att
-            kroppen kommer vidare i läkningsprocessen.
+ kroppen kommer vidare i läkningsprocessen.
           </p>
           <p>
-            Regenerativ behandling går ut på att sätta igång den processen igen. Det låter
+ Regenerativ behandling går ut på att sätta igång den processen igen. Det låter
             motsägelsefullt, men metoden bygger på att skapa en kontrollerad retning — en liten,
-            avsiktlig påverkan som får immunsystemet att börja arbeta i området.
+ avsiktlig påverkan som får immunsystemet att börja arbeta i området.
           </p>
-          <p class="text-mossa-djup">
-            Det är därför det ofta gör mer ont innan det gör mindre ont. Vid proloterapi upplever
+          <p class="text-djup">
+ Det är därför det ofta gör mer ont innan det gör mindre ont. Vid proloterapi upplever
             många patienter ökad smärta dag 2–4 efter behandlingen. Det hänger ihop med den
-            inflammation som är själva poängen.
+ inflammation som är själva poängen.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik etikett="Så fungerar det" rubrik="Tre steg i samma kedja" />
-      <ol class="mt-14 grid gap-px overflow-hidden rounded-2xl bg-sten sm:grid-cols-3">
+      <ol class="mt-14 grid gap-px overflow-hidden rounded-2xl bg-linje sm:grid-cols-3">
         {
           steg.map((s, i) => (
-            <li class="stig bg-kalk p-8">
-              <span class="font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-sten-text">
+            <li class="bg-papper p-8">
+              <span class="font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-dov">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <h3 class="mt-5 text-[1.15rem] leading-snug text-mossa-djup">{s.rubrik}</h3>
-              <p class="mt-3 text-[0.94rem] leading-relaxed text-skiffer">{s.text}</p>
+              <h3 class="mt-5 text-[1.15rem] leading-snug text-djup">{s.rubrik}</h3>
+              <p class="mt-3 text-[0.94rem] leading-relaxed text-dov">{s.text}</p>
             </li>
           ))
         }
@@ -88,7 +88,7 @@ const steg = [
     </div>
   </section>
 
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         etikett="Metoder"
@@ -101,23 +101,23 @@ const steg = [
     </div>
   </section>
 
-  <section class="px-5 pb-(--spacing-section) sm:px-8">
+  <section class="px-5 pb-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="rounded-[2rem] border border-sten bg-lind/35 p-8 sm:p-12">
-        <h2 class="text-[1.5rem] text-mossa-djup">Vad vi inte påstår</h2>
-        <div class="mt-5 max-w-(--container-läs) space-y-4 text-[1rem] leading-relaxed text-skiffer">
+      <div class="rounded-[2rem] border border-linje bg-mellan/35 p-8 sm:p-12">
+        <h2 class="text-[1.5rem] text-djup">Vad vi inte påstår</h2>
+        <div class="mt-5 max-w-(--container-läs) space-y-4 text-[1rem] leading-relaxed text-dov">
           <p>
-            Regenerativ medicin är ett område där det förekommer stora löften. Vi håller oss till
-            det vi kan stå för: metoderna syftar till att aktivera kroppens egen läkningsförmåga,
-            och för vissa patienter fungerar det bra.
+ Regenerativ medicin är ett område där det förekommer stora löften. Vi håller oss till
+ det vi kan stå för: metoderna syftar till att aktivera kroppens egen läkningsförmåga,
+ och för vissa patienter fungerar det bra.
           </p>
           <p>
-            Vi lovar inte bot, garanterar inte resultat och påstår inte att metoderna fungerar för
+ Vi lovar inte bot, garanterar inte resultat och påstår inte att metoderna fungerar för
             alla. Om vi bedömer att en behandling sannolikt inte hjälper dig säger vi det hellre än
-            att pröva ändå.
+ att pröva ändå.
           </p>
-          <p class="text-mossa-djup">
-            PRP och pulsad radiofrekvens ingår inte i vårt avtal med Region Skåne och betalas av dig
+          <p class="text-djup">
+ PRP och pulsad radiofrekvens ingår inte i vårt avtal med Region Skåne och betalas av dig
             själv. Vi går alltid igenom kostnaden innan något bokas.
           </p>
         </div>

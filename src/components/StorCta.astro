@@ -16,23 +16,23 @@ interface Props {
   brod?: string;
 }
 const {
-  rubrik = 'Berätta om dina besvär.',
-  brod = 'Du behöver ingen remiss. Skriv några rader om vad du har för problem, vad du redan provat och vad du vill kunna göra igen.',
+ rubrik = 'Berätta om dina besvär.',
+ brod = 'Du behöver ingen remiss. Skriv några rader om vad du har för problem, vad du redan provat och vad du vill kunna göra igen.',
 } = Astro.props;
 ---
 
-<section class="bg-sand py-(--spacing-sek-xl)">
+<section class="bg-mellan py-(--spacing-rytm-vid)">
   <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
-    <h2 class="t-statement stig max-w-[14ch] text-mossa-djup">{rubrik}</h2>
+    <h2 class="t-h2  max-w-[14ch] text-djup">{rubrik}</h2>
 
-    <p class="t-brod stig-sen mt-10 max-w-xl text-mossa/80">{brod}</p>
+    <p class="t-brod  mt-10 max-w-xl text-lyft/80">{brod}</p>
 
-    <div class="stig-sen mt-14">
+    <div class="mt-14">
       <a
         href={CTA.primary.href}
-        class="group inline-flex items-center gap-3 rounded-full bg-mossa-djup px-10 py-5 text-[1.02rem] font-medium text-kalk transition-colors duration-300 hover:bg-mossa"
+        class="group inline-flex items-center gap-3 rounded-full bg-djup px-10 py-5 text-[1.02rem] font-medium text-papper transition-colors duration-300 hover:bg-lyft"
       >
-        Skriv en egenremiss
+ Skriv en egenremiss
         <svg
           width="16"
           height="11"
@@ -52,29 +52,29 @@ const {
     </div>
 
     <dl
-      class="mt-16 grid gap-8 border-t border-mossa/15 pt-10 sm:grid-cols-3 lg:mt-20"
+      class="mt-16 grid gap-8 border-t border-lyft/15 pt-10 sm:grid-cols-3 lg:mt-20"
     >
       <div>
-        <dt class="t-eyebrow text-mossa">Telefon</dt>
+        <dt class="t-etikett text-lyft">Telefon</dt>
         <dd class="mt-3">
-          <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-[1.15rem] text-mossa-djup"
+          <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-[1.15rem] text-djup"
             >{SITE.phone}</a
           >
-          <span class="mt-1 block text-[0.86rem] text-mossa">Telefontid {PHONE_HOURS.toLowerCase()}</span>
+          <span class="mt-1 block text-[0.86rem] text-lyft">Telefontid {PHONE_HOURS.toLowerCase()}</span>
         </dd>
       </div>
       <div>
-        <dt class="t-eyebrow text-mossa">E-post</dt>
+        <dt class="t-etikett text-lyft">E-post</dt>
         <dd class="mt-3">
           <a
             href={`mailto:${SITE.email}`}
-            class="lank-linje break-all text-[1.15rem] text-mossa-djup">{SITE.email}</a
+            class="lank-linje break-all text-[1.15rem] text-djup">{SITE.email}</a
           >
         </dd>
       </div>
       <div>
-        <dt class="t-eyebrow text-mossa">Besöksadress</dt>
-        <dd class="mt-3 text-[1.02rem] leading-relaxed text-mossa-djup">
+        <dt class="t-etikett text-lyft">Besöksadress</dt>
+        <dd class="mt-3 text-[1.02rem] leading-relaxed text-djup">
           {SITE.street}<br />{SITE.postalCode}&nbsp;{SITE.city}
         </dd>
       </div>

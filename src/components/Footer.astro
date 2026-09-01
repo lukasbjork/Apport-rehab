@@ -16,41 +16,41 @@ import { CONDITIONS, TREATMENTS } from '../lib/content';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-mossa-djup text-kalk/70">
-  <div class="mx-auto max-w-(--container-content) px-5 py-(--spacing-sek-lg) sm:px-8">
+<footer class="bg-djup text-papper/70">
+  <div class="mx-auto max-w-(--container-content) px-5 py-(--spacing-rytm-vid) sm:px-8">
     <!-- Logotyp och kort beskrivning -->
-    <div class="flex flex-wrap items-end justify-between gap-10 border-b border-kalk/12 pb-14">
-      <div class="text-kalk">
+    <div class="flex flex-wrap items-end justify-between gap-10 border-b border-papper/12 pb-14">
+      <div class="text-papper">
         <Logo variant="full" size={30} />
       </div>
       <p class="max-w-sm text-[0.98rem] leading-relaxed">
-        Privat smärtspecialistklinik i Kristianstad sedan 2010. Vi utreder och behandlar lokala
-        och regionala smärttillstånd, på uppdrag av Region Skåne.
+ Privat smärtspecialistklinik i Kristianstad sedan 2010. Vi utreder och behandlar lokala
+ och regionala smärttillstånd, på uppdrag av Region Skåne.
       </p>
     </div>
 
     <div class="grid gap-12 pt-14 md:grid-cols-2 lg:grid-cols-12 lg:gap-10">
       <!-- Navigation -->
       <nav aria-label="Sidfotsmeny" class="lg:col-span-3">
-        <h2 class="t-eyebrow text-salvia">Webbplatsen</h2>
+        <h2 class="t-etikett text-ljus-dov">Webbplatsen</h2>
         <ul class="mt-6 space-y-3 text-[0.95rem]">
           {
             NAV.map((item) => (
               <li>
-                <a href={item.href} class="lank-linje inline-block py-1 hover:text-kalk">
+                <a href={item.href} class="lank-linje inline-block py-1 hover:text-papper">
                   {item.label}
                 </a>
               </li>
             ))
           }
           <li>
-            <a href="/egenremiss/" class="lank-linje inline-block py-1 hover:text-kalk">
+            <a href="/egenremiss/" class="lank-linje inline-block py-1 hover:text-papper">
               Egenremiss
             </a>
           </li>
           <li>
-            <a href="/regenerativ-medicin/" class="lank-linje inline-block py-1 hover:text-kalk">
-              Regenerativ medicin
+            <a href="/regenerativ-medicin/" class="lank-linje inline-block py-1 hover:text-papper">
+ Regenerativ medicin
             </a>
           </li>
         </ul>
@@ -58,20 +58,20 @@ const year = new Date().getFullYear();
 
       <!-- Besvär -->
       <div class="lg:col-span-3">
-        <h2 class="t-eyebrow text-salvia">Besvär</h2>
+        <h2 class="t-etikett text-ljus-dov">Besvär</h2>
         <ul class="mt-6 space-y-3 text-[0.95rem]">
           {
             CONDITIONS.slice(0, 6).map((c) => (
               <li>
-                <a href={`/besvar/${c.slug}/`} class="lank-linje inline-block py-1 hover:text-kalk">
+                <a href={`/besvar/${c.slug}/`} class="lank-linje inline-block py-1 hover:text-papper">
                   {c.name}
                 </a>
               </li>
             ))
           }
           <li>
-            <a href="/besvar/" class="lank-linje inline-block py-1 text-salvia hover:text-kalk">
-              Alla besvär →
+            <a href="/besvar/" class="lank-linje inline-block py-1 text-ljus-dov hover:text-papper">
+ Alla besvär →
             </a>
           </li>
         </ul>
@@ -79,14 +79,14 @@ const year = new Date().getFullYear();
 
       <!-- Behandlingar -->
       <div class="lg:col-span-3">
-        <h2 class="t-eyebrow text-salvia">Behandlingar</h2>
+        <h2 class="t-etikett text-ljus-dov">Behandlingar</h2>
         <ul class="mt-6 space-y-3 text-[0.95rem]">
           {
             TREATMENTS.map((t) => (
               <li>
                 <a
                   href={`/behandlingar/${t.slug}/`}
-                  class="lank-linje inline-block py-1 hover:text-kalk"
+                  class="lank-linje inline-block py-1 hover:text-papper"
                 >
                   {t.shortName}
                 </a>
@@ -98,40 +98,40 @@ const year = new Date().getFullYear();
 
       <!-- Kontakt -->
       <div class="lg:col-span-3">
-        <h2 class="t-eyebrow text-salvia">Kontakt</h2>
+        <h2 class="t-etikett text-ljus-dov">Kontakt</h2>
         <address class="mt-6 space-y-4 text-[0.95rem] not-italic">
           <p>
-            <a href={`tel:${SITE.phoneHref}`} class="lank-linje inline-block py-1 hover:text-kalk"
+            <a href={`tel:${SITE.phoneHref}`} class="lank-linje inline-block py-1 hover:text-papper"
               >{SITE.phone}</a
             >
-            <span class="block text-[0.84rem] text-kalk/55">Telefontid {PHONE_HOURS.toLowerCase()}</span>
+            <span class="block text-[0.84rem] text-papper/55">Telefontid {PHONE_HOURS.toLowerCase()}</span>
           </p>
           <p>
             <a
               href={`mailto:${SITE.email}`}
-              class="lank-linje inline-block break-all py-1 hover:text-kalk">{SITE.email}</a
+              class="lank-linje inline-block break-all py-1 hover:text-papper">{SITE.email}</a
             >
           </p>
           <p class="pt-1 leading-relaxed">
             {SITE.street}<br />
             {SITE.postalCode}&nbsp;{SITE.city}<br />
-            <span class="text-[0.84rem] text-kalk/55">{SITE.addressNote}</span>
+            <span class="text-[0.84rem] text-papper/55">{SITE.addressNote}</span>
           </p>
         </address>
 
-        <h2 class="t-eyebrow mt-9 text-salvia">Öppettider</h2>
+        <h2 class="t-etikett mt-9 text-ljus-dov">Öppettider</h2>
         <ul class="mt-5 space-y-2 text-[0.9rem]">
           {
             OPENING_HOURS.map((d) => (
               <li class="flex justify-between gap-4">
                 <span>{d.day}</span>
-                <span class="tabular-nums text-kalk/55">{d.hours}</span>
+                <span class="tabular-nums text-papper/55">{d.hours}</span>
               </li>
             ))
           }
           <li class="flex justify-between gap-4">
             <span>Lördag–söndag</span>
-            <span class="text-kalk/55">Stängt</span>
+            <span class="text-papper/55">Stängt</span>
           </li>
         </ul>
       </div>
@@ -139,17 +139,17 @@ const year = new Date().getFullYear();
 
     <!-- Juridik -->
     <div
-      class="mt-16 flex flex-col gap-4 border-t border-kalk/12 pt-8 text-[0.85rem] sm:flex-row sm:items-center sm:justify-between"
+      class="mt-16 flex flex-col gap-4 border-t border-papper/12 pt-8 text-[0.85rem] sm:flex-row sm:items-center sm:justify-between"
     >
-      <p class="text-kalk/50">© {year} {SITE.fullName} · Org.nr {SITE.orgNr}</p>
+      <p class="text-papper/50">© {year} {SITE.fullName} · Org.nr {SITE.orgNr}</p>
       <ul class="flex flex-wrap gap-x-7 gap-y-2">
         <li>
-          <a href="/integritetspolicy/" class="lank-linje inline-block py-1 hover:text-kalk"
+          <a href="/integritetspolicy/" class="lank-linje inline-block py-1 hover:text-papper"
             >Personuppgifter</a
           >
         </li>
         <li>
-          <a href="/synpunkter/" class="lank-linje inline-block py-1 hover:text-kalk"
+          <a href="/synpunkter/" class="lank-linje inline-block py-1 hover:text-papper"
             >Synpunkter och klagomål</a
           >
         </li>

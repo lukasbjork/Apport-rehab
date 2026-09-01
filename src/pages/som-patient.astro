@@ -42,12 +42,12 @@ const avsnitt = [
   />
 
   <!-- Innehållsförteckning -->
-  <nav aria-label="Innehåll på sidan" class="border-b border-sten bg-papper px-5 py-6 sm:px-8">
+  <nav aria-label="Innehåll på sidan" class="border-b border-linje bg-topp px-5 py-6 sm:px-8">
     <ul class="mx-auto flex max-w-(--container-content) flex-wrap gap-x-6 gap-y-2.5">
       {
         avsnitt.map((a) => (
           <li>
-            <a href={`#${a.id}`} class="lank-linje inline-block py-1 text-[0.9rem] text-skiffer hover:text-mossa-djup">
+            <a href={`#${a.id}`} class="lank-linje inline-block py-1 text-[0.9rem] text-dov hover:text-djup">
               {a.titel}
             </a>
           </li>
@@ -57,7 +57,7 @@ const avsnitt = [
   </nav>
 
   <!-- Första besöket -->
-  <section id="forsta-besoket" class="scroll-mt-32 px-5 py-(--spacing-section) sm:px-8">
+  <section id="forsta-besoket" class="scroll-mt-32 px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         etikett="Steg för steg"
@@ -67,37 +67,37 @@ const avsnitt = [
       <div class="mt-12">
         <Process />
       </div>
-      <p class="mt-8 max-w-(--container-läs) text-[0.98rem] leading-relaxed text-skiffer">
-        Ta gärna med tidigare undersökningssvar om du har dem. De är inget krav — vi gör en egen
+      <p class="mt-8 max-w-(--container-läs) text-[0.98rem] leading-relaxed text-dov">
+ Ta gärna med tidigare undersökningssvar om du har dem. De är inget krav — vi gör en egen
         undersökning med ultraljud — men de kan spara tid.
       </p>
     </div>
   </section>
 
   <!-- Remiss -->
-  <section id="remiss" class="scroll-mt-32 bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section id="remiss" class="scroll-mt-32 bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <SektionsRubrik etikett="Egenremiss" rubrik="Behöver jag remiss?" />
         </div>
         <div class="lg:col-span-7">
-          <p class="text-[1.15rem] leading-relaxed text-mossa-djup">
+          <p class="text-[1.15rem] leading-relaxed text-djup">
             Nej. Vi har inget remisstvång.
           </p>
-          <p class="mt-5 text-[1.02rem] leading-relaxed text-skiffer">
-            Du behöver alltså inte gå via vårdcentralen först. I stället skriver du en kort
-            egenremiss själv — några rader om vad du har för besvär, hur länge du haft dem, vad du
-            redan provat och vad du vill kunna göra igen.
+          <p class="mt-5 text-[1.02rem] leading-relaxed text-dov">
+ Du behöver alltså inte gå via vårdcentralen först. I stället skriver du en kort
+ egenremiss själv — några rader om vad du har för besvär, hur länge du haft dem, vad du
+ redan provat och vad du vill kunna göra igen.
           </p>
-          <p class="mt-5 text-[1.02rem] leading-relaxed text-skiffer">
-            Mejla den till <a href={`mailto:${SITE.email}`} class="lank-linje text-mossa"
+          <p class="mt-5 text-[1.02rem] leading-relaxed text-dov">
+ Mejla den till <a href={`mailto:${SITE.email}`} class="lank-linje text-lyft"
               >{SITE.email}</a
             >. Vi läser allt som kommer in.
           </p>
           <a
             href={CTA.primary.href}
-            class="mt-8 inline-block rounded-full bg-mossa px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:bg-mossa-djup"
+            class="mt-8 inline-block rounded-full bg-lyft px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:bg-djup"
           >
             {CTA.primary.label}
           </a>
@@ -107,7 +107,7 @@ const avsnitt = [
   </section>
 
   <!-- Kostnad -->
-  <section id="kostnad" class="scroll-mt-32 px-5 py-(--spacing-section) sm:px-8">
+  <section id="kostnad" class="scroll-mt-32 px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         etikett="Avgifter"
@@ -116,65 +116,65 @@ const avsnitt = [
       />
 
       <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-2xl border border-sten bg-papper p-7">
-          <h3 class="text-[1.1rem] text-mossa-djup">Patientavgift</h3>
-          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-mossa">
+        <div class="rounded-2xl border border-linje bg-topp p-7">
+          <h3 class="text-[1.1rem] text-djup">Patientavgift</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-lyft">
             {FEES.visit}
           </p>
-          <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">{FEES.visitNote}</p>
+          <p class="mt-4 text-[0.94rem] leading-relaxed text-dov">{FEES.visitNote}</p>
         </div>
 
-        <div class="rounded-2xl border border-sten bg-papper p-7">
-          <h3 class="text-[1.1rem] text-mossa-djup">Frikort</h3>
-          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-mossa">
+        <div class="rounded-2xl border border-linje bg-topp p-7">
+          <h3 class="text-[1.1rem] text-djup">Frikort</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-lyft">
             Gäller
           </p>
-          <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">
-            Har du frikort betalar du ingen patientavgift hos oss. Ta med det vid besöket.
+          <p class="mt-4 text-[0.94rem] leading-relaxed text-dov">
+ Har du frikort betalar du ingen patientavgift hos oss. Ta med det vid besöket.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-tegel/25 bg-tegel/6 p-7">
-          <h3 class="text-[1.1rem] text-mossa-djup">Utanför avtalet</h3>
-          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-tegel">
+        <div class="rounded-2xl border border-lera/25 bg-lera/6 p-7">
+          <h3 class="text-[1.1rem] text-djup">Utanför avtalet</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2rem] leading-none text-lera">
             {FEES.outsideAgreement}
           </p>
-          <p class="mt-4 text-[0.94rem] leading-relaxed text-skiffer">
+          <p class="mt-4 text-[0.94rem] leading-relaxed text-dov">
             {FEES.outsideAgreementNote}
           </p>
         </div>
       </div>
 
-      <p class="mt-6 max-w-(--container-läs) text-[0.96rem] leading-relaxed text-skiffer">
-        Vi går alltid igenom vad en behandling kostar innan den bokas. Du ska aldrig behöva bli
+      <p class="mt-6 max-w-(--container-läs) text-[0.96rem] leading-relaxed text-dov">
+ Vi går alltid igenom vad en behandling kostar innan den bokas. Du ska aldrig behöva bli
         överraskad av en faktura.
       </p>
     </div>
   </section>
 
   <!-- Tid och antal besök -->
-  <section id="tid" class="scroll-mt-32 bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section id="tid" class="scroll-mt-32 bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik etikett="Tidsåtgång" rubrik="Hur lång tid tar det?" />
 
       <div class="mt-12 grid gap-5 sm:grid-cols-2">
-        <div class="rounded-2xl border border-sten bg-kalk p-8">
-          <h3 class="text-[1.1rem] text-mossa-djup">Ett besök</h3>
-          <p class="mt-4 font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-mossa">
+        <div class="rounded-2xl border border-linje bg-papper p-8">
+          <h3 class="text-[1.1rem] text-djup">Ett besök</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-lyft">
             20 min
           </p>
-          <p class="mt-4 text-[0.96rem] leading-relaxed text-skiffer">
-            Enligt vårt avtal med Region Skåne är ett besök cirka 20 minuter. Det är också
-            anledningen till att utredningen sker över flera besök i stället för ett långt.
+          <p class="mt-4 text-[0.96rem] leading-relaxed text-dov">
+ Enligt vårt avtal med Region Skåne är ett besök cirka 20 minuter. Det är också
+ anledningen till att utredningen sker över flera besök i stället för ett långt.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-sten bg-kalk p-8">
-          <h3 class="text-[1.1rem] text-mossa-djup">Hela utredningen</h3>
-          <p class="mt-4 font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-mossa">
+        <div class="rounded-2xl border border-linje bg-papper p-8">
+          <h3 class="text-[1.1rem] text-djup">Hela utredningen</h3>
+          <p class="mt-4 font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-lyft">
             3–5 besök
           </p>
-          <p class="mt-4 text-[0.96rem] leading-relaxed text-skiffer">
+          <p class="mt-4 text-[0.96rem] leading-relaxed text-dov">
             Räkna med 3–5 besök innan det går att uttala sig om orsaken till smärtan och ställa en
             diagnos. Det kan kännas långsamt — men en korrekt diagnos är grunden för en lyckad
             smärtbehandling.
@@ -187,44 +187,44 @@ const avsnitt = [
   <SnabbKontakt />
 
   <!-- Om vi inte är rätt -->
-  <section id="inte-ratt" class="scroll-mt-32 px-5 py-(--spacing-section) sm:px-8">
+  <section id="inte-ratt" class="scroll-mt-32 px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="grid gap-12 rounded-[2rem] border border-sten bg-lind/35 p-8 sm:p-14 lg:grid-cols-12">
+      <div class="grid gap-12 rounded-[2rem] border border-linje bg-mellan/35 p-8 sm:p-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-salvia-text">
+          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-dov">
             <Sikte size={13} />
             Ärligt talat
           </p>
-          <h2 class="mt-4 text-[clamp(1.6rem,2.8vw,2.1rem)] leading-[1.15] text-mossa-djup">
-            Vad händer om Apport inte är rätt för mig?
+          <h2 class="mt-4 text-[clamp(1.6rem,2.8vw,2.1rem)] leading-[1.15] text-djup">
+ Vad händer om Apport inte är rätt för mig?
           </h2>
-          <p class="mt-5 text-[1rem] leading-relaxed text-skiffer">
+          <p class="mt-5 text-[1rem] leading-relaxed text-dov">
             Då säger vi det, så tidigt vi kan, och försöker peka dig i rätt riktning. Att få veta
-            att man ska söka någon annanstans är bättre än att vänta på en tid som inte leder
+ att man ska söka någon annanstans är bättre än att vänta på en tid som inte leder
             någonstans.
           </p>
         </div>
 
         <div class="grid gap-10 sm:grid-cols-2 lg:col-span-7">
           <div>
-            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-dov">
               Besvär vi inte utreder
             </h3>
-            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
               {NOT_OFFERED.conditions.map((rad) => <li>{rad}</li>)}
             </ul>
           </div>
           <div>
-            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-mossa-ljus">
+            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-dov">
               Sådant vi inte utfärdar
             </h3>
-            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-skiffer">
+            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
               {NOT_OFFERED.services.map((rad) => <li>{rad}</li>)}
             </ul>
           </div>
-          <p class="text-[0.96rem] leading-relaxed text-skiffer sm:col-span-2">
+          <p class="text-[0.96rem] leading-relaxed text-dov sm:col-span-2">
             Är du osäker på om du hör hemma hos oss? Skriv ändå. Vi läser allt och säger till om
-            vi tror att någon annan kan hjälpa dig bättre.
+ vi tror att någon annan kan hjälpa dig bättre.
           </p>
         </div>
       </div>
@@ -232,19 +232,19 @@ const avsnitt = [
   </section>
 
   <!-- Återbud -->
-  <section id="aterbud" class="scroll-mt-32 bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section id="aterbud" class="scroll-mt-32 bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <SektionsRubrik etikett="Om du får förhinder" rubrik="Återbud" />
         </div>
         <div class="lg:col-span-7">
-          <div class="rounded-2xl border border-tegel/25 bg-tegel/6 p-7">
-            <p class="text-[1.02rem] leading-relaxed text-mossa-djup">{FEES.lateCancellation}</p>
+          <div class="rounded-2xl border border-lera/25 bg-lera/6 p-7">
+            <p class="text-[1.02rem] leading-relaxed text-djup">{FEES.lateCancellation}</p>
           </div>
-          <p class="mt-6 text-[1rem] leading-relaxed text-skiffer">
+          <p class="mt-6 text-[1rem] leading-relaxed text-dov">
             Hör av dig så snart du vet att du inte kan komma — då kan tiden gå till någon annan som
-            väntar. Mejla <a href={`mailto:${SITE.email}`} class="lank-linje text-mossa"
+            väntar. Mejla <a href={`mailto:${SITE.email}`} class="lank-linje text-lyft"
               >{SITE.email}</a
             > eller ring under telefontiden.
           </p>
@@ -254,59 +254,59 @@ const avsnitt = [
   </section>
 
   <!-- Kontakt och öppettider -->
-  <section id="kontakt" class="scroll-mt-32 px-5 py-(--spacing-section) sm:px-8">
+  <section id="kontakt" class="scroll-mt-32 px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik etikett="Praktiskt" rubrik="Kontakt och öppettider" />
 
       <div class="mt-12 grid gap-5 lg:grid-cols-3">
-        <div class="rounded-2xl border border-sten bg-papper p-7">
-          <h3 class="text-[1.1rem] text-mossa-djup">Telefon</h3>
+        <div class="rounded-2xl border border-linje bg-topp p-7">
+          <h3 class="text-[1.1rem] text-djup">Telefon</h3>
           <a
             href={`tel:${SITE.phoneHref}`}
-            class="lank-linje mt-4 block text-[1.3rem] font-medium text-mossa-djup"
+            class="lank-linje mt-4 block text-[1.3rem] font-medium text-djup"
           >
             {SITE.phone}
           </a>
-          <p class="mt-2 text-[0.94rem] text-skiffer">Telefontid {PHONE_HOURS.toLowerCase()}</p>
+          <p class="mt-2 text-[0.94rem] text-dov">Telefontid {PHONE_HOURS.toLowerCase()}</p>
         </div>
 
-        <div class="rounded-2xl border border-sten bg-papper p-7">
-          <h3 class="text-[1.1rem] text-mossa-djup">E-post</h3>
+        <div class="rounded-2xl border border-linje bg-topp p-7">
+          <h3 class="text-[1.1rem] text-djup">E-post</h3>
           <a
             href={`mailto:${SITE.email}`}
-            class="lank-linje mt-4 block text-[1.1rem] font-medium break-all text-mossa-djup"
+            class="lank-linje mt-4 block text-[1.1rem] font-medium break-all text-djup"
           >
             {SITE.email}
           </a>
-          <p class="mt-2 text-[0.94rem] text-skiffer">Egenremiss, frågor och återbud</p>
+          <p class="mt-2 text-[0.94rem] text-dov">Egenremiss, frågor och återbud</p>
         </div>
 
-        <div class="rounded-2xl border border-sten bg-papper p-7">
-          <h3 class="text-[1.1rem] text-mossa-djup">Besöksadress</h3>
-          <address class="mt-4 text-[1.02rem] not-italic leading-relaxed text-mossa-djup">
+        <div class="rounded-2xl border border-linje bg-topp p-7">
+          <h3 class="text-[1.1rem] text-djup">Besöksadress</h3>
+          <address class="mt-4 text-[1.02rem] not-italic leading-relaxed text-djup">
             {SITE.street}<br />
             {SITE.postalCode}&nbsp;{SITE.city}
           </address>
-          <p class="mt-2 text-[0.9rem] leading-relaxed text-skiffer">
+          <p class="mt-2 text-[0.9rem] leading-relaxed text-dov">
             {SITE.addressNote}. Hiss och handikapptoalett finns.
           </p>
         </div>
       </div>
 
-      <div class="mt-5 rounded-2xl border border-sten bg-papper p-7">
-        <h3 class="text-[1.1rem] text-mossa-djup">Öppettider</h3>
+      <div class="mt-5 rounded-2xl border border-linje bg-topp p-7">
+        <h3 class="text-[1.1rem] text-djup">Öppettider</h3>
         <ul class="mt-5 grid gap-x-10 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {
             OPENING_HOURS.map((d) => (
-              <li class="flex justify-between gap-6 border-b border-sten pb-2 text-[0.96rem]">
-                <span class="text-mossa-djup">{d.day}</span>
-                <span class="tabular-nums text-skiffer">{d.hours}</span>
+              <li class="flex justify-between gap-6 border-b border-linje pb-2 text-[0.96rem]">
+                <span class="text-djup">{d.day}</span>
+                <span class="tabular-nums text-dov">{d.hours}</span>
               </li>
             ))
           }
-          <li class="flex justify-between gap-6 border-b border-sten pb-2 text-[0.96rem]">
-            <span class="text-mossa-djup">Lördag–söndag</span>
-            <span class="text-skiffer">Stängt</span>
+          <li class="flex justify-between gap-6 border-b border-linje pb-2 text-[0.96rem]">
+            <span class="text-djup">Lördag–söndag</span>
+            <span class="text-dov">Stängt</span>
           </li>
         </ul>
       </div>
@@ -314,7 +314,7 @@ const avsnitt = [
   </section>
 
   <!-- FAQ -->
-  <section id="fragor" class="scroll-mt-32 bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section id="fragor" class="scroll-mt-32 bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik etikett="Vanliga frågor" rubrik="Det patienter oftast undrar" />
       <Faq faqs={FAQS} class="mt-12" />

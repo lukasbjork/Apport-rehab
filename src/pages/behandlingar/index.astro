@@ -29,7 +29,7 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
     {crumbs}
   />
 
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         rubrik="Ingår i avtalet med Region Skåne"
@@ -41,7 +41,7 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
     </div>
   </section>
 
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         rubrik="Utanför avtalet"
@@ -50,42 +50,42 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
       <div class="mt-12 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {utanforAvtal.map((t) => <BehandlingKort treatment={t} />)}
       </div>
-      <p class="mt-8 text-[0.94rem] text-skiffer">
+      <p class="mt-8 text-[0.94rem] text-dov">
         Kostnad: {FEES.outsideAgreement}. Vi går alltid igenom vad en behandling kostar innan den
         bokas.
       </p>
     </div>
   </section>
 
-  <section class="px-5 pt-(--spacing-section) sm:px-8">
+  <section class="px-5 pt-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="grid gap-10 rounded-[2rem] bg-mossa-djup p-8 text-kalk sm:p-14 lg:grid-cols-12">
+      <div class="grid gap-10 rounded-[2rem] bg-djup p-8 text-papper sm:p-14 lg:grid-cols-12">
         <div class="lg:col-span-6">
           <h2 class="text-[clamp(1.6rem,3vw,2.3rem)] leading-[1.15]">
-            Regenerativ medicin: att hjälpa kroppen läka själv
+ Regenerativ medicin: att hjälpa kroppen läka själv
           </h2>
-          <p class="mt-6 text-[1.04rem] leading-relaxed text-kalk/72">
-            Kroppens självläkningsförmåga är fantastisk, men ibland behöver den hjälp. Flera av våra
-            behandlingar bygger på samma grundtanke — att starta en process som kroppen sedan
+          <p class="mt-6 text-[1.04rem] leading-relaxed text-papper/72">
+ Kroppens självläkningsförmåga är fantastisk, men ibland behöver den hjälp. Flera av våra
+ behandlingar bygger på samma grundtanke — att starta en process som kroppen sedan
             fullföljer själv.
           </p>
           <a
             href="/regenerativ-medicin/"
-            class="mt-8 inline-block rounded-full bg-kalk px-7 py-3.5 text-[0.95rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+            class="mt-8 inline-block rounded-full bg-papper px-7 py-3.5 text-[0.95rem] font-medium text-djup transition-colors hover:bg-mellan"
           >
             Läs om regenerativ medicin
           </a>
         </div>
-        <ul class="space-y-px overflow-hidden rounded-2xl bg-kalk/10 lg:col-span-6">
+        <ul class="space-y-px overflow-hidden rounded-2xl bg-papper/10 lg:col-span-6">
           {
             TREATMENTS.filter((t) => t.regenerative).map((t) => (
               <li>
                 <a
                   href={`/behandlingar/${t.slug}/`}
-                  class="block bg-mossa-djup px-6 py-5 transition-colors hover:bg-mossa"
+                  class="block bg-djup px-6 py-5 transition-colors hover:bg-lyft"
                 >
-                  <span class="text-[1.02rem] text-kalk">{t.name}</span>
-                  <span class="mt-1 block text-[0.88rem] leading-relaxed text-kalk/55">
+                  <span class="text-[1.02rem] text-papper">{t.name}</span>
+                  <span class="mt-1 block text-[0.88rem] leading-relaxed text-papper/55">
                     {t.teaser}
                   </span>
                 </a>

@@ -17,26 +17,26 @@ const genvagar = [
   description="Sidan du sökte finns inte. Här är vägarna vidare till besvär, behandlingar och kontakt."
   noindex
 >
-  <section class="relative overflow-hidden bg-mossa-djup px-5 py-24 sm:px-8 sm:py-32">
+  <section class="relative overflow-hidden bg-djup px-5 py-24 sm:px-8 sm:py-32">
     <div
       aria-hidden="true"
-      class="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 text-salvia/10"
+      class="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 text-ljus-dov/10"
     >
       <Sikte size={360} dashed />
     </div>
 
     <div class="relative mx-auto max-w-(--container-content)">
-      <p class="flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-salvia">
+      <p class="flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-ljus-dov">
         <Sikte size={13} />
         404
       </p>
-      <h1 class="mt-6 max-w-2xl text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.1] text-kalk">
-        Den sidan finns inte.
-        <span class="mt-1 block text-salvia">Men du kan börja här.</span>
+      <h1 class="mt-6 max-w-2xl text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.1] text-papper">
+ Den sidan finns inte.
+        <span class="mt-1 block text-ljus-dov">Men du kan börja här.</span>
       </h1>
-      <p class="mt-6 max-w-xl text-[1.08rem] leading-relaxed text-kalk/72">
+      <p class="mt-6 max-w-xl text-[1.08rem] leading-relaxed text-papper/72">
         Länken kan vara gammal eller felstavad. Prova någon av vägarna nedan — eller berätta om
-        dina besvär direkt, så pekar vi dig rätt.
+ dina besvär direkt, så pekar vi dig rätt.
       </p>
 
       <ul class="mt-10 flex flex-wrap gap-3">
@@ -45,7 +45,7 @@ const genvagar = [
             <li>
               <a
                 href={g.href}
-                class="inline-block rounded-full border border-kalk/25 px-6 py-3 text-[0.93rem] font-medium text-kalk transition-colors hover:border-kalk/60"
+                class="inline-block rounded-full border border-papper/25 px-6 py-3 text-[0.93rem] font-medium text-papper transition-colors hover:border-papper/60"
               >
                 {g.label}
               </a>
@@ -57,30 +57,30 @@ const genvagar = [
       <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
         <a
           href={CTA.primary.href}
-          class="rounded-full bg-kalk px-7 py-3.5 text-[0.95rem] font-medium text-mossa-djup transition-colors hover:bg-lind"
+          class="rounded-full bg-papper px-7 py-3.5 text-[0.95rem] font-medium text-djup transition-colors hover:bg-mellan"
         >
           {CTA.primary.label}
         </a>
-        <p class="text-[0.9rem] text-kalk/58">
-          Eller ring <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-kalk">{SITE.phone}</a>
+        <p class="text-[0.9rem] text-papper/58">
+ Eller ring <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-papper">{SITE.phone}</a>
         </p>
       </div>
     </div>
   </section>
 
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[1.5rem] text-mossa-djup">Besvär vi arbetar med</h2>
+      <h2 class="text-[1.5rem] text-djup">Besvär vi arbetar med</h2>
       <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
           CONDITIONS.map((c) => (
             <li>
               <a
                 href={`/besvar/${c.slug}/`}
-                class="group flex h-full flex-col justify-between rounded-2xl border border-sten bg-papper p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-salvia hover:shadow-mjuk"
+                class="group flex h-full flex-col justify-between rounded-2xl border border-linje bg-topp p-6 transition-all duration-300 hover:border-ljus-dov"
               >
-                <span class="text-[1rem] leading-snug text-mossa-djup">{c.name}</span>
-                <span class="mt-5 text-[0.85rem] font-medium text-mossa transition-colors group-hover:text-tegel">
+                <span class="text-[1rem] leading-snug text-djup">{c.name}</span>
+                <span class="mt-5 text-[0.85rem] font-medium text-lyft transition-colors group-hover:text-lera">
                   Läs mer →
                 </span>
               </a>

@@ -43,16 +43,16 @@ const punkter = [
 ---
 
 <section
-  class:list={['px-5 sm:px-8', light ? 'bg-mossa-djup' : 'bg-lind/40']}
+  class:list={['px-5 sm:px-8', light ? 'bg-djup' : 'bg-mellan/40']}
   aria-labelledby="region-skane-rubrik"
 >
-  <div class="mx-auto max-w-(--container-content) py-(--spacing-section)">
+  <div class="mx-auto max-w-(--container-content) py-(--spacing-rytm)">
     <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-5">
         <p
           class:list={[
             'text-[0.76rem] font-semibold uppercase tracking-[0.16em]',
-            light ? 'text-salvia' : 'text-salvia-text',
+ light ? 'text-ljus-dov' : 'text-dov',
           ]}
         >
           Vårdgivare inom Region Skåne
@@ -62,21 +62,21 @@ const punkter = [
           id="region-skane-rubrik"
           class:list={[
             'mt-4 text-[clamp(1.7rem,3vw,2.4rem)] leading-[1.14]',
-            light ? 'text-kalk' : 'text-mossa-djup',
+ light ? 'text-papper' : 'text-djup',
           ]}
         >
-          Vi arbetar på uppdrag av Region Skåne
+ Vi arbetar på uppdrag av Region Skåne
         </h2>
 
         <p
           class:list={[
             'mt-5 text-[1.04rem] leading-relaxed',
-            light ? 'text-kalk/72' : 'text-skiffer',
+ light ? 'text-papper/72' : 'text-dov',
           ]}
         >
-          Apport är en privat klinik, men verksamheten bedrivs på uppdrag av Region Skåne enligt
-          nationella taxan. I praktiken betyder det att du får specialistvård till samma villkor
-          som i den offentliga vården.
+ Apport är en privat klinik, men verksamheten bedrivs på uppdrag av Region Skåne enligt
+ nationella taxan. I praktiken betyder det att du får specialistvård till samma villkor
+ som i den offentliga vården.
         </p>
 
         <a
@@ -85,10 +85,10 @@ const punkter = [
           rel="noopener noreferrer"
           class:list={[
             'lank-linje mt-7 inline-flex items-center gap-2 py-1 text-[0.94rem] font-medium',
-            light ? 'text-kalk' : 'text-mossa',
+ light ? 'text-papper' : 'text-lyft',
           ]}
         >
-          Se vårt vårdgivarkort på 1177.se
+ Se vårt vårdgivarkort på 1177.se
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path
               d="M4 10L10 4M10 4H5.2M10 4v4.8"
@@ -100,14 +100,14 @@ const punkter = [
         </a>
       </div>
 
-      <ul class="grid gap-px overflow-hidden rounded-2xl bg-sten lg:col-span-7">
+      <ul class="grid gap-px overflow-hidden rounded-2xl bg-linje lg:col-span-7">
         {
           punkter.map((p) => (
-            <li class:list={['p-7', light ? 'bg-mossa-djup' : 'bg-papper']}>
+            <li class:list={['p-7', light ? 'bg-djup' : 'bg-topp']}>
               <h3
                 class:list={[
                   'text-[1.08rem] leading-snug',
-                  light ? 'text-kalk' : 'text-mossa-djup',
+ light ? 'text-papper' : 'text-djup',
                 ]}
               >
                 {p.rubrik}
@@ -115,7 +115,7 @@ const punkter = [
               <p
                 class:list={[
                   'mt-2 text-[0.96rem] leading-relaxed',
-                  light ? 'text-kalk/68' : 'text-skiffer',
+ light ? 'text-papper/68' : 'text-dov',
                 ]}
               >
                 {p.text}
@@ -123,20 +123,20 @@ const punkter = [
             </li>
           ))
         }
-        <li class:list={['p-7', light ? 'bg-mossa-djup' : 'bg-papper']}>
+        <li class:list={['p-7', light ? 'bg-djup' : 'bg-topp']}>
           <h3
-            class:list={['text-[1.08rem] leading-snug', light ? 'text-kalk' : 'text-mossa-djup']}
+            class:list={['text-[1.08rem] leading-snug', light ? 'text-papper' : 'text-djup']}
           >
             Två behandlingar ligger utanför
           </h3>
           <p
             class:list={[
               'mt-2 text-[0.96rem] leading-relaxed',
-              light ? 'text-kalk/68' : 'text-skiffer',
+ light ? 'text-papper/68' : 'text-dov',
             ]}
           >
-            PRP och pulsad radiofrekvens ingår inte i avtalet och kostar {FEES.outsideAgreement}.
-            Vi går alltid igenom kostnaden innan något bokas.
+ PRP och pulsad radiofrekvens ingår inte i avtalet och kostar {FEES.outsideAgreement}.
+ Vi går alltid igenom kostnaden innan något bokas.
           </p>
         </li>
       </ul>
@@ -145,11 +145,11 @@ const punkter = [
     <p
       class:list={[
         'mt-10 border-t pt-6 text-[0.86rem] leading-relaxed',
-        light ? 'border-kalk/15 text-kalk/58' : 'border-sten text-skiffer',
+ light ? 'border-papper/15 text-papper/58' : 'border-linje text-dov',
       ]}
     >
       {SITE.fullName} · Org.nr {SITE.orgNr} · Verksamhetschef {SITE.medicalDirector}, leg. läkare
-      och specialist i smärtlindring, rehabiliteringsmedicin och allmänmedicin.
+ och specialist i smärtlindring, rehabiliteringsmedicin och allmänmedicin.
     </p>
   </div>
 </section>

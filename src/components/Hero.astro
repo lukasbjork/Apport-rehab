@@ -13,7 +13,7 @@
 import { SITE, CTA, TRUST_POINTS } from '../lib/site';
 ---
 
-<section class="relative flex min-h-[88svh] items-center overflow-hidden bg-mossa-djup pt-28 pb-20 lg:pt-32">
+<section class="relative flex min-h-[88svh] items-center overflow-hidden bg-djup pt-28 pb-20 lg:pt-32">
   <!-- Bakgrundstextur -->
   <div aria-hidden="true" class="pointer-events-none absolute inset-0">
     <img
@@ -23,29 +23,29 @@ import { SITE, CTA, TRUST_POINTS } from '../lib/site';
       fetchpriority="high"
       decoding="async"
     />
-    <div class="absolute inset-0 bg-linear-to-br from-mossa-djup via-mossa-djup/95 to-mossa-djup/70"></div>
+    <div class="absolute inset-0 bg-linear-to-br from-djup via-djup/95 to-djup/70"></div>
   </div>
 
   <div class="relative mx-auto w-full max-w-(--container-content) px-5 sm:px-8">
     <div class="grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
       <!-- Typografi -->
       <div class="lg:col-span-7">
-        <p class="t-eyebrow text-salvia">Smärtspecialistklinik · Kristianstad</p>
+        <p class="t-etikett text-ljus-dov">Smärtspecialistklinik · Kristianstad</p>
 
-        <h1 class="t-display mt-8 text-kalk">
-          Alla säger att det ser normalt ut.
-          <span class="mt-2 block text-salvia">Ändå gör det ont.</span>
+        <h1 class="t-display mt-8 text-papper">
+ Alla säger att det ser normalt ut.
+          <span class="mt-2 block text-ljus-dov">Ändå gör det ont.</span>
         </h1>
 
-        <p class="t-brod mt-9 max-w-lg text-kalk/72">
-          En bra behandling börjar inte alltid med en behandling. Den börjar
-          med att ta reda på <em class="not-italic text-kalk">var</em> smärtan kommer ifrån.
+        <p class="t-brod mt-9 max-w-lg text-papper/72">
+ En bra behandling börjar inte alltid med en behandling. Den börjar
+ med att ta reda på <em class="not-italic text-papper">var</em> smärtan kommer ifrån.
         </p>
 
         <div class="mt-11 flex flex-wrap gap-3">
           <a
             href={CTA.primary.href}
-            class="group inline-flex items-center gap-2.5 rounded-full bg-kalk px-8 py-4 text-[0.98rem] font-medium text-mossa-djup transition-colors duration-300 hover:bg-sand"
+            class="group inline-flex items-center gap-2.5 rounded-full bg-papper px-8 py-4 text-[0.98rem] font-medium text-djup transition-colors duration-300 hover:bg-mellan"
           >
             {CTA.primary.label}
             <svg width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"
@@ -56,7 +56,7 @@ import { SITE, CTA, TRUST_POINTS } from '../lib/site';
           </a>
           <a
             href={CTA.secondary.href}
-            class="inline-block rounded-full border border-kalk/25 px-8 py-4 text-[0.98rem] font-medium text-kalk transition-colors duration-300 hover:border-kalk/60"
+            class="inline-block rounded-full border border-papper/25 px-8 py-4 text-[0.98rem] font-medium text-papper transition-colors duration-300 hover:border-papper/60"
           >
             {CTA.secondary.label}
           </a>
@@ -65,8 +65,8 @@ import { SITE, CTA, TRUST_POINTS } from '../lib/site';
 
       <!-- Ultraljudsbilden, förskjuten nedåt för att bryta rutnätet -->
       <div class="lg:col-span-5 lg:translate-y-10">
-        <figure class="stig">
-          <div class="overflow-hidden rounded-sm border border-kalk/10">
+        <figure class="">
+          <div class="overflow-hidden rounded-sm border border-papper/10">
             <img
               src="/bilder/ultraljud-c4-c5.webp"
               alt="Ultraljudsbild tagen på Apport som visar vävnadslagren i halsryggen, med markörer vid de strukturer som bedömts"
@@ -76,18 +76,18 @@ import { SITE, CTA, TRUST_POINTS } from '../lib/site';
               decoding="async"
             />
           </div>
-          <figcaption class="mt-4 max-w-sm text-[0.83rem] leading-relaxed text-kalk/55">
-            Ultraljudsbild från kliniken — så avgör vi vilken struktur som bidrar till smärtan.
+          <figcaption class="mt-4 max-w-sm text-[0.83rem] leading-relaxed text-papper/55">
+ Ultraljudsbild från kliniken — så avgör vi vilken struktur som bidrar till smärtan.
           </figcaption>
         </figure>
       </div>
     </div>
 
     <!-- Trust-rad, längst ned i hero -->
-    <ul class="mt-20 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-kalk/12 pt-7 lg:mt-24">
+    <ul class="mt-20 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-papper/12 pt-7 lg:mt-24">
       {
         TRUST_POINTS.map((p) => (
-          <li class="text-[0.82rem] uppercase tracking-[0.12em] text-kalk/55">{p}</li>
+          <li class="text-[0.82rem] uppercase tracking-[0.12em] text-papper/55">{p}</li>
         ))
       }
     </ul>
@@ -98,6 +98,6 @@ import { SITE, CTA, TRUST_POINTS } from '../lib/site';
     aria-hidden="true"
     class="pointer-events-none absolute bottom-7 left-1/2 hidden -translate-x-1/2 lg:block"
   >
-    <span class="block h-11 w-px bg-linear-to-b from-transparent via-kalk/35 to-transparent"></span>
+    <span class="block h-11 w-px bg-linear-to-b from-transparent via-papper/35 to-transparent"></span>
   </div>
 </section>

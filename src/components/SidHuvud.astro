@@ -12,10 +12,10 @@ interface Props {
 const { etikett, rubrik, ingress, crumbs } = Astro.props;
 ---
 
-<section class="relative overflow-hidden bg-mossa-djup px-5 pb-(--spacing-sek-md) pt-10 sm:px-8">
+<section class="relative overflow-hidden bg-djup px-5 pb-(--spacing-rytm) pt-10 sm:px-8">
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 text-salvia/10"
+    class="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 text-ljus-dov/10"
   >
     <Sikte size={340} dashed />
   </div>
@@ -25,18 +25,18 @@ const { etikett, rubrik, ingress, crumbs } = Astro.props;
 
     <div class="mt-9 max-w-3xl">
       {
-        etikett && (
-          <p class="t-eyebrow text-salvia">{etikett}</p>
+ etikett && (
+          <p class="t-etikett text-ljus-dov">{etikett}</p>
         )
       }
       <h1
-        class:list={['t-statement text-kalk', etikett && 'mt-8']}
+        class:list={['t-h2 text-papper', etikett && 'mt-8']}
       >
         {rubrik}
       </h1>
       {
-        ingress && (
-          <p class="t-brod mt-9 max-w-(--container-läs) text-kalk/72">
+ ingress && (
+          <p class="t-brod mt-9 max-w-(--container-läs) text-papper/72">
             {ingress}
           </p>
         )

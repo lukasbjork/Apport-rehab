@@ -44,36 +44,36 @@ const schema = [
   />
 
   <!-- Namnet -->
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <SektionsRubrik etikett="Namnet" rubrik="Apport betyder ”hämta tillbaka”" />
         </div>
-        <div class="space-y-5 text-[1.05rem] leading-relaxed text-skiffer lg:col-span-7">
+        <div class="space-y-5 text-[1.05rem] leading-relaxed text-dov lg:col-span-7">
           <p>
-            <em class="not-italic font-medium text-mossa-djup">Apport</em> är franska och betyder
+            <em class="not-italic font-medium text-djup">Apport</em> är franska och betyder
             ungefär ”hämta tillbaka, bär fram”. Det är en rimlig beskrivning av vad vi försöker göra:
             hämta tillbaka funktion som gått förlorad.
           </p>
           <p>
-            Vi är specialistkliniken för dig med lokalt smärttillstånd. Alla smärttillstånd är unika
-            och därför finns ingen standardbehandling — vi kombinerar behandling och
+ Vi är specialistkliniken för dig med lokalt smärttillstånd. Alla smärttillstånd är unika
+ och därför finns ingen standardbehandling — vi kombinerar behandling och
             träning/rehabilitering som samordnade insatser utifrån dina behov och mål.
           </p>
           <p>
-            Vid undersökning och blockader används ultraljud, vilket höjer kvaliteten och kan ge
-            snabbt svar på orsaken till din smärta.
+ Vid undersökning och blockader används ultraljud, vilket höjer kvaliteten och kan ge
+ snabbt svar på orsaken till din smärta.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8"><div class="djupskikt"></div></div>
+  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8"><div class=""></div></div>
 
   <!-- Arbetssätt -->
-  <section id="arbetssatt" class="px-5 py-(--spacing-section) sm:px-8">
+  <section id="arbetssatt" class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
         etikett="Vårt arbetssätt"
@@ -82,16 +82,16 @@ const schema = [
       />
 
       <div class="mt-14 grid gap-12 lg:grid-cols-2">
-        <div class="space-y-5 text-[1.04rem] leading-relaxed text-skiffer">
+        <div class="space-y-5 text-[1.04rem] leading-relaxed text-dov">
           <p>
             När man under tjugo år tagit emot människor som redan varit på flera ställen lär man sig
-            ett par saker. Den viktigaste är att smärta sällan sitter där man först tror, och att
-            bilddiagnostik inte alltid räcker för att avgöra saken.
+ ett par saker. Den viktigaste är att smärta sällan sitter där man först tror, och att
+ bilddiagnostik inte alltid räcker för att avgöra saken.
           </p>
           <p>
             Röntgen och magnetkamera visar hur kroppen ser ut. De visar inte alltid vad som gör ont.
             Många har förändringar på bild utan att ha besvär, och många har svåra besvär trots att
-            bilderna ser fina ut.
+ bilderna ser fina ut.
           </p>
           <p>
             Därför lägger vi tid på att pröva oss fram med diagnostiska blockader i stället för att
@@ -99,21 +99,21 @@ const schema = [
           </p>
         </div>
 
-        <div class="space-y-5 text-[1.04rem] leading-relaxed text-skiffer">
+        <div class="space-y-5 text-[1.04rem] leading-relaxed text-dov">
           <p>
-            Den andra saken man lär sig är ödmjukhet. Alla går inte att hjälpa. En del smärttillstånd
+ Den andra saken man lär sig är ödmjukhet. Alla går inte att hjälpa. En del smärttillstånd
             är sådana att det bästa vi kan göra är att säga det ärligt, tidigt, i stället för att
             fortsätta pröva.
           </p>
           <p>
-            Det är också därför vi säger nej till en del. Vi tar inte emot {
+ Det är också därför vi säger nej till en del. Vi tar inte emot {
               NOT_OFFERED.conditions.map((c) => c.toLowerCase()).join(', ')
             }. Det är ingen värdering av de besvären — de är verkliga och svåra. Det är en bedömning
-            av vad just vår kompetens räcker till.
+ av vad just vår kompetens räcker till.
           </p>
-          <p class="text-mossa-djup">
-            Att avgränsa sig är förutsättningen för att kunna lägga ordentlig tid på de patienter vi
-            faktiskt kan göra skillnad för.
+          <p class="text-djup">
+ Att avgränsa sig är förutsättningen för att kunna lägga ordentlig tid på de patienter vi
+ faktiskt kan göra skillnad för.
           </p>
         </div>
       </div>
@@ -121,7 +121,7 @@ const schema = [
   </section>
 
   <!-- Teamet -->
-  <section class="bg-papper px-5 py-(--spacing-section) sm:px-8">
+  <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik etikett="Bakom Apport" rubrik="Personerna du möter" />
 
@@ -138,7 +138,7 @@ const schema = [
                     height="1000"
                     loading="lazy"
                     decoding="async"
-                    class="aspect-4/5 w-full rounded-2xl border border-sten object-cover"
+                    class="aspect-4/5 w-full rounded-2xl border border-linje object-cover"
                   />
                 ) : (
                   <BildPlatshallare
@@ -153,7 +153,7 @@ const schema = [
 
                 <ul class="mt-5 flex flex-wrap gap-2">
                   {person.specialties.map((sp) => (
-                    <li class="flex items-center gap-1.5 rounded-full bg-lind/70 px-3 py-1.5 text-[0.8rem] text-mossa-djup">
+                    <li class="flex items-center gap-1.5 rounded-full bg-mellan/70 px-3 py-1.5 text-[0.8rem] text-djup">
                       <Sikte size={11} />
                       {sp}
                     </li>
@@ -162,21 +162,21 @@ const schema = [
               </div>
 
               <div class:list={['lg:col-span-7', i % 2 === 1 && 'lg:order-1']}>
-                <h3 class="text-[1.9rem] leading-tight text-mossa-djup">{person.name}</h3>
-                <p class="mt-2 text-[1rem] font-medium text-mossa-ljus">{person.role}</p>
+                <h3 class="text-[1.9rem] leading-tight text-djup">{person.name}</h3>
+                <p class="mt-2 text-[1rem] font-medium text-dov">{person.role}</p>
 
-                <div class="mt-6 space-y-4 text-[1.03rem] leading-relaxed text-skiffer">
+                <div class="mt-6 space-y-4 text-[1.03rem] leading-relaxed text-dov">
                   {person.bio.map((stycke) => (
                     <p>{stycke}</p>
                   ))}
                 </div>
 
-                <details class="group mt-7 rounded-2xl border border-sten bg-kalk p-6">
-                  <summary class="flex items-center justify-between gap-4 text-[0.95rem] font-medium text-mossa-djup">
+                <details class="group mt-7 rounded-2xl border border-linje bg-papper p-6">
+                  <summary class="flex items-center justify-between gap-4 text-[0.95rem] font-medium text-djup">
                     <span>Utbildning och meriter</span>
                     <span
                       aria-hidden="true"
-                      class="text-mossa-ljus transition-transform duration-300 group-open:rotate-45"
+                      class="text-dov transition-transform duration-300 group-open:rotate-45"
                     >
                       <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
                         <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.4" />
@@ -185,8 +185,8 @@ const schema = [
                   </summary>
                   <ul class="mt-5 space-y-2.5">
                     {person.credentials.map((rad) => (
-                      <li class="flex items-start gap-3 text-[0.93rem] leading-relaxed text-skiffer">
-                        <span class="mt-1 shrink-0 text-salvia-text">
+                      <li class="flex items-start gap-3 text-[0.93rem] leading-relaxed text-dov">
+                        <span class="mt-1 shrink-0 text-dov">
                           <Sikte size={12} />
                         </span>
                         {rad}
@@ -203,7 +203,7 @@ const schema = [
   </section>
 
   <!-- Kliniken -->
-  <section class="px-5 py-(--spacing-section) sm:px-8">
+  <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
@@ -211,26 +211,26 @@ const schema = [
             etikett="Kliniken"
             rubrik="Andra våningen i ett hus från 1614"
           />
-          <div class="mt-8 space-y-5 text-[1.03rem] leading-relaxed text-skiffer">
+          <div class="mt-8 space-y-5 text-[1.03rem] leading-relaxed text-dov">
             <p>
-              Kliniken finns på andra våningen på Borgmästaregården i Kristianstad, vid Stora Torg
-              cirka 200 meter från resecentrum.
+ Kliniken finns på andra våningen på Borgmästaregården i Kristianstad, vid Stora Torg
+ cirka 200 meter från resecentrum.
             </p>
             <p>
-              Huset är ett av de äldsta i Kristianstad och har anor från 1614, när staden grundades.
-              Lokalerna är nyrenoverade samtidigt som vi försökt bevara husets prägel.
+ Huset är ett av de äldsta i Kristianstad och har anor från 1614, när staden grundades.
+ Lokalerna är nyrenoverade samtidigt som vi försökt bevara husets prägel.
             </p>
             <p>Det finns hiss och handikapptoalett.</p>
-            <p class="text-mossa-djup">
+            <p class="text-djup">
               Vår hund heter Laban. Husspöket heter herr Borg.
             </p>
           </div>
 
           <a
             href="/kontakt/"
-            class="mt-9 inline-block rounded-full bg-mossa px-7 py-3.5 text-[0.95rem] font-medium text-kalk transition-colors hover:bg-mossa-djup"
+            class="mt-9 inline-block rounded-full bg-lyft px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:bg-djup"
           >
-            Hitta hit
+ Hitta hit
           </a>
         </div>
 
@@ -242,22 +242,22 @@ const schema = [
           />
           <dl class="mt-6 grid gap-6 sm:grid-cols-3">
             <div>
-              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-dov">
                 Grundad
               </dt>
-              <dd class="mt-1.5 text-[1.05rem] text-mossa-djup">{SITE.founded}</dd>
+              <dd class="mt-1.5 text-[1.05rem] text-djup">{SITE.founded}</dd>
             </div>
             <div>
-              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-dov">
                 Verksamhetschef
               </dt>
-              <dd class="mt-1.5 text-[1.05rem] text-mossa-djup">{SITE.medicalDirector}</dd>
+              <dd class="mt-1.5 text-[1.05rem] text-djup">{SITE.medicalDirector}</dd>
             </div>
             <div>
-              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-salvia-text">
+              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-dov">
                 Uppdrag
               </dt>
-              <dd class="mt-1.5 text-[1.05rem] text-mossa-djup">Region Skåne</dd>
+              <dd class="mt-1.5 text-[1.05rem] text-djup">Region Skåne</dd>
             </div>
           </dl>
         </div>
