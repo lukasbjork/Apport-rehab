@@ -11,6 +11,9 @@
  * HTML:en vid deploy. Det kräver tre saker som är lätta att råka ta bort —
  *   1. `data-netlify="true"` på <form>
  *   2. dolt fält <input name="form-name"> med samma värde som form-name
+ *
+ * OBS: formuläret hade tidigare en honungsfälla, och levererade därför
+ * ALDRIG någon inlämning — se kommentaren i markupen nedan.
  *   3. formuläret måste finnas i den statiska HTML:en, inte renderas av JS
  * Astro bygger statiskt, så punkt 3 är uppfylld.
  *
@@ -35,16 +38,29 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
   method="POST"
   action="/tack/"
   data-netlify="true"
-  netlify-honeypot="lamna-tom"
   class="space-y-5"
 >
   <!-- Krävs av Netlify för att koppla inlämningen till rätt formulär -->
   <input type="hidden" name="form-name" value="kontakt" />
 
-  <!-- Honungsfälla: dold för människor, ifylld av robotar -->
-  <p class="hidden" aria-hidden="true">
-    <label>Lämna det här fältet tomt: <input name="lamna-tom" tabindex="-1" autocomplete="off" /></label>
-  </p>
+  <!--
+    ⚠️ INGEN HONUNGSFÄLLA HÄR — LÄGG INTE TILLBAKA DEN.
+    Verifierat mot den skarpa sajten 2026-09-01: så länge ett fält
+    som pekas ut av netlify-honeypot ligger med i POST-kroppen
+    kastar Netlify inlämningen TYST, även när fältet är tomt.
+    Kontrollerat med två fältnamn (lamna-tom, bot-field), efter att
+    formulärposterna raderats och registrerats om, och med ett
+    kontrolltest samma minut: identisk POST utan fältet landade,
+    med fältet gjorde den inte.
+
+    Konsekvensen var att varje riktig inlämning från en webbläsare
+    försvann. Skyddet mot skräppost ligger nu på Netlifys egen
+    spamfiltrering, som är påslagen som standard.
+
+    Vill du ha tillbaka en honungsfälla: verifiera FÖRST att en
+    inlämning från en webbläsare faktiskt dyker upp under Forms i
+    Netlifys dashboard. Gör inte antagandet att den fungerar.
+  -->
 
   <div class="grid gap-5 sm:grid-cols-2">
     <div>

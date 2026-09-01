@@ -303,6 +303,35 @@ Tills det är gjort fungerar mejlvägen bredvid formuläret precis som förut.
 Vill kliniken stänga av formuläret helt: ta bort `data-netlify="true"` från
 `<form>` i `src/pages/egenremiss.astro` — sidan går inte sönder av det.
 
+## Formulären levererar — kontrollera det själv
+
+Båda formulären (`/kontakt/` och `/egenremiss/`) postar till Netlify Forms.
+Inlämningar hamnar under **Forms** i Netlifys dashboard.
+
+**Ingen honungsfälla — lägg inte tillbaka den.** Vid deploy-verifieringen
+2026-09-01 försvann inlämningar tyst, och honungsfältet var den starkaste
+misstänkta orsaken (identisk POST landade utan fältet men inte med det).
+Det gick dock inte att bevisa: Netlifys spamfiltrering ger exakt samma
+mönster och började plocka bort testtrafiken efter ett femtontal anrop.
+Eftersom en tyst förlorad patientinlämning är ett värre fel än ett saknat
+extra spamlager ligger fällan borta. `scripts/verify.mjs` varnar om någon
+lägger tillbaka den.
+
+**Kontrollera själv, från er egen uppkoppling — det tar två minuter:**
+
+1. Öppna `/egenremiss/`, fyll i de fyra stegen med **riktig text och en
+   riktig mejladress** (inte `test@example.com` — det är en spamsignal).
+2. Skicka. Du ska landa på `/tack/`.
+3. Öppna Forms i Netlifys dashboard och se att inlämningen ligger där.
+   Titta även i **Spam**-fliken.
+
+Landar den inte i något av facken: hör av dig till Netlify support med
+sajt-id `1d24d363-9389-4738-97f0-ee8066f39efb`. Formulären är korrekt
+registrerade (verifierat via API), så felet ligger i så fall på deras sida.
+
+**Slå på e-postavisering** under Forms → Notifications, annars blir
+inlämningarna liggande osedda.
+
 ## Verifiering
 
 `node scripts/verify.mjs` körs mot `dist/` och kontrollerar:

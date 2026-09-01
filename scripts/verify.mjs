@@ -141,17 +141,29 @@ for (const fil of filer) {
   }
 }
 
-// Netlify Forms — tre saker som är lätta att råka ta bort, alla tre krävs
-const kontakt = await readFile(path.join(DIST, 'kontakt', 'index.html'), 'utf8');
-for (const [krav, m] of [
-  ['data-netlify="true"', /data-netlify="true"/],
-  ['dolt form-name-fält', /name="form-name" value="kontakt"/],
-  ['honeypot', /netlify-honeypot="/],
+// Netlify Forms — två saker som är lätta att råka ta bort, båda krävs
+for (const [sida, formNamn] of [
+  ['kontakt', 'kontakt'],
+  ['egenremiss', 'egenremiss'],
 ]) {
-  if (!m.test(kontakt)) fel.push(`/kontakt/: Netlify Forms saknar ${krav}`);
+  const html = await readFile(path.join(DIST, sida, 'index.html'), 'utf8');
+  for (const [krav, m] of [
+    ['data-netlify="true"', /data-netlify="true"/],
+    ['dolt form-name-fält', new RegExp(`name="form-name" value="${formNamn}"`)],
+  ]) {
+    if (!m.test(html)) fel.push(`/${sida}/: Netlify Forms saknar ${krav}`);
+  }
+
+  // Honungsfällan är BORTTAGEN med flit och får inte läggas tillbaka.
+  // Verifierat mot skarpa sajten 2026-09-01: så länge ett fält som pekas ut
+  // av netlify-honeypot ligger med i POST-kroppen kastar Netlify inlämningen
+  // tyst, även när fältet är tomt. Varje riktig inlämning försvann.
+  if (/netlify-honeypot="/.test(html))
+    fel.push(`/${sida}/: honungsfälla återinförd — Netlify kastar då varje inlämning tyst`);
 }
+
 if (!(await finns(path.join(DIST, 'tack', 'index.html'))))
-  fel.push('/kontakt/: formulärets action pekar på /tack/ som inte finns');
+  fel.push('formulärens action pekar på /tack/ som inte finns');
 
 if (varningar.length) {
   console.log(`⚠  ${varningar.length} varning(ar):`);

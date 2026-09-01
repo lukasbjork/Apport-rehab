@@ -17,6 +17,10 @@
  * webbläsarens egna och på svenska. Fokus flyttas till aktiv fältgrupp och
  * stegbytet annonseras i en aria-live-region.
  *
+ * ── Skräppostskydd ───────────────────────────────────────────────
+ * Ingen honungsfälla. Se den långa kommentaren vid formuläret — ett
+ * netlify-honeypot-fält får Netlify att tyst kasta VARJE inlämning.
+ *
  * ── Ingen triagering ─────────────────────────────────────────────
  * Formuläret ställer inga symtomfrågor och gör ingen bedömning. Det är en
  * beskrivning patienten skriver själv, precis som den mejlade egenremissen
@@ -153,19 +157,29 @@ const hjalp = 't-liten mt-1.5 text-dov';
             method="POST"
             action="/tack/"
             data-netlify="true"
-            netlify-honeypot="lamna-tom"
             class="mt-12"
           >
             <!-- Krävs av Netlify för att koppla inlämningen till rätt formulär -->
             <input type="hidden" name="form-name" value="egenremiss" />
 
-            <!-- Honungsfälla: dold för människor, ifylld av robotar -->
-            <p class="hidden" aria-hidden="true">
-              <label>
-                Lämna det här fältet tomt:
-                <input name="lamna-tom" tabindex="-1" autocomplete="off" />
-              </label>
-            </p>
+            <!--
+              ⚠️ INGEN HONUNGSFÄLLA HÄR — LÄGG INTE TILLBAKA DEN.
+              Verifierat mot den skarpa sajten 2026-09-01: så länge ett fält
+              som pekas ut av netlify-honeypot ligger med i POST-kroppen
+              kastar Netlify inlämningen TYST, även när fältet är tomt.
+              Kontrollerat med två fältnamn (lamna-tom, bot-field), efter att
+              formulärposterna raderats och registrerats om, och med ett
+              kontrolltest samma minut: identisk POST utan fältet landade,
+              med fältet gjorde den inte.
+
+              Konsekvensen var att varje riktig inlämning från en webbläsare
+              försvann. Skyddet mot skräppost ligger nu på Netlifys egen
+              spamfiltrering, som är påslagen som standard.
+
+              Vill du ha tillbaka en honungsfälla: verifiera FÖRST att en
+              inlämning från en webbläsare faktiskt dyker upp under Forms i
+              Netlifys dashboard. Gör inte antagandet att den fungerar.
+            -->
 
             <!--
               Stegindikator. Utan JavaScript är det en innehållsöversikt över
