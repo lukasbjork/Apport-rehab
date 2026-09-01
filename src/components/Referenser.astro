@@ -1,104 +1,166 @@
 ---
 /**
- * Patientreferenser och Google-omdömen.
+ * Patientomdömen från Google.
  *
- * ⚠️ VIKTIGT — LÄS INNAN DU FYLLER I:
- * Nuvarande apport.rehab har en referenssektion som ligger live med
- * lorem ipsum-text och påhittade namn ("Tobias – CEO", "Jimmy", "Alice",
- * "Adam"). Det får inte hända igen.
+ * ⚠️ LÄS INNAN DU FYLLER I
+ * Nuvarande apport.rehab har en referenssektion som ligger live med lorem
+ * ipsum och påhittade namn ("Tobias – CEO", "Jimmy", "Alice", "Adam").
+ * Därför renderar den här komponenten INGENTING så länge GOOGLE är null —
+ * det går inte att råka publicera platshållare eller påhittade betyg.
  *
- * Därför är både TESTIMONIALS och GOOGLE medvetet tomma. Komponenten
- * renderar INGENTING så länge båda är tomma — det går alltså inte att
- * råka publicera platshållartext eller påhittade betyg.
+ * ── Så fyller du i ───────────────────────────────────────────────
+ * Öppna klinikens Google-profil, och för in siffrorna EXAKT som de står
+ * där. Skriv aldrig av ur minnet och avrunda inte uppåt.
  *
- * ── Riktiga omdömen ──────────────────────────────────────────────
- *  1. Hämta in skriftligt samtycke från patienten.
- *  2. Använd patientens egna ord. Skriv inte om dem till reklam.
- *  3. Ange förnamn + ålder ELLER "Patient, Kristianstad". Aldrig påhittade namn.
- *  4. Lova inget resultat i citatet. Undvik "blev helt bra", "botad".
+ *   snitt   → snittbetyget, t.ex. 4.8
+ *   antal   → antal omdömen
+ *   url     → länk till den publika omdömessidan, så att besökaren kan
+ *             kontrollera uppgiften själv
+ *   omdomen → enskilda omdömen, ordagrant. Korta INTE ner ett omdöme så
+ *             att innebörden ändras. Vill du korta, klipp i slutet och
+ *             avsluta med "…", aldrig i mitten.
  *
- * ── Google-omdömen ───────────────────────────────────────────────
- * Fyll i GOOGLE endast med siffror som faktiskt står på klinikens
- * Google-profil, och uppdatera dem när de ändras. Ett inaktuellt betyg
- * är sämre än inget betyg. `url` ska peka på den publika profilen så att
- * besökaren kan kontrollera uppgiften själv.
+ * Namn: använd det namn recensenten själv publicerat på Google. Hitta
+ * aldrig på ett namn och lägg aldrig till efternamn som inte står där.
  *
- * Vid kontroll 2026-08-31 hittades ingen publik Google-profil med omdömen
- * för Apport. Skapas en sådan är det bara att fylla i här.
- *
- * OBS: Lägg INTE till AggregateRating i schema.org förrän det finns
- * verkliga, publikt kontrollerbara omdömen. Falsk recensionsmarkering
- * är en av de saker Google uttryckligen utfärdar manuella åtgärder för.
+ * ── Underhåll ────────────────────────────────────────────────────
+ * Betyget ändras över tid. Ett inaktuellt snittbetyg på sajten är sämre
+ * än inget alls, och AggregateRating-schema med fel siffror är dessutom
+ * något Google utfärdar manuella åtgärder för. Stäm av vid varje större
+ * uppdatering av sajten.
  */
 import SektionsRubrik from './SektionsRubrik.astro';
+import { SITE } from '../lib/site';
 
-interface Testimonial {
-  /** Patientens egna ord, ordagrant */
-  quote: string;
-  /** T.ex. "Anna, 54" eller "Patient, Kristianstad" */
-  attribution: string;
-  /** Valfritt: vilket besvär det gällde */
-  context?: string;
+interface Omdome {
+  /** Recensentens egna ord, ordagrant */
+  text: string;
+  /** Namnet som står på Google */
+  namn: string;
+  /** Betyg 1–5 som recensenten satt */
+  betyg: number;
+  /** Valfritt: "för 2 månader sedan" eller ett datum */
+  when?: string;
 }
 
 interface GoogleOmdomen {
-  /** Snittbetyg, t.ex. 4.8 */
-  rating: number;
-  /** Antal omdömen */
-  count: number;
-  /** Länk till den publika Google-profilen */
+  snitt: number;
+  antal: number;
   url: string;
+  omdomen: Omdome[];
 }
 
-const TESTIMONIALS: Testimonial[] = [
-  // Tomt tills kliniken levererat riktiga, godkända omdömen.
-];
-
+/**
+ * TOM TILLS RIKTIGA SIFFROR FÖRTS IN.
+ *
+ * Google spärrar automatiserad läsning av omdömessidan, så uppgifterna
+ * måste föras in för hand av någon som är inloggad.
+ */
 const GOOGLE: GoogleOmdomen | null = null;
 
-const harInnehall = TESTIMONIALS.length > 0 || GOOGLE !== null;
+const stjarnor = (n: number) => Math.round(n);
 ---
 
 {
-  harInnehall && (
-    <section class="px-5 py-(--spacing-section) sm:px-8">
+  GOOGLE && (
+    <section class="px-5 py-(--spacing-section) sm:px-8" aria-labelledby="omdomen-rubrik">
       <div class="mx-auto max-w-(--container-content)">
-        <SektionsRubrik etikett="Patientröster" rubrik="Vad patienter har sagt" align="center" />
+        <SektionsRubrik
+          etikett="Patientröster"
+          rubrik="Vad patienter säger"
+          align="center"
+        />
 
-        {GOOGLE && (
-          <a
-            href={GOOGLE.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mx-auto mt-10 flex w-fit items-center gap-4 rounded-full border border-sten bg-papper px-7 py-4 transition-colors hover:border-salvia"
-          >
-            <span class="font-[family-name:var(--font-display)] text-[1.7rem] leading-none text-mossa-djup">
-              {GOOGLE.rating.toFixed(1).replace('.', ',')}
+        {/* Sammanfattning */}
+        <a
+          href={GOOGLE.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mx-auto mt-12 flex w-fit items-center gap-5 rounded-2xl bg-papper px-8 py-5 transition-shadow hover:shadow-mjuk"
+        >
+          <span class="font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-mossa-djup">
+            {GOOGLE.snitt.toFixed(1).replace('.', ',')}
+          </span>
+          <span>
+            <span class="flex gap-0.5" aria-hidden="true">
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M8 1.6l1.85 3.75 4.15.6-3 2.93.71 4.12L8 11.05l-3.71 1.95.71-4.12-3-2.93 4.15-.6z"
+                    fill={i < stjarnor(GOOGLE.snitt) ? 'var(--color-tegel)' : 'var(--color-sten-mork)'}
+                  />
+                </svg>
+              ))}
             </span>
-            <span class="text-[0.9rem] leading-tight text-skiffer">
-              av 5 på Google<span class="block text-[0.82rem] text-skiffer/80">
-                {GOOGLE.count} omdömen · läs på Google
-              </span>
+            <span class="mt-1.5 block text-[0.9rem] text-skiffer">
+              {GOOGLE.antal} omdömen på Google · läs alla
             </span>
-          </a>
-        )}
+          </span>
+        </a>
 
-        {TESTIMONIALS.length > 0 && (
-          <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
-              <figure class="stig flex flex-col rounded-2xl border border-sten bg-papper p-8">
-                <blockquote class="flex-1 text-[1.02rem] leading-relaxed text-mossa-djup">
-                  <p>”{t.quote}”</p>
-                </blockquote>
-                <figcaption class="mt-6 border-t border-sten pt-5 text-[0.86rem]">
-                  <span class="font-medium text-mossa-djup">{t.attribution}</span>
-                  {t.context && <span class="block text-skiffer">{t.context}</span>}
-                </figcaption>
-              </figure>
+        {/* Enskilda omdömen */}
+        {GOOGLE.omdomen.length > 0 && (
+          <ul class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {GOOGLE.omdomen.map((o) => (
+              <li>
+                <figure class="stig flex h-full flex-col rounded-2xl bg-papper p-8">
+                  <div class="flex gap-0.5" aria-label={`${o.betyg} av 5`}>
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path
+                          d="M8 1.6l1.85 3.75 4.15.6-3 2.93.71 4.12L8 11.05l-3.71 1.95.71-4.12-3-2.93 4.15-.6z"
+                          fill={i < o.betyg ? 'var(--color-tegel)' : 'var(--color-sten-mork)'}
+                        />
+                      </svg>
+                    ))}
+                  </div>
+
+                  <blockquote class="mt-5 flex-1 text-[1.01rem] leading-relaxed text-mossa-djup">
+                    <p>”{o.text}”</p>
+                  </blockquote>
+
+                  <figcaption class="mt-6 border-t border-sten pt-5 text-[0.86rem]">
+                    <span class="font-medium text-mossa-djup">{o.namn}</span>
+                    {o.when && <span class="block text-skiffer">{o.when}</span>}
+                  </figcaption>
+                </figure>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
+
+        <p class="mt-10 text-center text-[0.86rem] text-skiffer">
+          Omdömena är hämtade från Google och publicerade av patienterna själva.
+        </p>
       </div>
+
+      {/*
+        AggregateRating publiceras BARA när det finns verkliga, publikt
+        kontrollerbara omdömen. Falsk recensionsmarkering är en av de saker
+        Google uttryckligen utfärdar manuella åtgärder för.
+      */}
+      <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'MedicalClinic',
+          '@id': `${SITE.url}/#klinik`,
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: GOOGLE.snitt,
+            reviewCount: GOOGLE.antal,
+            bestRating: 5,
+            worstRating: 1,
+          },
+          review: GOOGLE.omdomen.map((o) => ({
+            '@type': 'Review',
+            reviewRating: { '@type': 'Rating', ratingValue: o.betyg, bestRating: 5 },
+            author: { '@type': 'Person', name: o.namn },
+            reviewBody: o.text,
+          })),
+        })}
+      />
     </section>
   )
 }
