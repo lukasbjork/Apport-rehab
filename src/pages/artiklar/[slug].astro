@@ -10,7 +10,7 @@ import { TEAM, CONDITIONS, TREATMENTS } from '../../lib/content';
 import { breadcrumbSchema, articleSchema, faqSchema } from '../../lib/schema';
 
 export function getStaticPaths() {
- return ARTIKLAR.map((artikel) => ({ params: { slug: artikel.slug }, props: { artikel } }));
+  return ARTIKLAR.map((artikel) => ({ params: { slug: artikel.slug }, props: { artikel } }));
 }
 
 const { artikel } = Astro.props;
@@ -135,7 +135,7 @@ const fler = ARTIKLAR_SORTERADE.filter((a) => a.slug !== artikel.slug).slice(0, 
       <p
         class="mt-14 rounded-2xl border border-linje bg-mellan/40 px-6 py-5 text-[0.95rem] leading-relaxed text-djup"
       >
- Texten är allmän information om hur vi arbetar, inte en medicinsk bedömning av dina
+        Texten är allmän information om hur vi arbetar, inte en medicinsk bedömning av dina
         besvär. Vad som är aktuellt för dig avgörs av en undersökning — hör av dig så tittar vi
         på det tillsammans.
       </p>

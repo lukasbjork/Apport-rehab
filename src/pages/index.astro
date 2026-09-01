@@ -1,44 +1,49 @@
 ---
 /**
- * Startsidan — visuell omarbetning v3.
+ * Startsidan.
  *
- * Sektionsordningen följer §2, och varje sektion har medvetet en egen
- * visuell idé (§28):
+ * Var 17 block på 17 378 px. Är nu 10 sektioner, och rytmen kommer från att
+ * bottenfärgen växlar — inte från att varje sektion har en egen påhittad
+ * visuell idé. Ordningen och vikten:
  *
- * Hero              mörk, asymmetrisk split, 88vh
- * Statistikband enorma siffror på hårlinjer
- * Statement bara typografi och luft
- * Editorial split bild som går utanför containern
- * Marquee           långsam horisontell rörelse
- *   Besvär numrerad lista med bildvisning vid hover
- * Ultraljud full bredd, mörk, bilden som hjälte
- * Behandlingar asymmetriskt rutnät, olika stora kort
- * Region Skåne      förtroende, ljus
- * Process horisontell tidslinje
- * Team stora porträtt
- *   Omdömen           patientröster
- * Selektiv          mörk, stort anslag
- * Stor CTA          sand, affischlik
+ *   1  Hero               MÖRK      100svh, rubrik + ultraljudsbild
+ *   2  Anslag             ljus      statement + de fyra nyckeltalen
+ *   3  Så arbetar vi      ljusast   editorial split, bilden stor
+ *   4  Klinikens bilder   MÖRK      galleri i stort format
+ *   5  Besvär             mellan    hårlinjelista, två spalter
+ *   6  Behandlingar       ljusast   asymmetriskt rutnät
+ *   7  Fyra steg          MÖRK      den enda numreringen på sidan
+ *   7b Region Skåne       MÖRK      samma botten, läses som ett block
+ *   8  Kliniken           ljus      teamet + omdömena
+ *   9  Artiklar           mellan    hårlinjerader
+ *  10  Egenremiss         MÖRK      affischlikt avslut
  *
- * Copyn är oförändrad (§25). Det är presentationen som är ny.
+ * SAMMANSLAGET: Statement + StatistikBand → Anslag. UltraljudHjalte →
+ * Bildgalleri. ProcessTimeline + RegionSkane ligger på samma mörka botten.
+ * TeamStort + Referenser → Kliniken.
+ *
+ * BORTTAGET: Marquee (dekoration utan informationsvärde, och dessutom ett
+ * kontrastfel). Patientfall (renderade redan ingenting — listan är tom med
+ * flit tills kliniken levererat godkända fall).
+ *
+ * FLYTTAT UT: SelektivSektion — dess innehåll fanns redan ordagrant som
+ * #inte-ratt på /som-patient/, så det här var en ren dubblett.
+ * RelevansGuide ligger kvar på /egenremiss/, där frågan "är jag rätt här?"
+ * faktiskt ställs, i stället för att ta en sektion på startsidan.
+ *
+ * Copyn är oförändrad.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import StatistikBand from '../components/StatistikBand.astro';
-import Statement from '../components/Statement.astro';
+import Anslag from '../components/Anslag.astro';
 import EditorialSplit from '../components/EditorialSplit.astro';
-import Marquee from '../components/Marquee.astro';
+import Bildgalleri from '../components/Bildgalleri.astro';
 import BesvarLista from '../components/BesvarLista.astro';
-import UltraljudHjalte from '../components/UltraljudHjalte.astro';
 import BehandlingarGrid from '../components/BehandlingarGrid.astro';
-import RegionSkane from '../components/RegionSkane.astro';
 import ProcessTimeline from '../components/ProcessTimeline.astro';
-import TeamStort from '../components/TeamStort.astro';
-import SelektivSektion from '../components/SelektivSektion.astro';
+import RegionSkane from '../components/RegionSkane.astro';
+import Kliniken from '../components/Kliniken.astro';
 import StorCta from '../components/StorCta.astro';
-import Referenser from '../components/Referenser.astro';
-import Patientfall from '../components/Patientfall.astro';
-import RelevansGuide from '../components/RelevansGuide.astro';
 import { ARTIKLAR_SORTERADE } from '../lib/artiklar-data';
 import { clinicSchema, websiteSchema } from '../lib/schema';
 
@@ -52,18 +57,9 @@ const artiklar = ARTIKLAR_SORTERADE.slice(0, 3);
 <BaseLayout {title} {description} overHero schema={[clinicSchema(), websiteSchema()]}>
   <Hero />
 
-  <StatistikBand />
-
-  <Statement
-    eyebrow="Är det här du?"
-    rubrik="Du har ont."
-    rubrikAccent="Men du vill framför allt veta varför."
-    brod="De flesta som kommer till oss har redan varit någon annanstans först. Ofta flera gånger. Det är sällan för att ingen har brytt sig — utan för att det är svårt att peka ut exakt vilken struktur som gör ont."
-    cta={{ label: 'Se vilka besvär vi arbetar med', href: '/besvar/' }}
-  />
+  <Anslag />
 
   <EditorialSplit
-    eyebrow="Det som gör Apport annorlunda"
     rubrik="Vi börjar med att förstå problemet."
     stycken={[
       'Röntgen och magnetkamera visar hur kroppen ser ut. Men de säger inte alltid vilken struktur som faktiskt bidrar till smärtan.',
@@ -79,81 +75,64 @@ const artiklar = ARTIKLAR_SORTERADE.slice(0, 3);
     cta={{ label: 'Så arbetar vi', href: '/om-apport/#arbetssatt' }}
   />
 
-  <Marquee />
+  <Bildgalleri />
 
   <BesvarLista />
 
-  <UltraljudHjalte />
-
   <BehandlingarGrid />
 
-  <RegionSkane />
-
-  <!-- Process -->
-  <section class="bg-papper py-(--spacing-rytm-vid)">
-    <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
-      <div class="max-w-2xl">
-        <p class="t-etikett text-dov">Så går det till</p>
-        <h2 class="t-h2  mt-7 text-djup">Fyra steg, utan krångel</h2>
-      </div>
-      <div class="mt-16 lg:mt-20">
-        <ProcessTimeline />
+  <!--
+    Fyra steg och Region Skåne-avtalet ligger på samma mörka botten och
+    läses därför som ett block: så går det till, och så betalar du.
+  -->
+  <section class="bg-djup px-5 pt-(--spacing-rytm-vid) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <h2 class="t-h2 max-w-[14ch] text-papper">Fyra steg, utan krångel</h2>
+      <div class="mt-14 lg:mt-16">
+        <ProcessTimeline light />
       </div>
     </div>
   </section>
 
-  <TeamStort />
+  <RegionSkane light />
 
-  <Referenser />
+  <Kliniken />
 
-  <RelevansGuide />
-
-  <Patientfall />
-
-  <SelektivSektion />
-
-  <!-- Artiklar -->
-  <section class="bg-topp py-(--spacing-rytm-vid)">
+  <!-- Artiklar: hårlinjerader, ingen kortdesign, ingen lästid med mittprick -->
+  <section class="bg-mellan/45 py-(--spacing-rytm)">
     <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
-      <div class="flex flex-wrap items-end justify-between gap-8">
-        <div>
-          <p class="t-etikett text-dov">Artiklar</p>
-          <h2 class="t-h2 mt-7 max-w-[16ch] text-djup">Sådant patienter ofta frågar om</h2>
-        </div>
-        <a href="/artiklar/" class="lank-linje pb-1 text-[0.94rem] font-medium text-lyft"
-          >Alla artiklar →</a
-        >
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <h2 class="t-h2 max-w-[16ch] text-djup">Sådant patienter ofta frågar om</h2>
+        <a href="/artiklar/" class="lank-linje py-1 text-[0.95rem] font-medium text-lyft">
+          Alla artiklar
+        </a>
       </div>
 
-      <ul class="mt-14 grid gap-px overflow-hidden rounded-sm bg-linje md:grid-cols-3">
+      <ul class="mt-12 border-t border-djup/15 lg:mt-14">
         {
           artiklar.map((a) => (
-            <li>
+            <li class="border-b border-djup/15">
               <a
                 href={`/artiklar/${a.slug}/`}
-                class="group flex h-full flex-col justify-between bg-topp p-8 transition-colors duration-300 hover:bg-papper"
+                class="rad group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 py-6 sm:px-2"
               >
-                <span>
-                  <span class="flex items-center gap-2.5 text-[0.74rem] text-dov">
-                    <span class="t-etikett text-[0.68rem] text-dov">{a.amne}</span>
-                    <span aria-hidden="true" class="text-linje">·</span>
-                    <span>{a.lastid} min</span>
+                <span class="t-h3 max-w-[34ch] text-djup">{a.titel}</span>
+                <span class="t-liten flex items-center gap-5 text-dov">
+                  {a.amne}
+                  <span
+                    aria-hidden="true"
+                    class="transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    <svg width="18" height="11" viewBox="0 0 15 10" fill="none">
+                      <path
+                        d="M0 5h13M9.5 1L13.5 5L9.5 9"
+                        stroke="currentColor"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
                   </span>
-                  <span class="t-h3 mt-5 block text-djup">{a.titel}</span>
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="mt-10 text-lyft transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  <svg width="18" height="11" viewBox="0 0 15 10" fill="none">
-                    <path
-                      d="M0 5h13M9.5 1L13.5 5L9.5 9"
-                      stroke="currentColor"
-                      stroke-width="1.3"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
                 </span>
               </a>
             </li>

@@ -6,8 +6,12 @@
  * kontaktuppgifterna utskrivna under knappen så att den som hellre ringer
  * eller mejlar slipper leta.
  *
- * Sand som botten i stället för grönt — sidan har redan två mörka sektioner,
- * och en tredje hade gjort avslutet tungt i stället för inbjudande.
+ * Mörk botten: sidan växlar nu mellan mörkt och ljust hela vägen ned, och
+ * avslutet ska vara det tyngsta anslaget — inte det lättaste.
+ *
+ * Pilen inne i knappen är borttagen. En knapp som säger vad den gör behöver
+ * ingen pil, och en pil fastklistrad i knapptexten är en av de tydligaste
+ * mall-markörerna.
  */
 import { SITE, CTA, PHONE_HOURS } from '../lib/site';
 
@@ -16,65 +20,47 @@ interface Props {
   brod?: string;
 }
 const {
- rubrik = 'Berätta om dina besvär.',
- brod = 'Du behöver ingen remiss. Skriv några rader om vad du har för problem, vad du redan provat och vad du vill kunna göra igen.',
+  rubrik = 'Berätta om dina besvär.',
+  brod = 'Du behöver ingen remiss. Skriv några rader om vad du har för problem, vad du redan provat och vad du vill kunna göra igen.',
 } = Astro.props;
 ---
 
-<section class="bg-mellan py-(--spacing-rytm-vid)">
+<section class="bg-djup py-(--spacing-rytm-vid)">
   <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
-    <h2 class="t-h2  max-w-[14ch] text-djup">{rubrik}</h2>
+    <h2 class="t-h2 max-w-[14ch] text-papper">{rubrik}</h2>
 
-    <p class="t-brod  mt-10 max-w-xl text-lyft/80">{brod}</p>
+    <p class="t-brod mt-10 max-w-(--container-läs) text-ljus-dov">{brod}</p>
 
     <div class="mt-14">
-      <a
-        href={CTA.primary.href}
-        class="group inline-flex items-center gap-3 rounded-full bg-djup px-10 py-5 text-[1.02rem] font-medium text-papper transition-colors duration-300 hover:bg-lyft"
-      >
- Skriv en egenremiss
-        <svg
-          width="16"
-          height="11"
-          viewBox="0 0 15 10"
-          fill="none"
-          aria-hidden="true"
-          class="transition-transform duration-300 group-hover:translate-x-1.5"
-        >
-          <path
-            d="M0 5h13M9.5 1L13.5 5L9.5 9"
-            stroke="currentColor"
-            stroke-width="1.3"
-            stroke-linecap="round"
-            stroke-linejoin="round"></path>
-        </svg>
+      <a href={CTA.primary.href} class="knapp knapp-ljus px-10 py-5 text-[1rem]">
+        Skriv en egenremiss
       </a>
     </div>
 
     <dl
-      class="mt-16 grid gap-8 border-t border-lyft/15 pt-10 sm:grid-cols-3 lg:mt-20"
+      class="mt-16 grid gap-8 border-t border-papper/15 pt-10 sm:grid-cols-3 lg:mt-20"
     >
       <div>
-        <dt class="t-etikett text-lyft">Telefon</dt>
+        <dt class="t-etikett text-ljus-dov">Telefon</dt>
         <dd class="mt-3">
-          <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-[1.15rem] text-djup"
+          <a href={`tel:${SITE.phoneHref}`} class="lank-linje text-[1.15rem] text-papper"
             >{SITE.phone}</a
           >
-          <span class="mt-1 block text-[0.86rem] text-lyft">Telefontid {PHONE_HOURS.toLowerCase()}</span>
+          <span class="t-liten mt-1 block text-ljus-dov">Telefontid {PHONE_HOURS.toLowerCase()}</span>
         </dd>
       </div>
       <div>
-        <dt class="t-etikett text-lyft">E-post</dt>
+        <dt class="t-etikett text-ljus-dov">E-post</dt>
         <dd class="mt-3">
           <a
             href={`mailto:${SITE.email}`}
-            class="lank-linje break-all text-[1.15rem] text-djup">{SITE.email}</a
+            class="lank-linje break-all text-[1.15rem] text-papper">{SITE.email}</a
           >
         </dd>
       </div>
       <div>
-        <dt class="t-etikett text-lyft">Besöksadress</dt>
-        <dd class="mt-3 text-[1.02rem] leading-relaxed text-djup">
+        <dt class="t-etikett text-ljus-dov">Besöksadress</dt>
+        <dd class="mt-3 text-[1.02rem] leading-relaxed text-papper">
           {SITE.street}<br />{SITE.postalCode}&nbsp;{SITE.city}
         </dd>
       </div>

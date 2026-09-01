@@ -18,8 +18,8 @@ interface Props {
 }
 
 const {
- text = 'Osäker på om vi är rätt för dig? Skriv några rader så säger vi till.',
- light = false,
+  text = 'Osäker på om vi är rätt för dig? Skriv några rader så säger vi till.',
+  light = false,
 } = Astro.props;
 ---
 
@@ -27,7 +27,7 @@ const {
   <div
     class:list={[
       'mx-auto flex max-w-(--container-content) flex-col gap-6 border-y py-8 md:flex-row md:items-center md:justify-between md:gap-10',
- light ? 'border-papper/15' : 'border-linje',
+      light ? 'border-papper/15' : 'border-linje',
     ]}
   >
     <div class="md:max-w-md">
@@ -35,7 +35,7 @@ const {
         {text}
       </p>
       <p class:list={['mt-2 text-[0.88rem]', light ? 'text-papper/58' : 'text-dov']}>
- Inget remisstvång · Patientavgift {'200 kr'} · Frikort gäller
+        Inget remisstvång · Patientavgift {'200 kr'} · Frikort gäller
       </p>
     </div>
 
@@ -44,7 +44,7 @@ const {
         href={`tel:${SITE.phoneHref}`}
         class:list={[
           'group inline-flex items-center gap-2.5 py-1',
- light ? 'text-papper' : 'text-djup',
+          light ? 'text-papper' : 'text-djup',
         ]}
       >
         <span

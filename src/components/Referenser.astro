@@ -29,8 +29,16 @@
  * något Google utfärdar manuella åtgärder för. Stäm av vid varje större
  * uppdatering av sajten.
  */
-import SektionsRubrik from './SektionsRubrik.astro';
 import { SITE } from '../lib/site';
+
+interface Props {
+  /**
+   * true på startsidan: sektionen ligger då inuti Kliniken-blocket och
+   * ska varken ha egen bottenfärg, egen toppmarginal eller egen rubriknivå.
+   */
+  kompakt?: boolean;
+}
+const { kompakt = false } = Astro.props;
 
 interface Omdome {
   /** Recensentens egna ord, ordagrant */
@@ -107,23 +115,22 @@ const stjarnor = (n: number) => Math.round(n);
 ---
 
 {
- GOOGLE && (
-    <section class="px-5 py-(--spacing-rytm) sm:px-8" aria-labelledby="omdomen-rubrik">
-      <div class="mx-auto max-w-(--container-content)">
-        <SektionsRubrik
-          etikett="Patientröster"
-          rubrik="Vad patienter säger"
-          align="center"
-        />
+  GOOGLE && (
+    <section
+      class:list={[kompakt ? 'mt-20 border-t border-linje pt-16' : 'bg-papper px-5 py-(--spacing-rytm) sm:px-8']}
+      aria-labelledby="omdomen-rubrik"
+    >
+      <div class={kompakt ? '' : 'mx-auto max-w-(--container-content)'}>
+        <h2 id="omdomen-rubrik" class="t-h2 text-djup">Vad patienter säger</h2>
 
         {/* Sammanfattning */}
         <a
           href={GOOGLE.url}
           target="_blank"
           rel="noopener noreferrer"
-          class="mx-auto mt-12 flex w-fit items-center gap-5 rounded-2xl bg-topp px-8 py-5"
+          class="mt-9 flex w-fit items-center gap-5"
         >
-          <span class="font-[family-name:var(--font-display)] text-[2.4rem] leading-none text-djup">
+          <span class="t-siffra text-[2.6rem] text-djup">
             {GOOGLE.snitt.toFixed(1).replace('.', ',')}
           </span>
           <span>
@@ -132,39 +139,39 @@ const stjarnor = (n: number) => Math.round(n);
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
                     d="M8 1.6l1.85 3.75 4.15.6-3 2.93.71 4.12L8 11.05l-3.71 1.95.71-4.12-3-2.93 4.15-.6z"
-                    fill={i < stjarnor(GOOGLE.snitt) ? 'var(--color-lera)' : 'var(--color-linje)'}
+                    fill={i < stjarnor(GOOGLE.snitt) ? 'var(--color-djup)' : 'var(--color-linje)'}
                   />
                 </svg>
               ))}
             </span>
-            <span class="mt-1.5 block text-[0.9rem] text-dov">
-              {GOOGLE.antal} omdömen på Google · läs alla
+            <span class="t-liten lank-linje mt-1.5 block w-fit text-dov">
+              {GOOGLE.antal} omdömen på Google
             </span>
           </span>
         </a>
 
         {/* Enskilda omdömen */}
         {GOOGLE.omdomen.length > 0 && (
-          <ul class="mx-auto mt-14 grid max-w-4xl items-start gap-6 sm:grid-cols-2">
+          <ul class="mt-14 grid items-start gap-x-12 gap-y-10 border-t border-linje pt-10 sm:grid-cols-2">
             {GOOGLE.omdomen.map((o) => (
               <li>
-                <figure class="flex h-full flex-col rounded-2xl bg-topp p-8">
-                  <div class="flex gap-0.5" aria-label={`${o.betyg} av 5`}>
+                <figure class="flex h-full flex-col">
+                  <div class="flex gap-0.5" role="img" aria-label={`${o.betyg} av 5`}>
                     {Array.from({ length: 5 }, (_, i) => (
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path
                           d="M8 1.6l1.85 3.75 4.15.6-3 2.93.71 4.12L8 11.05l-3.71 1.95.71-4.12-3-2.93 4.15-.6z"
-                          fill={i < o.betyg ? 'var(--color-lera)' : 'var(--color-linje)'}
+                          fill={i < o.betyg ? 'var(--color-djup)' : 'var(--color-linje)'}
                         />
                       </svg>
                     ))}
                   </div>
 
-                  <blockquote class="mt-5 flex-1 text-[1.01rem] leading-relaxed text-djup">
+                  <blockquote class="t-brod mt-5 flex-1 text-djup">
                     <p>”{o.text}”</p>
                   </blockquote>
 
-                  <figcaption class="mt-6 border-t border-linje pt-5 text-[0.86rem]">
+                  <figcaption class="t-liten mt-6 border-t border-linje pt-5">
                     <span class="font-medium text-djup">{o.namn}</span>
                     {o.when && <span class="block text-dov">{o.when}</span>}
                     {o.avkortat && (
@@ -174,7 +181,7 @@ const stjarnor = (n: number) => Math.round(n);
                         rel="noopener noreferrer"
                         class="lank-linje mt-1.5 inline-block text-[0.82rem] text-lyft"
                       >
- Avkortat — läs hela på Google
+                        Avkortat — läs hela på Google
                       </a>
                     )}
                   </figcaption>
@@ -184,15 +191,15 @@ const stjarnor = (n: number) => Math.round(n);
           </ul>
         )}
 
-        <p class="mt-10 text-center text-[0.86rem] text-dov">
+        <p class="t-liten mt-10 text-dov">
           Omdömena är hämtade från Google och publicerade av patienterna själva.
         </p>
       </div>
 
       {/*
- AggregateRating publiceras BARA när det finns verkliga, publikt
- kontrollerbara omdömen. Falsk recensionsmarkering är en av de saker
- Google uttryckligen utfärdar manuella åtgärder för.
+      AggregateRating publiceras BARA när det finns verkliga, publikt
+      kontrollerbara omdömen. Falsk recensionsmarkering är en av de saker
+      Google uttryckligen utfärdar manuella åtgärder för.
       */}
       <script
         type="application/ld+json"

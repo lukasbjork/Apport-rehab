@@ -1,0 +1,61 @@
+---
+/**
+ * Kliniken — sammanslagning av tidigare TeamStort och Referenser.
+ *
+ * Den gamla teamsektionen renderade två stora grå platshållarrutor med
+ * initialer, eftersom kliniken inte har porträttfoton. Det var startsidans
+ * största enskilda yta, och den innehöll ingenting.
+ *
+ * Här löses det typografiskt i stället: namnen sätts stort, rollen under,
+ * och kompetenserna som en hårlinjelista. Det är ärligare än en tom ruta
+ * som låtsas vänta på ett foto — och när kliniken en dag levererar riktiga
+ * porträtt kan de läggas in utan att sektionen behöver byggas om.
+ *
+ * Omdömena ligger i samma sektion, under en hårlinje, i stället för som en
+ * egen sektion med samma vikt som allt annat.
+ */
+import Referenser from './Referenser.astro';
+import { TEAM } from '../lib/content';
+---
+
+<section class="bg-papper py-(--spacing-rytm-vid)">
+  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
+      <h2 class="t-h2 max-w-[12ch] text-djup lg:col-span-5">
+        <span class="block font-light">Två personer.</span>
+        Samma klinik sedan 2010.
+      </h2>
+      <p class="t-brod max-w-(--container-läs) text-dov lg:col-span-6 lg:col-start-7">
+        En läkare och en fysioterapeut, gifta med varandra. Du möter samma personer varje gång,
+        och de pratar med varandra om ditt fall.
+      </p>
+    </div>
+
+    <ul class="mt-16 grid gap-x-12 border-t border-linje sm:grid-cols-2 sm:gap-x-16 lg:mt-20">
+      {
+        TEAM.map((person) => (
+          <li class="border-b border-linje py-10 sm:border-b-0 sm:py-12">
+            <a href={`/om-apport/#${person.slug}`} class="group block">
+              <h3 class="text-[clamp(1.6rem,2.8vw,2.35rem)] leading-[1.05] font-semibold tracking-[-0.025em] text-djup">
+                {person.name}
+              </h3>
+              <p class="t-liten mt-3 text-dov">{person.role}</p>
+              <p class="t-brod mt-6 max-w-(--container-läs) text-dov">{person.short}</p>
+              <span class="lank-linje mt-7 inline-block py-1 text-[0.94rem] font-medium text-lyft">
+                Mer om {person.name.split(' ')[0]}
+              </span>
+            </a>
+
+            <ul class="mt-9 border-t border-linje">
+              {person.specialties.map((sp) => (
+                <li class="t-liten border-b border-linje py-3 text-dov">{sp}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+
+    <Referenser kompakt />
+  </div>
+</section>

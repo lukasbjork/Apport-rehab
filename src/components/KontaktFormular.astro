@@ -48,7 +48,7 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
   <div class="grid gap-5 sm:grid-cols-2">
     <div>
       <label for="namn" class={etikett}>
- Namn <span class="text-lera" aria-hidden="true">*</span>
+        Namn <span class="text-lera" aria-hidden="true">*</span>
       </label>
       <input
         id="namn"
@@ -67,7 +67,7 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
 
   <div>
     <label for="epost" class={etikett}>
- E-post <span class="text-lera" aria-hidden="true">*</span>
+      E-post <span class="text-lera" aria-hidden="true">*</span>
     </label>
     <input
       id="epost"
@@ -92,7 +92,7 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
 
   <div>
     <label for="meddelande" class={etikett}>
- Meddelande <span class="text-lera" aria-hidden="true">*</span>
+      Meddelande <span class="text-lera" aria-hidden="true">*</span>
     </label>
     <textarea
       id="meddelande"
@@ -102,7 +102,7 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
       class={`mt-2 ${falt}`}
       aria-describedby="meddelande-hjalp"></textarea>
     <p id="meddelande-hjalp" class="mt-2 text-[0.86rem] leading-relaxed text-dov">
- Skriv inte personnummer eller detaljerade uppgifter om din hälsa här. Ska du skicka en
+      Skriv inte personnummer eller detaljerade uppgifter om din hälsa här. Ska du skicka en
       egenremiss, mejla den direkt till <a
         href={`mailto:${SITE.email}`}
         class="lank-linje text-lyft">{SITE.email}</a
@@ -120,7 +120,7 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
       class="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-lyft)]"
     />
     <label for="samtycke" class="text-[0.88rem] leading-relaxed text-dov">
- Jag samtycker till att Apport behandlar mina uppgifter för att kunna svara på mitt
+      Jag samtycker till att Apport behandlar mina uppgifter för att kunna svara på mitt
       meddelande. Läs mer om <a href="/integritetspolicy/" class="lank-linje text-lyft"
         >hur vi hanterar personuppgifter</a
       >.
@@ -131,10 +131,10 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
     type="submit"
     class="w-full rounded-full bg-lyft px-7 py-4 text-[0.98rem] font-medium text-papper transition-colors hover:bg-djup sm:w-auto"
   >
- Skicka meddelande
+    Skicka meddelande
   </button>
 
   <p class="text-[0.86rem] leading-relaxed text-dov">
- Vill du hellre ringa? {SITE.phone}, telefontid {PHONE_HOURS.toLowerCase()}.
+    Vill du hellre ringa? {SITE.phone}, telefontid {PHONE_HOURS.toLowerCase()}.
   </p>
 </form>

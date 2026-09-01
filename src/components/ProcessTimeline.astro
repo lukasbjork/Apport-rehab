@@ -20,7 +20,7 @@ const { light = false } = Astro.props;
     aria-hidden="true"
     class:list={[
       'absolute left-0 right-0 top-[2.6rem] hidden h-px lg:block',
- light ? 'bg-papper/15' : 'bg-linje',
+      light ? 'bg-papper/15' : 'bg-linje',
     ]}
   >
   </div>
@@ -34,7 +34,7 @@ const { light = false } = Astro.props;
             aria-hidden="true"
             class:list={[
               'absolute left-[1.1rem] top-16 h-[calc(100%+3rem)] w-px lg:hidden',
- light ? 'bg-papper/15' : 'bg-linje',
+              light ? 'bg-papper/15' : 'bg-linje',
             ]}
           />
         )}
@@ -43,7 +43,7 @@ const { light = false } = Astro.props;
           <span
             class:list={[
               't-siffra relative z-10 block shrink-0 text-[2.6rem] leading-none lg:text-[3.4rem]',
- light ? 'text-ljus-dov' : 'text-dov',
+              light ? 'text-ljus-dov' : 'text-dov',
             ]}
           >
             {step.number}
@@ -54,7 +54,7 @@ const { light = false } = Astro.props;
             <p
               class:list={[
                 'mt-3 max-w-xs text-[0.95rem] leading-relaxed',
- light ? 'text-papper/68' : 'text-dov',
+                light ? 'text-papper/68' : 'text-dov',
               ]}
             >
               {step.body}

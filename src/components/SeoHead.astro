@@ -13,10 +13,10 @@ interface Props {
 const {
   title,
   description,
- ogImage = '/og/og-default.png',
- ogType = 'website',
- schema = [],
- noindex = false,
+  ogImage = '/og/og-default.png',
+  ogType = 'website',
+  schema = [],
+  noindex = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;

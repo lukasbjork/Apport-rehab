@@ -1,103 +1,70 @@
 ---
 /**
- * Hero — 88vh, asymmetrisk split, enorm typografi.
+ * Hero — en skärm som gör en sak.
  *
- * Copyn är oförändrad, det är presentationen som är ny. Rubriken sätts i
- * .t-display (upp till 100px med radavstånd 0.95) och får bryta över tre
- * rader i stället för att pressas ihop.
+ * Borttaget mot tidigare version:
+ *  - Etiketten "Smärtspecialistklinik · Kristianstad". Logotypen säger redan
+ *    samma sak två centimeter längre upp, och mittpricken var en AI-markör.
+ *  - Bakgrundsbilden (ett patientfoto nedtonat till 11 %). Att använda
+ *    klinikens starkaste tillgång som tapet är motsatsen till att visa den.
+ *    Bilden är nu ledig och används i galleriet i stort format i stället.
+ *  - Scroll-indikatorn.
  *
- * Bakgrunden är klinikens eget patientfoto, kraftigt nedtonat så att det
- * läser som textur snarare än motiv. Ultraljudsbilden ligger som eget
- * element till höger, förskjuten nedåt för att bryta rutnätet.
+ * Kvar: rubriken, ultraljudsbilden, två knappar och trust-raden. Kontrasten
+ * inne i rubriken görs med VIKT (300 mot 600), inte med färg — att färga en
+ * enstaka rad i en rubrik är dekoration, inte hierarki.
  */
-import { SITE, CTA, TRUST_POINTS } from '../lib/site';
+import { CTA, TRUST_POINTS } from '../lib/site';
 ---
 
-<section class="relative flex min-h-[88svh] items-center overflow-hidden bg-djup pt-28 pb-20 lg:pt-32">
-  <!-- Bakgrundstextur -->
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-    <img
-      src="/bilder/pulsad-rf-2.webp"
-      alt=""
-      class="h-full w-full object-cover opacity-[0.11]"
-      fetchpriority="high"
-      decoding="async"
-    />
-    <div class="absolute inset-0 bg-linear-to-br from-djup via-djup/95 to-djup/70"></div>
-  </div>
-
-  <div class="relative mx-auto w-full max-w-(--container-content) px-5 sm:px-8">
-    <div class="grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
-      <!-- Typografi -->
+<section class="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-djup pt-28 pb-12 lg:pt-32">
+  <div class="mx-auto w-full max-w-(--container-content) px-5 sm:px-8">
+    <div class="grid items-center gap-14 lg:grid-cols-12 lg:gap-12">
       <div class="lg:col-span-7">
-        <p class="t-etikett text-ljus-dov">Smärtspecialistklinik · Kristianstad</p>
-
-        <h1 class="t-display mt-8 text-papper">
- Alla säger att det ser normalt ut.
-          <span class="mt-2 block text-ljus-dov">Ändå gör det ont.</span>
+        <h1 class="t-display intro intro-1 text-papper">
+          <span class="block font-light">Alla säger att det ser normalt ut.</span>
+          <span class="mt-1 block">Ändå gör det ont.</span>
         </h1>
 
-        <p class="t-brod mt-9 max-w-lg text-papper/72">
- En bra behandling börjar inte alltid med en behandling. Den börjar
- med att ta reda på <em class="not-italic text-papper">var</em> smärtan kommer ifrån.
+        <p class="t-ingress intro intro-2 mt-9 max-w-(--container-läs) text-ljus-dov">
+          En bra behandling börjar inte alltid med en behandling. Den börjar
+          med att ta reda på <em class="font-semibold not-italic text-papper">var</em> smärtan
+          kommer ifrån.
         </p>
 
-        <div class="mt-11 flex flex-wrap gap-3">
-          <a
-            href={CTA.primary.href}
-            class="group inline-flex items-center gap-2.5 rounded-full bg-papper px-8 py-4 text-[0.98rem] font-medium text-djup transition-colors duration-300 hover:bg-mellan"
-          >
-            {CTA.primary.label}
-            <svg width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"
-              class="transition-transform duration-300 group-hover:translate-x-1">
-              <path d="M0 5h13M9.5 1L13.5 5L9.5 9" stroke="currentColor" stroke-width="1.3"
-                stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </a>
-          <a
-            href={CTA.secondary.href}
-            class="inline-block rounded-full border border-papper/25 px-8 py-4 text-[0.98rem] font-medium text-papper transition-colors duration-300 hover:border-papper/60"
-          >
-            {CTA.secondary.label}
-          </a>
+        <div class="intro intro-3 mt-11 flex flex-wrap gap-3">
+          <a href={CTA.primary.href} class="knapp knapp-ljus">{CTA.primary.label}</a>
+          <a href={CTA.secondary.href} class="knapp knapp-kant-ljus">{CTA.secondary.label}</a>
         </div>
       </div>
 
-      <!-- Ultraljudsbilden, förskjuten nedåt för att bryta rutnätet -->
-      <div class="lg:col-span-5 lg:translate-y-10">
-        <figure class="">
-          <div class="overflow-hidden rounded-sm border border-papper/10">
-            <img
-              src="/bilder/ultraljud-c4-c5.webp"
-              alt="Ultraljudsbild tagen på Apport som visar vävnadslagren i halsryggen, med markörer vid de strukturer som bedömts"
-              width="640"
-              height="430"
-              class="w-full"
-              decoding="async"
-            />
-          </div>
-          <figcaption class="mt-4 max-w-sm text-[0.83rem] leading-relaxed text-papper/55">
- Ultraljudsbild från kliniken — så avgör vi vilken struktur som bidrar till smärtan.
-          </figcaption>
-        </figure>
-      </div>
+      <figure class="intro intro-4 lg:col-span-5">
+        <div class="y-ram-mork">
+          <img
+            src="/bilder/ultraljud-c4-c5.webp"
+            alt="Ultraljudsbild tagen på Apport som visar vävnadslagren i halsryggen, med markörer vid de strukturer som bedömts"
+            width="640"
+            height="430"
+            class="w-full"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <figcaption class="t-liten mt-4 max-w-sm text-ljus-dov">
+          Ultraljudsbild från kliniken — så avgör vi vilken struktur som bidrar till smärtan.
+        </figcaption>
+      </figure>
     </div>
 
-    <!-- Trust-rad, längst ned i hero -->
-    <ul class="mt-20 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-papper/12 pt-7 lg:mt-24">
+    <!-- Trust-raden. Hårlinjeceller i stället för mittprickar. -->
+    <ul
+      class="intro intro-4 mt-16 grid grid-cols-2 gap-px border-t border-papper/12 bg-papper/12 sm:grid-cols-4"
+    >
       {
         TRUST_POINTS.map((p) => (
-          <li class="text-[0.82rem] uppercase tracking-[0.12em] text-papper/55">{p}</li>
+          <li class="t-liten bg-djup pt-4 pr-4 text-ljus-dov sm:pt-5">{p}</li>
         ))
       }
     </ul>
-  </div>
-
-  <!-- Scroll-indikator -->
-  <div
-    aria-hidden="true"
-    class="pointer-events-none absolute bottom-7 left-1/2 hidden -translate-x-1/2 lg:block"
-  >
-    <span class="block h-11 w-px bg-linear-to-b from-transparent via-papper/35 to-transparent"></span>
   </div>
 </section>

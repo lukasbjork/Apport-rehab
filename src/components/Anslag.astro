@@ -1,0 +1,53 @@
+---
+/**
+ * Anslag — sammanslagning av tidigare Statement och StatistikBand.
+ *
+ * De låg som två separata sektioner efter varandra och vägde lika mycket,
+ * vilket är precis det som fick startsidan att kännas jämn. Nu är siffrorna
+ * belägg för påståendet i rubriken, i samma sektion, på hårlinjer.
+ *
+ * Etiketten "Är det här du?" är borttagen. Rubriken ställer redan frågan.
+ */
+import { CREDENTIALS } from '../lib/content';
+---
+
+<section class="bg-papper py-(--spacing-rytm)">
+  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <h2 class="t-h2 max-w-[14ch] text-djup lg:col-span-5">
+        <span class="block font-light">Du har ont.</span>
+        Men du vill framför allt veta varför.
+      </h2>
+
+      <div class="lg:col-span-6 lg:col-start-7">
+        <p class="t-brod max-w-(--container-läs) text-dov">
+          De flesta som kommer till oss har redan varit någon annanstans först. Ofta flera gånger.
+          Det är sällan för att ingen har brytt sig — utan för att det är svårt att peka ut exakt
+          vilken struktur som gör ont.
+        </p>
+        <a
+          href="/besvar/"
+          class="lank-linje mt-8 inline-block py-1 text-[0.95rem] font-medium text-lyft"
+        >
+          Se vilka besvär vi arbetar med
+        </a>
+      </div>
+    </div>
+
+    <!-- Beläggen. Hårlinjer, inga kort. -->
+    <dl class="mt-16 grid grid-cols-2 gap-px border-t border-linje bg-linje lg:mt-20 lg:grid-cols-4">
+      {
+        CREDENTIALS.map((c) => (
+          <div class="bg-papper pt-8 pr-5 pb-1 sm:pt-10">
+            <dt class="sr-only">{c.etikett}</dt>
+            <dd>
+              <span class="t-siffra block text-djup">{c.tal}</span>
+              <span class="t-etikett mt-5 block text-djup">{c.etikett}</span>
+              <span class="t-liten mt-2 block max-w-[26ch] text-dov">{c.text}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

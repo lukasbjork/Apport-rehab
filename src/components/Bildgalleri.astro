@@ -1,0 +1,144 @@
+---
+/**
+ * Klinikens egna bilder i galleriformat.
+ *
+ * Ersätter den tidigare UltraljudHjalte, som visade EN bild och omgav den
+ * med tre dekorativa etiketter ("Ultraljud", "Struktur", "Blockad") som
+ * dessutom föll på kontrastkravet.
+ *
+ * Kliniken har inga miljöbilder, inga porträtt och ingen stockfotografering.
+ * Det enda bildmaterialet är ultraljud och blockadbilder — och det är den
+ * enda visuella tillgång ingen konkurrent har. Här får de bära en hel
+ * sektion i stället för att ligga som småbilder bredvid text.
+ *
+ * Bilderna beskärs inte: varje figur behåller sina naturliga proportioner
+ * via width/height, vilket också gör att raderna får olika höjd och
+ * sektionen slutar läsa som ett rutnät. width/height är satta på samtliga
+ * så att inget hoppar under laddning.
+ *
+ * Alt-texter och bildtexter är ordagrant desamma som på undersidorna.
+ */
+const bilder = [
+  {
+    src: '/bilder/ultraljud-l5-s1.webp',
+    w: 640,
+    h: 430,
+    span: 'lg:col-span-7',
+    alt: 'Ultraljudsbild från Apport som visar vävnadslagren i nedre ländryggen med markörer vid de bedömda strukturerna',
+    caption:
+      'Ultraljudsbild från kliniken. Med ultraljud kan vävnaden bedömas i rörelse, och nålens läge följas medan den förs in.',
+  },
+  {
+    src: '/bilder/blockad-halsrygg.webp',
+    w: 1400,
+    h: 1400,
+    span: 'lg:col-span-5',
+    alt: 'Anatomisk modell av halsryggen där en nål visar placeringen vid en blockad mellan kotorna',
+    caption:
+      'Demonstration på anatomisk modell: nålens väg in mot en facettled i halsryggen. På patient styrs placeringen med ultraljud.',
+  },
+  {
+    src: '/bilder/rotblockad-halsrygg.webp',
+    w: 1400,
+    h: 1051,
+    span: 'lg:col-span-8',
+    alt: 'Anatomisk modell av halsryggen där en nål visar vägen in mot en nervrot',
+    caption:
+      'Demonstration på anatomisk modell: hur en nål förs in mot en nervrot i halsryggen. På patient styrs placeringen med ultraljud, eftersom strukturerna ligger tätt.',
+  },
+  {
+    src: '/bilder/pulsad-rf-3.webp',
+    w: 1400,
+    h: 1866,
+    span: 'lg:col-span-4',
+    alt: 'Nålar för nervriktad behandling placerade i ryggen under ett besök på Apport',
+    caption:
+      'Nervriktad behandling på kliniken. Nålarnas läge kontrolleras med ultraljud, eftersom strukturerna ligger tätt.',
+  },
+  {
+    src: '/bilder/pulsad-rf-1.webp',
+    w: 1400,
+    h: 935,
+    span: 'lg:col-span-7',
+    alt: 'Två nålar för pulsad radiofrekvens placerade i ländryggen under behandling på Apport',
+    caption:
+      'Pulsad radiofrekvens i ländryggen. Nålarnas läge kontrolleras med ultraljud före behandlingen.',
+  },
+  {
+    src: '/bilder/blockad-backenled.webp',
+    w: 1400,
+    h: 1400,
+    span: 'lg:col-span-5',
+    alt: 'Anatomisk modell av bäcken och ländrygg där en spruta visar nålens riktning vid en bäckenledsblockad',
+    caption:
+      'Demonstration på anatomisk modell: nålens riktning vid en bäckenledsblockad. På patient styrs placeringen med ultraljud.',
+  },
+];
+
+const punkter = [
+  {
+    rubrik: 'Vi ser vävnaden i rörelse',
+    text: 'Röntgen och magnetkamera ger stillbilder. Med ultraljud kan vi se hur senor och muskler beter sig när leden faktiskt rör sig.',
+  },
+  {
+    rubrik: 'Nålen hamnar där den ska',
+    text: 'Vid blockader följer vi nålen på skärmen medan den förs in. Det är skillnaden mellan att träffa rätt struktur och att hoppas.',
+  },
+  {
+    rubrik: 'Svaret kommer ofta snabbare',
+    text: 'Ibland ger undersökningen besked redan vid första besöket om vilken struktur som är inblandad.',
+  },
+];
+---
+
+<section class="bg-djup py-(--spacing-rytm-vid)">
+  <div class="mx-auto max-w-(--container-content) px-5 sm:px-8">
+    <!--
+      Ingen ingress här med flit. Rubriken och bildtexterna är klinikens
+      egen copy; allt jag hade skrivit ovanpå hade varit påhittat.
+    -->
+    <h2 class="t-h2 max-w-2xl text-papper">
+      <span class="block font-light">Se strukturen.</span>
+      Förstå smärtan.
+    </h2>
+
+    <div class="mt-16 grid gap-x-8 gap-y-14 lg:mt-20 lg:grid-cols-12 lg:items-start">
+      {
+        bilder.map((b) => (
+          <figure class={b.span}>
+            <div class="y-ram-mork">
+              <img
+                src={b.src}
+                alt={b.alt}
+                width={b.w}
+                height={b.h}
+                loading="lazy"
+                decoding="async"
+                class="w-full"
+              />
+            </div>
+            <figcaption class="t-liten mt-4 max-w-prose text-ljus-dov">{b.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="mt-20 grid gap-10 border-t border-papper/12 pt-14 sm:grid-cols-3">
+      {
+        punkter.map((p) => (
+          <div>
+            <h3 class="t-h3 text-papper">{p.rubrik}</h3>
+            <p class="t-liten mt-3 text-ljus-dov">{p.text}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <a
+      href="/behandlingar/utredning/"
+      class="lank-linje mt-14 inline-block py-1 text-[0.98rem] font-medium text-papper"
+    >
+      Läs om hur utredningen går till
+    </a>
+  </div>
+</section>

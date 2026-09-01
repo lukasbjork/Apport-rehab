@@ -37,8 +37,8 @@ const gruppText: Record<string, string> = {
 
   {
     grupper.map((grupp) => {
- const iGrupp = CONDITIONS.filter((c) => c.group === grupp);
- return (
+      const iGrupp = CONDITIONS.filter((c) => c.group === grupp);
+      return (
         <section class="px-5 pt-(--spacing-rytm) sm:px-8">
           <div class="mx-auto max-w-(--container-content)">
             <div class="flex flex-col gap-3 border-b border-linje pb-6 sm:flex-row sm:items-end sm:justify-between">
@@ -62,7 +62,7 @@ const gruppText: Record<string, string> = {
       <div class="rounded-[2rem] border border-linje bg-mellan/35 p-8 sm:p-12">
         <h2 class="text-[1.5rem] text-djup">Hittar du inte dina besvär här?</h2>
         <p class="mt-4 max-w-(--container-läs) text-[1rem] leading-relaxed text-dov">
- Listan är inte uttömmande — den beskriver det vi arbetar med oftast. Skriv gärna ändå, så
+          Listan är inte uttömmande — den beskriver det vi arbetar med oftast. Skriv gärna ändå, så
           läser vi och säger till om vi tror att vi kan hjälpa dig.
         </p>
         <p class="mt-6 max-w-(--container-läs) text-[1rem] leading-relaxed text-dov">
