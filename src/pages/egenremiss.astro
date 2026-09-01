@@ -124,7 +124,7 @@ const mailtoBody = encodeURIComponent(
 const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}&body=${mailtoBody}`;
 
 const falt =
-  'mt-3 w-full rounded-sm border border-dov bg-topp px-4 py-3 text-[1rem] text-djup transition-colors placeholder:text-dov/60 focus:border-djup focus:outline-none';
+  'mt-3 w-full rounded-sm border border-dov bg-topp px-4 py-3 text-[1rem] text-djup transition-colors placeholder:text-dov/60 focus:border-djup';
 const etikett = 'block text-[0.95rem] font-medium text-djup';
 const hjalp = 't-liten mt-1.5 text-dov';
 ---
@@ -338,8 +338,8 @@ const hjalp = 't-liten mt-1.5 text-dov';
                 />
                 <label for="samtycke" class="t-liten text-dov">
                   Jag samtycker till att Apport behandlar uppgifterna ovan, inklusive det jag
-                  skrivit om min hälsa, för att kunna bedöma om kliniken kan hjälpa mig. Läs mer om
-                  <a href="/integritetspolicy/" class="lank-linje text-lyft"
+                  skrivit om min hälsa, för att kunna bedöma om kliniken kan hjälpa mig.
+                  Läs mer om <a href="/integritetspolicy/" class="lank-linje text-lyft"
                     >hur vi hanterar personuppgifter</a
                   >.
                 </label>
