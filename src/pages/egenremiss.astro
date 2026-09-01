@@ -545,10 +545,13 @@ const hjalp = 't-liten mt-1.5 text-dov';
     display: block;
   }
 
-  /* Fältet som inte klarar valideringen markeras först efter ett försök */
-  .steg-panel input:not(:placeholder-shown):invalid,
-  .steg-panel textarea:not(:placeholder-shown):invalid,
-  #egenremiss.har-forsokt :invalid {
+  /*
+    Fält markeras rött först när ANVÄNDAREN gjort något fel — :user-invalid,
+    inte :invalid. Ett obligatoriskt tomt fält är tekniskt :invalid redan vid
+    sidladdning, så :invalid hade ritat rött innan man ens rört formuläret.
+  */
+  .steg-panel :user-invalid,
+  .steg-panel [aria-invalid='true'] {
     border-color: var(--color-lera);
   }
 </style>
@@ -609,9 +612,9 @@ const hjalp = 't-liten mt-1.5 text-dov';
       const stegetArGiltigt = () => {
         const aktiv = paneler[steg - 1];
         const falt = [...aktiv.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea, select')];
-        form.classList.add('har-forsokt');
         for (const f of falt) {
           if (!f.checkValidity()) {
+            f.setAttribute('aria-invalid', 'true');
             f.reportValidity();
             f.focus();
             return false;
@@ -632,6 +635,14 @@ const hjalp = 't-liten mt-1.5 text-dov';
           if (mal instanceof HTMLTextAreaElement) return;
           e.preventDefault();
           if (stegetArGiltigt()) visa(steg + 1);
+        }
+      });
+
+      // Felmarkeringen försvinner så fort användaren rättar fältet
+      form.addEventListener('input', (e) => {
+        const f = e.target as HTMLInputElement | HTMLTextAreaElement;
+        if (f.getAttribute('aria-invalid') === 'true' && f.checkValidity()) {
+          f.removeAttribute('aria-invalid');
         }
       });
 
