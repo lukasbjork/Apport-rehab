@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
       <div class="text-papper">
         <Logo variant="full" size={30} />
       </div>
-      <p class="max-w-sm text-[0.98rem] leading-relaxed">
+      <p class="t-brod max-w-sm">
  Privat smärtspecialistklinik i Kristianstad sedan 2010. Vi utreder och behandlar lokala
  och regionala smärttillstånd, på uppdrag av Region Skåne.
       </p>
@@ -71,7 +71,7 @@ const year = new Date().getFullYear();
           }
           <li>
             <a href="/besvar/" class="lank-linje inline-block py-1 text-ljus-dov hover:text-papper">
- Alla besvär →
+              Alla besvär
             </a>
           </li>
         </ul>
@@ -104,7 +104,7 @@ const year = new Date().getFullYear();
             <a href={`tel:${SITE.phoneHref}`} class="lank-linje inline-block py-1 hover:text-papper"
               >{SITE.phone}</a
             >
-            <span class="block text-[0.84rem] text-papper/55">Telefontid {PHONE_HOURS.toLowerCase()}</span>
+            <span class="block text-[0.84rem] text-ljus-dov">Telefontid {PHONE_HOURS.toLowerCase()}</span>
           </p>
           <p>
             <a
@@ -115,7 +115,7 @@ const year = new Date().getFullYear();
           <p class="pt-1 leading-relaxed">
             {SITE.street}<br />
             {SITE.postalCode}&nbsp;{SITE.city}<br />
-            <span class="text-[0.84rem] text-papper/55">{SITE.addressNote}</span>
+            <span class="text-[0.84rem] text-ljus-dov">{SITE.addressNote}</span>
           </p>
         </address>
 
@@ -125,13 +125,13 @@ const year = new Date().getFullYear();
             OPENING_HOURS.map((d) => (
               <li class="flex justify-between gap-4">
                 <span>{d.day}</span>
-                <span class="tabular-nums text-papper/55">{d.hours}</span>
+                <span class="tabular-nums text-ljus-dov">{d.hours}</span>
               </li>
             ))
           }
           <li class="flex justify-between gap-4">
             <span>Lördag–söndag</span>
-            <span class="text-papper/55">Stängt</span>
+            <span class="text-ljus-dov">Stängt</span>
           </li>
         </ul>
       </div>
@@ -141,7 +141,10 @@ const year = new Date().getFullYear();
     <div
       class="mt-16 flex flex-col gap-4 border-t border-papper/12 pt-8 text-[0.85rem] sm:flex-row sm:items-center sm:justify-between"
     >
-      <p class="text-papper/50">© {year} {SITE.fullName} · Org.nr {SITE.orgNr}</p>
+      <p class="text-ljus-dov">
+        <span class="block">© {year} {SITE.fullName}</span>
+        <span class="block">Org.nr {SITE.orgNr}</span>
+      </p>
       <ul class="flex flex-wrap gap-x-7 gap-y-2">
         <li>
           <a href="/integritetspolicy/" class="lank-linje inline-block py-1 hover:text-papper"

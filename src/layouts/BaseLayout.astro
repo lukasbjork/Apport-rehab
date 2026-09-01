@@ -3,7 +3,6 @@ import '../styles/global.css';
 import SeoHead from '../components/SeoHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import MobilCta from '../components/MobilCta.astro';
 
 interface Props {
   title: string;
@@ -36,17 +35,16 @@ const { title, description, ogImage, ogType, schema, noindex, overHero = false }
   <body class="overflow-x-clip">
     <a
       href="#innehall"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-djup focus:px-5 focus:py-3 focus:text-papper"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-djup focus:px-5 focus:py-3 focus:text-topp"
       >Hoppa till innehåll</a
     >
 
     <Header {overHero} />
 
-    <main id="innehall" class:list={['pb-24 lg:pb-0', !overHero && 'pt-[5.5rem] lg:pt-[6rem]']}>
+    <main id="innehall" class:list={[!overHero && 'pt-[5.25rem] lg:pt-[5.75rem]']}>
       <slot />
     </main>
 
     <Footer />
-    <MobilCta />
   </body>
 </html>

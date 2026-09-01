@@ -2,19 +2,22 @@
 /**
  * Logotyp: redaktionell masthead.
  *
- * APPORT i Literata med öppen spärr, en hårlinje under, och underraden
- * SMÄRTSPECIALIST · KRISTIANSTAD.
+ * APPORT som ordbild med öppen spärr, en hårlinje under, och underraden
+ * som talar om vad kliniken är och var den finns — vilket är precis vad en
+ * förstagångsbesökare behöver veta inom några sekunder. En ren ikon hade
+ * sagt ingenting av det.
  *
- * Underraden gör dubbel nytta: den är en del av märket och den talar om vad
- * kliniken är och var den finns — vilket är precis vad en förstagångsbesökare
- * behöver veta inom några sekunder. En ren ikon hade sagt ingenting av det.
+ * Underraden stod tidigare som SMÄRTSPECIALIST · KRISTIANSTAD. Både
+ * versalerna och mittpricken är borta: gemener med normal spärr läser som
+ * en klinik som skrivit sin egen skylt, versaler med mittprick läser som en
+ * mall. Informationen är densamma.
  *
  * Formen valdes efter att tre bildmärken fallit: ultraljudssektorn blev en
  * varningstriangel i litet format, enbart bågar blev wifi-symbolen, och böjda
  * lager med punkt läste som ett slutet öga. En ordbild har inte det problemet
  * och passar dessutom en liten specialistklinik bättre än en ikon.
  *
- * variant="full" header och footer på desktop
+ * variant="full"    header och footer på desktop
  * variant="kompakt" mobil och trånga ytor — underraden faller bort
  */
 interface Props {
@@ -27,17 +30,14 @@ const { variant = 'full', size = 23, class: className = '' } = Astro.props;
 ---
 
 <span class={`inline-block leading-none ${className}`}>
-  <span
-    class="block font-[family-name:var(--font-display)] tracking-[0.075em]"
-    style={`font-size:${size}px`}>APPORT</span
-  >
+  <span class="block font-semibold tracking-[0.06em]" style={`font-size:${size}px`}>Apport</span>
   {
- variant === 'full' && (
+    variant === 'full' && (
       <span
-        class="mt-[5px] block border-t border-current/25 pt-[4px] font-semibold tracking-[0.2em] opacity-80"
-        style={`font-size:${Math.max(7.5, size * 0.37)}px`}
+        class="mt-[6px] block border-t border-current/25 pt-[5px] font-medium tracking-[0.005em] opacity-75"
+        style={`font-size:${Math.max(9, size * 0.42)}px`}
       >
-        SMÄRTSPECIALIST · KRISTIANSTAD
+        Smärtspecialistklinik i Kristianstad
       </span>
     )
   }
