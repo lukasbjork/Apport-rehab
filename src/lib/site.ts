@@ -30,9 +30,21 @@ export const SITE = {
   emailAdmin: 'info@apport.rehab',
 
   /**
-   * Besöksadress. Verifierad mot 1177 OCH /kontakt/ på nuvarande sajt.
-   * OBS: allabolag.se anger Östra Storgatan 30 som registrerad adress.
-   * [VERIFIERA] Bekräfta med kliniken vilken som är korrekt besöksadress.
+   * Besöksadress.
+   *
+   * Gatan är bekräftad: Östra Storgatan 25 står på nuvarande sajt, på 1177
+   * och i klinikens Google-profil. (allabolag anger 30, men det är den
+   * registrerade adressen, inte besöksadressen.)
+   *
+   * POSTNUMRET är däremot omtvistat — tre källor säger tre olika saker:
+   *   291 32  klinikens egen sajt /kontakt/   ← används här
+   *   291 29  klinikens Google-profil
+   *   291 30  allabolag (hör ihop med nr 30)
+   *
+   * Vi behåller 291 32 eftersom det står på klinikens egen webbplats.
+   * [VERIFIERA] Kliniken måste bekräfta vilket som gäller, och sedan rätta
+   * det som är fel — helst i Google-profilen också, eftersom Google jämför
+   * uppgifterna mot varandra och avvikelser försämrar den lokala synligheten.
    */
   street: 'Östra Storgatan 25',
   postalCode: '291 32',

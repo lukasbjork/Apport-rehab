@@ -41,6 +41,11 @@ interface Omdome {
   betyg: number;
   /** Valfritt: "för 2 månader sedan" eller ett datum */
   when?: string;
+  /**
+   * true om Google bara visade en del av texten. Kortet får då en rad om
+   * att omdömet är avkortat, så att ingen tror att citatet är fullständigt.
+   */
+  avkortat?: boolean;
 }
 
 interface GoogleOmdomen {
@@ -51,12 +56,52 @@ interface GoogleOmdomen {
 }
 
 /**
- * TOM TILLS RIKTIGA SIFFROR FÖRTS IN.
+ * Avläst från klinikens Google-profil 2026-09-01.
  *
- * Google spärrar automatiserad läsning av omdömessidan, så uppgifterna
- * måste föras in för hand av någon som är inloggad.
+ * 7 omdömen, samtliga 5/5. Fyra har text, tre är enbart betyg — de sistnämnda
+ * räknas in i snittet men har inget att visa, så de finns inte som kort.
+ *
+ * Jo Bodens omdöme är AVKORTAT. Google visade bara början följt av "… Mer",
+ * och sidan går inte att läsa automatiserat. Texten återges ordagrant så
+ * långt den var synlig och avslutas med "…". Den som vill läsa hela klickar
+ * sig vidare via länken. Gissa aldrig hur ett omdöme slutar.
+ *
+ * Stäm av siffrorna vid varje större uppdatering — ett inaktuellt snittbetyg
+ * är sämre än inget alls, särskilt när det ligger i AggregateRating-schemat.
  */
-const GOOGLE: GoogleOmdomen | null = null;
+const GOOGLE: GoogleOmdomen | null = {
+  snitt: 5.0,
+  antal: 7,
+  url: 'https://www.google.com/search?q=Apport+AB+Recensioner',
+  omdomen: [
+    {
+      text:
+        'Som patient med ryggsmärta efter steloperationer sedan många år är jag så tacksam att ha hittat någon som verkar uppriktigt intresserad av att söka efter något …',
+      namn: 'Jo Boden',
+      betyg: 5,
+      when: 'för 3 år sedan',
+      avkortat: true,
+    },
+    {
+      text: 'Underbar förstående läkare och övrig personal.',
+      namn: 'Bing Boström',
+      betyg: 5,
+      when: 'för 5 år sedan',
+    },
+    {
+      text: 'Helt klart de bästa',
+      namn: 'Eva Ohlsson',
+      betyg: 5,
+      when: 'för 2 månader sedan',
+    },
+    {
+      text: 'Dom bästa ❤️',
+      namn: 'Kerstin Wallander Jansson',
+      betyg: 5,
+      when: 'för 3 år sedan',
+    },
+  ],
+};
 
 const stjarnor = (n: number) => Math.round(n);
 ---
@@ -100,7 +145,7 @@ const stjarnor = (n: number) => Math.round(n);
 
         {/* Enskilda omdömen */}
         {GOOGLE.omdomen.length > 0 && (
-          <ul class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <ul class="mx-auto mt-14 grid max-w-4xl items-start gap-6 sm:grid-cols-2">
             {GOOGLE.omdomen.map((o) => (
               <li>
                 <figure class="stig flex h-full flex-col rounded-2xl bg-papper p-8">
@@ -122,6 +167,16 @@ const stjarnor = (n: number) => Math.round(n);
                   <figcaption class="mt-6 border-t border-sten pt-5 text-[0.86rem]">
                     <span class="font-medium text-mossa-djup">{o.namn}</span>
                     {o.when && <span class="block text-skiffer">{o.when}</span>}
+                    {o.avkortat && (
+                      <a
+                        href={GOOGLE.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="lank-linje mt-1.5 inline-block text-[0.82rem] text-mossa"
+                      >
+                        Avkortat — läs hela på Google
+                      </a>
+                    )}
                   </figcaption>
                 </figure>
               </li>
@@ -153,12 +208,16 @@ const stjarnor = (n: number) => Math.round(n);
             bestRating: 5,
             worstRating: 1,
           },
-          review: GOOGLE.omdomen.map((o) => ({
-            '@type': 'Review',
-            reviewRating: { '@type': 'Rating', ratingValue: o.betyg, bestRating: 5 },
-            author: { '@type': 'Person', name: o.namn },
-            reviewBody: o.text,
-          })),
+          // Avkortade omdömen utelämnas ur schemat — reviewBody ska vara
+          // recensentens fullständiga text, inte ett utdrag.
+          review: GOOGLE.omdomen
+            .filter((o) => !o.avkortat)
+            .map((o) => ({
+              '@type': 'Review',
+              reviewRating: { '@type': 'Rating', ratingValue: o.betyg, bestRating: 5 },
+              author: { '@type': 'Person', name: o.namn },
+              reviewBody: o.text,
+            })),
         })}
       />
     </section>
