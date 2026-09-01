@@ -1,5 +1,12 @@
 ---
-import Sikte from './Sikte.astro';
+/**
+ * Avslutande CTA på undersidor.
+ *
+ * Låg tidigare som en rundad panel med radie 2rem och en stor streckad
+ * siktglyf i hörnet. Både panelen och glyfen är borta: sektionen går nu i
+ * full bredd som alla andra mörka sektioner, så att växlingen mörkt/ljust
+ * bär rytmen i stället för att varje block ritar en egen ram.
+ */
 import { SITE, CTA, PHONE_HOURS } from '../lib/site';
 
 interface Props {
@@ -13,40 +20,18 @@ const {
 } = Astro.props;
 ---
 
-<section class="px-5 py-(--spacing-rytm) sm:px-8">
-  <div
-    class="relative mx-auto max-w-(--container-content) overflow-hidden rounded-[2rem] bg-djup px-6 py-16 sm:px-14 sm:py-20"
-  >
-    <!-- Dekor: stora sikten, avsiktligt utanför flödet -->
-    <div
-      aria-hidden="true"
-      class="pointer-events-none absolute -right-16 -top-16 text-ljus-dov/12 sm:-right-8"
-    >
-      <Sikte size={280} dashed />
+<section class="bg-djup px-5 py-(--spacing-rytm-vid) sm:px-8">
+  <div class="mx-auto max-w-(--container-content)">
+    <h2 class="t-h2 max-w-[16ch] text-papper">{rubrik}</h2>
+    <p class="t-brod mt-8 max-w-(--container-läs) text-ljus-dov">{text}</p>
+
+    <div class="mt-11 flex flex-wrap gap-3">
+      <a href={CTA.primary.href} class="knapp knapp-ljus">{CTA.primary.label}</a>
+      <a href={`mailto:${SITE.email}`} class="knapp knapp-kant-ljus">{SITE.email}</a>
     </div>
 
-    <div class="relative max-w-xl">
-      <h2 class="text-[clamp(1.8rem,3.4vw,2.6rem)] leading-[1.14] text-papper">{rubrik}</h2>
-      <p class="mt-5 text-[1.05rem] leading-relaxed text-papper/72">{text}</p>
-
-      <div class="mt-9 flex flex-wrap gap-3">
-        <a
-          href={CTA.primary.href}
-          class="rounded-full bg-papper px-7 py-3.5 text-[0.95rem] font-medium text-djup transition-colors hover:bg-mellan"
-        >
-          {CTA.primary.label}
-        </a>
-        <a
-          href={`mailto:${SITE.email}`}
-          class="rounded-full border border-papper/25 px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:border-papper/60"
-        >
-          {SITE.email}
-        </a>
-      </div>
-
-      <p class="mt-7 text-[0.86rem] text-papper/58">
-        Eller ring {SITE.phone} — telefontid {PHONE_HOURS.toLowerCase()}.
-      </p>
-    </div>
+    <p class="t-liten mt-8 text-ljus-dov">
+      Eller ring {SITE.phone} — telefontid {PHONE_HOURS.toLowerCase()}.
+    </p>
   </div>
 </section>

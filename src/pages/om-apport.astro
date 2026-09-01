@@ -3,8 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SidHuvud from '../components/SidHuvud.astro';
 import CtaSektion from '../components/CtaSektion.astro';
 import SektionsRubrik from '../components/SektionsRubrik.astro';
-import BildPlatshallare from '../components/BildPlatshallare.astro';
-import Sikte from '../components/Sikte.astro';
 import Referenser from '../components/Referenser.astro';
 import { TEAM, NOT_OFFERED } from '../lib/content';
 import { SITE } from '../lib/site';
@@ -37,7 +35,6 @@ const schema = [
 
 <BaseLayout {title} {description} {schema}>
   <SidHuvud
-    etikett="Om Apport"
     rubrik="En liten klinik med ovanligt mycket erfarenhet"
     ingress="Apport startades 2010 och drivs av två personer — en läkare och en fysioterapeut, gifta med varandra. Vi har varit fullbokade sedan starten, och har därför kunnat välja att göra färre saker men göra dem ordentligt."
     {crumbs}
@@ -48,7 +45,7 @@ const schema = [
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <SektionsRubrik etikett="Namnet" rubrik="Apport betyder ”hämta tillbaka”" />
+          <SektionsRubrik rubrik="Apport betyder ”hämta tillbaka”" />
         </div>
         <div class="space-y-5 text-[1.05rem] leading-relaxed text-dov lg:col-span-7">
           <p>
@@ -76,7 +73,6 @@ const schema = [
   <section id="arbetssatt" class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
-        etikett="Vårt arbetssätt"
         rubrik="Tjugo års erfarenhet av patienter som inte blivit hjälpta av det vanliga"
         ingress="Det förändrar hur man tänker. Inte så att man tror sig kunna allt — snarare tvärtom."
       />
@@ -123,7 +119,7 @@ const schema = [
   <!-- Teamet -->
   <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <SektionsRubrik etikett="Bakom Apport" rubrik="Personerna du möter" />
+      <SektionsRubrik rubrik="Personerna du möter" />
 
       <div class="mt-16 space-y-20">
         {
@@ -138,31 +134,25 @@ const schema = [
                     height="1000"
                     loading="lazy"
                     decoding="async"
-                    class="aspect-4/5 w-full rounded-2xl border border-linje object-cover"
+                    class="aspect-4/5 w-full rounded-sm border border-linje object-cover"
                   />
-                ) : (
-                  <BildPlatshallare
-                    behov={`Porträtt av ${person.name}`}
-                    monogram={person.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                    ratio="aspect-4/5"
-                  />
-                )}
+                ) : null}
 
-                <ul class="mt-5 flex flex-wrap gap-2">
+                {/*
+                  Ingen platshållarruta när fotot saknas. En stor grå ruta med
+                  initialer är inte en bild — den är ett hål som låtsas vara en.
+                  Kompetenserna får bära kolumnen tills kliniken levererat
+                  porträtt; då byts de mot <img> ovan utan att layouten ändras.
+                */}
+                <ul class:list={['border-t border-linje', person.image && 'mt-6']}>
                   {person.specialties.map((sp) => (
-                    <li class="flex items-center gap-1.5 rounded-full bg-mellan/70 px-3 py-1.5 text-[0.8rem] text-djup">
-                      <Sikte size={11} />
-                      {sp}
-                    </li>
+                    <li class="t-liten border-b border-linje py-3 text-dov">{sp}</li>
                   ))}
                 </ul>
               </div>
 
               <div class:list={['lg:col-span-7', i % 2 === 1 && 'lg:order-1']}>
-                <h3 class="text-[1.9rem] leading-tight text-djup">{person.name}</h3>
+                <h3 class="t-h2 text-djup">{person.name}</h3>
                 <p class="mt-2 text-[1rem] font-medium text-dov">{person.role}</p>
 
                 <div class="mt-6 space-y-4 text-[1.03rem] leading-relaxed text-dov">
@@ -171,7 +161,7 @@ const schema = [
                   ))}
                 </div>
 
-                <details class="group mt-7 rounded-2xl border border-linje bg-papper p-6">
+                <details class="group mt-7 rounded-sm border border-linje bg-papper p-6">
                   <summary class="flex items-center justify-between gap-4 text-[0.95rem] font-medium text-djup">
                     <span>Utbildning och meriter</span>
                     <span
@@ -187,7 +177,6 @@ const schema = [
                     {person.credentials.map((rad) => (
                       <li class="flex items-start gap-3 text-[0.93rem] leading-relaxed text-dov">
                         <span class="mt-1 shrink-0 text-dov">
-                          <Sikte size={12} />
                         </span>
                         {rad}
                       </li>
@@ -208,7 +197,6 @@ const schema = [
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <SektionsRubrik
-            etikett="Kliniken"
             rubrik="Andra våningen i ett hus från 1614"
           />
           <div class="mt-8 space-y-5 text-[1.03rem] leading-relaxed text-dov">
@@ -228,33 +216,29 @@ const schema = [
 
           <a
             href="/kontakt/"
-            class="mt-9 inline-block rounded-full bg-lyft px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:bg-djup"
+            class="knapp knapp-mork mt-9"
           >
             Hitta hit
           </a>
         </div>
 
         <div class="lg:col-span-7">
-          <BildPlatshallare
-            behov="Miljöbild från kliniken — mottagning, behandlingsrum eller husets fasad"
-            monogram="Borgmästaregården"
-            ratio="aspect-4/3"
-          />
-          <dl class="mt-6 grid gap-6 sm:grid-cols-3">
+          {/* Miljöbilden saknas fortfarande. Fakta får bära kolumnen så länge. */}
+          <dl class="grid gap-6 border-t border-linje pt-8 sm:grid-cols-3">
             <div>
-              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-dov">
+              <dt class="t-etikett text-dov">
                 Grundad
               </dt>
               <dd class="mt-1.5 text-[1.05rem] text-djup">{SITE.founded}</dd>
             </div>
             <div>
-              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-dov">
+              <dt class="t-etikett text-dov">
                 Verksamhetschef
               </dt>
               <dd class="mt-1.5 text-[1.05rem] text-djup">{SITE.medicalDirector}</dd>
             </div>
             <div>
-              <dt class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-dov">
+              <dt class="t-etikett text-dov">
                 Uppdrag
               </dt>
               <dd class="mt-1.5 text-[1.05rem] text-djup">Region Skåne</dd>

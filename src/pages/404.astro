@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Sikte from '../components/Sikte.astro';
 import { CONDITIONS } from '../lib/content';
 import { SITE, CTA } from '../lib/site';
 
@@ -18,23 +17,16 @@ const genvagar = [
   noindex
 >
   <section class="relative overflow-hidden bg-djup px-5 py-24 sm:px-8 sm:py-32">
-    <div
-      aria-hidden="true"
-      class="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 text-ljus-dov/10"
-    >
-      <Sikte size={360} dashed />
-    </div>
 
     <div class="relative mx-auto max-w-(--container-content)">
-      <p class="flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-ljus-dov">
-        <Sikte size={13} />
+      <p class="t-etikett text-ljus-dov">
         404
       </p>
-      <h1 class="mt-6 max-w-2xl text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.1] text-papper">
-        Den sidan finns inte.
-        <span class="mt-1 block text-ljus-dov">Men du kan börja här.</span>
+      <h1 class="t-h1 mt-6 max-w-2xl text-papper">
+        <span class="block font-light">Den sidan finns inte.</span>
+        <span class="mt-1 block">Men du kan börja här.</span>
       </h1>
-      <p class="mt-6 max-w-xl text-[1.08rem] leading-relaxed text-papper/72">
+      <p class="t-ingress mt-8 max-w-(--container-läs) text-ljus-dov">
         Länken kan vara gammal eller felstavad. Prova någon av vägarna nedan — eller berätta om
         dina besvär direkt, så pekar vi dig rätt.
       </p>
@@ -70,14 +62,14 @@ const genvagar = [
 
   <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[1.5rem] text-djup">Besvär vi arbetar med</h2>
+      <h2 class="t-h2 text-djup">Besvär vi arbetar med</h2>
       <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
           CONDITIONS.map((c) => (
             <li>
               <a
                 href={`/besvar/${c.slug}/`}
-                class="group flex h-full flex-col justify-between rounded-2xl border border-linje bg-topp p-6 transition-all duration-300 hover:border-ljus-dov"
+                class="group flex h-full flex-col justify-between rounded-sm border border-linje bg-topp p-6 transition-all duration-300 hover:border-ljus-dov"
               >
                 <span class="text-[1rem] leading-snug text-djup">{c.name}</span>
                 <span class="mt-5 text-[0.85rem] font-medium text-lyft transition-colors group-hover:text-lera">

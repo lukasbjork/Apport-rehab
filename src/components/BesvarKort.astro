@@ -1,84 +1,47 @@
 ---
 /**
- * Besvärskort.
+ * Besvär som rad, inte som kort.
  *
- * Ramlöst med flit. Tidigare hade varje kort en heldragen ram, vilket gjorde
- * rutnätet till ett rutmönster av lådor. Nu bärs avgränsningen av en tonad
- * bakgrund och en hårlinje som växer fram vid hover — kortet läser som en
- * yta, inte som en box.
+ * Var ett rundat kort med tonad yta och en accentlinje som växte fram vid
+ * hover. Tio sådana i rutnät gjorde sidan till ett rutmönster av lådor med
+ * identisk vikt. En hårlinjerad rad säger samma sak, tar en tredjedel så
+ * mycket plats och låter rubriken bära.
+ *
+ * Gruppetiketten är borttagen: den upprepade sektionsrubriken ovanför.
  */
 import type { Condition } from '../lib/content';
 
 interface Props {
   condition: Condition;
-  /** Framhävt kort — spänner bredare och får större typografi */
-  wide?: boolean;
   /**
-   * Döljer teasern. Används på startsidan, där tio teasrar i rad blir en
-   * textvägg. Hubbsidan /besvar/ visar dem, för där är man för att välja.
+   * Döljer teasern. Hubbsidan /besvar/ visar dem, för där är man för att
+   * välja; i kortare listor blir tio teasrar en textvägg.
    */
   compact?: boolean;
 }
-const { condition, wide = false, compact = false } = Astro.props;
+const { condition, compact = false } = Astro.props;
 ---
 
 <a
   href={`/besvar/${condition.slug}/`}
-  class:list={[
-    ' group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-topp p-7 transition-all duration-300',
-    wide && 'sm:col-span-2 sm:p-9',
-  ]}
+  class="rad group flex items-baseline justify-between gap-6 py-5 sm:px-2"
 >
-  <!-- Accentlinje som växer fram vid hover -->
+  <span>
+    <span class="t-h3 block text-djup">{condition.name}</span>
+    {!compact && <span class="t-liten mt-2 block max-w-prose text-dov">{condition.teaser}</span>}
+  </span>
   <span
     aria-hidden="true"
-    class="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-lyft transition-transform duration-400 ease-out group-hover:scale-x-100"
-  ></span>
-
-  <div>
-    <p class="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-dov">
-      {condition.group}
-    </p>
-    <h3
-      class:list={[
-        'mt-3 leading-snug text-djup',
-        wide ? 'text-[1.6rem]' : 'text-[1.3rem]',
-      ]}
-    >
-      {condition.name}
-    </h3>
-    {
-      (!compact || wide) && (
-        <p
-          class:list={[
-            'mt-3 leading-relaxed text-dov',
-            wide ? 'text-[1.02rem] sm:max-w-lg' : 'text-[0.95rem]',
-          ]}
-        >
-          {condition.teaser}
-        </p>
-      )
-    }
-  </div>
-
-  <span
-    class="mt-7 inline-flex items-center gap-2 text-[0.88rem] font-medium text-lyft transition-colors group-hover:text-lera"
+    class="shrink-0 text-dov transition-transform duration-300 group-hover:translate-x-1"
   >
-    Läs mer
-    <svg
-      width="15"
-      height="10"
-      viewBox="0 0 15 10"
-      fill="none"
-      aria-hidden="true"
-      class="transition-transform duration-300 group-hover:translate-x-1"
-    >
+    <svg width="18" height="11" viewBox="0 0 15 10" fill="none">
       <path
         d="M0 5h13M9.5 1L13.5 5L9.5 9"
         stroke="currentColor"
-        stroke-width="1.3"
+        stroke-width="1.2"
         stroke-linecap="round"
-        stroke-linejoin="round"></path>
+        stroke-linejoin="round"
+      />
     </svg>
   </span>
 </a>

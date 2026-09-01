@@ -29,7 +29,6 @@ const gruppText: Record<string, string> = {
 
 <BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs)]}>
   <SidHuvud
-    etikett="Besvär"
     rubrik="Vilken typ av smärta söker du hjälp för?"
     ingress="Vi arbetar med lokala och regionala smärttillstånd. Nedan är de besvär vi oftast utreder — välj det som ligger närmast dina egna, så beskriver vi hur vi brukar gå till väga."
     {crumbs}
@@ -42,15 +41,17 @@ const gruppText: Record<string, string> = {
         <section class="px-5 pt-(--spacing-rytm) sm:px-8">
           <div class="mx-auto max-w-(--container-content)">
             <div class="flex flex-col gap-3 border-b border-linje pb-6 sm:flex-row sm:items-end sm:justify-between">
-              <h2 class="text-[1.7rem] text-djup">{grupp}</h2>
-              <p class="max-w-lg text-[0.94rem] leading-relaxed text-dov">{gruppText[grupp]}</p>
+              <h2 class="t-h2 text-djup">{grupp}</h2>
+              <p class="t-liten max-w-lg text-dov">{gruppText[grupp]}</p>
             </div>
 
-            <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul class="mt-4">
               {iGrupp.map((c) => (
-                <BesvarKort condition={c} />
+                <li class="border-b border-linje">
+                  <BesvarKort condition={c} />
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
       );
@@ -59,13 +60,13 @@ const gruppText: Record<string, string> = {
 
   <section class="px-5 pt-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="rounded-[2rem] border border-linje bg-mellan/35 p-8 sm:p-12">
-        <h2 class="text-[1.5rem] text-djup">Hittar du inte dina besvär här?</h2>
-        <p class="mt-4 max-w-(--container-läs) text-[1rem] leading-relaxed text-dov">
+      <div class="border-t border-linje pt-10">
+        <h2 class="t-h2 text-djup">Hittar du inte dina besvär här?</h2>
+        <p class="t-brod mt-6 max-w-(--container-läs) text-dov">
           Listan är inte uttömmande — den beskriver det vi arbetar med oftast. Skriv gärna ändå, så
           läser vi och säger till om vi tror att vi kan hjälpa dig.
         </p>
-        <p class="mt-6 max-w-(--container-läs) text-[1rem] leading-relaxed text-dov">
+        <p class="t-brod mt-5 max-w-(--container-läs) text-dov">
           Däremot tar vi <strong class="font-semibold text-djup">inte</strong> emot {
             NOT_OFFERED.conditions.map((c) => c.toLowerCase()).join(', ')
           }. Vi utfärdar inte heller sjukskrivningsintyg eller parkeringstillstånd och förnyar inte

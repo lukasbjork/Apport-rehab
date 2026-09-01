@@ -1,6 +1,12 @@
 ---
+/**
+ * Sidhuvud på undersidor.
+ *
+ * Den stora streckade siktcirkeln i bakgrunden är borttagen — den var ren
+ * dekoration, och en mörk yta med en enda stor rubrik står starkare utan.
+ * Etiketten är kvar som prop men sätts i gemener, inte versaler.
+ */
 import Breadcrumbs from './Breadcrumbs.astro';
-import Sikte from './Sikte.astro';
 import type { Crumb } from '../lib/schema';
 
 interface Props {
@@ -12,33 +18,16 @@ interface Props {
 const { etikett, rubrik, ingress, crumbs } = Astro.props;
 ---
 
-<section class="relative overflow-hidden bg-djup px-5 pb-(--spacing-rytm) pt-10 sm:px-8">
-  <div
-    aria-hidden="true"
-    class="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 text-ljus-dov/10"
-  >
-    <Sikte size={340} dashed />
-  </div>
-
-  <div class="relative mx-auto max-w-(--container-content)">
+<section class="bg-djup px-5 pt-10 pb-(--spacing-rytm) sm:px-8">
+  <div class="mx-auto max-w-(--container-content)">
     <Breadcrumbs {crumbs} light />
 
-    <div class="mt-9 max-w-3xl">
-      {
-        etikett && (
-          <p class="t-etikett text-ljus-dov">{etikett}</p>
-        )
-      }
-      <h1
-        class:list={['t-h2 text-papper', etikett && 'mt-8']}
-      >
-        {rubrik}
-      </h1>
+    <div class="mt-10 max-w-4xl">
+      {etikett && <p class="t-etikett text-ljus-dov">{etikett}</p>}
+      <h1 class:list={['t-h1 text-papper', etikett && 'mt-6']}>{rubrik}</h1>
       {
         ingress && (
-          <p class="t-brod mt-9 max-w-(--container-läs) text-papper/72">
-            {ingress}
-          </p>
+          <p class="t-ingress mt-8 max-w-(--container-läs) text-ljus-dov">{ingress}</p>
         )
       }
     </div>

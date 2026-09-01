@@ -43,7 +43,7 @@ const { light = false } = Astro.props;
           <span
             class:list={[
               't-siffra relative z-10 block shrink-0 text-[2.6rem] leading-none lg:text-[3.4rem]',
-              light ? 'text-ljus-dov' : 'text-dov',
+              light ? 'text-papper' : 'text-djup',
             ]}
           >
             {step.number}
@@ -53,8 +53,8 @@ const { light = false } = Astro.props;
             <h3 class:list={['t-h3', light ? 'text-papper' : 'text-djup']}>{step.title}</h3>
             <p
               class:list={[
-                'mt-3 max-w-xs text-[0.95rem] leading-relaxed',
-                light ? 'text-papper/68' : 'text-dov',
+                't-liten mt-3 max-w-xs',
+                light ? 'text-ljus-dov' : 'text-dov',
               ]}
             >
               {step.body}

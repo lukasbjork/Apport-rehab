@@ -23,7 +23,6 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
 
 <BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs)]}>
   <SidHuvud
-    etikett="Behandlingar"
     rubrik="Från utredning till funktion"
     ingress="Alla smärttillstånd är unika och därför finns ingen standardbehandling. Vi kombinerar behandling och träning som samordnade insatser utifrån dina behov och mål — men först när utredningen visat vad problemet är."
     {crumbs}
@@ -59,9 +58,9 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
 
   <section class="px-5 pt-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="grid gap-10 rounded-[2rem] bg-djup p-8 text-papper sm:p-14 lg:grid-cols-12">
+      <div class="grid gap-10 rounded-sm bg-djup p-8 text-papper sm:p-14 lg:grid-cols-12">
         <div class="lg:col-span-6">
-          <h2 class="text-[clamp(1.6rem,3vw,2.3rem)] leading-[1.15]">
+          <h2 class="t-h2">
             Regenerativ medicin: att hjälpa kroppen läka själv
           </h2>
           <p class="mt-6 text-[1.04rem] leading-relaxed text-papper/72">
@@ -76,7 +75,7 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
             Läs om regenerativ medicin
           </a>
         </div>
-        <ul class="space-y-px overflow-hidden rounded-2xl bg-papper/10 lg:col-span-6">
+        <ul class="space-y-px overflow-hidden rounded-sm bg-papper/10 lg:col-span-6">
           {
             TREATMENTS.filter((t) => t.regenerative).map((t) => (
               <li>

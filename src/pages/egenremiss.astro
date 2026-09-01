@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SidHuvud from '../components/SidHuvud.astro';
-import Sikte from '../components/Sikte.astro';
 import Process from '../components/Process.astro';
 import Faq from '../components/Faq.astro';
 import RelevansGuide from '../components/RelevansGuide.astro';
@@ -91,7 +90,6 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
 
 <BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs), faqSchema(faqs)]}>
   <SidHuvud
-    etikett="Egenremiss"
     rubrik="Berätta om dina besvär"
     ingress="Du behöver ingen remiss för att komma till oss. Skriv några rader om vad du har för problem, så läser vi och tar ställning till om vi är rätt klinik för dig."
     {crumbs}
@@ -102,7 +100,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-14 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+          <h2 class="t-h2 text-djup">
             Ta med det här i mejlet
           </h2>
           <p class="mt-5 text-[1.02rem] leading-relaxed text-dov">
@@ -110,8 +108,8 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
             har mest nytta av när vi ska bedöma om vi kan hjälpa dig.
           </p>
 
-          <div class="mt-9 rounded-2xl bg-djup p-7 text-papper">
-            <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ljus-dov">
+          <div class="mt-9 rounded-sm bg-djup p-7 text-papper">
+            <p class="t-etikett text-ljus-dov">
               Skicka till
             </p>
             <a
@@ -125,7 +123,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
             </p>
 
             <div class="mt-6 border-t border-papper/12 pt-5">
-              <p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ljus-dov">
+              <p class="t-etikett text-ljus-dov">
                 Eller ring
               </p>
               <a
@@ -140,7 +138,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
         </div>
 
         <div class="lg:col-span-7">
-          <ol class="space-y-px overflow-hidden rounded-2xl bg-linje">
+          <ol class="space-y-px overflow-hidden rounded-sm bg-linje">
             {
               punkter.map((p) => (
                 <li class="flex gap-5 bg-topp px-7 py-6">
@@ -148,7 +146,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
                     {p.nr}
                   </span>
                   <div>
-                    <h3 class="text-[1.08rem] leading-snug text-djup">{p.rubrik}</h3>
+                    <h3 class="t-h3 text-djup">{p.rubrik}</h3>
                     <p class="mt-1.5 text-[0.95rem] leading-relaxed text-dov">{p.text}</p>
                   </div>
                 </li>
@@ -157,7 +155,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
           </ol>
 
           <p
-            class="mt-6 rounded-2xl border border-linje bg-mellan/40 px-6 py-5 text-[0.94rem] leading-relaxed text-djup"
+            class="mt-6 rounded-sm border border-linje bg-mellan/40 px-6 py-5 text-[0.94rem] leading-relaxed text-djup"
           >
             <strong class="font-semibold">Om integritet:</strong> mejl är inte en krypterad kanal.
             Skriv gärna om dina besvär, men undvik att skicka personnummer eller
@@ -171,7 +169,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   <!-- Vad som händer sedan -->
   <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+      <h2 class="t-h2 text-djup">
         Vad som händer sedan
       </h2>
       <div class="mt-12">
@@ -188,11 +186,10 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-12 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-dov">
-            <Sikte size={13} />
+          <p class="t-etikett text-dov">
               Innan du skriver
           </p>
-          <h2 class="mt-4 text-[clamp(1.6rem,2.8vw,2.1rem)] leading-[1.15] text-djup">
+          <h2 class="t-h2 mt-4 text-djup">
             Det här tar vi inte emot
           </h2>
           <p class="mt-5 text-[1rem] leading-relaxed text-dov">
@@ -203,7 +200,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
 
         <div class="grid gap-10 sm:grid-cols-2 lg:col-span-7">
           <div>
-            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-dov">
+            <h3 class="t-etikett text-dov">
               Besvär vi inte utreder
             </h3>
             <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
@@ -211,7 +208,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
             </ul>
           </div>
           <div>
-            <h3 class="text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-dov">
+            <h3 class="t-etikett text-dov">
               Sådant vi inte utfärdar
             </h3>
             <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
@@ -230,7 +227,7 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   <!-- FAQ -->
   <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+      <h2 class="t-h2 text-djup">
         Vanliga frågor om egenremiss
       </h2>
       <Faq {faqs} class="mt-10" />
@@ -240,8 +237,8 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   <!-- Avslutande CTA -->
   <section class="px-5 pb-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="rounded-[2rem] bg-djup px-6 py-14 text-center sm:px-14">
-        <h2 class="text-[clamp(1.6rem,3vw,2.3rem)] leading-[1.14] text-papper">
+      <div class="rounded-sm bg-djup px-6 py-14 text-center sm:px-14">
+        <h2 class="t-h2 text-papper">
           Redo att skriva?
         </h2>
         <p class="mx-auto mt-5 max-w-xl text-[1.02rem] leading-relaxed text-papper/72">

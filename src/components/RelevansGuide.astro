@@ -11,7 +11,6 @@
  * - Fungerar utan JavaScript: utan JS visas alla frågor och en neutral
  * sammanfattning med kontaktuppgifter.
  */
-import Sikte from './Sikte.astro';
 import { CTA } from '../lib/site';
 
 const FRAGOR = [
@@ -40,15 +39,14 @@ const FRAGOR = [
 
 <section class="px-5 py-(--spacing-rytm) sm:px-8">
   <div class="mx-auto max-w-(--container-content)">
-    <div class="overflow-hidden rounded-[2rem] border border-linje bg-topp">
+    <div class="overflow-hidden rounded-sm border border-linje bg-topp">
       <div class="grid lg:grid-cols-12">
         <!-- Vänster: rubrik -->
         <div class="bg-mellan/40 p-8 sm:p-12 lg:col-span-5">
-          <p class="flex items-center gap-2.5 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-dov">
-            <Sikte size={13} />
+          <p class="t-etikett text-dov">
             Är Apport rätt för mig?
           </p>
-          <h2 class="mt-4 text-[clamp(1.7rem,3vw,2.3rem)] leading-[1.14] text-djup">
+          <h2 class="t-h2 mt-4 text-djup">
             Fyra frågor som brukar avgöra saken
           </h2>
           <p class="mt-5 text-[1rem] leading-relaxed text-dov">
@@ -90,7 +88,7 @@ const FRAGOR = [
           <!-- Svarsruta. Tom och dold tills alla frågor besvarats. -->
           <div
             id="relevans-svar"
-            class="mt-8 rounded-2xl border border-linje bg-papper p-6"
+            class="mt-8 rounded-sm border border-linje bg-papper p-6"
             hidden
             aria-live="polite"
           >
@@ -106,7 +104,7 @@ const FRAGOR = [
 
           <!-- Utan JavaScript: visa kontaktvägen direkt -->
           <noscript>
-            <div class="mt-8 rounded-2xl border border-linje bg-papper p-6">
+            <div class="mt-8 rounded-sm border border-linje bg-papper p-6">
               <p class="text-[0.96rem] leading-relaxed text-dov">
                 Svarar du ja på de flesta frågorna brukar Apport kunna vara relevant. Är du
                 osäker — skriv ändå, så säger vi till om vi tror att någon annan passar bättre.

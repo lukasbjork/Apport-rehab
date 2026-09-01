@@ -31,11 +31,11 @@ const {
     ]}
   >
     <div class="md:max-w-md">
-      <p class:list={['text-[1.05rem] leading-snug', light ? 'text-papper' : 'text-djup']}>
+      <p class:list={['t-h3', light ? 'text-papper' : 'text-djup']}>
         {text}
       </p>
-      <p class:list={['mt-2 text-[0.88rem]', light ? 'text-papper/58' : 'text-dov']}>
-        Inget remisstvång · Patientavgift {'200 kr'} · Frikort gäller
+      <p class:list={['t-liten mt-2', light ? 'text-ljus-dov' : 'text-dov']}>
+        Inget remisstvång, patientavgift 200 kr, frikort gäller.
       </p>
     </div>
 
@@ -66,7 +66,7 @@ const {
         <span>
           <span class="lank-linje block text-[0.98rem] font-medium">{SITE.phone}</span>
           <span
-            class:list={['block text-[0.8rem]', light ? 'text-papper/58' : 'text-dov']}
+            class:list={['block text-[0.8rem]', light ? 'text-ljus-dov' : 'text-dov']}
             >{PHONE_HOURS}</span
           >
         </span>
@@ -75,10 +75,8 @@ const {
       <a
         href={CTA.primary.href}
         class:list={[
-          'rounded-full px-6 py-3 text-[0.93rem] font-medium transition-colors',
-          light
-            ? 'bg-papper text-djup hover:bg-mellan'
-            : 'bg-lyft text-papper hover:bg-djup',
+          'knapp knapp-sm',
+          light ? 'knapp-ljus' : 'knapp-mork',
         ]}
       >
         {CTA.primary.label}

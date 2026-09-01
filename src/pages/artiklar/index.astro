@@ -22,7 +22,6 @@ const [forsta, ...ovriga] = ARTIKLAR_SORTERADE;
 
 <BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs)]}>
   <SidHuvud
-    etikett="Artiklar"
     rubrik="Om smärta, utredning och vad som faktiskt hjälper"
     ingress="Vi skriver om sådant patienter ofta frågar om — varför bilddiagnostik kan se normal ut fast det gör ont, hur en diagnostisk blockad går till, och när det är läge att söka hjälp."
     {crumbs}
@@ -37,7 +36,7 @@ const [forsta, ...ovriga] = ARTIKLAR_SORTERADE;
       >
         {
           forsta.image && (
-            <div class="overflow-hidden rounded-2xl lg:col-span-6">
+            <div class="overflow-hidden rounded-sm lg:col-span-6">
               <img
                 src={forsta.image.src}
                 alt={forsta.image.alt}
@@ -51,12 +50,10 @@ const [forsta, ...ovriga] = ARTIKLAR_SORTERADE;
         }
         <div class:list={[forsta.image ? 'lg:col-span-6' : 'lg:col-span-8']}>
           <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.78rem] text-dov">
-            <span class="font-semibold uppercase tracking-[0.14em] text-dov"
+            <span class="t-etikett text-dov"
               >{forsta.amne}</span
             >
-            <span aria-hidden="true" class="text-linje">·</span>
             <time datetime={forsta.datum}>{formateraDatum(forsta.datum)}</time>
-            <span aria-hidden="true" class="text-linje">·</span>
             <span>{forsta.lastid} min läsning</span>
           </p>
 
@@ -98,7 +95,7 @@ const [forsta, ...ovriga] = ARTIKLAR_SORTERADE;
   <!-- Övriga artiklar -->
   <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="text-[1.7rem] text-djup">Fler artiklar</h2>
+      <h2 class="t-h2 text-djup">Fler artiklar</h2>
 
       <ul class="mt-10 divide-y divide-linje border-y border-linje">
         {
@@ -106,23 +103,21 @@ const [forsta, ...ovriga] = ARTIKLAR_SORTERADE;
             <li>
               <a href={`/artiklar/${a.slug}/`} class="group grid gap-4 py-8 md:grid-cols-12 md:gap-8">
                 <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.78rem] text-dov md:col-span-3 md:block">
-                  <span class="font-semibold uppercase tracking-[0.14em] text-dov">
+                  <span class="t-etikett text-dov">
                     {a.amne}
                   </span>
                   <span aria-hidden="true" class="text-linje md:hidden">
-                    ·
                   </span>
                   <time datetime={a.datum} class="md:mt-1.5 md:block">
                     {formateraDatum(a.datum)}
                   </time>
                   <span aria-hidden="true" class="text-linje md:hidden">
-                    ·
                   </span>
                   <span class="md:mt-0.5 md:block">{a.lastid} min läsning</span>
                 </p>
 
                 <div class="md:col-span-9">
-                  <h3 class="text-[1.32rem] leading-snug text-djup transition-colors group-hover:text-lyft">
+                  <h3 class="t-h3 text-djup transition-colors group-hover:text-lyft">
                     {a.titel}
                   </h3>
                   <p class="mt-2.5 max-w-(--container-läs) text-[0.99rem] leading-relaxed text-dov">
