@@ -1,4 +1,43 @@
 ---
+/**
+ * Egenremissen — sajtens mål.
+ *
+ * Var tidigare en mejlsida: fyra rubriker att skriva under och en mailto-länk.
+ * Är nu ett flerstegsformulär med stegindikator, byggt progressivt.
+ *
+ * ── Utan JavaScript ──────────────────────────────────────────────
+ * Alla fyra fältgrupper visas staplade och formuläret går att skicka med
+ * knappen längst ned. Stegindikatorn renderas som en vanlig innehålls-
+ * översikt. Ingenting döljs förrän skriptet satt .js-stegvis på formuläret,
+ * så ett skript som inte körs kan aldrig låsa in någon.
+ *
+ * ── Med JavaScript ───────────────────────────────────────────────
+ * Ett steg i taget, Nästa/Tillbaka, validering per steg via webbläsarens
+ * egen Constraint Validation API (checkValidity) — då blir felmeddelandena
+ * webbläsarens egna och på svenska. Fokus flyttas till aktiv fältgrupp och
+ * stegbytet annonseras i en aria-live-region.
+ *
+ * ── Ingen triagering ─────────────────────────────────────────────
+ * Formuläret ställer inga symtomfrågor och gör ingen bedömning. Det är en
+ * beskrivning patienten skriver själv, precis som den mejlade egenremissen
+ * var. Områdesväljaren är en lokalisering ("var sitter det"), inte en enkät.
+ *
+ * ── ⚠️ [ÅTGÄRD FÖRE LANSERING] Personuppgifter ───────────────────
+ * Det här formuläret tar emot HÄLSOUPPGIFTER, som är en särskild kategori
+ * av personuppgifter enligt artikel 9 i GDPR. Inlämningarna lagras hos
+ * Netlify. Innan formuläret aktiveras skarpt måste kliniken:
+ *
+ *   1. Teckna personuppgiftsbiträdesavtal (DPA) med Netlify.
+ *   2. Kontrollera var Netlify lagrar inlämningarna och komplettera
+ *      integritetspolicyn med den uppgiften.
+ *   3. Bestämma gallringsrutin — inlämningar ska inte ligga kvar i
+ *      Netlifys dashboard längre än nödvändigt.
+ *   4. Slå på e-postavisering under Forms, annars blir de liggande osedda.
+ *
+ * Tills det är gjort: mejlvägen nedanför formuläret fungerar precis som
+ * förut och är fullt tillräcklig. Kliniken kan ta bort data-netlify-
+ * attributet för att stänga av formuläret utan att sidan går sönder.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SidHuvud from '../components/SidHuvud.astro';
 import Process from '../components/Process.astro';
@@ -17,27 +56,24 @@ const crumbs = [
   { name: 'Berätta om dina besvär', url: '/egenremiss/' },
 ];
 
-const punkter = [
-  {
-    nr: '1',
-    rubrik: 'Vad du har ont i',
-    text: 'Var sitter smärtan? Peka ut det så noga du kan — ländrygg, nacke, höger axel, utsidan av knät.',
-  },
-  {
-    nr: '2',
-    rubrik: 'Hur länge du haft besvär',
-    text: 'När började det, och hur har det utvecklats sedan dess? Kom det plötsligt eller smygande?',
-  },
-  {
-    nr: '3',
-    rubrik: 'Vad du redan provat',
-    text: 'Vilka utredningar och behandlingar har du genomgått? Vad hjälpte, vad gjorde ingen skillnad?',
-  },
-  {
-    nr: '4',
-    rubrik: 'Vad du vill kunna göra igen',
-    text: 'Sova en hel natt, lyfta barnbarnet, komma tillbaka till träningen. Det säger oss vad målet är.',
-  },
+/** Stegens namn i indikatorn. Korta med flit — de ska rymmas på en rad. */
+const STEG = ['Dina besvär', 'Vad du provat', 'Ditt mål', 'Kontaktuppgifter'];
+
+/**
+ * Lokalisering, inte symtomenkät. Regionerna är de kliniken faktiskt
+ * arbetar med och matchar besvärssidorna.
+ */
+const OMRADEN = [
+  'Nacke',
+  'Bröstrygg',
+  'Ländrygg',
+  'Bäcken eller SI-led',
+  'Axel',
+  'Arm eller hand',
+  'Höft',
+  'Knä',
+  'Fot',
+  'Huvud',
 ];
 
 const faqs = [
@@ -86,6 +122,11 @@ const mailtoBody = encodeURIComponent(
   ].join('\n'),
 );
 const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}&body=${mailtoBody}`;
+
+const falt =
+  'mt-3 w-full rounded-sm border border-dov bg-topp px-4 py-3 text-[1rem] text-djup transition-colors placeholder:text-dov/60 focus:border-djup focus:outline-none';
+const etikett = 'block text-[0.95rem] font-medium text-djup';
+const hjalp = 't-liten mt-1.5 text-dov';
 ---
 
 <BaseLayout {title} {description} schema={[breadcrumbSchema(crumbs), faqSchema(faqs)]}>
@@ -95,73 +136,264 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
     {crumbs}
   />
 
-  <!-- Vad du ska skriva -->
-  <section class="px-5 py-(--spacing-rytm) sm:px-8">
+  <section class="bg-papper px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <div class="grid gap-14 lg:grid-cols-12">
-        <div class="lg:col-span-5">
-          <h2 class="t-h2 text-djup">
-            Ta med det här i mejlet
-          </h2>
-          <p class="mt-5 text-[1.02rem] leading-relaxed text-dov">
+      <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+        <!-- Formuläret -->
+        <div class="lg:col-span-7">
+          <h2 class="t-h2 max-w-[18ch] text-djup">Fyra korta steg</h2>
+          <p class="t-brod mt-6 max-w-(--container-läs) text-dov">
             Det behöver inte vara långt. Fyra korta stycken räcker gott — de fyra nedan är de vi
             har mest nytta av när vi ska bedöma om vi kan hjälpa dig.
           </p>
 
-          <div class="mt-9 rounded-sm bg-djup p-7 text-papper">
-            <p class="t-etikett text-ljus-dov">
-              Skicka till
+          <form
+            id="egenremiss"
+            name="egenremiss"
+            method="POST"
+            action="/tack/"
+            data-netlify="true"
+            netlify-honeypot="lamna-tom"
+            class="mt-12"
+          >
+            <!-- Krävs av Netlify för att koppla inlämningen till rätt formulär -->
+            <input type="hidden" name="form-name" value="egenremiss" />
+
+            <!-- Honungsfälla: dold för människor, ifylld av robotar -->
+            <p class="hidden" aria-hidden="true">
+              <label>
+                Lämna det här fältet tomt:
+                <input name="lamna-tom" tabindex="-1" autocomplete="off" />
+              </label>
             </p>
-            <a
-              href={mailto}
-              class="lank-linje mt-3 block text-[1.3rem] font-medium break-all text-papper"
-            >
+
+            <!--
+              Stegindikator. Utan JavaScript är det en innehållsöversikt över
+              vad formuläret frågar om; med JavaScript visar den var man är.
+            -->
+            <ol id="steg-indikator" class="steg-indikator">
+              {
+                STEG.map((namn, i) => (
+                  <li class="steg-punkt" data-steg-punkt={i + 1}>
+                    <span class="steg-siffra">{i + 1}</span>
+                    <span class="steg-namn">{namn}</span>
+                  </li>
+                ))
+              }
+            </ol>
+
+            <p id="steg-status" class="sr-only" aria-live="polite"></p>
+
+            <!-- Steg 1 -->
+            <fieldset class="steg-panel" data-steg="1" tabindex="-1">
+              <legend class="t-h3 text-djup">Vad har du för besvär, och var sitter de?</legend>
+
+              <div class="mt-8">
+                <label for="besvar" class={etikett}>Beskriv besvären med dina egna ord</label>
+                <p id="besvar-hjalp" class={hjalp}>
+                  Var sitter smärtan? Peka ut det så noga du kan — ländrygg, nacke, höger axel,
+                  utsidan av knät.
+                </p>
+                <textarea
+                  id="besvar"
+                  name="besvar"
+                  rows="5"
+                  required
+                  aria-describedby="besvar-hjalp"
+                  class={falt}></textarea>
+              </div>
+
+              <fieldset class="mt-9 border-0 p-0">
+                <legend class="t-etikett text-djup">Var sitter det?</legend>
+                <p class="t-liten mt-1.5 text-dov">Kryssa i det som stämmer. Flera går bra.</p>
+                <ul class="mt-4 grid gap-x-8 sm:grid-cols-2">
+                  {
+                    OMRADEN.map((omrade, i) => (
+                      <li class="border-b border-linje">
+                        <label class="flex cursor-pointer items-center gap-3 py-3">
+                          <input
+                            type="checkbox"
+                            name="omrade"
+                            value={omrade}
+                            id={`omrade-${i}`}
+                            class="h-[18px] w-[18px] shrink-0 accent-[var(--color-lyft)]"
+                          />
+                          <span class="text-[0.98rem] text-djup">{omrade}</span>
+                        </label>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </fieldset>
+
+              <div class="mt-9">
+                <label for="hur-lange" class={etikett}>Hur länge har du haft besvären?</label>
+                <p id="hur-lange-hjalp" class={hjalp}>
+                  När började det, och hur har det utvecklats sedan dess? Kom det plötsligt eller
+                  smygande?
+                </p>
+                <textarea
+                  id="hur-lange"
+                  name="hur_lange"
+                  rows="3"
+                  aria-describedby="hur-lange-hjalp"
+                  class={falt}></textarea>
+              </div>
+            </fieldset>
+
+            <!-- Steg 2 -->
+            <fieldset class="steg-panel" data-steg="2" tabindex="-1">
+              <legend class="t-h3 text-djup">Vad har du redan provat?</legend>
+
+              <div class="mt-8">
+                <label for="provat" class={etikett}>Utredningar och behandlingar hittills</label>
+                <p id="provat-hjalp" class={hjalp}>
+                  Vilka utredningar och behandlingar har du genomgått? Vad hjälpte, vad gjorde
+                  ingen skillnad?
+                </p>
+                <textarea
+                  id="provat"
+                  name="provat"
+                  rows="6"
+                  required
+                  aria-describedby="provat-hjalp"
+                  class={falt}></textarea>
+              </div>
+            </fieldset>
+
+            <!-- Steg 3 -->
+            <fieldset class="steg-panel" data-steg="3" tabindex="-1">
+              <legend class="t-h3 text-djup">Vad vill du kunna göra igen?</legend>
+
+              <div class="mt-8">
+                <label for="mal" class={etikett}>Ditt mål med besöket</label>
+                <p id="mal-hjalp" class={hjalp}>
+                  Sova en hel natt, lyfta barnbarnet, komma tillbaka till träningen. Det säger oss
+                  vad målet är.
+                </p>
+                <textarea
+                  id="mal"
+                  name="mal"
+                  rows="5"
+                  required
+                  aria-describedby="mal-hjalp"
+                  class={falt}></textarea>
+              </div>
+            </fieldset>
+
+            <!-- Steg 4 -->
+            <fieldset class="steg-panel" data-steg="4" tabindex="-1">
+              <legend class="t-h3 text-djup">Dina kontaktuppgifter</legend>
+
+              <div class="mt-8 grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label for="namn" class={etikett}>Namn</label>
+                  <input
+                    id="namn"
+                    name="namn"
+                    type="text"
+                    required
+                    autocomplete="name"
+                    class={falt}
+                  />
+                </div>
+                <div>
+                  <label for="telefon" class={etikett}>Telefon</label>
+                  <input
+                    id="telefon"
+                    name="telefon"
+                    type="tel"
+                    autocomplete="tel"
+                    class={falt}
+                  />
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label for="epost" class={etikett}>E-post</label>
+                <input
+                  id="epost"
+                  name="epost"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  class={falt}
+                />
+              </div>
+
+              <p class="t-liten mt-8 border-l-2 border-lera pl-5 text-djup">
+                <strong class="font-semibold">Om integritet:</strong> skriv inte personnummer eller
+                journalhandlingar här. Behöver vi sådana uppgifter hör vi av oss och kommer överens
+                om hur de ska skickas.
+              </p>
+
+              <div class="mt-6 flex items-start gap-3 border-t border-linje pt-6">
+                <input
+                  id="samtycke"
+                  name="samtycke"
+                  type="checkbox"
+                  required
+                  value="ja"
+                  class="mt-1 h-[18px] w-[18px] shrink-0 accent-[var(--color-lyft)]"
+                />
+                <label for="samtycke" class="t-liten text-dov">
+                  Jag samtycker till att Apport behandlar uppgifterna ovan, inklusive det jag
+                  skrivit om min hälsa, för att kunna bedöma om kliniken kan hjälpa mig. Läs mer om
+                  <a href="/integritetspolicy/" class="lank-linje text-lyft"
+                    >hur vi hanterar personuppgifter</a
+                  >.
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Navigering -->
+            <div class="mt-10 flex flex-wrap items-center gap-3 border-t border-linje pt-8">
+              <button type="button" class="knapp knapp-kant-mork" data-nav="tillbaka" hidden>
+                Tillbaka
+              </button>
+              <button type="button" class="knapp knapp-mork" data-nav="nasta" hidden>
+                Nästa
+              </button>
+              <button type="submit" class="knapp knapp-mork" data-nav="skicka">
+                Skicka egenremissen
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Alternativa vägar -->
+        <aside class="lg:col-span-4 lg:col-start-9">
+          <div class="border-t border-linje pt-8">
+            <h2 class="t-h3 text-djup">Skriver du hellre själv?</h2>
+            <p class="t-brod mt-4 text-dov">
+              Formuläret är bara ett sätt. Mejla eller ring om det passar dig bättre — samma sak
+              för oss.
+            </p>
+
+            <p class="t-etikett mt-9 text-dov">Mejl</p>
+            <a href={mailto} class="lank-linje mt-2 block w-fit text-[1.1rem] break-all text-djup">
               {SITE.email}
             </a>
-            <p class="mt-4 text-[0.9rem] leading-relaxed text-papper/72">
-              Klickar du på adressen öppnas ett mejl med rubrikerna redan ifyllda.
+            <p class="t-liten mt-2 text-dov">
+              Klickar du på adressen öppnas ett mejl med rubrikerna redan ifyllda. Mejl är inte en
+              krypterad kanal — undvik personnummer och journalhandlingar även där.
             </p>
 
-            <div class="mt-6 border-t border-papper/12 pt-5">
-              <p class="t-etikett text-ljus-dov">
-                Eller ring
-              </p>
-              <a
-                href={`tel:${SITE.phoneHref}`}
-                class="lank-linje mt-2 block text-[1.15rem] font-medium text-papper"
-              >
-                {SITE.phone}
-              </a>
-              <p class="mt-1 text-[0.86rem] text-papper/58">Telefontid {PHONE_HOURS.toLowerCase()}</p>
-            </div>
+            <p class="t-etikett mt-8 text-dov">Telefon</p>
+            <a
+              href={`tel:${SITE.phoneHref}`}
+              class="lank-linje mt-2 block w-fit text-[1.1rem] text-djup"
+            >
+              {SITE.phone}
+            </a>
+            <p class="t-liten mt-2 text-dov">Telefontid {PHONE_HOURS.toLowerCase()}</p>
+
+            <p class="t-liten mt-8 border-t border-linje pt-6 text-dov">
+              Patientavgiften är {FEES.visit} per besök och frikort gäller. Att skicka en
+              egenremiss kostar ingenting.
+            </p>
           </div>
-        </div>
-
-        <div class="lg:col-span-7">
-          <ol class="space-y-px overflow-hidden rounded-sm bg-linje">
-            {
-              punkter.map((p) => (
-                <li class="flex gap-5 bg-topp px-7 py-6">
-                  <span class="font-[family-name:var(--font-display)] text-[1.6rem] leading-none text-dov">
-                    {p.nr}
-                  </span>
-                  <div>
-                    <h3 class="t-h3 text-djup">{p.rubrik}</h3>
-                    <p class="mt-1.5 text-[0.95rem] leading-relaxed text-dov">{p.text}</p>
-                  </div>
-                </li>
-              ))
-            }
-          </ol>
-
-          <p
-            class="mt-6 rounded-sm border border-linje bg-mellan/40 px-6 py-5 text-[0.94rem] leading-relaxed text-djup"
-          >
-            <strong class="font-semibold">Om integritet:</strong> mejl är inte en krypterad kanal.
-            Skriv gärna om dina besvär, men undvik att skicka personnummer eller
-            journalhandlingar den vägen — vi hör av oss om vi behöver sådana uppgifter.
-          </p>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -169,16 +401,13 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   <!-- Vad som händer sedan -->
   <section class="bg-topp px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="t-h2 text-djup">
-        Vad som händer sedan
-      </h2>
+      <h2 class="t-h2 text-djup">Vad som händer sedan</h2>
       <div class="mt-12">
         <Process />
       </div>
     </div>
   </section>
 
-  <!-- Relevansguide -->
   <RelevansGuide />
 
   <!-- Vad vi inte tar emot -->
@@ -186,36 +415,27 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
     <div class="mx-auto max-w-(--container-content)">
       <div class="grid gap-12 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <p class="t-etikett text-dov">
-              Innan du skriver
-          </p>
-          <h2 class="t-h2 mt-4 text-djup">
-            Det här tar vi inte emot
-          </h2>
-          <p class="mt-5 text-[1rem] leading-relaxed text-dov">
+          <h2 class="t-h2 max-w-[14ch] text-djup">Det här tar vi inte emot</h2>
+          <p class="t-brod mt-6 max-w-(--container-läs) text-dov">
             Vi är två personer. För att kunna göra ett bra jobb med det vi kan behöver vi säga nej
             till en del annat — och det är bättre att du vet det innan du skriver.
           </p>
         </div>
 
-        <div class="grid gap-10 sm:grid-cols-2 lg:col-span-7">
+        <div class="grid gap-10 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
           <div>
-            <h3 class="t-etikett text-dov">
-              Besvär vi inte utreder
-            </h3>
-            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
-              {NOT_OFFERED.conditions.map((rad) => <li>{rad}</li>)}
+            <h3 class="t-etikett text-djup">Besvär vi inte utreder</h3>
+            <ul class="mt-4 border-t border-linje">
+              {NOT_OFFERED.conditions.map((rad) => <li class="t-liten border-b border-linje py-3 text-dov">{rad}</li>)}
             </ul>
           </div>
           <div>
-            <h3 class="t-etikett text-dov">
-              Sådant vi inte utfärdar
-            </h3>
-            <ul class="mt-4 space-y-2.5 text-[0.98rem] text-dov">
-              {NOT_OFFERED.services.map((rad) => <li>{rad}</li>)}
+            <h3 class="t-etikett text-djup">Sådant vi inte utfärdar</h3>
+            <ul class="mt-4 border-t border-linje">
+              {NOT_OFFERED.services.map((rad) => <li class="t-liten border-b border-linje py-3 text-dov">{rad}</li>)}
             </ul>
           </div>
-          <p class="text-[0.96rem] leading-relaxed text-dov sm:col-span-2">
+          <p class="t-brod text-dov sm:col-span-2">
             Är du osäker på om du hör hemma hos oss? Skriv ändå. Vi läser allt och säger till om
             vi tror att någon annan kan hjälpa dig bättre.
           </p>
@@ -225,40 +445,198 @@ const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Egenremiss')}
   </section>
 
   <!-- FAQ -->
-  <section class="px-5 py-(--spacing-rytm) sm:px-8">
+  <section class="bg-papper px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
-      <h2 class="t-h2 text-djup">
-        Vanliga frågor om egenremiss
-      </h2>
+      <h2 class="t-h2 text-djup">Vanliga frågor om egenremiss</h2>
       <Faq {faqs} class="mt-10" />
     </div>
   </section>
-
-  <!-- Avslutande CTA -->
-  <section class="px-5 pb-(--spacing-rytm) sm:px-8">
-    <div class="mx-auto max-w-(--container-content)">
-      <div class="rounded-sm bg-djup px-6 py-14 text-center sm:px-14">
-        <h2 class="t-h2 text-papper">
-          Redo att skriva?
-        </h2>
-        <p class="mx-auto mt-5 max-w-xl text-[1.02rem] leading-relaxed text-papper/72">
-          Några meningar räcker. Vi läser allt som kommer in.
-        </p>
-        <div class="mt-9 flex flex-wrap justify-center gap-3">
-          <a
-            href={mailto}
-            class="rounded-full bg-papper px-7 py-3.5 text-[0.95rem] font-medium text-djup transition-colors hover:bg-mellan"
-          >
-            Skriv till {SITE.email}
-          </a>
-          <a
-            href={`tel:${SITE.phoneHref}`}
-            class="rounded-full border border-papper/25 px-7 py-3.5 text-[0.95rem] font-medium text-papper transition-colors hover:border-papper/60"
-          >
-            Ring {SITE.phone}
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
+
+<style>
+  /* ── Stegindikator ────────────────────────────────────────────
+     Utan JavaScript är det en innehållsöversikt: fyra numrerade rader.
+     Med JavaScript blir den en lägesindikator på en genomgående linje. */
+  .steg-indikator {
+    display: grid;
+    gap: 0;
+    margin-bottom: 3rem;
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--color-linje);
+  }
+  .steg-punkt {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-linje);
+    color: var(--color-dov);
+  }
+  .steg-siffra {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    flex: none;
+    border-radius: 999px;
+    border: 1px solid var(--color-linje);
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    transition:
+      background-color 0.3s var(--ease-ut),
+      color 0.3s var(--ease-ut),
+      border-color 0.3s var(--ease-ut);
+  }
+  .steg-namn {
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 640px) {
+    .steg-indikator {
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--color-linje);
+    }
+    .steg-punkt {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 1.1rem 1rem 1.1rem 0;
+      border-bottom: 0;
+    }
+  }
+
+  /* Aktivt och avklarat steg — bara relevant när skriptet körs */
+  .steg-punkt[aria-current='step'] {
+    color: var(--color-djup);
+  }
+  .steg-punkt[aria-current='step'] .steg-siffra {
+    background-color: var(--color-lyft);
+    border-color: var(--color-lyft);
+    color: var(--color-topp);
+  }
+  .steg-punkt[data-klart] .steg-siffra {
+    background-color: var(--color-mellan);
+    border-color: var(--color-mellan);
+    color: var(--color-djup);
+  }
+
+  /* ── Fältgrupper ──────────────────────────────────────────────
+     Alla syns som standard. Först när skriptet satt .js-stegvis döljs
+     de inaktiva — ett skript som inte körs kan alltså inte låsa in någon. */
+  .steg-panel {
+    border: 0;
+    padding: 0;
+    margin: 0 0 3.5rem;
+  }
+  .steg-panel:focus {
+    outline: none;
+  }
+  .steg-panel > legend {
+    padding: 0;
+  }
+
+  #egenremiss.js-stegvis .steg-panel {
+    display: none;
+    margin-bottom: 0;
+  }
+  #egenremiss.js-stegvis .steg-panel.is-aktiv {
+    display: block;
+  }
+
+  /* Fältet som inte klarar valideringen markeras först efter ett försök */
+  .steg-panel input:not(:placeholder-shown):invalid,
+  .steg-panel textarea:not(:placeholder-shown):invalid,
+  #egenremiss.har-forsokt :invalid {
+    border-color: var(--color-lera);
+  }
+</style>
+
+<script>
+  /*
+    Gör formuläret stegvis. Allt här är förbättring ovanpå ett formulär som
+    redan fungerar: körs inte skriptet ligger alla fyra fältgrupper öppna
+    och submit-knappen skickar hela formuläret.
+  */
+  const form = document.getElementById('egenremiss') as HTMLFormElement | null;
+
+  if (form) {
+    const paneler = [...form.querySelectorAll<HTMLFieldSetElement>('.steg-panel')];
+    const punkter = [...form.querySelectorAll<HTMLLIElement>('.steg-punkt')];
+    const status = document.getElementById('steg-status');
+    const knappTillbaka = form.querySelector<HTMLButtonElement>('[data-nav="tillbaka"]');
+    const knappNasta = form.querySelector<HTMLButtonElement>('[data-nav="nasta"]');
+    const knappSkicka = form.querySelector<HTMLButtonElement>('[data-nav="skicka"]');
+    const sista = paneler.length;
+
+    if (paneler.length && knappTillbaka && knappNasta && knappSkicka) {
+      let steg = 1;
+
+      const visa = (nytt: number, flyttaFokus = true) => {
+        steg = Math.min(Math.max(nytt, 1), sista);
+
+        paneler.forEach((p) => {
+          p.classList.toggle('is-aktiv', Number(p.dataset.steg) === steg);
+        });
+
+        punkter.forEach((p, i) => {
+          const nr = i + 1;
+          if (nr === steg) p.setAttribute('aria-current', 'step');
+          else p.removeAttribute('aria-current');
+          if (nr < steg) p.setAttribute('data-klart', '');
+          else p.removeAttribute('data-klart');
+        });
+
+        knappTillbaka.hidden = steg === 1;
+        knappNasta.hidden = steg === sista;
+        knappSkicka.hidden = steg !== sista;
+
+        if (status) status.textContent = `Steg ${steg} av ${sista}`;
+
+        if (flyttaFokus) {
+          const aktiv = paneler[steg - 1];
+          aktiv.focus({ preventScroll: true });
+          aktiv.scrollIntoView({ block: 'nearest' });
+        }
+      };
+
+      /*
+        Validering per steg med webbläsarens egen Constraint Validation API.
+        reportValidity() ger felmeddelanden på användarens språk och pekar
+        ut fältet — betydligt bättre än egna felrutor.
+      */
+      const stegetArGiltigt = () => {
+        const aktiv = paneler[steg - 1];
+        const falt = [...aktiv.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea, select')];
+        form.classList.add('har-forsokt');
+        for (const f of falt) {
+          if (!f.checkValidity()) {
+            f.reportValidity();
+            f.focus();
+            return false;
+          }
+        }
+        return true;
+      };
+
+      knappNasta.addEventListener('click', () => {
+        if (stegetArGiltigt()) visa(steg + 1);
+      });
+      knappTillbaka.addEventListener('click', () => visa(steg - 1));
+
+      // Enter i ett textfält ska gå vidare, inte skicka halvfärdigt
+      form.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && steg !== sista) {
+          const mal = e.target as HTMLElement;
+          if (mal instanceof HTMLTextAreaElement) return;
+          e.preventDefault();
+          if (stegetArGiltigt()) visa(steg + 1);
+        }
+      });
+
+      form.classList.add('js-stegvis');
+      visa(1, false);
+    }
+  }
+</script>

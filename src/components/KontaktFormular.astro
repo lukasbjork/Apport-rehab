@@ -18,9 +18,10 @@
  * e-postavisering där, annars blir de liggande osedda.
  *
  * ── Integritet ────────────────────────────────────────────────
- * Formuläret är MEDVETET inte till för hälsouppgifter. En egenremiss ska
- * mejlas direkt till kliniken. Vi ber därför aldrig om personnummer, och
- * texten avråder från att skriva detaljer om hälsan här.
+ * Formuläret är MEDVETET inte till för hälsouppgifter. Den som vill berätta
+ * om sina besvär hänvisas till /egenremiss/, som är byggd för det och har
+ * ett eget samtycke. Vi ber därför aldrig om personnummer här, och texten
+ * avråder från att skriva detaljer om hälsan.
  */
 import { SITE, PHONE_HOURS } from '../lib/site';
 
@@ -102,11 +103,9 @@ const etikett = 'block text-[0.88rem] font-medium text-djup';
       class={`mt-2 ${falt}`}
       aria-describedby="meddelande-hjalp"></textarea>
     <p id="meddelande-hjalp" class="mt-2 text-[0.86rem] leading-relaxed text-dov">
-      Skriv inte personnummer eller detaljerade uppgifter om din hälsa här. Ska du skicka en
-      egenremiss, mejla den direkt till <a
-        href={`mailto:${SITE.email}`}
-        class="lank-linje text-lyft">{SITE.email}</a
-      >.
+      Skriv inte personnummer eller detaljerade uppgifter om din hälsa här. Ska du berätta om
+      dina besvär, använd <a href="/egenremiss/" class="lank-linje text-lyft">egenremissen</a> i
+      stället — den är gjord för det.
     </p>
   </div>
 
