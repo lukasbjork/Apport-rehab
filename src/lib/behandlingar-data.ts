@@ -273,6 +273,137 @@ export const TREATMENTS: Treatment[] = [
   },
 
   {
+    slug: 'nervblockad',
+    name: 'Nervblockad och hydrodissektion',
+    shortName: 'Nervblockad',
+    heading: 'Nervblockad: när en nerv skadats eller fastnat',
+    metaTitle: 'Nervblockad i Kristianstad — ultraljudsledd | Apport',
+    metaDescription:
+      'Nervblockad i Kristianstad vid smärta från nerv som skadats i ett operationsärr eller fastnat i omgivande vävnad. Ultraljudsledda injektioner och hydrodissektion.',
+    teaser:
+      'Ultraljudsledda injektioner mot nerver som skadats vid ett operationsärr eller fastnat i vävnaden omkring.',
+    intro:
+      'Små nerver kan skadas eller fastna — till exempel i ett operationsärr, eller mellan spända muskler. Det kan ge mycket svår smärta, men går ofta att behandla med injektioner som läggs med ultraljud som vägledning.',
+    whenRelevant: [
+      'Du har svår smärta i eller intill ett operationsärr',
+      'Utredningen har pekat ut en nerv som fastnat mot blodkärl, senor eller muskler',
+      'Smärtan sitter på ett bestämt ställe snarare än att vara utbredd',
+    ],
+    sections: [
+      {
+        title: 'Nerver som skadats vid ett ärr',
+        body: [
+          'Vid en operation kan små nerver skadas eller fastna i ärrvävnaden. Smärtan som följer kan bli mycket svår, och den sitter ofta på ett tydligt avgränsat ställe.',
+          'Behandlingen är en injektion intill nerven, lagd med ultraljud som vägledning. Det behövs oftast flera injektioner innan lindringen håller i sig.',
+          'Ibland används kortison för att luckra upp vävnaden runt nerven.',
+        ],
+      },
+      {
+        title: 'Nerv som fastnat — hydrodissektion',
+        body: [
+          'En nerv kan också fastna mot ett blodkärl eller en sena, eller i och mellan spända muskler. Det kallas nerv-entrapment.',
+          'Då används hydrodissektion: med ultraljud som vägledning sprutas koksalt och lokalbedövning in runt nerven, för att frigöra den från vävnaden omkring.',
+          'Behandlingen behöver oftast upprepas. Ibland kompletteras den med triggerpunktsbehandling, så att musklerna runt omkring slappnar av.',
+        ],
+      },
+    ],
+    apportApproach: [
+      'Vi lägger ingen nervblockad förrän utredningen visat vilken nerv det handlar om. Utan det vet vi inte var injektionen ska ligga.',
+      'Allt görs med ultraljud. Att se nerven och kärlen omkring den medan nålen förs in är förutsättningen för att träffa rätt.',
+      'Vi säger i förväg att det oftast krävs flera behandlingar, så att du vet vad du ger dig in i.',
+    ],
+    notSuitable: [
+      'Vid utbredd smärta utan en identifierad nerv är nervblockad sällan aktuell.',
+      'Vi bedömer lämpligheten individuellt vid besöket.',
+    ],
+    goodToKnow: [
+      'Utförs med ultraljudsvägledning',
+      'Flera behandlingar behövs oftast för långvarig lindring',
+      'Kortison används ibland för att luckra upp vävnaden',
+      'Ingår i avtalet med Region Skåne',
+    ],
+    inAgreement: true,
+    cost: 'Patientavgift 200 kr per besök. Frikort gäller.',
+    faqs: [
+      {
+        q: 'Hur många behandlingar behövs?',
+        a: 'Det varierar, men räkna med flera. En enstaka injektion ger ofta en lindring som klingar av, medan upprepade behandlingar oftare håller i sig. Vi utvärderar efter hand.',
+      },
+      {
+        q: 'Vad är hydrodissektion?',
+        a: 'Att med ultraljud som vägledning spruta in koksalt och lokalbedövning runt en nerv som fastnat, för att frigöra den från vävnaden omkring. Det är vätskan i sig som frigör nerven.',
+      },
+    ],
+    relatedConditions: ['nervsmarta', 'muskelsmarta-triggerpunkter'],
+    regenerative: false,
+  },
+
+  {
+    slug: 'rotblockad',
+    name: 'Rotblockad',
+    shortName: 'Rotblockad',
+    heading: 'Rotblockad vid utstrålande smärta',
+    metaTitle: 'Rotblockad i Kristianstad — ultraljudsledd | Apport',
+    metaDescription:
+      'Rotblockad i Kristianstad vid utstrålande smärta från nervroten. Ultraljudsledd, vilket är enklare, snabbare och säkrare än med röntgen.',
+    teaser:
+      'Ultraljudsledd blockad vid nervroten — både ett sätt att ställa diagnos och att behandla utstrålande smärta.',
+    intro:
+      'Utstrålande smärta kan komma från en nervrot. Ett diskbråck, trängsel där nerven lämnar ryggraden eller en inflammation vid roten kan alla ge samma sorts smärta ut i en arm eller ett ben. En rotblockad är ett sätt att både ta reda på om det stämmer och att behandla det.',
+    whenRelevant: [
+      'Du har smärta som strålar ut i en arm eller ett ben',
+      'Bilddiagnostik visar diskbråck eller trängsel, men det är oklart om det är det som gör ont',
+      'Utredningen behöver avgöra om just den nervroten bidrar till smärtan',
+    ],
+    sections: [
+      {
+        title: 'Diagnos och behandling i samma moment',
+        body: [
+          'Bedövning läggs intill nervroten. Minskar smärtan tydligt talar det för att roten bidrar — det är den diagnostiska delen.',
+          'Samtidigt kan behandlingen i sig ge lindring. Kortison används ibland tillsammans med bedövningen.',
+          'Vi använder metoden framför allt i halsryggen.',
+        ],
+      },
+      {
+        title: 'Varför ultraljud i stället för röntgen',
+        body: [
+          'Rotblockader läggs traditionellt med röntgengenomlysning. Vi använder ultraljud i stället.',
+          'Det är enklare och går snabbare, och det är säkrare — bland annat för att blodkärlen som omger nervroten syns på ultraljudsbilden.',
+        ],
+      },
+    ],
+    apportApproach: [
+      'Rotblockaden är en av de diagnostiska blockaderna i utredningen. Effekten skattas på en skala, så att slutsatsen bygger på något mätbart.',
+      'Vi prövar en struktur i taget. Att smärtan inte minskar är också ett svar, och tar oss vidare.',
+      'Ultraljud används genomgående, vilket gör att kärlen runt nervroten syns medan nålen förs in.',
+    ],
+    notSuitable: [
+      'Utstrålande smärta har flera möjliga orsaker. Pekar utredningen inte mot nervroten är rotblockad inte aktuell.',
+      'Vi bedömer lämpligheten individuellt vid besöket.',
+    ],
+    goodToKnow: [
+      'Både diagnostisk och behandlande',
+      'Utförs med ultraljud, inte röntgen',
+      'Kortison används ibland tillsammans med bedövningen',
+      'Ingår i avtalet med Region Skåne',
+    ],
+    inAgreement: true,
+    cost: 'Patientavgift 200 kr per besök. Frikort gäller.',
+    faqs: [
+      {
+        q: 'Är rotblockad en undersökning eller en behandling?',
+        a: 'Båda. Bedövningen visar om nervroten bidrar till smärtan, och samtidigt kan behandlingen i sig ge lindring.',
+      },
+      {
+        q: 'Varför använder ni ultraljud och inte röntgen?',
+        a: 'Ultraljud är enklare, snabbare och säkrare. En viktig anledning är att vi ser blodkärlen som omger nervroten, vilket vi inte gör med röntgen.',
+      },
+    ],
+    relatedConditions: ['nacksmarta', 'whiplash', 'nervsmarta'],
+    regenerative: false,
+  },
+
+  {
     slug: 'prp',
     name: 'PRP — Platelet Rich Plasma',
     shortName: 'PRP',

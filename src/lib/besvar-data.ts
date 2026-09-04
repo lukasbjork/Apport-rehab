@@ -218,7 +218,7 @@ export const CONDITIONS: Condition[] = [
         a: 'Blockaden läggs med lokalbedövning och med ultraljud som vägledning, vilket gör att nålens läge kan kontrolleras under hela momentet. Vi går igenom vad som ska hända, och vilka risker som finns, innan vi börjar.',
       },
     ],
-    relatedTreatments: ['utredning', 'akupunktur', 'pulsad-radiofrekvens', 'medicinsk-smartbehandling', 'fysioterapi'],
+    relatedTreatments: ['utredning', 'rotblockad', 'akupunktur', 'pulsad-radiofrekvens', 'medicinsk-smartbehandling', 'fysioterapi'],
     group: 'Kotpelaren',
     image: {
       src: '/bilder/blockad-halsrygg.webp',
@@ -303,7 +303,7 @@ export const CONDITIONS: Condition[] = [
         a: 'Vi utfärdar inte sjukskrivningsintyg. Din journal hos oss dokumenterar utredning och behandling, och du har rätt att ta del av den.',
       },
     ],
-    relatedTreatments: ['utredning', 'akupunktur', 'proloterapi', 'pulsad-radiofrekvens', 'fysioterapi'],
+    relatedTreatments: ['utredning', 'rotblockad', 'akupunktur', 'proloterapi', 'pulsad-radiofrekvens', 'fysioterapi'],
     group: 'Kotpelaren',
     image: {
       src: '/bilder/rotblockad-halsrygg.webp',
@@ -688,7 +688,7 @@ export const CONDITIONS: Condition[] = [
         a: 'Ett plåster med hög koncentration capsaicin som används vid nervsmärta. Effekten kan hålla i sig upp till tre månader. Om det är aktuellt för dig avgörs av utredningen.',
       },
     ],
-    relatedTreatments: ['utredning', 'pulsad-radiofrekvens', 'medicinsk-smartbehandling', 'akupunktur'],
+    relatedTreatments: ['utredning', 'nervblockad', 'rotblockad', 'pulsad-radiofrekvens', 'medicinsk-smartbehandling', 'akupunktur'],
     group: 'Nerver',
     image: {
       src: '/bilder/pulsad-rf-3.webp',
