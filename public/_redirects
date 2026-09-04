@@ -8,7 +8,7 @@
 /behandling/  /behandlingar/  301!
 /diagnos/  /besvar/  301!
 /sjalvlakning/  /regenerativ-medicin/  301!
-/apport-smarta/  /behandlingar/smartspecialist/  301!
+/apport-smarta/  /behandlingar/  301!
 /apport-fysioterapi/  /behandlingar/fysioterapi/  301!
 /traningsvideo/  /behandlingar/fysioterapi/  301!
 /galleri/  /besvar/  301!
@@ -18,6 +18,9 @@
 # ── Ändrade sökvägar inom nya sajten ──
 /sa-gar-det-till/  /som-patient/  301!
 /besvar/huvudvark-migran/  /besvar/huvudvark/  301!
+/behandlingar/smartspecialist/  /behandlingar/  301!
+/behandlingar/smartlakare/  /behandlingar/  301!
+/behandlingar/smartspecialist-kristianstad/  /behandlingar/  301!
 
 # ── Besvär: söktermer som pekar på den kanoniska sidan ──
 /besvar/muskelsmarta/  /besvar/muskelsmarta-triggerpunkter/  301!
@@ -35,8 +38,6 @@
 /behandlingar/prf/  /behandlingar/pulsad-radiofrekvens/  301!
 /behandlingar/pulsad-rf/  /behandlingar/pulsad-radiofrekvens/  301!
 /behandlingar/prp-behandling/  /behandlingar/prp/  301!
-/behandlingar/smartlakare/  /behandlingar/smartspecialist/  301!
-/behandlingar/smartspecialist-kristianstad/  /behandlingar/smartspecialist/  301!
 /behandlingar/triggerpunktsakupunktur/  /behandlingar/akupunktur/  301!
 /behandlingar/traning/  /behandlingar/fysioterapi/  301!
 /behandlingar/rehabilitering/  /behandlingar/fysioterapi/  301!

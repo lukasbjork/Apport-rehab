@@ -132,85 +132,6 @@ export const TREATMENTS: Treatment[] = [
   },
 
   {
-    slug: 'smartspecialist',
-    name: 'Smärtspecialist',
-    shortName: 'Smärtspecialist',
-    heading: 'Smärtspecialist i Kristianstad',
-    metaTitle: 'Smärtspecialist i Kristianstad | Apport',
-    metaDescription:
-      'Apport är en smärtspecialistklinik i Kristianstad. Läkare med specialistkompetens i smärtlindring, rehabiliteringsmedicin och allmänmedicin. Inget remisstvång.',
-    teaser:
-      'Vad en smärtspecialist gör, hur bedömningen går till och när det är läge att söka sig hit.',
-    intro:
-      'En smärtspecialist är läkare med särskild kompetens inom smärttillstånd. På Apport är det Rolf Jönsson, som är specialist i smärtlindring, rehabiliteringsmedicin och allmänmedicin — tre kompetenser som tillsammans täcker vägen från utredning till funktion.',
-    whenRelevant: [
-      'Du har haft ont längre än några månader utan att få besked om orsaken',
-      'Du har redan varit hos vårdcentral, fysioterapeut eller ortoped utan att det gett resultat',
-      'Du har en lokal eller regional smärta — den sitter på ett bestämt ställe',
-      'Du vill förstå vad som orsakar smärtan innan du provar ännu en behandling',
-    ],
-    sections: [
-      {
-        title: 'Vad en smärtspecialist gör',
-        body: [
-          'En smärtspecialist arbetar med att avgöra varifrån smärtan kommer och vad som kan göras åt den — inte enbart med att lindra den.',
-          'Det innebär ofta en mer systematisk utredning än den man får i primärvården, där tiden per besök är kortare och möjligheterna till riktad diagnostik färre.',
-        ],
-      },
-      {
-        title: 'Hur bedömningen går till hos oss',
-        body: [
-          'Vi börjar med en smärtanalys: hur smärtan startade, hur den utvecklats, vad som redan är gjort.',
-          'Därefter funktionsundersökning och ultraljud, och vid behov diagnostiska blockader där en struktur prövas i taget.',
-          'Räkna med 3–5 besök innan vi kan uttala oss om orsaken.',
-        ],
-      },
-      {
-        title: 'Läkare och fysioterapeut tillsammans',
-        body: [
-          'Teamet består av läkare som är specialist i smärtlindring och fysioterapeut, som samarbetar kring diagnostik och behandling.',
-          'Det gör att bedömning, medicinsk behandling och rehabilitering hänger ihop i stället för att bli separata spår hos olika vårdgivare.',
-        ],
-      },
-    ],
-    apportApproach: [
-      'Rolf har arbetat med smärta sedan mitten av 80-talet och har tre specialistkompetenser: allmänmedicin (1991), rehabiliteringsmedicin (1997) och smärtlindring (1998).',
-      'Han har erfarenhet från specialiserad smärtrehabilitering vid CSK Kristianstad, Blekingesjukhuset Karlshamn och Capio Citykliniken, samt egen verksamhet sedan 2006.',
-      'Kliniken har internationell utbildning i ultraljudsledd smärtbehandling — det är den metoden som ligger till grund för utredningen.',
-      'Vi arbetar på uppdrag av Region Skåne. Patientavgiften är densamma som i övrig offentligt finansierad vård och frikort gäller.',
-    ],
-    notSuitable: [
-      'Vi tar inte emot kroniska tillstånd utan utsikter till bot, generell värk, trötthetssyndrom eller hypermobilitet.',
-      'Vi utfärdar inte sjukskrivningsintyg eller parkeringstillstånd, och förnyar inte recept.',
-      'Vid akuta tillstånd ska du vända dig till vårdcentral, akutmottagning eller 1177.',
-    ],
-    goodToKnow: [
-      'Inget remisstvång — du skriver en egenremiss själv',
-      'Patientavgift 200 kr, frikort gäller',
-      'Besöket är cirka 20 minuter enligt avtalet med Region Skåne',
-      'Telefontid måndag 08.00–09.00',
-    ],
-    inAgreement: true,
-    cost: 'Patientavgift 200 kr per besök. Frikort gäller.',
-    faqs: [
-      {
-        q: 'Vad är skillnaden mellan en smärtspecialist och en vårdcentralsläkare?',
-        a: 'En smärtspecialist är läkare med särskild specialistkompetens inom smärttillstånd, och arbetar mer systematiskt med att avgöra varifrån smärtan kommer. Vi använder bland annat ultraljudsledda diagnostiska blockader, vilket inte är tillgängligt i primärvården.',
-      },
-      {
-        q: 'Behöver jag remiss från vårdcentralen?',
-        a: 'Nej. Vi har inget remisstvång. Du skriver några rader om dina besvär och mejlar dem till patient@apport.rehab.',
-      },
-      {
-        q: 'Kostar det mer än ett vanligt vårdbesök?',
-        a: 'Nej. Vi arbetar på uppdrag av Region Skåne enligt nationella taxan, vilket innebär att patientavgiften är 200 kr och att frikort gäller. Undantaget är PRP och pulsad radiofrekvens som ligger utanför avtalet.',
-      },
-    ],
-    relatedConditions: ['ryggsmarta', 'nacksmarta', 'nervsmarta', 'artros', 'whiplash'],
-    regenerative: false,
-  },
-
-  {
     slug: 'akupunktur',
     name: 'Akupunktur',
     shortName: 'Akupunktur',
@@ -649,8 +570,6 @@ export const TREATMENT_ALIASES: Record<string, string> = {
   prf: 'pulsad-radiofrekvens',
   'pulsad-rf': 'pulsad-radiofrekvens',
   'prp-behandling': 'prp',
-  smartlakare: 'smartspecialist',
-  'smartspecialist-kristianstad': 'smartspecialist',
   triggerpunktsakupunktur: 'akupunktur',
   traning: 'fysioterapi',
   rehabilitering: 'fysioterapi',

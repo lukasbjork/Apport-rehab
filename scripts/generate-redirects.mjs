@@ -37,7 +37,7 @@ const WP = [
   ['/behandling/', '/behandlingar/'],
   ['/diagnos/', '/besvar/'],
   ['/sjalvlakning/', '/regenerativ-medicin/'],
-  ['/apport-smarta/', '/behandlingar/smartspecialist/'],
+  ['/apport-smarta/', '/behandlingar/'],
   ['/apport-fysioterapi/', '/behandlingar/fysioterapi/'],
   ['/traningsvideo/', '/behandlingar/fysioterapi/'],
   ['/galleri/', '/besvar/'],
@@ -49,6 +49,11 @@ const WP = [
 const INTERNA = [
   ['/sa-gar-det-till/', '/som-patient/'],
   ['/besvar/huvudvark-migran/', '/besvar/huvudvark/'],
+  // Smärtspecialist togs bort som behandlingstyp på kundens begäran.
+  // Sidan och dess två alias 301:as till hubben i stället för att 404:a.
+  ['/behandlingar/smartspecialist/', '/behandlingar/'],
+  ['/behandlingar/smartlakare/', '/behandlingar/'],
+  ['/behandlingar/smartspecialist-kristianstad/', '/behandlingar/'],
 ];
 
 const rader = [

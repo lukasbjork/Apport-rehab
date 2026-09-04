@@ -215,7 +215,7 @@ eller allabolag. Inget hittas på. Formuleringar hålls försiktiga — "kan",
   ryggsmarta, nacksmarta, whiplash, backensmarta-si-led, artros,
   axelsmarta, muskelsmarta-triggerpunkter, nervsmarta, huvudvark, migran
 /behandlingar/                 Hubb — "ingår i avtalet" / "utanför avtalet"
-  utredning, smartspecialist, akupunktur, proloterapi, prp,
+  utredning, akupunktur, proloterapi, prp,
   pulsad-radiofrekvens, medicinsk-smartbehandling, fysioterapi
 /regenerativ-medicin/          Pelarsida
 /egenremiss/                   Konverteringssida — primär CTA pekar hit

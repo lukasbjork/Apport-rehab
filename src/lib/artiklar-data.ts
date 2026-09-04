@@ -309,7 +309,7 @@ export const ARTIKLAR: Artikel[] = [
       },
     ],
     relateradeBesvar: ['ryggsmarta', 'nacksmarta', 'muskelsmarta-triggerpunkter'],
-    relateradeBehandlingar: ['utredning', 'smartspecialist'],
+    relateradeBehandlingar: ['utredning', 'fysioterapi'],
   },
 ];
 
