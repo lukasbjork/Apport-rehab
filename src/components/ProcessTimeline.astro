@@ -5,6 +5,9 @@
  * Stora löpnummer på en genomgående linje. Horisontellt från lg, vertikalt
  * på mindre skärmar — och det är rätt ordning, för på mobil läser man uppifrån
  * och ner ändå, medan en horisontell tidslinje där hade tvingat fram scroll.
+ *
+ * Kolumnantalet måste matcha antalet steg i PROCESS. Linjen är absolut
+ * positionerad och ritas som EN rad; wrappar rutnätet hamnar den fel.
  */
 import { PROCESS } from '../lib/content';
 
@@ -14,7 +17,7 @@ interface Props {
 const { light = false } = Astro.props;
 ---
 
-<ol class="relative grid gap-12 lg:grid-cols-4 lg:gap-8">
+<ol class="relative grid gap-12 lg:grid-cols-5 lg:gap-6">
   <!-- Genomgående linje på lg -->
   <div
     aria-hidden="true"

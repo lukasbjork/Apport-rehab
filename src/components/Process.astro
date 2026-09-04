@@ -1,13 +1,15 @@
 ---
 /**
- * Processen som sammanhängande tidslinje i stället för fyra lådor.
+ * Processen som sammanhängande tidslinje i stället för separata lådor.
  *
- * Tidigare låg stegen i ett gap-px-rutnät, vilket gjorde dem till fyra
- * separata rutor utan samband. Nu binds de ihop av en hårlinje med noder,
- * vilket både ser mindre rutat ut och faktiskt visar att det är en kedja.
+ * Tidigare låg stegen i ett gap-px-rutnät, vilket gjorde dem till separata
+ * rutor utan samband. Nu binds de ihop av en hårlinje med noder, vilket både
+ * ser mindre rutat ut och faktiskt visar att det är en kedja.
  *
- * Linjen ritas bara från md och uppåt. På mobil staplas stegen vertikalt
- * med en lodrät linje i stället.
+ * Linjen ritas bara från lg och uppåt, och förutsätter att stegen ryms på EN
+ * rad — vid radbrytning hamnar den fel. Därför lg och inte md: fem steg blir
+ * för trångt vid 768 px. Under lg staplas stegen vertikalt med en lodrät linje
+ * i stället. Lägger man till ett sjätte steg måste kolumnantalet följa med.
  */
 import { PROCESS } from '../lib/content';
 
@@ -17,12 +19,12 @@ interface Props {
 const { light = false } = Astro.props;
 ---
 
-<ol class="relative grid gap-10 md:grid-cols-4 md:gap-8">
+<ol class="relative grid gap-10 lg:grid-cols-5 lg:gap-6">
   <!-- Vågrät linje på md+ -->
   <div
     aria-hidden="true"
     class:list={[
-      'absolute left-0 right-0 top-[11px] hidden h-px md:block',
+      'absolute left-0 right-0 top-[11px] hidden h-px lg:block',
       light ? 'bg-papper/18' : 'bg-linje/60',
     ]}
   >
@@ -36,13 +38,13 @@ const { light = false } = Astro.props;
           <div
             aria-hidden="true"
             class:list={[
-              'absolute left-[11px] top-6 h-[calc(100%+2.5rem)] w-px md:hidden',
+              'absolute left-[11px] top-6 h-[calc(100%+2.5rem)] w-px lg:hidden',
               light ? 'bg-papper/18' : 'bg-linje/60',
             ]}
           />
         )}
 
-        <div class="flex items-start gap-4 md:block">
+        <div class="flex items-start gap-4 lg:block">
           <!-- Noden på linjen -->
           <span
             class:list={[
@@ -53,7 +55,7 @@ const { light = false } = Astro.props;
             {i + 1}
           </span>
 
-          <div class="md:mt-6">
+          <div class="lg:mt-6">
             <h3
               class:list={[
                 't-h3',
@@ -64,7 +66,7 @@ const { light = false } = Astro.props;
             </h3>
             <p
               class:list={[
-                't-liten mt-2.5 md:pr-4',
+                't-liten mt-2.5 lg:pr-4',
                 light ? 'text-ljus-dov' : 'text-dov',
               ]}
             >

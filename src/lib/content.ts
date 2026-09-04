@@ -98,7 +98,9 @@ export const CREDENTIALS = [
   { tal: '2', etikett: 'Personer bakom kliniken', text: 'En läkare och en fysioterapeut, som arbetar tillsammans.' },
 ] as const;
 
-/** Processen — "Så går det till" */
+/** Processen — "Så går det till". Fem steg; `number` måste hållas i synk med
+ *  ordningen, eftersom ProcessTimeline renderar fältet medan Process räknar
+ *  fram sitt eget index. */
 export const PROCESS = [
   {
     number: '01',
@@ -117,8 +119,13 @@ export const PROCESS = [
   },
   {
     number: '04',
-    title: 'Uppföljning',
-    body: 'Vi följer upp hur kroppen svarar och justerar. Om något inte ger effekt säger vi det, och tar ställning till om vi ska pröva något annat.',
+    title: 'Genomförande',
+    body: 'Vi genomför det vi kommit överens om — behandling, träning eller en kombination — enligt planen.',
+  },
+  {
+    number: '05',
+    title: 'Utvärdering och fortsatt genomförande',
+    body: 'Vi följer upp hur kroppen svarar och justerar. Om något inte ger effekt säger vi det, och tar ställning till om vi ska fortsätta, justera eller pröva något annat.',
   },
 ] as const;
 

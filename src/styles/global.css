@@ -182,7 +182,7 @@
     letter-spacing: -0.012em;
   }
 
-  /* Siffror: fyrastegsprocessen och nyckeltalen */
+  /* Siffror: stegprocessen och nyckeltalen */
   .t-siffra {
     font-family: var(--font-display);
     font-size: clamp(2.6rem, 5.5vw, 4.25rem);
