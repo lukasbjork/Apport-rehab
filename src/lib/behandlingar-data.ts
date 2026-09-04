@@ -142,7 +142,7 @@ export const TREATMENTS: Treatment[] = [
     teaser:
       'Stimulering mot sena, muskelfäste, ligament eller leder — inklusive periost- och triggerpunktsakupunktur.',
     intro:
-      'Akupunktur används hos oss som en riktad behandling mot en bestämd struktur: en sena, ett muskelfäste, ett ligament eller en led. Det är alltså inte i första hand en allmänt avslappnande behandling, utan ett sätt att arbeta mot det som undersökningen pekat ut.',
+      'Akupunktur hos oss är en riktad behandling mot en bestämd struktur — en sena, ett muskelfäste, ett ligament eller en led. Det är alltså inte i första hand en avslappnande behandling, utan ett sätt att arbeta mot det som undersökningen pekat ut. Under kort tid ger vi en kraftig stimulering mot just den strukturen.',
     whenRelevant: [
       'Utredningen har pekat ut en muskel, ett senfäste eller en led som smärtkälla',
       'Du har triggerpunkter som ger smärta även på andra ställen',
@@ -152,22 +152,30 @@ export const TREATMENTS: Treatment[] = [
       {
         title: 'Triggerpunkts- och periostakupunktur',
         body: [
-          'Triggerpunktsakupunktur riktas mot ömma punkter i muskulaturen som kan ge smärta även på annat håll i kroppen.',
-          'Periostakupunktur riktas mot benhinnan vid muskel- och senfästen. Båda metoderna kräver god kännedom om anatomin i området.',
+          'En triggerpunkt är en öm punkt i en muskel som kan göra ont även på ett helt annat ställe i kroppen. Triggerpunktsakupunktur riktas mot sådana punkter.',
+          'Periostakupunktur riktas i stället mot benhinnan — det tunna skiktet utanpå skelettet — där muskler och senor fäster.',
+          'Båda metoderna kräver god kännedom om anatomin i just det området.',
+        ],
+      },
+      {
+        title: 'Samma metod under flera namn',
+        body: [
+          'Nålbehandling har använts i flera tusen år, och periost- och triggerpunktsakupunktur har sitt ursprung i den kinesiska traditionen. Sedan länge är metoderna en del av västerländsk sjukvård.',
+          'Där dyker de ofta upp under nyare namn: dry needling, IMS och sclerosering. Det är i grunden samma sak som vi gör.',
         ],
       },
       {
         title: 'Med ultraljud',
         body: [
-          'Behandlingen utförs ofta med ultraljudsvägledning, vilket gör att nålen kan placeras mot rätt struktur.',
-          'Det är särskilt värdefullt där strukturerna ligger tätt eller djupt.',
+          'Behandlingen utförs ofta med ultraljud som vägledning, så att nålen kan placeras mot rätt struktur.',
+          'Det gör störst skillnad där strukturerna ligger tätt eller djupt.',
         ],
       },
       {
         title: 'Dry needling som regenerativ metod',
         body: [
-          'Vid dry needling används akupunkturnålar för att åstadkomma en begränsad skada i vävnaden. Det kan sätta igång en inflammation och en läkningsprocess.',
-          'Det är samma grundprincip som ligger bakom proloterapi, fast utan att något injiceras.',
+          'Vid dry needling används akupunkturnålar för att åstadkomma en liten, begränsad skada i vävnaden. Den kan i sin tur sätta igång en inflammation och en läkningsprocess.',
+          'Det är samma grundtanke som bakom proloterapi, fast utan att något sprutas in.',
         ],
       },
     ],
@@ -183,6 +191,8 @@ export const TREATMENTS: Treatment[] = [
     goodToKnow: [
       'Utförs ofta med ultraljudsvägledning',
       'Riktas mot en bestämd struktur som utredningen pekat ut',
+      'Sällan helt smärtfri',
+      'Kombineras oftast med träning — utan den blir effekten sämre',
       'Ingår i avtalet med Region Skåne',
       'Effekten varierar mellan patienter och besvär',
     ],
@@ -191,7 +201,7 @@ export const TREATMENTS: Treatment[] = [
     faqs: [
       {
         q: 'Är det samma sak som traditionell kinesisk akupunktur?',
-        a: 'Nej. Vi använder akupunktur anatomiskt — riktat mot en bestämd struktur som undersökningen pekat ut, ofta med ultraljud som vägledning.',
+        a: 'Nej. Metoderna har sitt ursprung där, men vi använder dem anatomiskt — riktat mot en bestämd struktur som undersökningen pekat ut, ofta med ultraljud som vägledning. I västerländsk sjukvård kallas samma metoder ofta dry needling, IMS eller sclerosering.',
       },
       {
         q: 'Hur många behandlingar behövs?',
@@ -213,7 +223,7 @@ export const TREATMENTS: Treatment[] = [
     teaser:
       'Injektion av ett retande ämne, oftast dextros, som kan starta en läkningsprocess i skadad vävnad.',
     intro:
-      'Proloterapi innebär att ett retande ämne, oftast dextros, injiceras i eller intill skadad vävnad. Syftet är att aktivera immunsystemet så att en läkningsprocess kommer igång i vävnad som inte läkt av sig själv.',
+      'Proloterapi innebär att vi sprutar in ett ämne som retar vävnaden i eller intill det som gör ont. Oftast är det en sockerart, dextros. Retningen väcker immunförsvaret, och tanken är att en läkningsprocess ska komma igång i vävnad som inte läkt av sig själv.',
     whenRelevant: [
       'Utredningen har pekat ut ett senfäste eller ett ligament som smärtkälla',
       'Vävnaden har inte läkt av sig själv trots lång tid',
@@ -223,22 +233,23 @@ export const TREATMENTS: Treatment[] = [
       {
         title: 'Så fungerar det',
         body: [
-          'Injektionen orsakar en aktivering av immunsystemet — initialt med inflammation, därefter frisättning av bland annat tillväxt- och komplementfaktorer.',
-          'En kedjereaktion startas med inflammation, vävnadsnybildning (proliferation) och omformning av vävnaden.',
+          'Injektionen väcker immunförsvaret. Först uppstår en inflammation, och kroppen frisätter bland annat tillväxtfaktorer.',
+          'Sedan bildas ny vävnad, och till sist formas vävnaden om. Resultatet blir en struktur som är bättre anpassad till den belastning kroppen faktiskt utsätter den för.',
           'Behandlingen upprepas vanligen vid flera tillfällen.',
         ],
       },
       {
         title: 'Vad du kan förvänta dig',
         body: [
-          'Många patienter upplever ökad smärta dag 2–4 efter behandlingen. Det hänger ihop med den inflammation som är avsedd att uppstå.',
+          'Många får ökad smärta dag 2–4 efter behandlingen. Det hänger ihop med den inflammation som är hela poängen med behandlingen.',
+          'Proloterapi ges nästan alltid tillsammans med sjukgymnastik. Utan träning som bygger styrka, balans och kroppskännedom blir effekten sämre — eller uteblir.',
           'Hur väl behandlingen fungerar varierar mellan patienter, och beror på besvär, vävnad och förutsättningar. Vi gör en bedömning i varje enskilt fall.',
         ],
       },
     ],
     apportApproach: [
       'Proloterapi ges först efter att utredningen pekat ut vilken struktur som är inblandad — inte som en generell behandling mot smärta.',
-      'Injektionen läggs med ultraljudsvägledning så att den hamnar i rätt vävnad.',
+      'Injektionen läggs med ultraljudsvägledning så att den hamnar i rätt vävnad. Metoden har använts sedan 1950-talet, men det är ultraljudet som gjort resultaten avsevärt bättre.',
       'När både proloterapi och PRP är aktuella ges PRP vanligen en vecka efter proloterapin, när den avsedda inflammationen kommit igång.',
     ],
     notSuitable: [
@@ -249,6 +260,7 @@ export const TREATMENTS: Treatment[] = [
     goodToKnow: [
       'Ökad smärta dag 2–4 efter behandlingen är vanligt',
       'Behandlingen upprepas oftast vid flera tillfällen',
+      'Kombineras med träning — utan den blir effekten sämre',
       'Utförs med ultraljudsvägledning',
       'PRP ges vanligen en vecka efter proloterapi när båda är aktuella',
     ],
@@ -414,7 +426,7 @@ export const TREATMENTS: Treatment[] = [
     teaser:
       'Ditt eget blod centrifugeras fram till en plasma rik på blodplättar och tillväxtfaktorer, som injiceras med ultraljud.',
     intro:
-      'PRP står för Platelet Rich Plasma. Ditt eget blod tas och centrifugeras så att en plasma rik på blodplättar och tillväxtfaktorer kan tas till vara. Plasman injiceras därefter med ultraljudsvägledning i den skadade strukturen.',
+      'PRP står för Platelet Rich Plasma. Vi tar en liten mängd av ditt eget blod och centrifugerar det, så att vi får fram en plasma som är rik på blodplättar och tillväxtfaktorer — kroppens egna ämnen för att laga skadad vävnad. Plasman sprutas sedan in i den skadade strukturen med ultraljud som vägledning.',
     whenRelevant: [
       'Utredningen har pekat ut en skadad struktur där regenerativ behandling kan vara aktuell',
       'Det pågår redan en inflammation i vävnaden — metoden har bäst effekt då',
@@ -424,16 +436,16 @@ export const TREATMENTS: Treatment[] = [
       {
         title: 'Så går det till',
         body: [
-          'Blod tas på kliniken och centrifugeras direkt.',
-          'Den plasma som blir kvar innehåller en koncentration av blodplättar och tillväxtfaktorer.',
-          'Plasman injiceras med ultraljud i den struktur som utredningen pekat ut.',
+          'Blodprovet tas på kliniken och centrifugeras direkt.',
+          'Kvar blir en plasma med hög koncentration av blodplättar och tillväxtfaktorer, ämnen som sätter igång en läkningsprocess.',
+          'Plasman sprutas in med ultraljud i den struktur som utredningen pekat ut.',
         ],
       },
       {
         title: 'Tidpunkten spelar roll',
         body: [
           'Metoden har bäst effekt om det redan pågår en inflammation i vävnaden.',
-          'Därför ges PRP vanligen en vecka efter proloterapi, när den avsedda inflammationen kommit igång.',
+          'Därför ges PRP vanligen en vecka efter en proloterapi, när den inflammation som proloterapin är avsedd att framkalla har kommit igång.',
         ],
       },
     ],
@@ -484,7 +496,7 @@ export const TREATMENTS: Treatment[] = [
     teaser:
       'Behandling med pulsade radiofrekvenssignaler via särskilda nålar, placerade med ultraljud.',
     intro:
-      'Pulsad radiofrekvens innebär att elektriska signaler förs in via särskilda nålar som placeras intill den struktur som ska behandlas. Nålarnas läge kontrolleras med ultraljud.',
+      'Pulsad radiofrekvens innebär att svaga, snabbt pulserande elektriska signaler leds in via en eller flera nålar som placeras intill den struktur som ska behandlas. Nålarnas läge kontrolleras med ultraljud. Syftet är att göra de nerver som förmedlar smärta mindre känsliga.',
     whenRelevant: [
       'Vid vissa långvariga smärttillstånd, bland annat nervrelaterad smärta',
       'När utredningen pekat ut en struktur men annan behandling inte gett tillräcklig effekt',
@@ -492,17 +504,25 @@ export const TREATMENTS: Treatment[] = [
     ],
     sections: [
       {
+        title: 'Neuromodulering — att ändra hur nervsystemet reglerar smärta',
+        body: [
+          'Pulsad radiofrekvens hör till en grupp behandlingar som kallas neuromodulering. De syftar alla till att minska smärtan genom att förändra hur nervsystemet hanterar de signaler som kan bli till smärta.',
+          'Ryggmärgsstimulering är den äldsta metoden i gruppen och har använts i flera decennier. Pulsad radiofrekvens är en av de nyare.',
+        ],
+      },
+      {
         title: 'Så går det till',
         body: [
           'Nålarna placeras med ultraljudsvägledning intill den struktur som utredningen pekat ut.',
+          'Signalerna påverkar framför allt de tunna nervfibrer som förmedlar smärta — c-fibrer och a-delta-fibrer — och gör dem mindre känsliga.',
           'Behandlingen ges under ett besök på kliniken.',
         ],
       },
       {
-        title: 'När kan det vara aktuellt',
+        title: 'Hur länge håller effekten',
         body: [
-          'pRF kan vara aktuellt vid vissa långvariga smärttillstånd, bland annat nervrelaterad smärta.',
-          'Om metoden är lämplig för just dig avgörs av utredningen. Vi tar ställning till det tillsammans med dig.',
+          'En del av lindringen kommer direkt. Utöver det ger behandlingen en mer långvarig effekt som kan hålla i upp till sex månader.',
+          'pRF kan vara aktuellt vid vissa långvariga smärttillstånd, bland annat nervrelaterad smärta. Om metoden är lämplig för just dig avgörs av utredningen, och det tar vi ställning till tillsammans med dig.',
         ],
       },
     ],
@@ -518,6 +538,7 @@ export const TREATMENTS: Treatment[] = [
     goodToKnow: [
       'Ingår INTE i avtalet med Region Skåne',
       'Kostnad 2 000–2 500 kr per behandling',
+      'Effekten kan hålla i upp till sex månader',
       'Nålarnas läge kontrolleras med ultraljud',
       'Ges efter utredning, inte som första åtgärd',
     ],
@@ -531,6 +552,10 @@ export const TREATMENTS: Treatment[] = [
       {
         q: 'Är det samma sak som vanlig radiofrekvensbehandling?',
         a: 'Pulsad radiofrekvens innebär att signalen ges i pulser. Vi använder den vid vissa långvariga smärttillstånd, bland annat nervrelaterad smärta.',
+      },
+      {
+        q: 'Hur länge håller effekten?',
+        a: 'En del av lindringen kommer direkt, och utöver det ger behandlingen en mer långvarig effekt som kan hålla i upp till sex månader. Därefter kan den upprepas om den gett önskad effekt.',
       },
     ],
     relatedConditions: ['nervsmarta', 'ryggsmarta', 'nacksmarta', 'whiplash'],
@@ -556,36 +581,39 @@ export const TREATMENTS: Treatment[] = [
       'Olika typer av smärta svarar på olika behandlingar. Nedan är de medicinska metoder vi arbetar med utöver injektionsbehandlingarna. Vilken som är aktuell beror på vad utredningen visat.',
     whenRelevant: [
       'Vid nervsmärta, där Qutenza eller neuromodulering kan vara aktuellt',
-      'Vid kronisk migrän eller svåra triggerpunktssyndrom, där botulinumtoxin kan vara aktuellt',
+      'Vid kronisk migrän eller svårbehandlade triggerpunktssyndrom, där botulinumtoxin kan vara aktuellt när annat inte räckt till',
       'När du vill ha ett verktyg att använda själv hemma — TENS kan i vissa fall vara det',
     ],
     sections: [
       {
         title: 'TENS',
         body: [
-          'TENS står för transkutan elektrisk nervstimulering. En elektrisk signal förs in i kroppen via huden med hjälp av elektroder.',
-          'Både hög och låg frekvens används. Smärtlindringen förklaras dels av portteorin, dels av frisättning av kroppsegna endorfiner.',
+          'TENS står för transkutan elektrisk nervstimulering. Elektroder — små plattor — fästs på huden och för in en svag elektrisk signal i kroppen.',
+          'Vid hög frekvens, 80–100 Hz, stimuleras känselnerverna. De skickar impulser till ryggmärgen och aktiverar där hämmande nerver — en sorts grind som stänger av smärtsignalerna innan de når fram. Det är den förklaring som kallas portteorin.',
+          'Vid låg frekvens, 1–10 Hz, får man i stället muskelsammandragningar. De ger smärtlindring genom att höja halten endorfiner, kroppens egna smärtstillande ämnen, i centrala nervsystemet.',
         ],
       },
       {
         title: 'Neuromodulering',
         body: [
-          'Vid neuromodulering används högre frekvenser, från omkring 200 Hz, riktade mot centrala nervsystemets egen smärtreglering.',
-          'Signalen ges via särskilda nålar eller via TENS-apparat.',
+          'Neuromodulering är samlingsnamnet för behandlingar som påverkar hur nervsystemet självt reglerar smärtsignaler. Här används högre frekvenser, från omkring 200 Hz, riktade mot centrala nervsystemets egen smärtreglering.',
+          'Signalen ges via särskilda nålar eller via TENS-apparat. Pulsad radiofrekvens hör till samma grupp behandlingar.',
         ],
       },
       {
         title: 'Qutenza',
         body: [
-          'Qutenza är ett plåster med hög koncentration capsaicin som används vid nervsmärta.',
-          'Effekten kan hålla i sig upp till tre månader.',
+          'Qutenza är ett plåster med mycket hög halt capsaicin — ämnet som gör chili starkt. Det används vid nervsmärta.',
+          'Plåstret sitter på huden i ungefär en timme. Effekten kan hålla i sig upp till tre månader.',
         ],
       },
       {
         title: 'Botulinumtoxin',
         body: [
-          'Botulinumtoxin blockerar överföringen mellan nerv och muskel.',
-          'Det används vid kronisk migrän, dystoni och svåra triggerpunktssyndrom. Effekten varar i ungefär tre månader.',
+          'Botox är ett av flera varumärken för botulinumtoxin. Det är ett kraftigt nervgift som permanent blockerar förbindelsen mellan nerv och muskel. Ändå varar effekten bara omkring tre månader — därefter återkommer muskelfunktionen, och oftast smärtan med den.',
+          'Behandlingen kan orsaka muskelsvaghet och försämrad förmåga att hålla upp kroppen. Därför använder vi den bara när annan smärtbehandling inte gett tillräcklig effekt, och med stor försiktighet.',
+          'En bedömning hos fysioterapeut av styrka, stabilitet och träning är obligatorisk. Vi börjar alltid med låga doser, som vid behov kan ökas vid en förnyad behandling.',
+          'Det som kan motivera behandling är kronisk migrän orsakad av muskler, dystoni och triggerpunktssyndrom som är svåra att behandla på annat sätt.',
         ],
       },
     ],
@@ -595,11 +623,13 @@ export const TREATMENTS: Treatment[] = [
     ],
     notSuitable: [
       'Metoderna väljs efter smärttyp. Fel metod på fel smärta ger sällan effekt, vilket är en av anledningarna till att vi utreder först.',
+      'Botulinumtoxin är aldrig ett förstahandsval. Det förutsätter att annan smärtbehandling prövats och att en fysioterapeut bedömt styrka och stabilitet.',
       'Vi bedömer lämpligheten individuellt vid besöket.',
     ],
     goodToKnow: [
       'Vilken metod som är aktuell beror på typ av smärta',
       'Qutenza och botulinumtoxin har effekt i ungefär tre månader',
+      'Botulinumtoxin ges först när annat inte räckt till, alltid med bedömning hos fysioterapeut',
       'TENS kan i vissa fall användas av dig själv hemma efter genomgång',
       'Ingår i avtalet med Region Skåne',
     ],
@@ -612,7 +642,11 @@ export const TREATMENTS: Treatment[] = [
       },
       {
         q: 'Hur länge håller effekten av botulinumtoxin?',
-        a: 'Ungefär tre månader. Därefter kan behandlingen upprepas om den gett önskad effekt.',
+        a: 'Ungefär tre månader. Därefter återkommer muskelfunktionen och oftast smärtan, och behandlingen kan upprepas om den gett önskad effekt. Vi börjar alltid med låga doser.',
+      },
+      {
+        q: 'Är botulinumtoxin farligt?',
+        a: 'Botulinumtoxin är ett kraftigt nervgift, och behandlingen kan ge muskelsvaghet och försämrad förmåga att hålla upp kroppen. Därför använder vi det bara när annan smärtbehandling inte gett tillräcklig effekt, alltid i låga startdoser, och alltid med en bedömning hos fysioterapeut av styrka och stabilitet.',
       },
     ],
     relatedConditions: ['nervsmarta', 'migran', 'huvudvark', 'muskelsmarta-triggerpunkter'],

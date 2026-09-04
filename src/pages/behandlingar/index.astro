@@ -28,6 +28,29 @@ const utanforAvtal = TREATMENTS.filter((t) => !t.inAgreement);
     {crumbs}
   />
 
+  <!--
+    Klinikens egen viktigaste poäng, och den som saknades helt: det finns
+    ingen quick fix. Den står först, eftersom allt nedanför läses annorlunda
+    om man tagit den till sig.
+  -->
+  <section class="px-5 pt-(--spacing-rytm) sm:px-8">
+    <div class="mx-auto max-w-(--container-content)">
+      <div class="max-w-(--container-läs) space-y-5 text-[1.04rem] leading-relaxed text-dov">
+        <p class="text-djup">
+          Det finns sällan någon quick fix vid långvarig smärta i nerver och rörelseapparat.
+        </p>
+        <p>
+          Behandlingarna nedan är oftast inte smärtfria. De har dessutom sämre effekt, eller ingen
+          alls, om de inte kombineras med träning som bygger styrka, balans och kroppskännedom.
+        </p>
+        <p>
+          Långsiktig behandling, tålamod och sjukgymnastledd träning är grunden till de resultat vi
+          får. Belöningen kommer ofta först efter fyra till sex månader.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="px-5 py-(--spacing-rytm) sm:px-8">
     <div class="mx-auto max-w-(--container-content)">
       <SektionsRubrik
